@@ -1,25 +1,25 @@
 /**
- * $Id: tiny_mce_dev.js,v 1.4 2007/05/15 09:21:57 topet05 Exp $
+ *
  *
  * @author Moxiecode
- * @copyright Copyright © 2004-2007, Moxiecode Systems AB, All rights reserved.
+ * @copyright Copyright Â© 2004-2007, Moxiecode Systems AB, All rights reserved.
  *
- * This file should only be used while developing TinyMCE 
+ * This file should only be used while developing TinyMCE
  * tiny_mce.js or tiny_mce_src.js should be used in a production environment.
  * This file loads the js files from classes instead of a merged copy.
  */
 
 function getTinyMCEBaseURL() {
-	var i, nl = document.getElementsByTagName('script');
+    var i, nl = document.getElementsByTagName('script');
 
-	for (i=0; i<nl.length; i++) {
-		if (nl[i].src && nl[i].src.indexOf("tiny_mce_dev.js") != -1)
-			return nl[i].src.substring(0, nl[i].src.lastIndexOf('/'));
-	}
+    for (i = 0; i < nl.length; i++) {
+        if (nl[i].src && nl[i].src.indexOf("tiny_mce_dev.js") != -1)
+            return nl[i].src.substring(0, nl[i].src.lastIndexOf('/'));
+    }
 }
 
 function include(u) {
-	document.write('<script language="javascript" type="text/javascript" src="' + tinyMCEBaseURL + '/' + u + '"></script>');
+    document.write('<script language="javascript" type="text/javascript" src="' + tinyMCEBaseURL + '/' + u + '"></script>');
 }
 
 // Load all classes

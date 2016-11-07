@@ -1,8 +1,8 @@
 /**
- * $Id: TinyMCE_UndoRedo.class.js,v 1.4 2007/05/15 09:23:14 topet05 Exp $
+ *
  *
  * @author Moxiecode
- * @copyright Copyright © 2004-2007, Moxiecode Systems AB, All rights reserved.
+ * @copyright Copyright Â© 2004-2007, Moxiecode Systems AB, All rights reserved.
  */
 
 /**
@@ -13,136 +13,136 @@
  * @member TinyMCE_UndoRedo
  */
 function TinyMCE_UndoRedo(inst) {
-	this.instance = inst;
-	this.undoLevels = [];
-	this.undoIndex = 0;
-	this.typingUndoIndex = -1;
-	this.undoRedo = true;
+    this.instance = inst;
+    this.undoLevels = [];
+    this.undoIndex = 0;
+    this.typingUndoIndex = -1;
+    this.undoRedo = true;
 };
 
 /**#@+
  * @member TinyMCE_UndoRedo
  */
 TinyMCE_UndoRedo.prototype = {
-	/**#@+
-	 * @method
-	 */
+    /**#@+
+     * @method
+     */
 
-	/**
-	 * Adds a new undo level, this will take a snapshot of the current instance HTML or use the specified level.
-	 *
-	 * @param {TinyMCE_UndoRedoLevel} l Optional undo/redo level to add.
-	 * @return true/false on success or failure.
-	 * @type boolean
-	 */
-	add : function(l) {
-		var b, customUndoLevels, newHTML, inst = this.instance, i, ul, ur;
+    /**
+     * Adds a new undo level, this will take a snapshot of the current instance HTML or use the specified level.
+     *
+     * @param {TinyMCE_UndoRedoLevel} l Optional undo/redo level to add.
+     * @return true/false on success or failure.
+     * @type boolean
+     */
+    add: function (l) {
+        var b, customUndoLevels, newHTML, inst = this.instance, i, ul, ur;
 
-		if (l) {
-			this.undoLevels[this.undoLevels.length] = l;
-			return true;
-		}
+        if (l) {
+            this.undoLevels[this.undoLevels.length] = l;
+            return true;
+        }
 
-		if (this.typingUndoIndex != -1) {
-			this.undoIndex = this.typingUndoIndex;
+        if (this.typingUndoIndex != -1) {
+            this.undoIndex = this.typingUndoIndex;
 
-			if (tinyMCE.typingUndoIndex != -1)
-				tinyMCE.undoIndex = tinyMCE.typingUndoIndex;
-		}
+            if (tinyMCE.typingUndoIndex != -1)
+                tinyMCE.undoIndex = tinyMCE.typingUndoIndex;
+        }
 
-		newHTML = tinyMCE.trim(inst.getBody().innerHTML);
-		if (this.undoLevels[this.undoIndex] && newHTML != this.undoLevels[this.undoIndex].content) {
-			//tinyMCE.debug(newHTML, this.undoLevels[this.undoIndex].content);
+        newHTML = tinyMCE.trim(inst.getBody().innerHTML);
+        if (this.undoLevels[this.undoIndex] && newHTML != this.undoLevels[this.undoIndex].content) {
+            //tinyMCE.debug(newHTML, this.undoLevels[this.undoIndex].content);
 
-			// Is dirty again
-			inst.isNotDirty = false;
+            // Is dirty again
+            inst.isNotDirty = false;
 
-			tinyMCE.dispatchCallback(inst, 'onchange_callback', 'onChange', inst);
+            tinyMCE.dispatchCallback(inst, 'onchange_callback', 'onChange', inst);
 
-			// Time to compress
-			customUndoLevels = tinyMCE.settings.custom_undo_redo_levels;
-			if (customUndoLevels != -1 && this.undoLevels.length > customUndoLevels) {
-				for (i=0; i<this.undoLevels.length-1; i++)
-					this.undoLevels[i] = this.undoLevels[i+1];
+            // Time to compress
+            customUndoLevels = tinyMCE.settings.custom_undo_redo_levels;
+            if (customUndoLevels != -1 && this.undoLevels.length > customUndoLevels) {
+                for (i = 0; i < this.undoLevels.length - 1; i++)
+                    this.undoLevels[i] = this.undoLevels[i + 1];
 
-				this.undoLevels.length--;
-				this.undoIndex--;
+                this.undoLevels.length--;
+                this.undoIndex--;
 
-				// Todo: Implement global undo/redo logic here
-			}
+                // Todo: Implement global undo/redo logic here
+            }
 
-			b = inst.undoBookmark;
+            b = inst.undoBookmark;
 
-			if (!b)
-				b = inst.selection.getBookmark();
+            if (!b)
+                b = inst.selection.getBookmark();
 
-			this.undoIndex++;
-			this.undoLevels[this.undoIndex] = {
-				content : newHTML,
-				bookmark : b
-			};
+            this.undoIndex++;
+            this.undoLevels[this.undoIndex] = {
+                content: newHTML,
+                bookmark: b
+            };
 
-			// Remove all above from global undo/redo
-			ul = tinyMCE.undoLevels;
-			for (i=tinyMCE.undoIndex + 1; i<ul.length; i++) {
-				ur = ul[i].undoRedo;
+            // Remove all above from global undo/redo
+            ul = tinyMCE.undoLevels;
+            for (i = tinyMCE.undoIndex + 1; i < ul.length; i++) {
+                ur = ul[i].undoRedo;
 
-				if (ur.undoIndex == ur.undoLevels.length -1)
-					ur.undoIndex--;
+                if (ur.undoIndex == ur.undoLevels.length - 1)
+                    ur.undoIndex--;
 
-				ur.undoLevels.length--;
-			}
+                ur.undoLevels.length--;
+            }
 
-			// Add global undo level
-			tinyMCE.undoLevels[tinyMCE.undoIndex++] = inst;
-			tinyMCE.undoLevels.length = tinyMCE.undoIndex;
+            // Add global undo level
+            tinyMCE.undoLevels[tinyMCE.undoIndex++] = inst;
+            tinyMCE.undoLevels.length = tinyMCE.undoIndex;
 
-			this.undoLevels.length = this.undoIndex + 1;
+            this.undoLevels.length = this.undoIndex + 1;
 
-			return true;
-		}
+            return true;
+        }
 
-		return false;
-	},
+        return false;
+    },
 
-	/**
-	 * Performes a undo action, this will restore the HTML contents of the editor to a former state.
-	 */
-	undo : function() {
-		var inst = this.instance;
+    /**
+     * Performes a undo action, this will restore the HTML contents of the editor to a former state.
+     */
+    undo: function () {
+        var inst = this.instance;
 
-		// Do undo
-		if (this.undoIndex > 0) {
-			this.undoIndex--;
+        // Do undo
+        if (this.undoIndex > 0) {
+            this.undoIndex--;
 
-			tinyMCE.setInnerHTML(inst.getBody(), this.undoLevels[this.undoIndex].content);
-			inst.repaint();
+            tinyMCE.setInnerHTML(inst.getBody(), this.undoLevels[this.undoIndex].content);
+            inst.repaint();
 
-			if (inst.settings.custom_undo_redo_restore_selection)
-				inst.selection.moveToBookmark(this.undoLevels[this.undoIndex].bookmark);
-		}
-	},
+            if (inst.settings.custom_undo_redo_restore_selection)
+                inst.selection.moveToBookmark(this.undoLevels[this.undoIndex].bookmark);
+        }
+    },
 
-	/**
-	 * Performes a undo action, this will restore the HTML contents of the editor to a former undoed state.
-	 */
-	redo : function() {
-		var inst = this.instance;
+    /**
+     * Performes a undo action, this will restore the HTML contents of the editor to a former undoed state.
+     */
+    redo: function () {
+        var inst = this.instance;
 
-		tinyMCE.execCommand("mceEndTyping");
+        tinyMCE.execCommand("mceEndTyping");
 
-		if (this.undoIndex < (this.undoLevels.length-1)) {
-			this.undoIndex++;
+        if (this.undoIndex < (this.undoLevels.length - 1)) {
+            this.undoIndex++;
 
-			tinyMCE.setInnerHTML(inst.getBody(), this.undoLevels[this.undoIndex].content);
-			inst.repaint();
+            tinyMCE.setInnerHTML(inst.getBody(), this.undoLevels[this.undoIndex].content);
+            inst.repaint();
 
-			if (inst.settings.custom_undo_redo_restore_selection)
-				inst.selection.moveToBookmark(this.undoLevels[this.undoIndex].bookmark);
-		}
+            if (inst.settings.custom_undo_redo_restore_selection)
+                inst.selection.moveToBookmark(this.undoLevels[this.undoIndex].bookmark);
+        }
 
-		tinyMCE.triggerNodeChange();
-	}
+        tinyMCE.triggerNodeChange();
+    }
 
-	/**#@-*/
+    /**#@-*/
 };

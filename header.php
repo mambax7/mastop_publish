@@ -1,24 +1,23 @@
 <?php
 ### =============================================================
-### Mastop InfoDigital - Paixão por Internet
+### Mastop InfoDigital - PaixÃ£o por Internet
 ### =============================================================
-### Header do Módulo
+### Header do MÃ³dulo
 ### =============================================================
 ### Developer: Fernando Santos (topet05), fernando@mastop.com.br
-### Copyright: Mastop InfoDigital © 2003-2006
+### Copyright: Mastop InfoDigital Â© 2003-2006
 ### -------------------------------------------------------------
 ### www.mastop.com.br
 ### =============================================================
-### $Id$
+###
 ### =============================================================
-include XOOPS_ROOT_PATH."/header.php";
+include XOOPS_ROOT_PATH . '/header.php';
 if (!defined('MPU_MOD_DIR')) {
-	if ( file_exists("language/".$xoopsConfig['language']."/modinfo.php") ) {
-		include_once("language/".$xoopsConfig['language']."/modinfo.php");
-	} else {
-		include_once("language/portuguesebr/modinfo.php");
-	}
+    if (file_exists(__DIR__ . '/language/' . $xoopsConfig['language'] . '/modinfo.php')) {
+        include_once __DIR__ . '/language/' . $xoopsConfig['language'] . '/modinfo.php';
+    } else {
+        include_once __DIR__ . '/language/english/modinfo.php';
+    }
 }
-include_once XOOPS_ROOT_PATH."/modules/".MPU_MOD_DIR."/class/mpu_mpb_mpublish.class.php";
-include_once XOOPS_ROOT_PATH."/modules/".MPU_MOD_DIR."/include/funcoes.inc.php";
-?>
+include_once XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/class/mpu_mpb_mpublish.class.php';
+include_once XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/include/funcoes.inc.php';

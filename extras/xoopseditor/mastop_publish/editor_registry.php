@@ -1,9 +1,9 @@
 <?php
-// $Id$
+//
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
-//                    Copyright (c) 2000 XOOPS.org                           //
-//                       <http://www.xoops.org/>                             //
+//                  Copyright (c) 2000-2016 XOOPS.org                        //
+//                       <http://xoops.org/>                             //
 //  ------------------------------------------------------------------------ //
 //  This program is free software; you can redistribute it and/or modify     //
 //  it under the terms of the GNU General Public License as published by     //
@@ -27,19 +27,20 @@
 /**
  * XOOPS editor registry
  *
- * @author	    phppp (D.J.)
- * @copyright	copyright (c) 2005 XOOPS.org
+ * @author      phppp (D.J.)
+ * @copyright   copyright (c) 2005 XOOPS.org
  *
  */
 $current_path = __FILE__;
-if ( DIRECTORY_SEPARATOR != "/" ) $current_path = str_replace( strpos( $current_path, "\\\\", 2 ) ? "\\\\" : DIRECTORY_SEPARATOR, "/", $current_path);
+if (DIRECTORY_SEPARATOR !== '/') {
+    $current_path = str_replace(strpos($current_path, "\\\\", 2) ? "\\\\" : DIRECTORY_SEPARATOR, '/', $current_path);
+}
 $root_path = dirname($current_path);
 
 return $config = array(
-"name"	=>	"mastop_publish",
-"class"	=>	"XoopsFormMPublishTextArea",
-"file"	=>	$root_path."/formmpublishtextarea.php",
-"title"	=>	"mastop_publish",
-"order"	=>	5
+    'name'  => 'mastop_publish',
+    'class' => 'XoopsFormMPublishTextArea',
+    'file'  => $root_path . '/formmpublishtextarea.php',
+    'title' => 'mastop_publish',
+    'order' => 5
 );
-?>

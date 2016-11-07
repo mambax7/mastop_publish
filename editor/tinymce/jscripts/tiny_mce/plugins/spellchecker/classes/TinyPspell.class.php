@@ -1,64 +1,71 @@
 <?php
-/* * 
+
+/* *
  * Tiny Spelling Interface for TinyMCE Spell Checking.
  *
- * Copyright © 2006 Moxiecode Systems AB
+ * Copyright Â© 2006 Moxiecode Systems AB
  *
  */
 
-class TinyPSpell {
-	var $lang;
-	var $mode;
-	var $string;
-	var $plink;
-	var $errorMsg;
+class TinyPSpell
+{
+    public $lang;
+    public $mode;
+    public $string;
+    public $plink;
+    public $errorMsg;
 
-	var $jargon;
-	var $spelling;
-	var $encoding;
+    public $jargon;
+    public $spelling;
+    public $encoding;
 
-	function TinyPSpell(&$config, $lang, $mode, $spelling, $jargon, $encoding) {
-		$this->lang = $lang;
-		$this->mode = $mode;
-		$this->plink = false;
-		$this->errorMsg = array();
+    public function __construct(&$config, $lang, $mode, $spelling, $jargon, $encoding)
+    {
+        $this->lang     = $lang;
+        $this->mode     = $mode;
+        $this->plink    = false;
+        $this->errorMsg = array();
 
-		if (!function_exists("pspell_new")) {
-			$this->errorMsg[] = "PSpell not found.";
-			return;
-		}
+        if (!function_exists('pspell_new')) {
+            $this->errorMsg[] = 'PSpell not found.';
 
-		$this->plink = pspell_new($this->lang, $this->spelling, $this->jargon, $this->encoding, $this->mode);
-	}
+            return;
+        }
 
-	// Returns array with bad words or false if failed.
-	function checkWords($wordArray) {
-		if (!$this->plink) {
-			$this->errorMsg[] = "No PSpell link found for checkWords.";
-			return array();
-		}
+        $this->plink = pspell_new($this->lang, $this->spelling, $this->jargon, $this->encoding, $this->mode);
+    }
 
-		$wordError = array();
-		foreach($wordArray as $word) {
-			if(!pspell_check($this->plink, trim($word)))
-				$wordError[] = $word;
-		}
+    // Returns array with bad words or false if failed.
+    public function checkWords($wordArray)
+    {
+        if (!$this->plink) {
+            $this->errorMsg[] = 'No PSpell link found for checkWords.';
 
-		return $wordError;
-	}
+            return array();
+        }
 
-	// Returns array with suggestions or false if failed.
-	function getSuggestion($word) {
-		if (!$this->plink) {
-			$this->errorMsg[] = "No PSpell link found for getSuggestion.";
-			return array();
-		}
+        $wordError = array();
+        foreach ($wordArray as $word) {
+            if (!pspell_check($this->plink, trim($word))) {
+                $wordError[] = $word;
+            }
+        }
 
-		return pspell_suggest($this->plink, $word);
-	}
+        return $wordError;
+    }
+
+    // Returns array with suggestions or false if failed.
+    public function getSuggestion($word)
+    {
+        if (!$this->plink) {
+            $this->errorMsg[] = 'No PSpell link found for getSuggestion.';
+
+            return array();
+        }
+
+        return pspell_suggest($this->plink, $word);
+    }
 }
 
 // Setup classname, should be the same as the name of the spellchecker class
-$spellCheckerConfig['class'] = "TinyPspell";
-
-?>
+$spellCheckerConfig['class'] = 'TinyPspell';

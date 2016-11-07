@@ -1,8 +1,8 @@
 /**
- * $Id: TinyMCE_Layer.class.js,v 1.4 2007/05/15 09:23:14 topet05 Exp $
+ *
  *
  * @author Moxiecode
- * @copyright Copyright © 2004-2007, Moxiecode Systems AB, All rights reserved.
+ * @copyright Copyright Â© 2004-2007, Moxiecode Systems AB, All rights reserved.
  */
 
 /**
@@ -15,316 +15,316 @@
  * @member TinyMCE_Layer
  */
 function TinyMCE_Layer(id, bm) {
-	this.id = id;
-	this.blockerElement = null;
-	this.events = false;
-	this.element = null;
-	this.blockMode = typeof(bm) != 'undefined' ? bm : true;
-	this.doc = document;
+    this.id = id;
+    this.blockerElement = null;
+    this.events = false;
+    this.element = null;
+    this.blockMode = typeof(bm) != 'undefined' ? bm : true;
+    this.doc = document;
 };
 
 /**#@+
  * @member TinyMCE_Layer
  */
 TinyMCE_Layer.prototype = {
-	/**#@+
-	 * @method
-	 */
+    /**#@+
+     * @method
+     */
 
-	/**
-	 * Moves the layer relative to the specified HTML element.
-	 *
-	 * @param {HTMLElement} re Element to move the layer relative to.
-	 * @param {string} p Position of the layer tl = top left, tr = top right, bl = bottom left, br = bottom right.
-	 */
-	moveRelativeTo : function(re, p) {
-		var rep = this.getAbsPosition(re), e = this.getElement(), x, y;
-		var w = parseInt(re.offsetWidth), h = parseInt(re.offsetHeight);
-		var ew = parseInt(e.offsetWidth), eh = parseInt(e.offsetHeight);
+    /**
+     * Moves the layer relative to the specified HTML element.
+     *
+     * @param {HTMLElement} re Element to move the layer relative to.
+     * @param {string} p Position of the layer tl = top left, tr = top right, bl = bottom left, br = bottom right.
+     */
+    moveRelativeTo: function (re, p) {
+        var rep = this.getAbsPosition(re), e = this.getElement(), x, y;
+        var w = parseInt(re.offsetWidth), h = parseInt(re.offsetHeight);
+        var ew = parseInt(e.offsetWidth), eh = parseInt(e.offsetHeight);
 
-		switch (p) {
-			case "tl":
-				x = rep.absLeft;
-				y = rep.absTop;
-				break;
+        switch (p) {
+            case "tl":
+                x = rep.absLeft;
+                y = rep.absTop;
+                break;
 
-			case "tr":
-				x = rep.absLeft + w;
-				y = rep.absTop;
-				break;
+            case "tr":
+                x = rep.absLeft + w;
+                y = rep.absTop;
+                break;
 
-			case "bl":
-				x = rep.absLeft;
-				y = rep.absTop + h;
-				break;
+            case "bl":
+                x = rep.absLeft;
+                y = rep.absTop + h;
+                break;
 
-			case "br":
-				x = rep.absLeft + w;
-				y = rep.absTop + h;
-				break;
+            case "br":
+                x = rep.absLeft + w;
+                y = rep.absTop + h;
+                break;
 
-			case "cc":
-				x = rep.absLeft + (w / 2) - (ew / 2);
-				y = rep.absTop + (h / 2) - (eh / 2);
-				break;
-		}
+            case "cc":
+                x = rep.absLeft + (w / 2) - (ew / 2);
+                y = rep.absTop + (h / 2) - (eh / 2);
+                break;
+        }
 
-		this.moveTo(x, y);
-	},
+        this.moveTo(x, y);
+    },
 
-	/**
-	 * Moves the layer relative in pixels.
-	 *
-	 * @param {int} x Horizontal relative position in pixels.
-	 * @param {int} y Vertical relative position in pixels.
-	 */
-	moveBy : function(x, y) {
-		var e = this.getElement();
-		this.moveTo(parseInt(e.style.left) + x, parseInt(e.style.top) + y);
-	},
+    /**
+     * Moves the layer relative in pixels.
+     *
+     * @param {int} x Horizontal relative position in pixels.
+     * @param {int} y Vertical relative position in pixels.
+     */
+    moveBy: function (x, y) {
+        var e = this.getElement();
+        this.moveTo(parseInt(e.style.left) + x, parseInt(e.style.top) + y);
+    },
 
-	/**
-	 * Moves the layer absolute in pixels.
-	 *
-	 * @param {int} x Horizontal absolute position in pixels.
-	 * @param {int} y Vertical absolute position in pixels.
-	 */
-	moveTo : function(x, y) {
-		var e = this.getElement();
+    /**
+     * Moves the layer absolute in pixels.
+     *
+     * @param {int} x Horizontal absolute position in pixels.
+     * @param {int} y Vertical absolute position in pixels.
+     */
+    moveTo: function (x, y) {
+        var e = this.getElement();
 
-		e.style.left = x + "px";
-		e.style.top = y + "px";
+        e.style.left = x + "px";
+        e.style.top = y + "px";
 
-		this.updateBlocker();
-	},
+        this.updateBlocker();
+    },
 
-	/**
-	 * Resizes the layer by the specified relative width and height.
-	 *
-	 * @param {int} w Relative width value.
-	 * @param {int} h Relative height value.
-	 */
-	resizeBy : function(w, h) {
-		var e = this.getElement();
-		this.resizeTo(parseInt(e.style.width) + w, parseInt(e.style.height) + h);
-	},
+    /**
+     * Resizes the layer by the specified relative width and height.
+     *
+     * @param {int} w Relative width value.
+     * @param {int} h Relative height value.
+     */
+    resizeBy: function (w, h) {
+        var e = this.getElement();
+        this.resizeTo(parseInt(e.style.width) + w, parseInt(e.style.height) + h);
+    },
 
-	/**
-	 * Resizes the layer to the specified width and height.
-	 *
-	 * @param {int} w Width value.
-	 * @param {int} h Height value.
-	 */
-	resizeTo : function(w, h) {
-		var e = this.getElement();
+    /**
+     * Resizes the layer to the specified width and height.
+     *
+     * @param {int} w Width value.
+     * @param {int} h Height value.
+     */
+    resizeTo: function (w, h) {
+        var e = this.getElement();
 
-		if (w != null)
-			e.style.width = w + "px";
+        if (w != null)
+            e.style.width = w + "px";
 
-		if (h != null)
-			e.style.height = h + "px";
+        if (h != null)
+            e.style.height = h + "px";
 
-		this.updateBlocker();
-	},
+        this.updateBlocker();
+    },
 
-	/**
-	 * Shows the layer.
-	 */
-	show : function() {
-		var el = this.getElement();
+    /**
+     * Shows the layer.
+     */
+    show: function () {
+        var el = this.getElement();
 
-		if (el) {
-			el.style.display = 'block';
-			this.updateBlocker();
-		}
-	},
+        if (el) {
+            el.style.display = 'block';
+            this.updateBlocker();
+        }
+    },
 
-	/**
-	 * Hides the layer.
-	 */
-	hide : function() {
-		var el = this.getElement();
+    /**
+     * Hides the layer.
+     */
+    hide: function () {
+        var el = this.getElement();
 
-		if (el) {
-			el.style.display = 'none';
-			this.updateBlocker();
-		}
-	},
+        if (el) {
+            el.style.display = 'none';
+            this.updateBlocker();
+        }
+    },
 
-	/**
-	 * Returns true/false if the layer is visible or not.
-	 *
-	 * @return true/false if it's visible or not.
-	 * @type boolean
-	 */
-	isVisible : function() {
-		return this.getElement().style.display == 'block';
-	},
+    /**
+     * Returns true/false if the layer is visible or not.
+     *
+     * @return true/false if it's visible or not.
+     * @type boolean
+     */
+    isVisible: function () {
+        return this.getElement().style.display == 'block';
+    },
 
-	/**
-	 * Returns the DOM element that the layer is binded to.
-	 *
-	 * @return DOM HTML element.
-	 * @type HTMLElement
-	 */
-	getElement : function() {
-		if (!this.element)
-			this.element = this.doc.getElementById(this.id);
+    /**
+     * Returns the DOM element that the layer is binded to.
+     *
+     * @return DOM HTML element.
+     * @type HTMLElement
+     */
+    getElement: function () {
+        if (!this.element)
+            this.element = this.doc.getElementById(this.id);
 
-		return this.element;
-	},
+        return this.element;
+    },
 
-	/**
-	 * Sets the block mode. If you set this property to true a control box blocker iframe
-	 * will be added to the document since MSIE has a issue where select boxes are visible
-	 * through layers.
-	 *
-	 * @param {boolean} s Block mode state, true is the default value.
-	 */
-	setBlockMode : function(s) {
-		this.blockMode = s;
-	},
+    /**
+     * Sets the block mode. If you set this property to true a control box blocker iframe
+     * will be added to the document since MSIE has a issue where select boxes are visible
+     * through layers.
+     *
+     * @param {boolean} s Block mode state, true is the default value.
+     */
+    setBlockMode: function (s) {
+        this.blockMode = s;
+    },
 
-	/**
-	 * Updates the select/iframe/flash blocker this will also block the caret in Firefox.
-	 */
-	updateBlocker : function() {
-		var e, b, x, y, w, h;
+    /**
+     * Updates the select/iframe/flash blocker this will also block the caret in Firefox.
+     */
+    updateBlocker: function () {
+        var e, b, x, y, w, h;
 
-		b = this.getBlocker();
-		if (b) {
-			if (this.blockMode) {
-				e = this.getElement();
-				x = this.parseInt(e.style.left);
-				y = this.parseInt(e.style.top);
-				w = this.parseInt(e.offsetWidth);
-				h = this.parseInt(e.offsetHeight);
+        b = this.getBlocker();
+        if (b) {
+            if (this.blockMode) {
+                e = this.getElement();
+                x = this.parseInt(e.style.left);
+                y = this.parseInt(e.style.top);
+                w = this.parseInt(e.offsetWidth);
+                h = this.parseInt(e.offsetHeight);
 
-				b.style.left = x + 'px';
-				b.style.top = y + 'px';
-				b.style.width = w + 'px';
-				b.style.height = h + 'px';
-				b.style.display = e.style.display;
-			} else
-				b.style.display = 'none';
-		}
-	},
+                b.style.left = x + 'px';
+                b.style.top = y + 'px';
+                b.style.width = w + 'px';
+                b.style.height = h + 'px';
+                b.style.display = e.style.display;
+            } else
+                b.style.display = 'none';
+        }
+    },
 
-	/**
-	 * Returns the blocker DOM element, this is a invisible iframe.
-	 *
-	 * @return DOM HTML element.
-	 * @type HTMLElement
-	 */
-	getBlocker : function() {
-		var d, b;
+    /**
+     * Returns the blocker DOM element, this is a invisible iframe.
+     *
+     * @return DOM HTML element.
+     * @type HTMLElement
+     */
+    getBlocker: function () {
+        var d, b;
 
-		if (!this.blockerElement && this.blockMode) {
-			d = this.doc;
-			b = d.getElementById(this.id + "_blocker");
+        if (!this.blockerElement && this.blockMode) {
+            d = this.doc;
+            b = d.getElementById(this.id + "_blocker");
 
-			if (!b) {
-				b = d.createElement("iframe");
+            if (!b) {
+                b = d.createElement("iframe");
 
-				b.setAttribute('id', this.id + "_blocker");
-				b.style.cssText = 'display: none; position: absolute; left: 0; top: 0';
-				b.src = 'javascript:false;';
-				b.frameBorder = '0';
-				b.scrolling = 'no';
-	
-				d.body.appendChild(b);
-			}
+                b.setAttribute('id', this.id + "_blocker");
+                b.style.cssText = 'display: none; position: absolute; left: 0; top: 0';
+                b.src = 'javascript:false;';
+                b.frameBorder = '0';
+                b.scrolling = 'no';
 
-			this.blockerElement = b;
-		}
+                d.body.appendChild(b);
+            }
 
-		return this.blockerElement;
-	},
+            this.blockerElement = b;
+        }
 
-	/**
-	 * Returns the absolute x, y cordinate of the specified node.
-	 *
-	 * @param {DOMElement} n DOM node to retrive x, y of.
-	 * @return Object containing absLeft and absTop properties.
-	 * @type Object
-	 */
-	getAbsPosition : function(n) {
-		var p = {absLeft : 0, absTop : 0};
+        return this.blockerElement;
+    },
 
-		while (n) {
-			p.absLeft += n.offsetLeft;
-			p.absTop += n.offsetTop;
-			n = n.offsetParent;
-		}
+    /**
+     * Returns the absolute x, y cordinate of the specified node.
+     *
+     * @param {DOMElement} n DOM node to retrive x, y of.
+     * @return Object containing absLeft and absTop properties.
+     * @type Object
+     */
+    getAbsPosition: function (n) {
+        var p = {absLeft: 0, absTop: 0};
 
-		return p;
-	},
+        while (n) {
+            p.absLeft += n.offsetLeft;
+            p.absTop += n.offsetTop;
+            n = n.offsetParent;
+        }
 
-	/**
-	 * Creates a element for the layer based on the id and specified name.
-	 *
-	 * @param {string} n Element tag name, like div.
-	 * @param {string} c Optional class name to set as class attribute value.
-	 * @param {HTMLElement} p Optional parent element reference, defaults to body.
-	 * @param {string} h Optional HTML code to insert into element.
-	 * @return HTML DOM element that got created.
-	 * @type HTMLElement
-	 */
-	create : function(n, c, p, h) {
-		var d = this.doc, e = d.createElement(n);
+        return p;
+    },
 
-		e.setAttribute('id', this.id);
+    /**
+     * Creates a element for the layer based on the id and specified name.
+     *
+     * @param {string} n Element tag name, like div.
+     * @param {string} c Optional class name to set as class attribute value.
+     * @param {HTMLElement} p Optional parent element reference, defaults to body.
+     * @param {string} h Optional HTML code to insert into element.
+     * @return HTML DOM element that got created.
+     * @type HTMLElement
+     */
+    create: function (n, c, p, h) {
+        var d = this.doc, e = d.createElement(n);
 
-		if (c)
-			e.className = c;
+        e.setAttribute('id', this.id);
 
-		if (!p)
-			p = d.body;
+        if (c)
+            e.className = c;
 
-		if (h)
-			e.innerHTML = h;
+        if (!p)
+            p = d.body;
 
-		p.appendChild(e);
+        if (h)
+            e.innerHTML = h;
 
-		return this.element = e;
-	},
+        p.appendChild(e);
 
-	/**
-	 * Returns true/false if a element exists for the layer.
-	 * 
-	 * @return true/false if a element exists for the layer.
-	 * @type boolean
-	 */	 	
-	exists : function() {
-		return this.doc.getElementById(this.id) != null;
-	},
+        return this.element = e;
+    },
 
-	/**
-	 * Parses a int value this method will return 0 if the string is empty.
-	 *
-	 * @param {string} s String to parse value of.
-	 * @return Parsed number.
-	 * @type int
-	 */
-	parseInt : function(s) {
-		if (s == null || s == '')
-			return 0;
+    /**
+     * Returns true/false if a element exists for the layer.
+     *
+     * @return true/false if a element exists for the layer.
+     * @type boolean
+     */
+    exists: function () {
+        return this.doc.getElementById(this.id) != null;
+    },
 
-		return parseInt(s);
-	},
+    /**
+     * Parses a int value this method will return 0 if the string is empty.
+     *
+     * @param {string} s String to parse value of.
+     * @return Parsed number.
+     * @type int
+     */
+    parseInt: function (s) {
+        if (s == null || s == '')
+            return 0;
 
-	/**
-	 * Removes the element for the layer from DOM and also the blocker iframe.
-	 */
-	remove : function() {
-		var e = this.getElement(), b = this.getBlocker();
+        return parseInt(s);
+    },
 
-		if (e)
-			e.parentNode.removeChild(e);
+    /**
+     * Removes the element for the layer from DOM and also the blocker iframe.
+     */
+    remove: function () {
+        var e = this.getElement(), b = this.getBlocker();
 
-		if (b)
-			b.parentNode.removeChild(b);
-	}
+        if (e)
+            e.parentNode.removeChild(e);
 
-	/**#@-*/
+        if (b)
+            b.parentNode.removeChild(b);
+    }
+
+    /**#@-*/
 };

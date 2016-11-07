@@ -1,16 +1,15 @@
 <?php
 ### =============================================================
-### Mastop InfoDigital - Paixão por Internet
+### Mastop InfoDigital - PaixÃ£o por Internet
 ### =============================================================
-### Deleta Comentários
+### Deleta ComentÃ¡rios
 ### =============================================================
 ### Developer: Fernando Santos (topet05), fernando@mastop.com.br
-### Copyright: Mastop InfoDigital © 2003-2007
+### Copyright: Mastop InfoDigital Â© 2003-2007
 ### -------------------------------------------------------------
 ### www.mastop.com.br
 ### =============================================================
-### $Id$
+###
 ### =============================================================
-include '../../mainfile.php';
-include XOOPS_ROOT_PATH.'/include/comment_delete.php';
-?>
+include __DIR__ . '/../../mainfile.php';
+include XOOPS_ROOT_PATH . '/include/comment_delete.php';
