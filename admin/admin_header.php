@@ -1,32 +1,48 @@
 <?php
 $path = dirname(dirname(dirname(__DIR__)));
-include_once $path . '/mainfile.php';
-include_once $path . '/include/cp_functions.php';
+//require_once $path . '/mainfile.php';
+//require_once $path . '/include/cp_functions.php';
 require_once $path . '/include/cp_header.php';
+$moduleDirName = basename(dirname(__DIR__));
+//if (file_exists('../language/' . $xoopsConfig['language'] . '/modinfo.php')) {
+//    require_once __DIR__ . '/../language/' . $xoopsConfig['language'] . '/modinfo.php';
+//} else {
+//    require_once __DIR__ . '/../language/portuguesebr/modinfo.php';
+//}
 
-if (file_exists('../language/' . $xoopsConfig['language'] . '/modinfo.php')) {
-    include_once '../language/' . $xoopsConfig['language'] . '/modinfo.php';
+//require_once XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/class/mpu_mpb_mpublish.class.php';
+//require_once XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/class/mpu_med_media.class.php';
+//require_once XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/class/mpu_fil_files.class.php';
+//require_once XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/class/mpu_cfi_contentfiles.class.php';
+//require_once XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/include/funcoes.inc.php';
+
+//require_once __DIR__ . '/../class/utility.php';
+//require_once __DIR__ . '/../include/common.php';
+
+if (false !== ($moduleHelper = Xmf\Module\Helper::getHelper($moduleDirName))) {
 } else {
-    include_once '../language/portuguesebr/modinfo.php';
+    $moduleHelper = Xmf\Module\Helper::getHelper('system');
 }
+$adminObject = \Xmf\Module\Admin::getInstance();
 
-include_once XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/class/mpu_mpb_mpublish.class.php';
-include_once XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/class/mpu_med_media.class.php';
-include_once XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/class/mpu_fil_files.class.php';
-include_once XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/class/mpu_cfi_contentfiles.class.php';
-include_once XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/include/funcoes.inc.php';
-
-global $xoopsModule;
-
-$moduleDirName = $GLOBALS['xoopsModule']->getVar('dirname');
+$pathIcon16    = \Xmf\Module\Admin::iconUrl('', 16);
+$pathIcon32    = \Xmf\Module\Admin::iconUrl('', 32);
+$pathModIcon32 = $moduleHelper->getModule()->getInfo('modicons32');
 
 // Load language files
-xoops_loadLanguage('admin', $moduleDirName);
-xoops_loadLanguage('modinfo', $moduleDirName);
-xoops_loadLanguage('main', $moduleDirName);
+$moduleHelper->loadLanguage('admin');
+$moduleHelper->loadLanguage('modinfo');
+$moduleHelper->loadLanguage('main');
 
-$pathIcon16      = '../' . $xoopsModule->getInfo('icons16');
-$pathIcon32      = '../' . $xoopsModule->getInfo('icons32');
-$pathModuleAdmin = $xoopsModule->getInfo('dirmoduleadmin');
+require_once XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/class/mpu_mpb_mpublish.class.php';
+require_once XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/class/mpu_med_media.class.php';
+require_once XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/class/mpu_fil_files.class.php';
+require_once XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/class/mpu_cfi_contentfiles.class.php';
+require_once XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/include/funcoes.inc.php';
 
-include_once $GLOBALS['xoops']->path($pathModuleAdmin . '/moduleadmin.php');
+$myts = MyTextSanitizer::getInstance();
+
+if (!isset($GLOBALS['xoopsTpl']) || !($GLOBALS['xoopsTpl'] instanceof XoopsTpl)) {
+    require_once $GLOBALS['xoops']->path('class/template.php');
+    $xoopsTpl = new XoopsTpl();
+}

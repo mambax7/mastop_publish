@@ -12,8 +12,8 @@
 ###
 ### =============================================================
 include __DIR__ . '/../../mainfile.php';
-include_once __DIR__ . '/header.php';
-include_once XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/class/mpu_cfi_contentfiles.class.php';
+require_once __DIR__ . '/header.php';
+require_once XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/class/mpu_cfi_contentfiles.class.php';
 global $pathIcon16;
 
 if (isset($_GET)) {
@@ -28,9 +28,9 @@ if (isset($_POST)) {
     }
 }
 if (file_exists('language/' . $xoopsConfig['language'] . '/admin.php')) {
-    include_once 'language/' . $xoopsConfig['language'] . '/admin.php';
+    require_once __DIR__ . '/language/' . $xoopsConfig['language'] . '/admin.php';
 } elseif (file_exists('language/portuguesebr/admin.php')) {
-    include_once 'language/portuguesebr/admin.php';
+    require_once __DIR__ . '/language/portuguesebr/admin.php';
 }
 if (empty($op)) {
     $op = 'listar';
@@ -38,8 +38,7 @@ if (empty($op)) {
     $mpb_10_id  = (!empty($mpb_10_id)) ? $mpb_10_id : 0;
     $mpu_classe = new mpu_mpb_mpublish($mpb_10_id);
     if (empty($xoopsUser) || empty($mpb_10_id) || $mpu_classe->getVar('mpb_10_id') == ''
-        || $mpu_classe->getVar('usr_10_uid') != $xoopsUser->getVar('uid')
-    ) {
+        || $mpu_classe->getVar('usr_10_uid') != $xoopsUser->getVar('uid')) {
         redirect_header(XOOPS_URL, 3, MPU_ADM_403);
     }
 }
@@ -73,8 +72,7 @@ switch ($op) {
         if (!empty($mpb_10_idpai) && empty($mpb_10_id)) {
             $mpu_classe_pai = new mpu_mpb_mpublish($mpb_10_idpai);
             if (empty($xoopsUser) || $mpu_classe_pai->getVar('usr_10_uid') != $xoopsUser->getVar('uid')
-                || !$xoopsModuleConfig['mpu_conf_cancreate']
-            ) {
+                || !$xoopsModuleConfig['mpu_conf_cancreate']) {
                 redirect_header(XOOPS_URL, 3, MPU_ADM_403);
             }
         }
@@ -82,8 +80,7 @@ switch ($op) {
         if (($mpu_classe->getVar('mpb_10_id') != '' && !$xoopsModuleConfig['mpu_conf_canedit'])
             || ($mpu_classe->getVar('mpb_10_id') == '' && !$xoopsModuleConfig['mpu_conf_cancreate'])
             || ($mpu_classe->getVar('mpb_10_id') != ''
-                && $mpu_classe->getVar('usr_10_uid') != $xoopsUser->getVar('uid'))
-        ) {
+                && $mpu_classe->getVar('usr_10_uid') != $xoopsUser->getVar('uid'))) {
             redirect_header(XOOPS_URL, 3, MPU_ADM_403);
         }
         $mpu_classe->setVar('mpb_10_idpai', $mpb_10_idpai);
@@ -145,8 +142,7 @@ switch ($op) {
             || empty($mpb_10_id)
             || $mpu_classe->getVar('mpb_10_id') == ''
             || $mpu_classe->getVar('usr_10_uid') != $xoopsUser->getVar('uid')
-            || !$xoopsModuleConfig['mpu_conf_candelete']
-        ) {
+            || !$xoopsModuleConfig['mpu_conf_candelete']) {
             redirect_header(XOOPS_URL, 3, MPU_ADM_403);
         }
         if ($mpu_classe->tem_subcategorias()) {
@@ -162,8 +158,7 @@ switch ($op) {
             || empty($mpb_10_id)
             || $mpu_classe->getVar('mpb_10_id') == ''
             || $mpu_classe->getVar('usr_10_uid') != $xoopsUser->getVar('uid')
-            || !$xoopsModuleConfig['mpu_conf_candelete']
-        ) {
+            || !$xoopsModuleConfig['mpu_conf_candelete']) {
             redirect_header(XOOPS_URL, 3, MPU_ADM_403);
         }
         $mpu_total_deletados = 0;
@@ -252,5 +247,5 @@ switch ($op) {
         echo $mpu_classe->administracao(XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/author.php', $c);
 }
 echo "<div align='center'><a href='http://www.mastop.com.br/produtos/publish/'><img src='assets/images/footer.gif'></a></div>";
-include_once XOOPS_ROOT_PATH . '/footer.php';
+require_once XOOPS_ROOT_PATH . '/footer.php';
 exit;

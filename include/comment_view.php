@@ -14,15 +14,15 @@
 if (!defined('XOOPS_ROOT_PATH') || !is_object($xoopsModule)) {
     exit();
 }
-include_once XOOPS_ROOT_PATH . '/include/comment_constants.php';
-include_once XOOPS_ROOT_PATH . '/modules/system/constants.php';
+require_once XOOPS_ROOT_PATH . '/include/comment_constants.php';
+require_once XOOPS_ROOT_PATH . '/modules/system/constants.php';
 
 if (XOOPS_COMMENT_APPROVENONE != $xoopsModuleConfig['com_rule']) {
-    $gperm_handler = xoops_getHandler('groupperm');
-    $groups        = $xoopsUser ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-    $xoopsTpl->assign('xoops_iscommentadmin', $gperm_handler->checkRight('system_admin', XOOPS_SYSTEM_COMMENT, $groups));
+    $gpermHandler = xoops_getHandler('groupperm');
+    $groups       = $xoopsUser ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+    $xoopsTpl->assign('xoops_iscommentadmin', $gpermHandler->checkRight('system_admin', XOOPS_SYSTEM_COMMENT, $groups));
 
-    include_once XOOPS_ROOT_PATH . '/language/' . $xoopsConfig['language'] . '/comment.php';
+    require_once XOOPS_ROOT_PATH . '/language/' . $xoopsConfig['language'] . '/comment.php';
     $comment_config = $xoopsModule->getInfo('comments');
     $com_itemid     = (trim($comment_config['itemName']) != ''
                        && isset($_GET[$comment_config['itemName']])) ? $mpu_classe->getVar('mpb_10_id') : 0;
@@ -59,12 +59,12 @@ if (XOOPS_COMMENT_APPROVENONE != $xoopsModuleConfig['com_rule']) {
             $admin_view = false;
         }
 
-        $com_id          = isset($_GET['com_id']) ? (int)$_GET['com_id'] : 0;
-        $com_rootid      = isset($_GET['com_rootid']) ? (int)$_GET['com_rootid'] : 0;
-        $comment_handler = xoops_getHandler('comment');
+        $com_id         = isset($_GET['com_id']) ? (int)$_GET['com_id'] : 0;
+        $com_rootid     = isset($_GET['com_rootid']) ? (int)$_GET['com_rootid'] : 0;
+        $commentHandler = xoops_getHandler('comment');
         if ($com_mode === 'flat') {
-            $comments =& $comment_handler->getByItemId($xoopsModule->getVar('mid'), $com_itemid, $com_dborder);
-            include_once XOOPS_ROOT_PATH . '/class/commentrenderer.php';
+            $comments = $commentHandler->getByItemId($xoopsModule->getVar('mid'), $com_itemid, $com_dborder);
+            require_once XOOPS_ROOT_PATH . '/class/commentrenderer.php';
             $renderer = XoopsCommentRenderer::getInstance($xoopsTpl);
             $renderer->setComments($comments);
             $renderer->renderFlatView($admin_view);
@@ -91,22 +91,22 @@ if (XOOPS_COMMENT_APPROVENONE != $xoopsModuleConfig['com_rule']) {
             $xoopsTpl->assign('comment_url', $comment_url . $comment_config['itemName'] . '=' . $com_itemid . '&amp;com_mode=thread&amp;com_order=' . $com_order);
             if (!empty($com_id) && !empty($com_rootid) && ($com_id != $com_rootid)) {
                 // Show specific thread tree
-                $comments =& $comment_handler->getThread($com_rootid, $com_id);
+                $comments = $commentHandler->getThread($com_rootid, $com_id);
                 if (false != $comments) {
-                    include_once XOOPS_ROOT_PATH . '/class/commentrenderer.php';
+                    require_once XOOPS_ROOT_PATH . '/class/commentrenderer.php';
                     $renderer = XoopsCommentRenderer::getInstance($xoopsTpl);
                     $renderer->setComments($comments);
                     $renderer->renderThreadView($com_id, $admin_view);
                 }
             } else {
                 // Show all threads
-                $top_comments =& $comment_handler->getTopComments($xoopsModule->getVar('mid'), $com_itemid, $com_dborder);
+                $top_comments = $commentHandler->getTopComments($xoopsModule->getVar('mid'), $com_itemid, $com_dborder);
                 $c_count      = count($top_comments);
                 if ($c_count > 0) {
                     for ($i = 0; $i < $c_count; ++$i) {
-                        $comments =& $comment_handler->getThread($top_comments[$i]->getVar('com_rootid'), $top_comments[$i]->getVar('com_id'));
+                        $comments = $commentHandler->getThread($top_comments[$i]->getVar('com_rootid'), $top_comments[$i]->getVar('com_id'));
                         if (false != $comments) {
-                            include_once XOOPS_ROOT_PATH . '/class/commentrenderer.php';
+                            require_once XOOPS_ROOT_PATH . '/class/commentrenderer.php';
                             $renderer = XoopsCommentRenderer::getInstance($xoopsTpl);
                             $renderer->setComments($comments);
                             $renderer->renderThreadView($top_comments[$i]->getVar('com_id'), $admin_view);
@@ -117,12 +117,12 @@ if (XOOPS_COMMENT_APPROVENONE != $xoopsModuleConfig['com_rule']) {
             }
         } else {
             // Show all threads
-            $top_comments =& $comment_handler->getTopComments($xoopsModule->getVar('mid'), $com_itemid, $com_dborder);
+            $top_comments = $commentHandler->getTopComments($xoopsModule->getVar('mid'), $com_itemid, $com_dborder);
             $c_count      = count($top_comments);
             if ($c_count > 0) {
                 for ($i = 0; $i < $c_count; ++$i) {
-                    $comments =& $comment_handler->getThread($top_comments[$i]->getVar('com_rootid'), $top_comments[$i]->getVar('com_id'));
-                    include_once XOOPS_ROOT_PATH . '/class/commentrenderer.php';
+                    $comments = $commentHandler->getThread($top_comments[$i]->getVar('com_rootid'), $top_comments[$i]->getVar('com_id'));
+                    require_once XOOPS_ROOT_PATH . '/class/commentrenderer.php';
                     $renderer = XoopsCommentRenderer::getInstance($xoopsTpl);
                     $renderer->setComments($comments);
                     $renderer->renderNestView($top_comments[$i]->getVar('com_id'), $admin_view);
@@ -156,7 +156,7 @@ if (XOOPS_COMMENT_APPROVENONE != $xoopsModuleConfig['com_rule']) {
             $navbar .= ' selected';
         }
         unset($postcomment_link);
-        $navbar .= '>' . _NEWESTFIRST . '</option></select><input type="hidden" name="' . $comment_config['itemName'] . '" value="' . $com_itemid . '" /> <input type="submit" value="' . _CM_REFRESH . '" class="formButton" />';
+        $navbar .= '>' . _NEWESTFIRST . '</option></select><input type="hidden" name="' . $comment_config['itemName'] . '" value="' . $com_itemid . '"> <input type="submit" value="' . _CM_REFRESH . '" class="formButton">';
         if (!empty($xoopsModuleConfig['com_anonpost']) || is_object($xoopsUser)) {
             $postcomment_link = 'comment_new.php?com_itemid=' . $com_itemid . '&amp;com_order=' . $com_order . '&amp;com_mode=' . $com_mode;
 
@@ -166,7 +166,7 @@ if (XOOPS_COMMENT_APPROVENONE != $xoopsModuleConfig['com_rule']) {
         if (isset($comment_config['extraParams']) && is_array($comment_config['extraParams'])) {
             foreach ($comment_config['extraParams'] as $extra_param) {
                 if (isset(${$extra_param})) {
-                    $link_extra .= '&amp;' . $extra_param . '=' . ${$extra_param};
+                    $link_extra      .= '&amp;' . $extra_param . '=' . ${$extra_param};
                     $hidden_value    = htmlspecialchars(${$extra_param}, ENT_QUOTES);
                     $extra_param_val = ${$extra_param};
                 } elseif (isset($_POST[$extra_param])) {
@@ -175,14 +175,14 @@ if (XOOPS_COMMENT_APPROVENONE != $xoopsModuleConfig['com_rule']) {
                     $extra_param_val = $_GET[$extra_param];
                 }
                 if (isset($extra_param_val)) {
-                    $link_extra .= '&amp;' . $extra_param . '=' . $extra_param_val;
+                    $link_extra   .= '&amp;' . $extra_param . '=' . $extra_param_val;
                     $hidden_value = htmlspecialchars($extra_param_val, ENT_QUOTES);
-                    $navbar .= '<input type="hidden" name="' . $extra_param . '" value="' . $hidden_value . '" />';
+                    $navbar       .= '<input type="hidden" name="' . $extra_param . '" value="' . $hidden_value . '">';
                 }
             }
         }
         if (isset($postcomment_link)) {
-            $navbar .= '&nbsp;<input type="button" onclick="self.location.href=\'' . $postcomment_link . '' . $link_extra . '\'" class="formButton" value="' . _CM_POSTCOMMENT . '" />';
+            $navbar .= '&nbsp;<input type="button" onclick="self.location.href=\'' . $postcomment_link . '' . $link_extra . '\'" class="formButton" value="' . _CM_POSTCOMMENT . '">';
         }
         $navbar .= '
     </td>

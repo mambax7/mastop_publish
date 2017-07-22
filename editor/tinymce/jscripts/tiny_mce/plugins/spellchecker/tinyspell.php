@@ -11,13 +11,13 @@
 // Ignore the Notice errors for now.
 error_reporting(E_ALL ^ E_NOTICE);
 
-require_once 'config.php';
+require_once __DIR__ . '/config.php';
 
 $id = sanitize($_POST['id'], 'loose');
 
 if (!$spellCheckerConfig['enabled']) {
     header('Content-type: text/xml; charset=utf-8');
-    echo '<?xml version="1.0" encoding="utf-8" ?><res id="' . $id . '" error="true" msg="You must enable the spellchecker by modifying the config.php file." />';
+    echo '<?xml version="1.0" encoding="utf-8" ?><res id="' . $id . '" error="true" msg="You must enable the spellchecker by modifying the config.php file.">';
     die;
 }
 
@@ -80,7 +80,7 @@ function sanitize($str, $type = 'strict')
             $str = preg_replace('/>/i', '&lt;', $str);
             break;
         case 'bool':
-            if ($str == 'true' || $str == true) {
+            if ($str == 'true' || $str === true) {
                 $str = true;
             } else {
                 $str = false;
@@ -128,18 +128,18 @@ switch ($outputType) {
         $body .= "\n";
 
         if (count($result) == 0) {
-            $body .= '<res id="' . $id . '" cmd="' . $cmd . '" />';
+            $body .= '<res id="' . $id . '" cmd="' . $cmd . '">';
         } else {
             $body .= '<res id="' . $id . '" cmd="' . $cmd . '">' . urlencode(implode(' ', $result)) . '</res>';
         }
 
         echo $body;
         break;
-    case 'xmlerror';
+    case 'xmlerror':
         header('Content-type: text/xml; charset=utf-8');
         $body = '<?xml version="1.0" encoding="utf-8" ?>';
         $body .= "\n";
-        $body .= '<res id="' . $id . '" cmd="' . $cmd . '" error="true" msg="' . implode(' ', $tinyspell->errorMsg) . '" />';
+        $body .= '<res id="' . $id . '" cmd="' . $cmd . '" error="true" msg="' . implode(' ', $tinyspell->errorMsg) . '">';
         echo $body;
         break;
     case 'html':

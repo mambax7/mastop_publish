@@ -16,29 +16,29 @@ function mpu_mpublish_busca($queryarray, $andor, $limit, $offset, $userid)
 {
     global $xoopsDB, $xoopsConfig, $xoopsUser;
     /** @var XoopsModuleHandler $moduleHandler */
-    $moduleHandler = xoops_getHandler('module');
-    $groups             = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-    $moduleperm_handler = xoops_getHandler('groupperm');
-    $mpu_module         = $moduleHandler->getByDirname(MPU_MOD_DIR);
-    $MyPages            = $moduleperm_handler->getItemIds('mpu_mpublish_acesso', $groups, $mpu_module->getVar('mid'));
-    $query_str          = '';
-    include_once XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/class/mpu_mpb_mpublish.class.php';
+    $moduleHandler     = xoops_getHandler('module');
+    $groups            = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+    $modulepermHandler = xoops_getHandler('groupperm');
+    $mpu_module        = $moduleHandler->getByDirname(MPU_MOD_DIR);
+    $MyPages           = $modulepermHandler->getItemIds('mpu_mpublish_acesso', $groups, $mpu_module->getVar('mid'));
+    $query_str         = '';
+    require_once XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/class/mpu_mpb_mpublish.class.php';
     $sql = 'SELECT mpb_10_id, mpb_10_ordem FROM ' . $xoopsDB->prefix(MPU_MOD_TABELA1) . ' WHERE mpb_11_visivel < 4 AND mpb_12_semlink = 0';
     if ($userid != 0) {
         $sql .= ' AND uid=' . $userid . ' ';
     }
     if (is_array($queryarray) && $count = count($queryarray)) {
         $query_str .= '&busca[]=' . $queryarray[0];
-        $sql .= " AND ((mpb_35_conteudo LIKE '%" . $queryarray[0] . "%' OR mpb_30_menu LIKE '%" . $queryarray[0] . "%' OR mpb_30_titulo LIKE '%" . $queryarray[0] . "%')";
+        $sql       .= " AND ((mpb_35_conteudo LIKE '%" . $queryarray[0] . "%' OR mpb_30_menu LIKE '%" . $queryarray[0] . "%' OR mpb_30_titulo LIKE '%" . $queryarray[0] . "%')";
         for ($i = 1; $i < $count; ++$i) {
-            $sql .= " $andor ";
-            $sql .= "(mpb_35_conteudo LIKE '%" . $queryarray[$i] . "%' OR mpb_30_menu LIKE '%" . $queryarray[$i] . "%' OR mpb_30_titulo LIKE '%" . $queryarray[$i] . "%')";
+            $sql       .= " $andor ";
+            $sql       .= "(mpb_35_conteudo LIKE '%" . $queryarray[$i] . "%' OR mpb_30_menu LIKE '%" . $queryarray[$i] . "%' OR mpb_30_titulo LIKE '%" . $queryarray[$i] . "%')";
             $query_str .= '&busca[]=' . $queryarray[$i];
         }
         $sql .= ')';
     }
 
-    $sql .= ' ORDER BY mpb_10_ordem ASC';
+    $sql      .= ' ORDER BY mpb_10_ordem ASC';
     $result   = $xoopsDB->query($sql, $limit, $offset);
     $ret      = array();
     $contents = array();

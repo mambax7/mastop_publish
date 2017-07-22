@@ -15,7 +15,7 @@ include __DIR__ . '/../../mainfile.php';
 if (!defined('XOOPS_ROOT_PATH') || !is_object($xoopsModule)) {
     exit();
 }
-include_once XOOPS_ROOT_PATH . '/language/' . $xoopsConfig['language'] . '/comment.php';
+require_once XOOPS_ROOT_PATH . '/language/' . $xoopsConfig['language'] . '/comment.php';
 $com_id   = isset($_GET['com_id']) ? (int)$_GET['com_id'] : 0;
 $com_mode = isset($_GET['com_mode']) ? htmlspecialchars(trim($_GET['com_mode']), ENT_QUOTES) : '';
 if ($com_mode == '') {
@@ -34,11 +34,11 @@ if (!isset($_GET['com_order'])) {
 } else {
     $com_order = (int)$_GET['com_order'];
 }
-$comment_handler = xoops_getHandler('comment');
-$comment         =& $comment_handler->get($com_id);
-$r_name          = XoopsUser::getUnameFromId($comment->getVar('com_uid'));
-$r_text          = _CM_POSTER . ': <b>' . $r_name . '</b>&nbsp;&nbsp;' . _CM_POSTED . ': <b>' . formatTimestamp($comment->getVar('com_created')) . '</b><br><br>' . $comment->getVar('com_text');
-$com_title       = $comment->getVar('com_title', 'E');
+$commentHandler = xoops_getHandler('comment');
+$comment        = $commentHandler->get($com_id);
+$r_name         = XoopsUser::getUnameFromId($comment->getVar('com_uid'));
+$r_text         = _CM_POSTER . ': <b>' . $r_name . '</b>&nbsp;&nbsp;' . _CM_POSTED . ': <b>' . formatTimestamp($comment->getVar('com_created')) . '</b><br><br>' . $comment->getVar('com_text');
+$com_title      = $comment->getVar('com_title', 'E');
 if (!preg_match('/^(Re|' . _CM_RE . '):/i', $com_title)) {
     $com_title = _CM_RE . ': ' . xoops_substr($com_title, 0, 56);
 }

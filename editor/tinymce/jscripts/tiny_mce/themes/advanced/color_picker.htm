@@ -7,7 +7,7 @@
     <link href="css/colorpicker.css" rel="stylesheet" type="text/css"/>
     <base target="_self"/>
 </head>
-<body onload="tinyMCEPopup.executeOnLoad('init();');" style="display: none">
+<body onload="tinyMCEPopup.executeOnLoad('init();');" style="display: none;">
 <div class="tabs">
     <ul>
         <li id="picker_tab" class="current"><span><a href="javascript:mcTabs.displayTab('picker_tab','picker_panel');"
@@ -36,7 +36,7 @@
                     <!-- Will be filled with divs -->
                 </div>
 
-                <br style="clear: both"/>
+                <br style="clear: both;"/>
             </div>
         </fieldset>
     </div>
@@ -48,7 +48,7 @@
                 <!-- Gets filled with web safe colors-->
             </div>
 
-            <br style="clear: both"/>
+            <br style="clear: both;"/>
         </fieldset>
     </div>
 
@@ -59,7 +59,7 @@
                 <!-- Gets filled with named colors-->
             </div>
 
-            <br style="clear: both"/>
+            <br style="clear: both;"/>
 
             <div id="colornamecontainer">
                 {$lang_color_name} <span id="colorname"></span>
@@ -69,7 +69,7 @@
 </div>
 
 <div class="mceActionPanel">
-    <div style="float: left">
+    <div style="float: left;">
         <input type="button" id="insert" name="insert" value="{$lang_theme_colorpicker_apply}"
                onclick="insertAction();"/>
     </div>

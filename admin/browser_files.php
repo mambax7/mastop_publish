@@ -1,4 +1,4 @@
-<?PHP
+<?php
 ### =============================================================
 ### Mastop InfoDigital - Paixão por Internet
 ### =============================================================
@@ -13,8 +13,8 @@
 ###
 ### =============================================================
 
-include_once __DIR__ . '/admin_header.php';
-include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+require_once __DIR__ . '/admin_header.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 $op              = empty($_GET['op']) ? 'list' : $_GET['op'];
 $op              = empty($_POST['op']) ? $op : $_POST['op'];
 $mpb_wysiwyg_url = XOOPS_URL . $xoopsModuleConfig['mpu_conf_wysiwyg_path'];
@@ -39,6 +39,7 @@ $mpb_wysiwyg_url = XOOPS_URL . $xoopsModuleConfig['mpu_conf_wysiwyg_path'];
 
             return;
         }
+
         function init() {
             window.focus();
         }
@@ -46,6 +47,7 @@ $mpb_wysiwyg_url = XOOPS_URL . $xoopsModuleConfig['mpu_conf_wysiwyg_path'];
         function cancelAction() {
             top.close();
         }
+
         //-->
     </script>
     <base target="_self"/>
@@ -54,10 +56,10 @@ $mpb_wysiwyg_url = XOOPS_URL . $xoopsModuleConfig['mpu_conf_wysiwyg_path'];
 <div class="tabs">
     <ul>
         <li id="gerenciador_tab" <?php echo ($op === 'listfil' || $op === 'list') ? ' class="current"' : ''; ?>><span><a
-                    href="javascript:mcTabs.displayTab('gerenciador_tab','gerenciador_panel');"
-                    onmousedown="return false;">{$lang_browser_ger_files}</a></span></li>
+                        href="javascript:mcTabs.displayTab('gerenciador_tab','gerenciador_panel');"
+                        onmousedown="return false;">{$lang_browser_ger_files}</a></span></li>
         <li id="novo_file_tab" <?php echo ($op === 'addfile') ? ' class="current"' : ''; ?>><span><a
-                    href="javascript:mcTabs.displayTab('novo_file_tab','novo_file_panel');" onmousedown="return false;">{$lang_browser_novo_file}</a></span>
+                        href="javascript:mcTabs.displayTab('novo_file_tab','novo_file_panel');" onmousedown="return false;">{$lang_browser_novo_file}</a></span>
         </li>
     </ul>
 </div>
@@ -65,7 +67,7 @@ $mpb_wysiwyg_url = XOOPS_URL . $xoopsModuleConfig['mpu_conf_wysiwyg_path'];
     <div id="gerenciador_panel" class="panel <?php echo ($op === 'listfil' || $op === 'list') ? 'current' : ''; ?>"
          style="overflow: auto;">
         <h3>{$lang_browser_file_title}</h3>
-        <?PHP
+        <?php
         if ($op === 'listfil') {
             $fil_30_mime = $_GET['fil_30_mime'];
             $fil_classe  = new mpu_fil_files();
@@ -89,8 +91,18 @@ $mpb_wysiwyg_url = XOOPS_URL . $xoopsModuleConfig['mpu_conf_wysiwyg_path'];
                 echo '<h4><a href="' . $_SERVER['PHP_SELF'] . '">' . MPU_ADM_BROWSER_GER_FIL . '</a>&nbsp;<span style="font-weight:bold;">&raquo;&raquo;</span>&nbsp;' . $mimes[$fil_30_mime] . '</h4>';
                 echo '<fieldset><legend>' . MPU_ADM_FILTROS . '</legend>';
                 echo "<form action='" . $_SERVER['PHP_SELF'] . "' method='GET'>";
-                echo MPU_ADM_FIL_30_NOME . " <input type='hidden' name='op' value='listfil'> <input type='text' name='fil_30_nome' value='" . ((!empty($_GET['fil_30_nome'])) ? $_GET['fil_30_nome'] : '') . "'> " . MPU_ADM_FIL_30_MIME
-                     . " <select name='fil_30_mime'>" . $tipos_select . "</select> <input type='image' src='" . XOOPS_URL . '/modules/' . MPU_MOD_DIR . "/assets/images/envia.gif' align='absmiddle' style='border:0'>";
+                echo MPU_ADM_FIL_30_NOME
+                     . " <input type='hidden' name='op' value='listfil'> <input type='text' name='fil_30_nome' value='"
+                     . ((!empty($_GET['fil_30_nome'])) ? $_GET['fil_30_nome'] : '')
+                     . "'> "
+                     . MPU_ADM_FIL_30_MIME
+                     . " <select name='fil_30_mime'>"
+                     . $tipos_select
+                     . "</select> <input type='image' src='"
+                     . XOOPS_URL
+                     . '/modules/'
+                     . MPU_MOD_DIR
+                     . "/assets/images/envia.gif' align='absmiddle' style='border:0'>";
                 echo '</form></fieldset><br>';
                 echo '<table style="width:100%;"><thead><tr>
     <td>&nbsp;</td>
@@ -104,15 +116,19 @@ $mpb_wysiwyg_url = XOOPS_URL . $xoopsModuleConfig['mpu_conf_wysiwyg_path'];
                     $file_url = MPU_FILES_URL . '/' . $fil->getVar('fil_30_arquivo');
                     echo '<tr><td width="30%" style="text-align: center">';
                     echo '<a href="javascript:void(0)" style="border:2px solid white" onclick="addItem(\'' . $file_url . '\', \'' . $fil->getVar('fil_30_nome') . '\')"/>' . $fil->getVar('fil_10_id') . '</a>';
-                    echo '</td><td style="border: 2px double #F0F0EE; text-align: center">' . $fil->getVar('fil_30_nome') . '</td><td style="border: 2px double #F0F0EE; text-align: center">' . number_format($fil->getVar('fil_10_tamanho') / 1024, 2,
-                                                                                                                                                                                                               '.', '')
-                         . ' Kb</td><td style="border: 2px double #F0F0EE; text-align: center">' . date('d/m/Y', $fil->getVar('fil_22_data')) . '</td>';
+                    echo '</td><td style="border: 2px double #F0F0EE; text-align: center">'
+                         . $fil->getVar('fil_30_nome')
+                         . '</td><td style="border: 2px double #F0F0EE; text-align: center">'
+                         . number_format($fil->getVar('fil_10_tamanho') / 1024, 2, '.', '')
+                         . ' Kb</td><td style="border: 2px double #F0F0EE; text-align: center">'
+                         . date('d/m/Y', $fil->getVar('fil_22_data'))
+                         . '</td>';
                     echo '<td style="border: 2px double #F0F0EE; text-align: center"><a href="javascript:void(0)" onclick="addItem(\'' . $file_url . '\', \'' . $fil->getVar('fil_30_nome') . '\')">' . _SELECT . '</a></td></tr>';
                 }
                 echo '</tbody></table>';
                 if ($files_total > 0) {
                     if ($files_total > 20) {
-                        include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+                        require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
                         $nav = new XoopsPageNav($files_total, 20, $start, 'start', 'op=listfil&amp;fil_30_mime=' . $fil_30_mime . ((!empty($_GET['fil_30_nome'])) ? '&amp;fil_30_nome=' . $_GET['fil_30_nome'] : ''));
                         echo '<div style="text-align:right">' . $nav->renderNav() . '</div>';
                     }
@@ -127,14 +143,24 @@ $mpb_wysiwyg_url = XOOPS_URL . $xoopsModuleConfig['mpu_conf_wysiwyg_path'];
                 foreach ($mimes as $k => $v) {
                     $tipos_select .= "<option value='" . $k . "' " . ((!empty($_GET['fil_30_mime'])
                                                                        && $_GET['fil_30_mime'] == $k) ? 'selected' : '') . '>' . $v . '</option>';
-                    $files_count = $fil_classe->contar(new Criteria('fil_30_mime', $k));
+                    $files_count  = $fil_classe->contar(new Criteria('fil_30_mime', $k));
                     echo '<li>' . $v . ' (<b>' . $files_count . '</b> ' . MPU_ADM_BROWSER_GER_FIL . ') ' . (($files_count > 0) ? '[<a href="' . $_SERVER['PHP_SELF'] . '?op=listfil&amp;fil_30_mime=' . $k . '">' . _LIST . '</a>]</li>' : '');
                 }
                 echo '</ul>';
                 echo '<fieldset><legend>' . MPU_ADM_FILTROS . '</legend>';
                 echo "<form action='" . $_SERVER['PHP_SELF'] . "' method='GET'>";
-                echo MPU_ADM_FIL_30_NOME . " <input type='hidden' name='op' value='listfil'> <input type='text' name='fil_30_nome' value='" . ((!empty($_GET['fil_30_nome'])) ? $_GET['fil_30_nome'] : '') . "'> " . MPU_ADM_FIL_30_MIME
-                     . " <select name='fil_30_mime'>" . $tipos_select . "</select> <input type='image' src='" . XOOPS_URL . '/modules/' . MPU_MOD_DIR . "/assets/images/envia.gif' align='absmiddle' style='border:0'>";
+                echo MPU_ADM_FIL_30_NOME
+                     . " <input type='hidden' name='op' value='listfil'> <input type='text' name='fil_30_nome' value='"
+                     . ((!empty($_GET['fil_30_nome'])) ? $_GET['fil_30_nome'] : '')
+                     . "'> "
+                     . MPU_ADM_FIL_30_MIME
+                     . " <select name='fil_30_mime'>"
+                     . $tipos_select
+                     . "</select> <input type='image' src='"
+                     . XOOPS_URL
+                     . '/modules/'
+                     . MPU_MOD_DIR
+                     . "/assets/images/envia.gif' align='absmiddle' style='border:0'>";
                 echo '</form></fieldset>';
             }
             if (!empty($_GET['erro'])) {
@@ -146,13 +172,13 @@ $mpb_wysiwyg_url = XOOPS_URL . $xoopsModuleConfig['mpu_conf_wysiwyg_path'];
 
     <div id="novo_file_panel" class="panel <?php echo ($op === 'addfile') ? 'current' : ''; ?>"
          style="overflow: visible;">
-        <?PHP
+        <?php
         if ($op === 'addfile') {
             $file      = new mpu_fil_files();
             $file_nome = $_FILES[$_POST['xoops_upload_file'][0]];
             $file_nome = get_magic_quotes_gpc() ? stripslashes($file_nome['name']) : $file_nome['name'];
             if (xoops_trim($file_nome != '')) {
-                include_once XOOPS_ROOT_PATH . '/class/uploader.php';
+                require_once XOOPS_ROOT_PATH . '/class/uploader.php';
                 $uploader = new XoopsMediaUploader(MPU_FILES_PATH, $xoopsModuleConfig['mpu_conf_mimetypes'], $xoopsModuleConfig['mpu_mmax_filesize'] * 1024);
                 $uploader->setPrefix('files_');
                 if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
@@ -180,9 +206,13 @@ $mpb_wysiwyg_url = XOOPS_URL . $xoopsModuleConfig['mpu_conf_wysiwyg_path'];
                             $file_url = MPU_FILES_URL . '/' . $uploader->getSavedFileName();
                             echo '<tr><td width="30%" style="text-align: center">';
                             echo '<a href="javascript:void(0)" style="border:2px solid white" onclick="addItem(\'' . $file_url . '\', \'' . $file->getVar('fil_30_nome') . '\')"/>' . $file->getVar('fil_10_id') . '</a>';
-                            echo '</td><td style="border: 2px double #F0F0EE; text-align: center">' . $file->getVar('fil_30_nome') . '</td><td style="border: 2px double #F0F0EE; text-align: center">' . number_format($file->getVar('fil_10_tamanho')
-                                                                                                                                                                                                                        / 1024, 2, '.', '')
-                                 . 'Kb</td><td style="border: 2px double #F0F0EE; text-align: center">' . date('d/m/Y', $file->getVar('fil_22_data')) . '</td>';
+                            echo '</td><td style="border: 2px double #F0F0EE; text-align: center">'
+                                 . $file->getVar('fil_30_nome')
+                                 . '</td><td style="border: 2px double #F0F0EE; text-align: center">'
+                                 . number_format($file->getVar('fil_10_tamanho') / 1024, 2, '.', '')
+                                 . 'Kb</td><td style="border: 2px double #F0F0EE; text-align: center">'
+                                 . date('d/m/Y', $file->getVar('fil_22_data'))
+                                 . '</td>';
                             echo '<td style="border: 2px double #F0F0EE; text-align: center"><a href="javascript:void(0)" onclick="addItem(\'' . $file_url . '\', \'' . $file->getVar('fil_30_nome') . '\')">' . _SELECT . '</a></td></tr>';
                             echo '</tbody></table></fieldset>';
                         }
@@ -225,7 +255,7 @@ $mpb_wysiwyg_url = XOOPS_URL . $xoopsModuleConfig['mpu_conf_wysiwyg_path'];
     </div>
 </div>
 <div class="mceActionPanel">
-    <div style="float: right">
+    <div style="float: right;">
         <input type="button" id="cancel" name="cancel" value="{$lang_close}" onclick="tinyMCEPopup.close();"/>
     </div>
 </div>

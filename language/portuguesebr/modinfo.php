@@ -90,7 +90,8 @@ define('MPU_MOD_MAXFILESIZE_DESC', 'Valores em Kbytes');
 define('MPU_MOD_GZIP', 'Usar compactação GZIP no Editor?');
 define('MPU_MOD_GZIP_DESC',
        "Se seu servidor suportar GZIP, este recurso usa um arquivo javascript compactado que faz com que o editor carregue mais rapidamente.<br><b>Atenção:</b> Para que este recurso funcione corretamente, o diretório raiz do Editor Visual (definido acima, no parâmetro de configuração '"
-       . MPU_MOD_WYSIWYG_PATH . "') deve ter permissões de escrita!");
+       . MPU_MOD_WYSIWYG_PATH
+       . "') deve ter permissões de escrita!");
 define('MPU_MOD_CONTENTMIMES', 'Extensões permitidas no gerenciador de arquivos de conteúdo.');
 define('MPU_MOD_CONTENTMIMES_DESC', 'Selecione as extensões permitidas para envio no gerenciador de arquivos de conteúdo. Mantenha a tecla <b>CTRL</b> pressionada para selecionar mais de uma opção.');
 define('MPU_MOD_MIMETYPES', 'Extensões permitidas no gerenciador de arquivos.');

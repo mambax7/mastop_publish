@@ -12,17 +12,17 @@
 ###
 ### =============================================================
 include __DIR__ . '/../../mainfile.php';
-include_once __DIR__ . '/header.php';
+require_once __DIR__ . '/header.php';
 if (!defined('XOOPS_ROOT_PATH') || !is_object($xoopsModule)) {
     exit();
 }
-include_once XOOPS_ROOT_PATH . '/include/comment_constants.php';
+require_once XOOPS_ROOT_PATH . '/include/comment_constants.php';
 if ('system' !== $xoopsModule->getVar('dirname') && XOOPS_COMMENT_APPROVENONE == $xoopsModuleConfig['com_rule']) {
     exit();
 }
-include_once XOOPS_ROOT_PATH . '/language/' . $xoopsConfig['language'] . '/comment.php';
+require_once XOOPS_ROOT_PATH . '/language/' . $xoopsConfig['language'] . '/comment.php';
 include XOOPS_ROOT_PATH . '/header.php';
-include_once XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/class/mpu_mpb_mpublish.class.php';
+require_once XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/class/mpu_mpb_mpublish.class.php';
 $com_itemid     = isset($_GET['com_itemid']) ? (int)$_GET['com_itemid'] : 0;
 $mpu_classe     = new mpu_mpb_mpublish($com_itemid);
 $com_replytitle = $mpu_classe->getVar('mpb_30_titulo');
@@ -67,7 +67,7 @@ $com_pid    = 0;
 $com_rootid = 0;
 $com_text   = '';
 if ($xoopsModuleConfig['mpu_conf_captcha']) {
-    require 'include/captcha/php-captcha.inc.php';
+    require_once __DIR__ . '/include/captcha/php-captcha.inc.php';
     if (isset($_SESSION[CAPTCHA_SESSION_ID])) {
         unset($_SESSION[CAPTCHA_SESSION_ID]);
     }

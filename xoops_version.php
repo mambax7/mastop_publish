@@ -13,33 +13,36 @@
 ### =============================================================
 
 // Dados do M�dulo
-$modversion['name']        = MPU_MOD_NOME;
-$modversion['version']     = 1.5;
-$modversion['author']      = 'Fernando Santos (aka topet05)';
-$modversion['description'] = MPU_MOD_DESC;
-$modversion['credits']     = 'Mastop InfoDigital - www.mastop.com.br';
-$modversion['help']        = 'page=help';
-$modversion['license']     = 'GNU GPL 2.0';
-$modversion['license_url'] = 'www.gnu.org/licenses/gpl-2.0.html';
-$modversion['official']    = 0; //1 indicates supported by XOOPS Dev Team, 0 means 3rd party supported
-$modversion['image']       = 'assets/images/logoModule.png';
-$modversion['dirname']     = basename(__DIR__);
 
-$modversion['dirmoduleadmin'] = '/Frameworks/moduleclasses/moduleadmin';
-$modversion['icons16']        = '../../Frameworks/moduleclasses/icons/16';
-$modversion['icons32']        = '../../Frameworks/moduleclasses/icons/32';
+$modversion['version']       = 1.5;
+$modversion['module_status'] = 'Beta 1';
+$modversion['release_date']  = '2014/04/23';
+$modversion['name']          = MPU_MOD_NOME;
+$modversion['description']   = MPU_MOD_DESC;
+$modversion['author']        = 'Fernando Santos (aka topet05)';
+$modversion['credits']       = 'Mastop InfoDigital - www.mastop.com.br';
+$modversion['help']          = 'page=help';
+$modversion['license']       = 'GNU GPL 2.0';
+$modversion['license_url']   = 'www.gnu.org/licenses/gpl-2.0.html';
+$modversion['official']      = 0; //1 indicates supported by XOOPS Dev Team, 0 means 3rd party supported
+$modversion['image']         = 'assets/images/logoModule.png';
+$modversion['dirname']       = basename(__DIR__);
+
+//$modversion['dirmoduleadmin'] = '/Frameworks/moduleclasses/moduleadmin';
+//$modversion['icons16']        = '../../Frameworks/moduleclasses/icons/16';
+//$modversion['icons32']        = '../../Frameworks/moduleclasses/icons/32';
+$modversion['modicons16'] = 'assets/images/icons/16';
+$modversion['modicons32'] = 'assets/images/icons/32';
 
 //about
-$modversion['module_status']       = 'Beta 1';
-$modversion['release_date']        = '2014/04/23';
 $modversion['module_website_url']  = 'www.xoops.org/';
 $modversion['module_website_name'] = 'XOOPS';
 $modversion['author_website_url']  = 'https://xoops.org/';
 $modversion['author_website_name'] = 'XOOPS';
 $modversion['min_php']             = '5.5';
-$modversion['min_xoops']           = '2.5.8';
+$modversion['min_xoops']           = '2.5.9';
 $modversion['min_admin']           = '1.2';
-$modversion['min_db']              = array('mysql' => '5.1');
+$modversion['min_db']              = array('mysql' => '5.5');
 
 $modversion['sqlfile']['mysql'] = 'sql/mysql.sql';
 

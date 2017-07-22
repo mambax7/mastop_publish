@@ -11,7 +11,8 @@
 ### =============================================================
 ###
 ### =============================================================
-include_once XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/class/mpu_geral.class.php';
+
+require_once XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/class/mpu_geral.class.php';
 
 class mpu_mpb_mpublish extends mpu_geral
 {
@@ -65,7 +66,7 @@ class mpu_mpb_mpublish extends mpu_geral
 
     public function cat_principal($mpb_10_id)
     {
-        $cat_principal_query = $this->db->query('select count(*) as count from ' . $this->tabela . " where mpb_10_id = '" . (int)$mpb_10_id . "' and mpb_10_idpai=0");
+        $cat_principal_query = $this->db->query('SELECT count(*) AS count FROM ' . $this->tabela . " WHERE mpb_10_id = '" . (int)$mpb_10_id . "' AND mpb_10_idpai=0");
         $cat_principal       = $this->db->fetchArray($cat_principal_query);
         if ($cat_principal['count'] > 0) {
             return true;
@@ -79,7 +80,7 @@ class mpu_mpb_mpublish extends mpu_geral
         global $xoopsUser;
         $id = empty($mpb_10_id) ? $this->getVar($this->id) : $mpb_10_id;
         if (!$menu) {
-            $cat_filha_query = $this->db->query('select count(*) as count from ' . $this->tabela . ' where mpb_10_idpai =' . $id);
+            $cat_filha_query = $this->db->query('SELECT count(*) AS count FROM ' . $this->tabela . ' WHERE mpb_10_idpai =' . $id);
             $cat_filha       = $this->db->fetchArray($cat_filha_query);
             if ($cat_filha['count'] > 0) {
                 return true;
@@ -106,16 +107,16 @@ class mpu_mpb_mpublish extends mpu_geral
     {
         global $xoopsUser;
         $retorna[0] = MPU_ADM_MENUP;
-        if ($mpb_10_idpai == 0 && $modules == true) {
+        if ($mpb_10_idpai == 0 && $modules === true) {
             /** @var XoopsModuleHandler $moduleHandler */
             $moduleHandler = xoops_getHandler('module');
             $criteria      = new CriteriaCompo(new Criteria('hasmain', 1));
             $criteria->add(new Criteria('isactive', 1));
             $criteria->add(new Criteria('weight', 0, '>'));
-            $modules            = $moduleHandler->getObjects($criteria, true);
-            $moduleperm_handler = xoops_getHandler('groupperm');
-            $groups             = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-            $read_allowed       = $moduleperm_handler->getItemIds('module_read', $groups);
+            $modules           = $moduleHandler->getObjects($criteria, true);
+            $modulepermHandler = xoops_getHandler('groupperm');
+            $groups            = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+            $read_allowed      = $modulepermHandler->getItemIds('module_read', $groups);
             foreach (array_keys($modules) as $i) {
                 if (in_array($i, $read_allowed)) {
                     $subpgs                                    = $this->tem_subcategorias($modules[$i]->getVar('mid') * -1);
@@ -131,7 +132,7 @@ class mpu_mpb_mpublish extends mpu_geral
         }
         $tem_subs                 = 0;
         $cat_principal            = 0;
-        $categorias_query_catmenu = $this->db->query('select mpb_10_id, mpb_10_idpai, mpb_30_menu from ' . $this->tabela . ' where mpb_10_idpai=' . (int)$mpb_10_idpai . ' order by mpb_10_ordem, mpb_30_menu');
+        $categorias_query_catmenu = $this->db->query('SELECT mpb_10_id, mpb_10_idpai, mpb_30_menu FROM ' . $this->tabela . ' WHERE mpb_10_idpai=' . (int)$mpb_10_idpai . ' ORDER BY mpb_10_ordem, mpb_30_menu');
         while ($categorias = $this->db->fetchArray($categorias_query_catmenu)) {
             if ($this->getVar($this->id) > 0 && $this->getVar($this->id) == $categorias['mpb_10_id']) {
                 continue;
@@ -160,12 +161,12 @@ class mpu_mpb_mpublish extends mpu_geral
         global $xoopsUser;
         static $myPages = array();
         /** @var XoopsModuleHandler $moduleHandler */
-        $moduleHandler = xoops_getHandler('module');
-        $groups             = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-        $moduleperm_handler = xoops_getHandler('groupperm');
-        $mpu_module         = $moduleHandler->getByDirname(MPU_MOD_DIR);
+        $moduleHandler     = xoops_getHandler('module');
+        $groups            = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+        $modulepermHandler = xoops_getHandler('groupperm');
+        $mpu_module        = $moduleHandler->getByDirname(MPU_MOD_DIR);
         if (empty($myPages)) {
-            $myPages = $moduleperm_handler->getItemIds('mpu_mpublish_acesso', $groups, $mpu_module->getVar('mid'));
+            $myPages = $modulepermHandler->getItemIds('mpu_mpublish_acesso', $groups, $mpu_module->getVar('mid'));
         }
 
         return $myPages;
@@ -185,17 +186,17 @@ class mpu_mpb_mpublish extends mpu_geral
         $criterio->setSort('mpb_10_ordem');
         $criterio->add(new Criteria('mpb_11_visivel', 3, '<'));
         /** @var XoopsModuleHandler $moduleHandler */
-        $moduleHandler = xoops_getHandler('module');
-        $groups             = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-        $moduleperm_handler = xoops_getHandler('groupperm');
-        $mpu_module         = $moduleHandler->getByDirname(MPU_MOD_DIR);
+        $moduleHandler     = xoops_getHandler('module');
+        $groups            = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+        $modulepermHandler = xoops_getHandler('groupperm');
+        $mpu_module        = $moduleHandler->getByDirname(MPU_MOD_DIR);
         //Início Rotina Módulos
         if ($modulos) {
             $criteria = new CriteriaCompo(new Criteria('hasmain', 1));
             $criteria->add(new Criteria('isactive', 1));
             $criteria->add(new Criteria('weight', 0, '>'));
             $modules      = $moduleHandler->getObjects($criteria, true);
-            $read_allowed = $moduleperm_handler->getItemIds('module_read', $groups);
+            $read_allowed = $modulepermHandler->getItemIds('module_read', $groups);
             foreach (array_keys($modules) as $i) {
                 if (in_array($i, $read_allowed)) {
                     $sublinks                                                              = $modules[$i]->subLink();
@@ -231,9 +232,9 @@ class mpu_mpb_mpublish extends mpu_geral
                     $subpgs                                                 = $it->getVar('mpb_12_exibesub') ? $it->tem_subcategorias($it->getVar($it->id), true) : 0;
                     $ret[$it->getVar('mpb_10_ordem')][$it->getVar($it->id)] .= $subpgs ? "<ul>\n" . $it->geraMenuCSS(new CriteriaCompo(new Criteria('mpb_10_idpai', $it->getVar($it->id))), false) . "\n</ul>\n</li>\n" : "</li>\n";
                 } else {
-                    $ret .= "<li><a href='" . $it->pegaLink() . "' " . (($it->getVar('mpb_11_abrir') == 1) ? "target='_blank'" : '') . '>' . $it->getVar('mpb_30_menu') . '</a>';
+                    $ret    .= "<li><a href='" . $it->pegaLink() . "' " . (($it->getVar('mpb_11_abrir') == 1) ? "target='_blank'" : '') . '>' . $it->getVar('mpb_30_menu') . '</a>';
                     $subpgs = $it->getVar('mpb_12_exibesub') ? $it->tem_subcategorias($it->getVar($it->id), true) : 0;
-                    $ret .= $subpgs ? "<ul>\n" . $it->geraMenuCSS(new CriteriaCompo(new Criteria('mpb_10_idpai', $it->getVar($it->id))), false) . "\n</ul>\n</li>\n" : "</li>\n";
+                    $ret    .= $subpgs ? "<ul>\n" . $it->geraMenuCSS(new CriteriaCompo(new Criteria('mpb_10_idpai', $it->getVar($it->id))), false) . "\n</ul>\n</li>\n" : "</li>\n";
                 }
             }
         }
@@ -267,11 +268,11 @@ class mpu_mpb_mpublish extends mpu_geral
         $criterio->setSort('mpb_10_ordem');
         $criterio->add(new Criteria('mpb_11_visivel', 3, '<'));
         /** @var XoopsModuleHandler $moduleHandler */
-        $moduleHandler = xoops_getHandler('module');
-        $groups             = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-        $moduleperm_handler = xoops_getHandler('groupperm');
-        $mpu_module         = $moduleHandler->getByDirname(MPU_MOD_DIR);
-        $itens              = $this->PegaTudo($criterio);
+        $moduleHandler     = xoops_getHandler('module');
+        $groups            = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+        $modulepermHandler = xoops_getHandler('groupperm');
+        $mpu_module        = $moduleHandler->getByDirname(MPU_MOD_DIR);
+        $itens             = $this->PegaTudo($criterio);
         if ($itens) {
             $pages = $this->getPages();
             foreach ($itens as $it) {
@@ -283,9 +284,9 @@ class mpu_mpb_mpublish extends mpu_geral
                     $subpgs                                                 = $it->getVar('mpb_12_exibesub') ? $it->tem_subcategorias($it->getVar($it->id), true) : 0;
                     $ret[$it->getVar('mpb_10_ordem')][$it->getVar($it->id)] .= $subpgs ? "<ul>\n" . $it->geraMenuRelated(new CriteriaCompo(new Criteria('mpb_10_idpai', $it->getVar($it->id)))) . "\n</ul>\n</li>\n" : "</li>\n";
                 } else {
-                    $ret .= "<li><a href='" . $it->pegaLink() . "' " . (($it->getVar('mpb_11_abrir') == 1) ? "target='_blank'" : '') . '>' . $it->getVar('mpb_30_menu') . '</a>';
+                    $ret    .= "<li><a href='" . $it->pegaLink() . "' " . (($it->getVar('mpb_11_abrir') == 1) ? "target='_blank'" : '') . '>' . $it->getVar('mpb_30_menu') . '</a>';
                     $subpgs = $it->getVar('mpb_12_exibesub') ? $it->tem_subcategorias($it->getVar($it->id), true) : 0;
-                    $ret .= $subpgs ? "<ul>\n" . $it->geraMenuRelated(new CriteriaCompo(new Criteria('mpb_10_idpai', $it->getVar($it->id)))) . "\n</ul>\n</li>\n" : "</li>\n";
+                    $ret    .= $subpgs ? "<ul>\n" . $it->geraMenuRelated(new CriteriaCompo(new Criteria('mpb_10_idpai', $it->getVar($it->id)))) . "\n</ul>\n</li>\n" : "</li>\n";
                 }
             }
         }
@@ -314,9 +315,9 @@ class mpu_mpb_mpublish extends mpu_geral
         }
         /** @var XoopsModuleHandler $moduleHandler */
         $moduleHandler = xoops_getHandler('module');
-        $module         = $moduleHandler->getByDirname(MPU_MOD_DIR);
-        $config_handler = xoops_getHandler('config');
-        $MeuModCFG      =& $config_handler->getConfigsByCat(0, $module->getVar('mid'));
+        $module        = $moduleHandler->getByDirname(MPU_MOD_DIR);
+        $configHandler = xoops_getHandler('config');
+        $MeuModCFG     = $configHandler->getConfigsByCat(0, $module->getVar('mid'));
         if (!empty($MeuModCFG['mpu_conf_nomes_id'])) {
             if ($this->contar(new Criteria('mpb_30_menu', $this->getVar('mpb_30_menu'))) > 1) {
                 return XOOPS_URL . '/modules/' . MPU_MOD_DIR . "/$pg?tac=" . $this->getVar($this->id);
@@ -384,7 +385,7 @@ class mpu_mpb_mpublish extends mpu_geral
     public function geraNavigationAdmin($id = null, $separador = '/', $style = "style='font-weight:bold'")
     {
         $admin_url = XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/admin/index.php?op=listar';
-        if ($id == false) {
+        if ($id === false) {
             return false;
         } elseif ($id == null) {
             $ret = "<span $style>" . $this->getVar('mpb_30_menu') . '</span>';
@@ -423,8 +424,7 @@ class mpu_mpb_mpublish extends mpu_geral
                         /** @var XoopsModuleHandler $moduleHandler */
                         $moduleHandler = xoops_getHandler('module');
                         $module        = $moduleHandler->get($novo->getVar('mpb_10_idpai') * -1);
-                        $ret           = "<a href='" . $admin_url . "&mpb_10_id=0'>" . MPU_ADM_MENUP . "</a> $separador <a href='" . $admin_url . '&mpb_10_id=' . $novo->getVar('mpb_10_idpai') . "'>" . $module->getVar('name') . "</a> $separador "
-                                         . $ret;
+                        $ret           = "<a href='" . $admin_url . "&mpb_10_id=0'>" . MPU_ADM_MENUP . "</a> $separador <a href='" . $admin_url . '&mpb_10_id=' . $novo->getVar('mpb_10_idpai') . "'>" . $module->getVar('name') . "</a> $separador " . $ret;
 
                         return $ret;
                     }
@@ -446,16 +446,34 @@ class mpu_mpb_mpublish extends mpu_geral
             $db = XoopsDatabaseFactory::getDatabaseConnection();
             if ($result = $db->query('SELECT * FROM ' . $db->prefix('smiles') . ' WHERE display=1')) {
                 while ($smiles = $db->fetchArray($result)) {
-                    $ret .= "<img onclick=\"tinyMCE.execInstanceCommand('$campo', 'mceInsertContent', false, '<img src=\'" . XOOPS_UPLOAD_URL . '/' . htmlspecialchars($smiles['smile_url'], ENT_QUOTES)
-                            . "\' />');\" onmouseover='style.cursor=\"hand\"' src='" . XOOPS_UPLOAD_URL . '/' . htmlspecialchars($smiles['smile_url'], ENT_QUOTES) . "' alt='" . $smiles['emotion'] . "' />";
+                    $ret .= "<img onclick=\"tinyMCE.execInstanceCommand('$campo', 'mceInsertContent', false, '<img src=\'"
+                            . XOOPS_UPLOAD_URL
+                            . '/'
+                            . htmlspecialchars($smiles['smile_url'], ENT_QUOTES)
+                            . "\'>');\" onmouseover='style.cursor=\"hand\"' src='"
+                            . XOOPS_UPLOAD_URL
+                            . '/'
+                            . htmlspecialchars($smiles['smile_url'], ENT_QUOTES)
+                            . "' alt='"
+                            . $smiles['emotion']
+                            . "'>";
                 }
             }
         } else {
             $count = count($smiles);
             for ($i = 0; $i < $count; ++$i) {
                 if ($smiles[$i]['display'] == 1) {
-                    $ret .= "<img onclick=\"tinyMCE.execInstanceCommand('$campo', 'mceInsertContent', false, '<img src=\'" . XOOPS_UPLOAD_URL . '/' . htmlspecialchars($smiles[$i]['smile_url'], ENT_QUOTES)
-                            . "\' />');\" onmouseover='style.cursor=\"hand\"' src='" . XOOPS_UPLOAD_URL . '/' . $myts->oopsHtmlSpecialChars($smiles[$i]['smile_url']) . "' border='0' alt='" . $smiles[$i]['emotion'] . "' />";
+                    $ret .= "<img onclick=\"tinyMCE.execInstanceCommand('$campo', 'mceInsertContent', false, '<img src=\'"
+                            . XOOPS_UPLOAD_URL
+                            . '/'
+                            . htmlspecialchars($smiles[$i]['smile_url'], ENT_QUOTES)
+                            . "\'>');\" onmouseover='style.cursor=\"hand\"' src='"
+                            . XOOPS_UPLOAD_URL
+                            . '/'
+                            . $myts->oopsHtmlSpecialChars($smiles[$i]['smile_url'])
+                            . "' border='0' alt='"
+                            . $smiles[$i]['emotion']
+                            . "'>";
                 }
             }
         }
@@ -468,7 +486,7 @@ class mpu_mpb_mpublish extends mpu_geral
         global $xoopsUser;
         $id = empty($mpb_10_id) ? $this->getVar($this->id) : $mpb_10_id;
         if (!$menu) {
-            $subs_query = $this->db->query('select count(*) as count from ' . $this->tabela . ' where mpb_10_idpai =' . $id);
+            $subs_query = $this->db->query('SELECT count(*) AS count FROM ' . $this->tabela . ' WHERE mpb_10_idpai =' . $id);
             $cat_subs   = $this->db->fetchArray($subs_query);
             if ($cat_subs['count'] > 0) {
                 return $cat_subs['count'];

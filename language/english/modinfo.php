@@ -90,7 +90,8 @@ define('MPU_MOD_MAXFILESIZE_DESC', 'Values in Kbytes');
 define('MPU_MOD_GZIP', 'Use GZIP compression in the Editor?');
 define('MPU_MOD_GZIP_DESC',
        "If your server supports GZIP compression, this resource makes use of a compacted javascript that allows the editor to be loaded faster.<br><b>Warning:</b> So that this resource can run correctly, the root directory of the visual editor (defined above, in the configuration parameter '"
-       . MPU_MOD_WYSIWYG_PATH . "') must have write permissions!");
+       . MPU_MOD_WYSIWYG_PATH
+       . "') must have write permissions!");
 define('MPU_MOD_CONTENTMIMES', 'Allowed extensions in the content file manager.');
 define('MPU_MOD_CONTENTMIMES_DESC', 'Select the allowed extensions for upload in the content file manager. Keep the <b>CTRL</b> key pressed to select more than one option.');
 define('MPU_MOD_MIMETYPES', 'Allowed extensions in the file manager.');

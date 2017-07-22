@@ -11,7 +11,7 @@
 ### =============================================================
 ###
 ### =============================================================
-include_once XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/class/mpu_geral.class.php';
+require_once XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/class/mpu_geral.class.php';
 
 class mpu_cfi_contentfiles extends mpu_geral
 {
@@ -82,7 +82,7 @@ class mpu_cfi_contentfiles extends mpu_geral
 
     public function delete()
     {
-        include_once XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/class/mpu_mpb_mpublish.class.php';
+        require_once XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/class/mpu_mpb_mpublish.class.php';
         $mpu_classe = new mpu_mpb_mpublish();
         $criterio   = new Criteria('mpb_30_arquivo', $this->getVar('cfi_30_arquivo'));
         $mpb_todos  = $mpu_classe->PegaTudo($criterio);

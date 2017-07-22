@@ -1,4 +1,4 @@
-<?PHP
+<?php
 ### =============================================================
 ### Mastop InfoDigital - Paix�o por Internet
 ### =============================================================
@@ -30,7 +30,7 @@ document.getElementById('largalt').style.display="";
 </script>
 
 JSCRIPT;
-include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 $med_form = new XoopsThemeForm($form['titulo'], 'mpu_med_form', $_SERVER['PHP_SELF'], 'post', true);
 $med_form->setExtra('enctype="multipart/form-data"');
 if ($med_classe->getVar('med_10_id') != '') {
@@ -41,18 +41,18 @@ if ($med_classe->getVar('med_10_id') != '') {
         case 1:
             $cod_html = '
 <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" width="' . $largura . '" height="' . $altura . '">
-<param name="src" value="' . $arquivo . '" />
-<param name="width" value="' . $largura . '" />
-<param name="height" value="' . $altura . '" />
+<param name="src" value="' . $arquivo . '">
+<param name="width" value="' . $largura . '">
+<param name="height" value="' . $altura . '">
 <embed type="application/x-shockwave-flash" src="' . $arquivo . '" width="' . $largura . '" height="' . $altura . '"></embed>
 </object>';
             break;
         case 2:
             $cod_html = '
 <object classid="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B" codebase="http://www.apple.com/qtactivex/qtplugin.cab#version=6,0,2,0" width="' . $largura . '" height="' . $altura . '">
-<param name="src" value="' . $arquivo . '" />
-<param name="width" value="' . $largura . '" />
-<param name="height" value="' . $altura . '" />
+<param name="src" value="' . $arquivo . '">
+<param name="width" value="' . $largura . '">
+<param name="height" value="' . $altura . '">
 <embed type="video/quicktime" src="' . $arquivo . '" width="' . $largura . '" height="' . $altura . '"></embed>
 </object>
         ';
@@ -60,15 +60,15 @@ if ($med_classe->getVar('med_10_id') != '') {
         case 3:
             $cod_html = '
 <object classid="clsid:166B1BCA-3F9C-11CF-8075-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/director/sw.cab#version=8,5,1,0" width="' . $largura . '" height="' . $altura . '">
-<param name="sound" value="true" />
-<param name="progress" value="true" />
-<param name="autostart" value="true" />
-<param name="swstretchstyle" value="none" />
-<param name="swstretchhalign" value="none" />
-<param name="swstretchvalign" value="none" />
-<param name="src" value="' . $arquivo . '" />
-<param name="width" value="' . $largura . '" />
-<param name="height" value="' . $altura . '" />
+<param name="sound" value="true">
+<param name="progress" value="true">
+<param name="autostart" value="true">
+<param name="swstretchstyle" value="none">
+<param name="swstretchhalign" value="none">
+<param name="swstretchvalign" value="none">
+<param name="src" value="' . $arquivo . '">
+<param name="width" value="' . $largura . '">
+<param name="height" value="' . $altura . '">
 <embed type="application/x-director" sound="true" progress="true" autostart="true" swliveconnect="false" swstretchstyle="none" swstretchhalign="none" swstretchvalign="none" src="' . $arquivo . '" width="' . $largura . '" height="' . $altura . '"></embed>
 </object>
         ';
@@ -76,10 +76,10 @@ if ($med_classe->getVar('med_10_id') != '') {
         case 4:
             $cod_html = '
 <object classid="clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6" codebase="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=5,1,52,701" width="' . $largura . '" height="' . $altura . '">
-<param name="src" value="' . $arquivo . '" />
-<param name="url" value="' . $arquivo . '" />
-<param name="width" value="' . $largura . '" />
-<param name="height" value="' . $altura . '" />
+<param name="src" value="' . $arquivo . '">
+<param name="url" value="' . $arquivo . '">
+<param name="width" value="' . $largura . '">
+<param name="height" value="' . $altura . '">
 <embed type="application/x-mplayer2" src="' . $arquivo . '" width="' . $largura . '" height="' . $altura . '"></embed>
 </object>
         ';
@@ -88,10 +88,10 @@ if ($med_classe->getVar('med_10_id') != '') {
         default:
             $cod_html = '
 <object classid="clsid:CFCDAA03-8BE4-11cf-B84B-0020AFBBCCFA" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" width="' . $largura . '" height="' . $altura . '">
-<param name="autostart" value="true" />
-<param name="src" value="' . $arquivo . '" />
-<param name="width" value="' . $largura . '" />
-<param name="height" value="' . $altura . '" />
+<param name="autostart" value="true">
+<param name="src" value="' . $arquivo . '">
+<param name="width" value="' . $largura . '">
+<param name="height" value="' . $altura . '">
 <embed type="audio/x-pn-realaudio-plugin" autostart="true" src="' . $arquivo . '" width="' . $largura . '" height="' . $altura . '"></embed>
 </object>
         ';

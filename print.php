@@ -13,7 +13,7 @@
 ### =============================================================
 include __DIR__ . '/../../mainfile.php';
 $xoopsLogger->activated = false;
-include_once __DIR__ . '/header.php';
+require_once __DIR__ . '/header.php';
 $tac = isset($_GET['tac']) ? $_GET['tac'] : 0;
 $tac = is_int($tac) ? $tac : str_replace('_', ' ', $tac);
 if (!$tac) {
@@ -23,10 +23,10 @@ if (!$tac) {
     if (!$mpu_classe->getVar('mpb_10_id')) {
         redirect_header(XOOPS_URL, 2, MPU_MAI_404);
     } else {
-        $groups        = (!empty($xoopsUser)
-                          && is_object($xoopsUser)) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-        $gperm_handler = xoops_getHandler('groupperm');
-        if (!$gperm_handler->checkRight('mpu_mpublish_acesso', $mpu_classe->getVar('mpb_10_id'), $groups, $xoopsModule->getVar('mid'))) {
+        $groups       = (!empty($xoopsUser)
+                         && is_object($xoopsUser)) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+        $gpermHandler = xoops_getHandler('groupperm');
+        if (!$gpermHandler->checkRight('mpu_mpublish_acesso', $mpu_classe->getVar('mpb_10_id'), $groups, $xoopsModule->getVar('mid'))) {
             redirect_header(XOOPS_URL, 3, _NOPERM);
         }
         if ($xoopsModuleConfig['mpu_conf_navigation']) {
@@ -35,10 +35,8 @@ if (!$tac) {
             $navigation = '';
         }
         if ($mpu_classe->getVar('mpb_30_arquivo') != ''
-            && substr($mpu_classe->getVar('mpb_30_arquivo'), 0, 7) == 'http://'
-        ) {
-            $content       = '<iframe src ="' . $mpu_classe->getVar('mpb_30_arquivo') . '" width="' . $xoopsModuleConfig['mpu_conf_iframe_width'] . '" height="' . $xoopsModuleConfig['mpu_conf_iframe_height']
-                             . '" scrolling="auto" frameborder="0"></iframe>';
+            && substr($mpu_classe->getVar('mpb_30_arquivo'), 0, 7) == 'http://') {
+            $content       = '<iframe src ="' . $mpu_classe->getVar('mpb_30_arquivo') . '" width="' . $xoopsModuleConfig['mpu_conf_iframe_width'] . '" height="' . $xoopsModuleConfig['mpu_conf_iframe_height'] . '" scrolling="auto" frameborder="0"></iframe>';
             $mpb_30_titulo = $mpu_classe->getVar('mpb_30_titulo');
         } elseif ($mpu_classe->getVar('mpb_30_arquivo') != '' && $mpu_classe->getVar('mpb_35_conteudo') == '') {
             $pageContent = MPU_HTML_PATH . '/' . $mpu_classe->getVar('mpb_30_arquivo');
@@ -68,18 +66,18 @@ if (!$tac) {
     a{text-decoration: none; color:#000000 }
     </style>
     ';
-    echo '<meta http-equiv="Content-Type" content="text/html; charset=' . _CHARSET . '" />';
+    echo '<meta http-equiv="Content-Type" content="text/html; charset=' . _CHARSET . '">';
     echo '<title>' . $xoopsConfig['sitename'] . ' - ' . $titulo . '</title>';
-    echo '<meta name="AUTHOR" content="' . $xoopsConfig['sitename'] . '" />';
-    echo '<meta name="COPYRIGHT" content="Copyright (c) ' . date('Y') . ' by ' . $xoopsConfig['sitename'] . '" />';
-    echo '<meta name="DESCRIPTION" content="' . $xoopsConfig['slogan'] . '" />';
-    echo '<meta name="GENERATOR" content="Mastop Publish V ' . round($xoopsModule->getVar('version') / 100, 2) . '-' . XOOPS_VERSION . '" />';
+    echo '<meta name="AUTHOR" content="' . $xoopsConfig['sitename'] . '">';
+    echo '<meta name="COPYRIGHT" content="Copyright (c) ' . date('Y') . ' by ' . $xoopsConfig['sitename'] . '">';
+    echo '<meta name="DESCRIPTION" content="' . $xoopsConfig['slogan'] . '">';
+    echo '<meta name="GENERATOR" content="Mastop Publish V ' . round($xoopsModule->getVar('version') / 100, 2) . '-' . XOOPS_VERSION . '">';
     echo '<body bgcolor="#ffffff" text="#000000" onload="window.print()">
         <table border="0"><tr><td align="center">
         <table border="0" width="640" cellpadding="0" cellspacing="1" bgcolor="#000000"><tr><td>
         <table border="0" width="640" cellpadding="20" cellspacing="1" bgcolor="#ffffff"><tr><td><span style="color:#000000; font-size:15px;">' . $navigation . '</span></td></tr>
         <tr><td align="center">
-        <img src="' . XOOPS_URL . '/images/logo.gif" border="0" alt="" /><br><br>
+        <img src="' . XOOPS_URL . '/images/logo.gif" border="0" alt=""><br><br>
         <h3>' . $titulo . '</h3></td></tr>';
     echo '<tr valign="top"><td>';
     echo $content;

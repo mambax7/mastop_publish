@@ -11,7 +11,7 @@
 ### =============================================================
 ###
 ### =============================================================
-include_once __DIR__ . '/admin_header.php';
+require_once __DIR__ . '/admin_header.php';
 global $pathIcon16;
 $op = isset($_GET['op']) ? $_GET['op'] : 'files';
 if (isset($_GET)) {
@@ -76,7 +76,7 @@ switch ($op) {
         $file_nome = $_FILES[$_POST['xoops_upload_file'][0]];
         $file_nome = get_magic_quotes_gpc() ? stripslashes($file_nome['name']) : $file_nome['name'];
         if (xoops_trim($file_nome != '')) {
-            include_once XOOPS_ROOT_PATH . '/class/uploader.php';
+            require_once XOOPS_ROOT_PATH . '/class/uploader.php';
             $uploader = new XoopsMediaUploader(MPU_FILES_PATH, $xoopsModuleConfig['mpu_conf_mimetypes'], $xoopsModuleConfig['mpu_max_filesize'] * 1024);
             $uploader->setPrefix('files_');
             if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
@@ -200,7 +200,13 @@ switch ($op) {
         $fil_form->display();
         break;
 }
-echo "<div align='center'><a href='http://www.mastop.com.br/produtos/publish/'><img src='images/footer.gif'></a><br><a style='color: #029116; font-size:11px' href='feedback.php'>" . MPU_ADM_FEEDBACK
-     . "</a> - <a style='color: #FF0000; font-size:11px' href='http://www.mastop.com.br/produtos/publish/checkversion.php?lang=" . $xoopsConfig['language'] . '&version=' . round($xoopsModule->getVar('version') / 100, 2) . "' target='_blank'>"
-     . MPU_ADM_CHKVERSION . '</a></div>';
+echo "<div align='center'><a href='http://www.mastop.com.br/produtos/publish/'><img src='images/footer.gif'></a><br><a style='color: #029116; font-size:11px' href='feedback.php'>"
+     . MPU_ADM_FEEDBACK
+     . "</a> - <a style='color: #FF0000; font-size:11px' href='http://www.mastop.com.br/produtos/publish/checkversion.php?lang="
+     . $xoopsConfig['language']
+     . '&version='
+     . round($xoopsModule->getVar('version') / 100, 2)
+     . "' target='_blank'>"
+     . MPU_ADM_CHKVERSION
+     . '</a></div>';
 xoops_cp_footer();

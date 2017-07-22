@@ -11,7 +11,7 @@
 ### =============================================================
 ###
 ### =============================================================
-include_once __DIR__ . '/admin_header.php';
+require_once __DIR__ . '/admin_header.php';
 $op = isset($_GET['op']) ? $_GET['op'] : 'listar';
 if (isset($_GET)) {
     foreach ($_GET as $k => $v) {
@@ -105,7 +105,7 @@ switch ($op) {
         break;
     case 'listar_clone_ok':
         $mpu_classe = (isset($mpb_10_id) && $mpb_10_id > 0) ? new mpu_mpb_mpublish($mpb_10_id) : new mpu_mpb_mpublish();
-        $grupos_ids = $moduleperm_handler->getGroupIds('mpu_mpublish_acesso', $mpb_10_id, $xoopsModule->getVar('mid'));
+        $grupos_ids = $modulepermHandler->getGroupIds('mpu_mpublish_acesso', $mpb_10_id, $xoopsModule->getVar('mid'));
         if ($mpu_classe->getVar('mpb_10_id') > 0) {
             $mpu_classe->setVar('mpb_10_id', 0);
             $mpu_classe->setVar('mpb_30_menu', MPU_ADM_CLONE . $mpu_classe->getVar('mpb_30_menu'));
@@ -295,8 +295,16 @@ switch ($op) {
             $c['nome'][6]   = 'subpages';
             $c['rotulo'][6] = MPU_ADM_SUBS;
             $c['tipo'][6]   = 'none';
-            $c['show'][6]   = '($mySubs = $reg->countSubs()) ? $mySubs." <a href=\'' . XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/admin/main.php?op=listar&mpb_10_id=".$reg->getVar($reg->id)."' . '\' title=\'' . MPU_ADM_SHOWSUBS
-                              . '\'><img src=\'assets/images/view.gif\' align=\'absmiddle\' alt=\'' . MPU_ADM_SHOWSUBS . '\'></a>": 0;';
+            $c['show'][6]   = '($mySubs = $reg->countSubs()) ? $mySubs." <a href=\''
+                              . XOOPS_URL
+                              . '/modules/'
+                              . MPU_MOD_DIR
+                              . '/admin/main.php?op=listar&mpb_10_id=".$reg->getVar($reg->id)."'
+                              . '\' title=\''
+                              . MPU_ADM_SHOWSUBS
+                              . '\'><img src=\'assets/images/view.gif\' align=\'absmiddle\' alt=\''
+                              . MPU_ADM_SHOWSUBS
+                              . '\'></a>": 0;';
             $c['nosort'][6] = 1;
 
             $c['nome'][7]   = 'mpb_10_contador';
@@ -335,8 +343,14 @@ switch ($op) {
         }
 
 }
-echo "<div align='center'><a href='http://www.mastop.com.br/produtos/publish/'><img src='images/footer.gif'></a><br><a style='color: #029116; font-size:11px' href='feedback.php'>" . MPU_ADM_FEEDBACK
-     . "</a> - <a style='color: #FF0000; font-size:11px' href='http://www.mastop.com.br/produtos/publish/checkversion.php?lang=" . $xoopsConfig['language'] . '&version=' . round($xoopsModule->getVar('version') / 100, 2) . "' target='_blank'>"
-     . MPU_ADM_CHKVERSION . '</a></div>';
+echo "<div align='center'><a href='http://www.mastop.com.br/produtos/publish/'><img src='images/footer.gif'></a><br><a style='color: #029116; font-size:11px' href='feedback.php'>"
+     . MPU_ADM_FEEDBACK
+     . "</a> - <a style='color: #FF0000; font-size:11px' href='http://www.mastop.com.br/produtos/publish/checkversion.php?lang="
+     . $xoopsConfig['language']
+     . '&version='
+     . round($xoopsModule->getVar('version') / 100, 2)
+     . "' target='_blank'>"
+     . MPU_ADM_CHKVERSION
+     . '</a></div>';
 //xoops_cp_footer();
-include_once __DIR__ . '/admin_footer.php';
+require_once __DIR__ . '/admin_footer.php';

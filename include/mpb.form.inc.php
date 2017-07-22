@@ -1,4 +1,4 @@
-<?PHP
+<?php
 ### =============================================================
 ### Mastop InfoDigital - Paix�o por Internet
 ### =============================================================
@@ -12,7 +12,7 @@
 ###
 ### =============================================================
 // defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
-include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 $mpb_form = new XoopsThemeForm($form['titulo'], 'mpu_mpb_form', $_SERVER['PHP_SELF'], 'post', true);
 if ($mpb_10_id > 0) {
     $mpb_infos_tray = new XoopsFormElementTray(MPU_ADM_INFO, '<br>');
@@ -25,7 +25,7 @@ if ($mpb_10_id > 0) {
     $mpb_infos_tray->addElement($mpb_botao_limpacont);
     $mpb_form->addElement($mpb_infos_tray);
 }
-$grupos_ids = ($mpb_10_id > 0) ? $moduleperm_handler->getGroupIds('mpu_mpublish_acesso', $mpb_10_id, $xoopsModule->getVar('mid')) : $xoopsUser->getGroups();
+$grupos_ids = ($mpb_10_id > 0) ? $modulepermHandler->getGroupIds('mpu_mpublish_acesso', $mpb_10_id, $xoopsModule->getVar('mid')) : $xoopsUser->getGroups();
 if (!in_array(XOOPS_GROUP_ANONYMOUS, $grupos_ids) && $mpb_10_id == 0) {
     array_push($grupos_ids, XOOPS_GROUP_ANONYMOUS);
 }
@@ -46,25 +46,29 @@ $mpb_titulo              = new XoopsFormText('', 'mpb_30_titulo', 50, 100, $mpu_
 $mpb_tray_titulo_semlink->addElement($mpb_titulo);
 $mpb_semlink = new XoopsFormCheckBox('', 'mpb_12_semlink', $mpu_classe->getVar('mpb_12_semlink'));
 $mpb_semlink->setExtra("id='mpb_12_semlink1' onclick='if (this.checked) { document.getElementById(\"mpb_external1\").checked=false; document.getElementById(\"mpb_pagina1\").checked=false; document.getElementById(\"mpb_frame1\").checked=false; document.getElementById(\"mpb_external_span\").style.display=\"none\"; document.getElementById(\"mpb_35_conteudo_span\").style.display=\"none\"; document.getElementById(\"mpb_pagina_span\").style.display=\"none\"; document.getElementById(\"mpb_30_arquivo_span\").style.display=\"none\"; } else { document.getElementById(\"mpb_35_conteudo_span\").style.display=\"\";"
-                       . ($xoopsModuleConfig['mpu_conf_wysiwyg'] ? "tinyMCE.execCommand(\"mceResetDesignMode\");" : '') . "}'");
+                       . ($xoopsModuleConfig['mpu_conf_wysiwyg'] ? "tinyMCE.execCommand(\"mceResetDesignMode\");" : '')
+                       . "}'");
 $mpb_semlink->addOption(1, MPU_ADM_MPB_12_SEMLINK);
 $mpb_tray_titulo_semlink->addElement($mpb_semlink);
 
 $mpb_external_check = new XoopsFormCheckBox('', 'mpb_external', ((substr($mpu_classe->getVar('mpb_30_arquivo'), 0, 4) == 'ext:') ? 1 : 0));
 $mpb_external_check->setExtra("id='mpb_external1' onclick='if (this.checked) { document.getElementById(\"mpb_pagina1\").checked=false; document.getElementById(\"mpb_12_semlink1\").checked=false; document.getElementById(\"mpb_frame1\").checked=false; document.getElementById(\"mpb_external_span\").style.display=\"\"; document.getElementById(\"mpb_30_arquivo_span\").style.display=\"none\"; document.getElementById(\"mpb_pagina_span\").style.display=\"none\"; document.getElementById(\"mpb_35_conteudo_span\").style.display=\"none\";} else {document.getElementById(\"mpb_external_span\").style.display=\"none\";document.getElementById(\"mpb_35_conteudo_span\").style.display=\"\";"
-                              . ($xoopsModuleConfig['mpu_conf_wysiwyg'] ? "tinyMCE.execCommand(\"mceResetDesignMode\");" : '') . "}'");
+                              . ($xoopsModuleConfig['mpu_conf_wysiwyg'] ? "tinyMCE.execCommand(\"mceResetDesignMode\");" : '')
+                              . "}'");
 $mpb_external_check->addOption(1, MPU_ADM_MPB_EXTERNAL);
 $mpb_tray_titulo_semlink->addElement($mpb_external_check);
 
 $mpb_frame_check = new XoopsFormCheckBox('', 'mpb_frame', ((substr($mpu_classe->getVar('mpb_30_arquivo'), 0, 4) == 'http') ? 1 : 0));
 $mpb_frame_check->setExtra("id='mpb_frame1' onclick='if (this.checked) { document.getElementById(\"mpb_external1\").checked=false; document.getElementById(\"mpb_pagina1\").checked=false; document.getElementById(\"mpb_12_semlink1\").checked=false; document.getElementById(\"mpb_external_span\").style.display=\"none\"; document.getElementById(\"mpb_30_arquivo_span\").style.display=\"\"; document.getElementById(\"mpb_pagina_span\").style.display=\"none\"; document.getElementById(\"mpb_35_conteudo_span\").style.display=\"none\";} else {document.getElementById(\"mpb_30_arquivo_span\").style.display=\"none\";document.getElementById(\"mpb_35_conteudo_span\").style.display=\"\";"
-                           . ($xoopsModuleConfig['mpu_conf_wysiwyg'] ? "tinyMCE.execCommand(\"mceResetDesignMode\");" : '') . "}'");
+                           . ($xoopsModuleConfig['mpu_conf_wysiwyg'] ? "tinyMCE.execCommand(\"mceResetDesignMode\");" : '')
+                           . "}'");
 $mpb_frame_check->addOption(1, MPU_ADM_MPB_FRAME);
 $mpb_tray_titulo_semlink->addElement($mpb_frame_check);
 $mpb_pagina = new XoopsFormCheckBox('', 'mpb_pagina', (($mpu_classe->getVar('mpb_30_arquivo') != '' && substr($mpu_classe->getVar('mpb_30_arquivo'), 0, 4) != 'http'
                                                         && substr($mpu_classe->getVar('mpb_30_arquivo'), 0, 4) != 'ext:') ? 1 : 0));
 $mpb_pagina->setExtra("id='mpb_pagina1' onclick='if (this.checked) { document.getElementById(\"mpb_external1\").checked=false; document.getElementById(\"mpb_frame1\").checked=false; document.getElementById(\"mpb_12_semlink1\").checked=false; document.getElementById(\"mpb_external_span\").style.display=\"none\"; document.getElementById(\"mpb_35_conteudo_span\").style.display=\"none\";document.getElementById(\"mpb_30_arquivo_span\").style.display=\"none\";document.getElementById(\"mpb_pagina_span\").style.display=\"\";} else { document.getElementById(\"mpb_35_conteudo_span\").style.display=\"\";document.getElementById(\"mpb_pagina_span\").style.display=\"none\";"
-                      . ($xoopsModuleConfig['mpu_conf_wysiwyg'] ? "tinyMCE.execCommand(\"mceResetDesignMode\");" : '') . "}'");
+                      . ($xoopsModuleConfig['mpu_conf_wysiwyg'] ? "tinyMCE.execCommand(\"mceResetDesignMode\");" : '')
+                      . "}'");
 $mpb_pagina->addOption(1, MPU_ADM_MPB_FROMFILE);
 $mpb_tray_titulo_semlink->addElement($mpb_pagina);
 
@@ -79,12 +83,18 @@ if (!$xoopsModuleConfig['mpu_conf_wysiwyg']) {
     if ($xoopsModuleConfig['mpu_conf_gzip']) {
         echo '
         <!-- TinyMCE -->
-<script language="javascript" type="text/javascript" src="' . $mpb_wysiwyg_url . '/tiny_mce_gzip.js"></script>
+<script language="javascript" type="text/javascript" src="'
+             . $mpb_wysiwyg_url
+             . '/tiny_mce_gzip.js"></script>
 <script language="javascript" type="text/javascript">
 tinyMCE_GZ.init({
-    plugins : "' . $xoopsModuleConfig['mpu_conf_wysiwyg_plugins'] . '",
+    plugins : "'
+             . $xoopsModuleConfig['mpu_conf_wysiwyg_plugins']
+             . '",
         themes : "advanced",
-        languages : "' . $xoopsModuleConfig['mpu_conf_wysiwyg_lang'] . '",
+        languages : "'
+             . $xoopsModuleConfig['mpu_conf_wysiwyg_lang']
+             . '",
         disk_cache : true,
         debug : false
 });
@@ -93,35 +103,94 @@ tinyMCE_GZ.init({
     tinyMCE.init({
         mode : "textareas",
         theme : "advanced",
-        language : "' . $xoopsModuleConfig['mpu_conf_wysiwyg_lang'] . '",
+        language : "'
+             . $xoopsModuleConfig['mpu_conf_wysiwyg_lang']
+             . '",
         editor_selector : "mpu_wysiwyg",
         disk_cache : true,
         debug : false,
-        plugins : "' . $xoopsModuleConfig['mpu_conf_wysiwyg_plugins'] . '",
-        theme_advanced_buttons1_add_before : "' . $xoopsModuleConfig['mpu_conf_wysiwyg_bt1b'] . '",
-        theme_advanced_buttons1_add : "' . $xoopsModuleConfig['mpu_conf_wysiwyg_bt1'] . '",
-        theme_advanced_buttons2_add : "' . $xoopsModuleConfig['mpu_conf_wysiwyg_bt2'] . '",
-        theme_advanced_buttons2_add_before: "' . $xoopsModuleConfig['mpu_conf_wysiwyg_bt2b'] . '",
-        theme_advanced_buttons3_add_before : "' . $xoopsModuleConfig['mpu_conf_wysiwyg_bt3b'] . '",
-        theme_advanced_buttons3_add : "' . $xoopsModuleConfig['mpu_conf_wysiwyg_bt3'] . '",
-        theme_advanced_buttons4 : "' . $xoopsModuleConfig['mpu_conf_wysiwyg_bt4'] . '",
+        plugins : "'
+             . $xoopsModuleConfig['mpu_conf_wysiwyg_plugins']
+             . '",
+        theme_advanced_buttons1_add_before : "'
+             . $xoopsModuleConfig['mpu_conf_wysiwyg_bt1b']
+             . '",
+        theme_advanced_buttons1_add : "'
+             . $xoopsModuleConfig['mpu_conf_wysiwyg_bt1']
+             . '",
+        theme_advanced_buttons2_add : "'
+             . $xoopsModuleConfig['mpu_conf_wysiwyg_bt2']
+             . '",
+        theme_advanced_buttons2_add_before: "'
+             . $xoopsModuleConfig['mpu_conf_wysiwyg_bt2b']
+             . '",
+        theme_advanced_buttons3_add_before : "'
+             . $xoopsModuleConfig['mpu_conf_wysiwyg_bt3b']
+             . '",
+        theme_advanced_buttons3_add : "'
+             . $xoopsModuleConfig['mpu_conf_wysiwyg_bt3']
+             . '",
+        theme_advanced_buttons4 : "'
+             . $xoopsModuleConfig['mpu_conf_wysiwyg_bt4']
+             . '",
         theme_advanced_toolbar_location : "top",
         theme_advanced_toolbar_align : "left",
         theme_advanced_path_location : "bottom",
-        content_css : "' . XOOPS_THEME_URL . '/' . $GLOBALS['xoopsConfig']['theme_set'] . '/style.css",
-        plugin_insertdate_dateFormat : "' . $xoopsModuleConfig['mpu_conf_wysiwyg_frmtdata'] . '",
-        plugin_insertdate_timeFormat : "' . $xoopsModuleConfig['mpu_conf_wysiwyg_frmthora'] . '",
+        content_css : "'
+             . XOOPS_THEME_URL
+             . '/'
+             . $GLOBALS['xoopsConfig']['theme_set']
+             . '/style.css",
+        plugin_insertdate_dateFormat : "'
+             . $xoopsModuleConfig['mpu_conf_wysiwyg_frmtdata']
+             . '",
+        plugin_insertdate_timeFormat : "'
+             . $xoopsModuleConfig['mpu_conf_wysiwyg_frmthora']
+             . '",
         extended_valid_elements : "hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style],iframe[align<bottom?left?middle?right?top|class|frameborder|height|id|longdesc|marginheight|marginwidth|name|scrolling<auto?no?yes|src|style|title|width]",
-        external_link_list_url : "' . XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/include/mpu_files_list.js.php",
-        external_image_list_url : "' . XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/include/mpu_image_list.js.php",
-        media_external_list_url : "' . XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/include/mpu_media_list.js.php",
+        external_link_list_url : "'
+             . XOOPS_URL
+             . '/modules/'
+             . MPU_MOD_DIR
+             . '/include/mpu_files_list.js.php",
+        external_image_list_url : "'
+             . XOOPS_URL
+             . '/modules/'
+             . MPU_MOD_DIR
+             . '/include/mpu_image_list.js.php",
+        media_external_list_url : "'
+             . XOOPS_URL
+             . '/modules/'
+             . MPU_MOD_DIR
+             . '/include/mpu_media_list.js.php",
         file_browser_callback : "mpu_chama_browser",
         theme_advanced_resize_horizontal : true,
         theme_advanced_resizing : true,
         nonbreaking_force_tab : true,
         apply_source_formatting : true,
-        plugin_keyword_list : "' . MPU_ADM_BANNER . '={banner};' . MPU_ADM_SITENAME . '={sitename};' . MPU_ADM_SLOGAN . '={slogan};' . MPU_ADM_ADMINMAIL . '={adminmail};' . MPU_ADM_SITEURL . '={xoops_url};' . MPU_ADM_UID . '={uid};'
-             . MPU_ADM_USERNAME . '={name};' . MPU_ADM_USERLOGIN . '={uname};' . MPU_ADM_UEMAIL . '={email};' . MPU_ADM_USERURL . '={url};' . MPU_ADM_USERPOSTS . '={posts};",
+        plugin_keyword_list : "'
+             . MPU_ADM_BANNER
+             . '={banner};'
+             . MPU_ADM_SITENAME
+             . '={sitename};'
+             . MPU_ADM_SLOGAN
+             . '={slogan};'
+             . MPU_ADM_ADMINMAIL
+             . '={adminmail};'
+             . MPU_ADM_SITEURL
+             . '={xoops_url};'
+             . MPU_ADM_UID
+             . '={uid};'
+             . MPU_ADM_USERNAME
+             . '={name};'
+             . MPU_ADM_USERLOGIN
+             . '={uname};'
+             . MPU_ADM_UEMAIL
+             . '={email};'
+             . MPU_ADM_USERURL
+             . '={url};'
+             . MPU_ADM_USERPOSTS
+             . '={posts};",
         ';
         if ($xoopsModuleConfig['mpu_conf_wysiwyg_bkg']) {
             echo '
@@ -222,40 +291,101 @@ tinyMCE_GZ.init({
     } else {
         echo '
 <!-- TinyMCE -->
-<script language="javascript" type="text/javascript" src="' . $mpb_wysiwyg_url . '/tiny_mce.js"></script>
+<script language="javascript" type="text/javascript" src="'
+             . $mpb_wysiwyg_url
+             . '/tiny_mce.js"></script>
 <script language="javascript" type="text/javascript">
 tinyMCE.init({
     mode : "textareas",
     theme : "advanced",
-    language : "' . $xoopsModuleConfig['mpu_conf_wysiwyg_lang'] . '",
+    language : "'
+             . $xoopsModuleConfig['mpu_conf_wysiwyg_lang']
+             . '",
     editor_selector : "mpu_wysiwyg",
     disk_cache : true,
     debug : false,
-    plugins : "' . $xoopsModuleConfig['mpu_conf_wysiwyg_plugins'] . '",
-    theme_advanced_buttons1_add_before : "' . $xoopsModuleConfig['mpu_conf_wysiwyg_bt1b'] . '",
-    theme_advanced_buttons1_add : "' . $xoopsModuleConfig['mpu_conf_wysiwyg_bt1'] . '",
-    theme_advanced_buttons2_add : "' . $xoopsModuleConfig['mpu_conf_wysiwyg_bt2'] . '",
-    theme_advanced_buttons2_add_before: "' . $xoopsModuleConfig['mpu_conf_wysiwyg_bt2b'] . '",
-    theme_advanced_buttons3_add_before : "' . $xoopsModuleConfig['mpu_conf_wysiwyg_bt3b'] . '",
-    theme_advanced_buttons3_add : "' . $xoopsModuleConfig['mpu_conf_wysiwyg_bt3'] . '",
-    theme_advanced_buttons4 : "' . $xoopsModuleConfig['mpu_conf_wysiwyg_bt4'] . '",
+    plugins : "'
+             . $xoopsModuleConfig['mpu_conf_wysiwyg_plugins']
+             . '",
+    theme_advanced_buttons1_add_before : "'
+             . $xoopsModuleConfig['mpu_conf_wysiwyg_bt1b']
+             . '",
+    theme_advanced_buttons1_add : "'
+             . $xoopsModuleConfig['mpu_conf_wysiwyg_bt1']
+             . '",
+    theme_advanced_buttons2_add : "'
+             . $xoopsModuleConfig['mpu_conf_wysiwyg_bt2']
+             . '",
+    theme_advanced_buttons2_add_before: "'
+             . $xoopsModuleConfig['mpu_conf_wysiwyg_bt2b']
+             . '",
+    theme_advanced_buttons3_add_before : "'
+             . $xoopsModuleConfig['mpu_conf_wysiwyg_bt3b']
+             . '",
+    theme_advanced_buttons3_add : "'
+             . $xoopsModuleConfig['mpu_conf_wysiwyg_bt3']
+             . '",
+    theme_advanced_buttons4 : "'
+             . $xoopsModuleConfig['mpu_conf_wysiwyg_bt4']
+             . '",
     theme_advanced_toolbar_location : "top",
     theme_advanced_toolbar_align : "left",
     theme_advanced_path_location : "bottom",
-    content_css : "' . XOOPS_THEME_URL . '/' . $GLOBALS['xoopsConfig']['theme_set'] . '/style.css",
-    plugin_insertdate_dateFormat : "' . $xoopsModuleConfig['mpu_conf_wysiwyg_frmtdata'] . '",
-    plugin_insertdate_timeFormat : "' . $xoopsModuleConfig['mpu_conf_wysiwyg_frmthora'] . '",
+    content_css : "'
+             . XOOPS_THEME_URL
+             . '/'
+             . $GLOBALS['xoopsConfig']['theme_set']
+             . '/style.css",
+    plugin_insertdate_dateFormat : "'
+             . $xoopsModuleConfig['mpu_conf_wysiwyg_frmtdata']
+             . '",
+    plugin_insertdate_timeFormat : "'
+             . $xoopsModuleConfig['mpu_conf_wysiwyg_frmthora']
+             . '",
     extended_valid_elements : "hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style],iframe[align<bottom?left?middle?right?top|class|frameborder|height|id|longdesc|marginheight|marginwidth|name|scrolling<auto?no?yes|src|style|title|width]",
-    external_link_list_url : "' . XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/include/mpu_link_list.js",
-    external_image_list_url : "' . XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/include/mpu_image_list.js.php",
-    media_external_list_url : "' . XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/include/mpu_media_list.js",
+    external_link_list_url : "'
+             . XOOPS_URL
+             . '/modules/'
+             . MPU_MOD_DIR
+             . '/include/mpu_link_list.js",
+    external_image_list_url : "'
+             . XOOPS_URL
+             . '/modules/'
+             . MPU_MOD_DIR
+             . '/include/mpu_image_list.js.php",
+    media_external_list_url : "'
+             . XOOPS_URL
+             . '/modules/'
+             . MPU_MOD_DIR
+             . '/include/mpu_media_list.js",
     file_browser_callback : "mpu_chama_browser",
     theme_advanced_resize_horizontal : true,
     theme_advanced_resizing : true,
     nonbreaking_force_tab : true,
     apply_source_formatting : true,
-    plugin_keyword_list : "' . MPU_ADM_BANNER . '={banner};' . MPU_ADM_SITENAME . '={sitename};' . MPU_ADM_SLOGAN . '={slogan};' . MPU_ADM_ADMINMAIL . '={adminmail};' . MPU_ADM_SITEURL . '={xoops_url};' . MPU_ADM_UID . '={uid};' . MPU_ADM_USERNAME
-             . '={name};' . MPU_ADM_USERLOGIN . '={uname};' . MPU_ADM_UEMAIL . '={email};' . MPU_ADM_USERURL . '={url};' . MPU_ADM_USERPOSTS . '={posts};",
+    plugin_keyword_list : "'
+             . MPU_ADM_BANNER
+             . '={banner};'
+             . MPU_ADM_SITENAME
+             . '={sitename};'
+             . MPU_ADM_SLOGAN
+             . '={slogan};'
+             . MPU_ADM_ADMINMAIL
+             . '={adminmail};'
+             . MPU_ADM_SITEURL
+             . '={xoops_url};'
+             . MPU_ADM_UID
+             . '={uid};'
+             . MPU_ADM_USERNAME
+             . '={name};'
+             . MPU_ADM_USERLOGIN
+             . '={uname};'
+             . MPU_ADM_UEMAIL
+             . '={email};'
+             . MPU_ADM_USERURL
+             . '={url};'
+             . MPU_ADM_USERPOSTS
+             . '={posts};",
         ';
         if ($xoopsModuleConfig['mpu_conf_wysiwyg_bkg']) {
             echo '
@@ -356,8 +486,8 @@ function mpu_chama_browser(field_name, url, type, win)
     $textarea = new XoopsFormTextArea('', 'mpb_35_conteudo', $mpu_classe->getVar('mpb_35_conteudo', 'n'), 30);
     $textarea->setExtra("style='width: 100%' class='mpu_wysiwyg'");
     $mpb_tray_conteudo->addElement($textarea);
-    $mpb_tray_conteudo->addElement(new XoopsFormLabel("<a href='javascript:trocaEditor(\"mpb_35_conteudo\")' style='float:right; padding:3px; color:#000000; background-color:#F0F0EE; border: 1px solid #CCCCCC; border-top:0px; margin-top:-1px'>"
-                                                      . MPU_ADM_TOGGLE_EDITOR . '</a>', $mpu_classe->PegaSmileys()));
+    $mpb_tray_conteudo->addElement(new XoopsFormLabel("<a href='javascript:trocaEditor(\"mpb_35_conteudo\")' style='float:right; padding:3px; color:#000000; background-color:#F0F0EE; border: 1px solid #CCCCCC; border-top:0px; margin-top:-1px'>" . MPU_ADM_TOGGLE_EDITOR . '</a>',
+                                                      $mpu_classe->PegaSmileys()));
 }
 $mpb_tray_conteudo->addElement(new XoopsFormLabel('', "</span><span id='mpb_30_arquivo_span' " . ((substr($mpu_classe->getVar('mpb_30_arquivo'), 0, 4) != 'http') ? 'style="display:none"' : '') . '>'));
 $mpb_tray_conteudo->addElement(new XoopsFormText(MPU_ADM_MPB_FRAME_URL, 'mpb_30_arquivo_frame', 30, 255, ((substr($mpu_classe->getVar('mpb_30_arquivo'), 0, 4) == 'http') ? $mpu_classe->getVar('mpb_30_arquivo') : '')));

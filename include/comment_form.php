@@ -15,11 +15,11 @@ if (!defined('XOOPS_ROOT_PATH') || !is_object($xoopsModule)) {
     exit();
 }
 $com_modid = $xoopsModule->getVar('mid');
-include_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
-include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 $cform = new XoopsThemeForm(_CM_POSTCOMMENT, 'commentform', 'comment_post.php', 'post', true);
 if (isset($xoopsModuleConfig['com_rule'])) {
-    include_once XOOPS_ROOT_PATH . '/include/comment_constants.php';
+    require_once XOOPS_ROOT_PATH . '/include/comment_constants.php';
     switch ($xoopsModuleConfig['com_rule']) {
         case XOOPS_COMMENT_APPROVEALL:
             $rule_text = _CM_COMAPPROVEALL;
@@ -39,7 +39,7 @@ $cform->addElement(new XoopsFormText(_CM_TITLE, 'com_title', 50, 255, $com_title
 $icons_radio   = new XoopsFormRadio(_MESSAGEICON, 'com_icon', $com_icon);
 $subject_icons = XoopsLists::getSubjectsList();
 foreach ($subject_icons as $iconfile) {
-    $icons_radio->addOption($iconfile, '<img src="' . XOOPS_URL . '/images/subject/' . $iconfile . '" alt="" />');
+    $icons_radio->addOption($iconfile, '<img src="' . XOOPS_URL . '/images/subject/' . $iconfile . '" alt="">');
 }
 $cform->addElement($icons_radio);
 $cform->addElement(new XoopsFormDhtmlTextArea(_CM_MESSAGE, 'com_text', $com_text, 10, 50), true);
@@ -65,7 +65,7 @@ if (is_object($xoopsUser)) {
     if (false != $xoopsUser->isAdmin($com_modid)) {
         // show status change box when editing (comment id is not empty)
         if (!empty($com_id)) {
-            include_once XOOPS_ROOT_PATH . '/include/comment_constants.php';
+            require_once XOOPS_ROOT_PATH . '/include/comment_constants.php';
             $status_select = new XoopsFormSelect(_CM_STATUS, 'com_status', $com_status);
             $status_select->addOptionArray(array(
                                                XOOPS_COMMENT_PENDING => _CM_PENDING,

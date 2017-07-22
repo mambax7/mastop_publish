@@ -13,14 +13,14 @@
 ### =============================================================
 if (!defined('MPU_MOD_DIR')) {
     if (file_exists(XOOPS_ROOT_PATH . '/modules/' . MPU_BLO_MODDIR . '/language/' . $xoopsConfig['language'] . '/modinfo.php')) {
-        include_once XOOPS_ROOT_PATH . '/modules/' . MPU_BLO_MODDIR . '/language/' . $xoopsConfig['language'] . '/modinfo.php';
+        require_once XOOPS_ROOT_PATH . '/modules/' . MPU_BLO_MODDIR . '/language/' . $xoopsConfig['language'] . '/modinfo.php';
     } else {
-        include_once XOOPS_ROOT_PATH . '/modules/' . MPU_BLO_MODDIR . '/language/portuguesebr/modinfo.php';
+        require_once XOOPS_ROOT_PATH . '/modules/' . MPU_BLO_MODDIR . '/language/portuguesebr/modinfo.php';
     }
 }
 function mpu_menurelated_exibe($options)
 {
-    include_once XOOPS_ROOT_PATH . '/modules/' . MPU_BLO_MODDIR . '/class/mpu_mpb_mpublish.class.php';
+    require_once XOOPS_ROOT_PATH . '/modules/' . MPU_BLO_MODDIR . '/class/mpu_mpb_mpublish.class.php';
     $tac                   = isset($_GET['tac']) ? $_GET['tac'] : 0;
     $tac                   = is_int($tac) ? $tac : str_replace('_', ' ', $tac);
     $block                 = array();
@@ -78,7 +78,7 @@ function mpu_menurelated_edita($options)
     $form       = '
     <style type="text/css">
 <!--
-#plugin { BACKGROUND: #0d0d0d; COLOR: #AAA; CURSOR: move; DISPLAY: none; FONT-FAMILY: arial; FONT-SIZE: 11px; PADDING: 7px 10px 11px 10px; _PADDING-RIGHT: 0; Z-INDEX: 1;  POSITION: absolute; WIDTH: 199px; _width: 210px; _padding-right: 0px; }
+#plugin { BACKGROUND: #0d0d0d; COLOR: #AAA; CURSOR: move; DISPLAY: none; font-family: Arial, sans-serif; FONT-SIZE: 11px; PADDING: 7px 10px 11px 10px; _PADDING-RIGHT: 0; Z-INDEX: 1;  POSITION: absolute; WIDTH: 199px; _width: 210px; _padding-right: 0px; }
 #plugin br { CLEAR: both; MARGIN: 0; PADDING: 0;  }
 #plugin select { BORDER: 1px solid #333; BACKGROUND: #FFF; POSITION: relative; TOP: 4px; }
 
@@ -86,9 +86,7 @@ function mpu_menurelated_edita($options)
 #plugCLOSE { CURSOR: pointer; FLOAT: right; MARGIN: 0 8px 3px; _MARGIN-RIGHT: 10px; COLOR: #FFF; -moz-user-select: none; -khtml-user-select: none; user-select: none; }
 #plugHEX:hover,#plugCLOSE:hover { COLOR: #FFD000;  }
 
-#SV { background: #FF0000 url("' . $picker_url
-                  . '/SatVal.png"); _BACKGROUND: #FF0000; POSITION: relative; CURSOR: crosshair; FLOAT: left; HEIGHT: 166px; WIDTH: 167px; _WIDTH: 165px; MARGIN-RIGHT: 10px; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="'
-                  . $picker_url . '/SatVal.png", sizingMethod="scale"); -moz-user-select: none; -khtml-user-select: none; user-select: none; }
+#SV { background: #FF0000 url("' . $picker_url . '/SatVal.png"); _BACKGROUND: #FF0000; POSITION: relative; CURSOR: crosshair; FLOAT: left; HEIGHT: 166px; WIDTH: 167px; _WIDTH: 165px; MARGIN-RIGHT: 10px; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="' . $picker_url . '/SatVal.png", sizingMethod="scale"); -moz-user-select: none; -khtml-user-select: none; user-select: none; }
 #SVslide { BACKGROUND: url("' . $picker_url . '/slide.gif"); HEIGHT: 9px; WIDTH: 9px; POSITION: absolute; _font-size: 1px; line-height: 1px; }
 
 #H { BORDER: 1px solid #000; CURSOR: crosshair; FLOAT: left; HEIGHT: 154px; POSITION: relative; WIDTH: 19px; PADDING: 0; TOP: 4px; -moz-user-select: none; -khtml-user-select: none; user-select: none; }
@@ -128,7 +126,7 @@ $(nome).value = 0;
 }
 </script>
     ';
-    $form .= <<< PICKER
+    $form       .= <<< PICKER
     <div id="plugin" onmousedown="HSVslide('drag','plugin',event)" style="Z-INDEX: 20; display:none">
  <div id="plugHEX" onmousedown="stop=0; setTimeout('stop=1',100); toggle('plugin');">&nbsp</div><div id="plugCLOSE" onmousedown="toggle('plugin')">X</div><br>
  <div id="SV" onmousedown="HSVslide('SVslide','plugin',event)" title="Saturation + Value">
@@ -141,37 +139,91 @@ $(nome).value = 0;
 </div>
 PICKER;
 
-    $form .= MPU_BLO_OPT_ID . " <input type='text' name='options[0]' value='" . $options[0] . "' /><br>";
-    $form .= MPU_BLO_OPT_WIDTH . " <input type='text' size='4' name='options[1]' value='" . $options[1] . "' /><br>";
-    $form .= MPU_BLO_OPT_WIDTH_SUB . " <input type='text' size='4' name='options[2]' value='" . $options[2] . "' /><br>";
-    $form .= MPU_BLO_OPT_URLARROW . " <input type='text' size='35' name='options[3]' value='" . $options[3] . "' onblur=\"document.getElementById('menuImage').src=this.value\" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img id='menuImage' src='"
-             . $options[3] . "'><br>";
-    $form .= MPU_BLO_OPT_BGMENU . ' #<input size="6" type="text" name="options[4]" id="options[4]" value="' . $options[4] . '" onblur=\'$S(this.name+"_img").background="#"+this.value;\'><img id="options[4]_img" align="absmiddle" src="' . $picker_url
-             . '/color.gif" onmouseover="this.style.border=\'2px solid black\'"  onmouseout="this.style.border=\'2px solid #DEE3E7\'" onclick=\'pegaPicker($("options[4]"), event)\' style="border: 2px solid #DEE3E7; background: #' . $options[4]
+    $form .= MPU_BLO_OPT_ID . " <input type='text' name='options[0]' value='" . $options[0] . "'><br>";
+    $form .= MPU_BLO_OPT_WIDTH . " <input type='text' size='4' name='options[1]' value='" . $options[1] . "'><br>";
+    $form .= MPU_BLO_OPT_WIDTH_SUB . " <input type='text' size='4' name='options[2]' value='" . $options[2] . "'><br>";
+    $form .= MPU_BLO_OPT_URLARROW . " <input type='text' size='35' name='options[3]' value='" . $options[3] . "' onblur=\"document.getElementById('menuImage').src=this.value\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img id='menuImage' src='" . $options[3] . "'><br>";
+    $form .= MPU_BLO_OPT_BGMENU
+             . ' #<input size="6" type="text" name="options[4]" id="options[4]" value="'
+             . $options[4]
+             . '" onblur=\'$S(this.name+"_img").background="#"+this.value;\'><img id="options[4]_img" align="absmiddle" src="'
+             . $picker_url
+             . '/color.gif" onmouseover="this.style.border=\'2px solid black\'"  onmouseout="this.style.border=\'2px solid #DEE3E7\'" onclick=\'pegaPicker($("options[4]"), event)\' style="border: 2px solid #DEE3E7; background: #'
+             . $options[4]
              . '"><br>';
-    $form .= MPU_BLO_OPT_BGMENUO . ' #<input size="6" type="text" name="options[5]" id="options[5]" value="' . $options[5] . '" onblur=\'$S(this.name+"_img").background="#"+this.value;\'><img id="options[5]_img" align="absmiddle" src="' . $picker_url
-             . '/color.gif" onmouseover="this.style.border=\'2px solid black\'"  onmouseout="this.style.border=\'2px solid #DEE3E7\'" onclick=\'pegaPicker($("options[5]"), event)\' style="border: 2px solid #DEE3E7; background: #' . $options[5]
+    $form .= MPU_BLO_OPT_BGMENUO
+             . ' #<input size="6" type="text" name="options[5]" id="options[5]" value="'
+             . $options[5]
+             . '" onblur=\'$S(this.name+"_img").background="#"+this.value;\'><img id="options[5]_img" align="absmiddle" src="'
+             . $picker_url
+             . '/color.gif" onmouseover="this.style.border=\'2px solid black\'"  onmouseout="this.style.border=\'2px solid #DEE3E7\'" onclick=\'pegaPicker($("options[5]"), event)\' style="border: 2px solid #DEE3E7; background: #'
+             . $options[5]
              . '"><br>';
-    $form .= MPU_BLO_OPT_MENUTCOLOR . ' #<input size="6" type="text" name="options[6]" id="options[6]" value="' . $options[6] . '" onblur=\'$S(this.name+"_img").background="#"+this.value;\'><img id="options[6]_img" align="absmiddle" src="'
-             . $picker_url . '/color.gif" onmouseover="this.style.border=\'2px solid black\'"  onmouseout="this.style.border=\'2px solid #DEE3E7\'" onclick=\'pegaPicker($("options[6]"), event)\' style="border: 2px solid #DEE3E7; background: #'
-             . $options[6] . '"><br>';
-    $form .= MPU_BLO_OPT_MENUTOCOLOR . ' #<input size="6" type="text" name="options[7]" id="options[7]" value="' . $options[7] . '" onblur=\'$S(this.name+"_img").background="#"+this.value;\'><img id="options[7]_img" align="absmiddle" src="'
-             . $picker_url . '/color.gif" onmouseover="this.style.border=\'2px solid black\'"  onmouseout="this.style.border=\'2px solid #DEE3E7\'" onclick=\'pegaPicker($("options[7]"), event)\' style="border: 2px solid #DEE3E7; background: #'
-             . $options[7] . '"><br>';
-    $form .= MPU_BLO_OPT_MENUVISITED . ' #<input size="6" type="text" name="options[8]" id="options[8]" value="' . $options[8] . '" onblur=\'$S(this.name+"_img").background="#"+this.value;\'><img id="options[8]_img" align="absmiddle" src="'
-             . $picker_url . '/color.gif" onmouseover="this.style.border=\'2px solid black\'"  onmouseout="this.style.border=\'2px solid #DEE3E7\'" onclick=\'pegaPicker($("options[8]"), event)\' style="border: 2px solid #DEE3E7; background: #'
-             . $options[8] . '"><br>';
-    $form .= MPU_BLO_OPT_FONT . "<input type='hidden' name='options[9]' id='options[9]' value='" . ((!empty($options[9])) ? '1' : '0') . "'><label><input type='checkbox' name='chk[12]' value='1' " . ((!empty($options[9])) ? ' checked' : '')
-             . " onclick='troca(this, \"options[9]\")'> <b>" . MPU_BLO_OPT_BOLD . "</b></label>&nbsp;&nbsp;&nbsp;<input type='hidden' name='options[10]' id='options[10]' value='" . ((!empty($options[10])) ? '1' : '0')
-             . "'><label><input type='checkbox' name='chk[13]' value='1' " . ((!empty($options[10])) ? ' checked' : '') . " onclick='troca(this, \"options[10]\")'> <i>" . MPU_BLO_OPT_ITALIC
-             . "</i></label>&nbsp;&nbsp;&nbsp;<input type='hidden' name='options[11]' id='options[11]' value='" . ((!empty($options[11])) ? '1' : '0') . "'><label><input type='checkbox' name='options[11]' value='1' "
-             . ((!empty($options[11])) ? ' checked' : '') . " onclick='troca(this, \"options[11]\")'> <u>" . MPU_BLO_OPT_UNDERLINE . '</u></label><br>';
-    $form .= MPU_BLO_OPT_FONTO . "<input type='hidden' name='options[12]' id='options[12]' value='" . ((!empty($options[12])) ? '1' : '0') . "'><label><input type='checkbox' name='options[12]' value='1' " . ((!empty($options[12])) ? ' checked' : '')
-             . " onclick='troca(this, \"options[12]\")'> <b>" . MPU_BLO_OPT_BOLD . "</b></label>&nbsp;&nbsp;&nbsp;<input type='hidden' name='options[13]' id='options[13]' value='" . ((!empty($options[13])) ? '1' : '0')
-             . "'><label><input type='checkbox' name='options[13]' value='1' " . ((!empty($options[13])) ? ' checked' : '') . " onclick='troca(this, \"options[13]\")'> <i>" . MPU_BLO_OPT_ITALIC
-             . "</i></label>&nbsp;&nbsp;&nbsp;<input type='hidden' name='options[14]' id='options[14]' value='" . ((!empty($options[14])) ? '1' : '0') . "'><label><input type='checkbox' name='options[14]' value='1' "
-             . ((!empty($options[14])) ? ' checked' : '') . " onclick='troca(this, \"options[14]\")'> <u>" . MPU_BLO_OPT_UNDERLINE . '</u></label><br>';
-    $form .= MPU_BLO_OPT_BORDER . " <input size='4' type='text' name='options[15]' value='" . $options[15] . "' /> <select name='options[16]'>
+    $form .= MPU_BLO_OPT_MENUTCOLOR
+             . ' #<input size="6" type="text" name="options[6]" id="options[6]" value="'
+             . $options[6]
+             . '" onblur=\'$S(this.name+"_img").background="#"+this.value;\'><img id="options[6]_img" align="absmiddle" src="'
+             . $picker_url
+             . '/color.gif" onmouseover="this.style.border=\'2px solid black\'"  onmouseout="this.style.border=\'2px solid #DEE3E7\'" onclick=\'pegaPicker($("options[6]"), event)\' style="border: 2px solid #DEE3E7; background: #'
+             . $options[6]
+             . '"><br>';
+    $form .= MPU_BLO_OPT_MENUTOCOLOR
+             . ' #<input size="6" type="text" name="options[7]" id="options[7]" value="'
+             . $options[7]
+             . '" onblur=\'$S(this.name+"_img").background="#"+this.value;\'><img id="options[7]_img" align="absmiddle" src="'
+             . $picker_url
+             . '/color.gif" onmouseover="this.style.border=\'2px solid black\'"  onmouseout="this.style.border=\'2px solid #DEE3E7\'" onclick=\'pegaPicker($("options[7]"), event)\' style="border: 2px solid #DEE3E7; background: #'
+             . $options[7]
+             . '"><br>';
+    $form .= MPU_BLO_OPT_MENUVISITED
+             . ' #<input size="6" type="text" name="options[8]" id="options[8]" value="'
+             . $options[8]
+             . '" onblur=\'$S(this.name+"_img").background="#"+this.value;\'><img id="options[8]_img" align="absmiddle" src="'
+             . $picker_url
+             . '/color.gif" onmouseover="this.style.border=\'2px solid black\'"  onmouseout="this.style.border=\'2px solid #DEE3E7\'" onclick=\'pegaPicker($("options[8]"), event)\' style="border: 2px solid #DEE3E7; background: #'
+             . $options[8]
+             . '"><br>';
+    $form .= MPU_BLO_OPT_FONT
+             . "<input type='hidden' name='options[9]' id='options[9]' value='"
+             . ((!empty($options[9])) ? '1' : '0')
+             . "'><label><input type='checkbox' name='chk[12]' value='1' "
+             . ((!empty($options[9])) ? ' checked' : '')
+             . " onclick='troca(this, \"options[9]\")'> <b>"
+             . MPU_BLO_OPT_BOLD
+             . "</b></label>&nbsp;&nbsp;&nbsp;<input type='hidden' name='options[10]' id='options[10]' value='"
+             . ((!empty($options[10])) ? '1' : '0')
+             . "'><label><input type='checkbox' name='chk[13]' value='1' "
+             . ((!empty($options[10])) ? ' checked' : '')
+             . " onclick='troca(this, \"options[10]\")'> <i>"
+             . MPU_BLO_OPT_ITALIC
+             . "</i></label>&nbsp;&nbsp;&nbsp;<input type='hidden' name='options[11]' id='options[11]' value='"
+             . ((!empty($options[11])) ? '1' : '0')
+             . "'><label><input type='checkbox' name='options[11]' value='1' "
+             . ((!empty($options[11])) ? ' checked' : '')
+             . " onclick='troca(this, \"options[11]\")'> <u>"
+             . MPU_BLO_OPT_UNDERLINE
+             . '</u></label><br>';
+    $form .= MPU_BLO_OPT_FONTO
+             . "<input type='hidden' name='options[12]' id='options[12]' value='"
+             . ((!empty($options[12])) ? '1' : '0')
+             . "'><label><input type='checkbox' name='options[12]' value='1' "
+             . ((!empty($options[12])) ? ' checked' : '')
+             . " onclick='troca(this, \"options[12]\")'> <b>"
+             . MPU_BLO_OPT_BOLD
+             . "</b></label>&nbsp;&nbsp;&nbsp;<input type='hidden' name='options[13]' id='options[13]' value='"
+             . ((!empty($options[13])) ? '1' : '0')
+             . "'><label><input type='checkbox' name='options[13]' value='1' "
+             . ((!empty($options[13])) ? ' checked' : '')
+             . " onclick='troca(this, \"options[13]\")'> <i>"
+             . MPU_BLO_OPT_ITALIC
+             . "</i></label>&nbsp;&nbsp;&nbsp;<input type='hidden' name='options[14]' id='options[14]' value='"
+             . ((!empty($options[14])) ? '1' : '0')
+             . "'><label><input type='checkbox' name='options[14]' value='1' "
+             . ((!empty($options[14])) ? ' checked' : '')
+             . " onclick='troca(this, \"options[14]\")'> <u>"
+             . MPU_BLO_OPT_UNDERLINE
+             . '</u></label><br>';
+    $form .= MPU_BLO_OPT_BORDER . " <input size='4' type='text' name='options[15]' value='" . $options[15] . "'> <select name='options[16]'>
     <option value='none'";
     $form .= ($options[16] == 'none') ? 'selected' : ' ';
     $form .= '>' . MPU_BLO_OPT_NONE . "</option>
@@ -199,10 +251,14 @@ PICKER;
     <option value='dotted'";
     $form .= ($options[16] == 'dotted') ? 'selected' : ' ';
     $form .= '>' . MPU_BLO_OPT_DOTTED . '</option></select>';
-    $form .= ' #<input size="6" type="text" name="options[17]" id="options[17]" value="' . $options[17] . '" onblur=\'$S(this.name+"_img").background="#"+this.value;\'><img id="options[17]_img" align="absmiddle" src="' . $picker_url
-             . '/color.gif" onmouseover="this.style.border=\'2px solid black\'"  onmouseout="this.style.border=\'2px solid #DEE3E7\'" onclick=\'pegaPicker($("options[17]"), event)\' style="border: 2px solid #DEE3E7; background: #' . $options[17]
+    $form .= ' #<input size="6" type="text" name="options[17]" id="options[17]" value="'
+             . $options[17]
+             . '" onblur=\'$S(this.name+"_img").background="#"+this.value;\'><img id="options[17]_img" align="absmiddle" src="'
+             . $picker_url
+             . '/color.gif" onmouseover="this.style.border=\'2px solid black\'"  onmouseout="this.style.border=\'2px solid #DEE3E7\'" onclick=\'pegaPicker($("options[17]"), event)\' style="border: 2px solid #DEE3E7; background: #'
+             . $options[17]
              . '"><br>';
-    $form .= MPU_BLO_OPT_BORDERO . " <input size='4' type='text' name='options[18]' value='" . $options[18] . "' /> <select name='options[19]'>
+    $form .= MPU_BLO_OPT_BORDERO . " <input size='4' type='text' name='options[18]' value='" . $options[18] . "'> <select name='options[19]'>
     <option value='none'";
     $form .= ($options[19] == 'none') ? 'selected' : ' ';
     $form .= '>' . MPU_BLO_OPT_NONE . "</option>
@@ -230,10 +286,14 @@ PICKER;
     <option value='dotted'";
     $form .= ($options[19] == 'dotted') ? 'selected' : ' ';
     $form .= '>' . MPU_BLO_OPT_DOTTED . '</option></select>';
-    $form .= ' #<input size="6" type="text" name="options[20]" id="options[20]" value="' . $options[20] . '" onblur=\'$S(this.name+"_img").background="#"+this.value;\'><img id="options[20]_img" align="absmiddle" src="' . $picker_url
-             . '/color.gif" onmouseover="this.style.border=\'2px solid black\'"  onmouseout="this.style.border=\'2px solid #DEE3E7\'" onclick=\'pegaPicker($("options[20]"), event)\' style="border: 2px solid #DEE3E7; background: #' . $options[20]
+    $form .= ' #<input size="6" type="text" name="options[20]" id="options[20]" value="'
+             . $options[20]
+             . '" onblur=\'$S(this.name+"_img").background="#"+this.value;\'><img id="options[20]_img" align="absmiddle" src="'
+             . $picker_url
+             . '/color.gif" onmouseover="this.style.border=\'2px solid black\'"  onmouseout="this.style.border=\'2px solid #DEE3E7\'" onclick=\'pegaPicker($("options[20]"), event)\' style="border: 2px solid #DEE3E7; background: #'
+             . $options[20]
              . '"><br>';
-    $form .= MPU_BLO_OPT_PADDING . " <input type='text' size='4' name='options[21]' value='" . $options[21] . "' /><br>";
+    $form .= MPU_BLO_OPT_PADDING . " <input type='text' size='4' name='options[21]' value='" . $options[21] . "'><br>";
 
     return $form;
 }

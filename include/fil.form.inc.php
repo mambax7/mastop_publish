@@ -1,4 +1,4 @@
-<?PHP
+<?php
 ### =============================================================
 ### Mastop InfoDigital - Paix�o por Internet
 ### =============================================================
@@ -12,7 +12,7 @@
 ###
 ### =============================================================
 // defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
-include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 $fil_form = new XoopsThemeForm($form['titulo'], 'mpu_fil_form', $_SERVER['PHP_SELF'], 'post', true);
 $fil_form->setExtra('enctype="multipart/form-data"');
 $fil_form->addElement(new XoopsFormText(MPU_ADM_FIL_30_NOME, 'fil_30_nome', 50, 50, $fil_classe->getVar('fil_30_nome')), true);

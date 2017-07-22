@@ -22,7 +22,7 @@ function mpu_adm_menu()
     );
     xoops_cp_header();
     echo '
-<link rel="stylesheet" type="text/css" href="../assets/js/menu/style_menu.css" />
+<link rel="stylesheet" type="text/css" href="../assets/js/menu/style_menu.css">
 <script type="text/javascript" src="../assets/js/menu/jsdomenu.js"></script>
 <script type="text/javascript" src="../assets/js/menu/jsdomenubar.js"></script>
 <script type="text/javascript">
@@ -82,22 +82,21 @@ function createjsDOMenu()
         xoops_error(MPU_ADM_HTMLERROR);
     }
     if ($xoopsModuleConfig['mpu_conf_wysiwyg'] && $xoopsModuleConfig['mpu_conf_gzip']
-        && !is_writable(XOOPS_ROOT_PATH . $xoopsModuleConfig['mpu_conf_wysiwyg_path'])
-    ) {
+        && !is_writable(XOOPS_ROOT_PATH . $xoopsModuleConfig['mpu_conf_wysiwyg_path'])) {
         xoops_error(sprintf(MPU_ADM_WYSIWYG_PATHERROR, XOOPS_ROOT_PATH . $xoopsModuleConfig['mpu_conf_wysiwyg_path']));
     }
 }
 
 function mpu_apagaPermissoes($id)
 {
-    global $xoopsModule, $moduleperm_handler;
+    global $xoopsModule, $modulepermHandler;
     $criteria = new CriteriaCompo();
     $criteria->add(new Criteria('gperm_itemid', $id));
     $criteria->add(new Criteria('gperm_modid', $xoopsModule->getVar('mid')));
     $criteria->add(new Criteria('gperm_name', 'mpu_mpublish_acesso'));
-    if ($old_perms = $moduleperm_handler->getObjects($criteria)) {
+    if ($old_perms = $modulepermHandler->getObjects($criteria)) {
         foreach ($old_perms as $p) {
-            $moduleperm_handler->delete($p);
+            $modulepermHandler->delete($p);
         }
     }
     xoops_comment_delete($xoopsModule->getVar('mid'), $id);
@@ -108,7 +107,7 @@ function mpu_apagaPermissoes($id)
 function mpu_apagaPermissoesPai($id)
 {
     global $xoopsModule;
-    include_once XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/class/mpu_mpb_mpublish.class.php';
+    require_once XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/class/mpu_mpb_mpublish.class.php';
     $mpu_classe = new mpu_mpb_mpublish();
     $todos      = $mpu_classe->PegaTudo(new Criteria('mpb_10_idpai', $id));
     if (!empty($todos)) {
@@ -125,14 +124,14 @@ function mpu_apagaPermissoesPai($id)
 
 function mpu_inserePermissao($id, $grupos_ids)
 {
-    global $xoopsModule, $moduleperm_handler;
+    global $xoopsModule, $modulepermHandler;
     foreach ($grupos_ids as $gid) {
-        $perm = $moduleperm_handler->create();
+        $perm = $modulepermHandler->create();
         $perm->setVar('gperm_name', 'mpu_mpublish_acesso');
         $perm->setVar('gperm_itemid', $id);
         $perm->setVar('gperm_groupid', $gid);
         $perm->setVar('gperm_modid', $xoopsModule->getVar('mid'));
-        $moduleperm_handler->insert($perm);
+        $modulepermHandler->insert($perm);
     }
 
     return true;
@@ -173,19 +172,19 @@ function prepareContent($content)
         $busca         = array_unique($_GET['busca']);
         foreach ($busca as $v) {
             if (stristr(strip_tags($content), $v)) {
-                $cfundo   = $bgs[$ctrl];
-                $ctexto   = $colors[$ctrl];
-                $busca[0] = '~' . $v . '(?![^<]*>)~';
-                $busca[1] = '~' . strtolower($v) . '(?![^<]*>)~';
-                $busca[2] = '~' . strtoupper($v) . '(?![^<]*>)~';
-                $busca[3] = '~' . ucfirst(strtolower($v)) . '(?![^<]*>)~';
-                $troca[0] = '<span style="font-weight:bold; color: ' . $ctexto . '; background-color: ' . $cfundo . ';">' . $v . '</span>';
-                $troca[1] = '<span style="font-weight:bold; color: ' . $ctexto . '; background-color: ' . $cfundo . ';">' . strtolower($v) . '</span>';
-                $troca[2] = '<span style="font-weight:bold; color: ' . $ctexto . '; background-color: ' . $cfundo . ';">' . strtoupper($v) . '</span>';
-                $troca[3] = '<span style="font-weight:bold; color: ' . $ctexto . '; background-color: ' . $cfundo . ';">' . ucfirst(strtolower($v)) . '</span>';
-                $content  = preg_replace($busca, $troca, $content);
+                $cfundo        = $bgs[$ctrl];
+                $ctexto        = $colors[$ctrl];
+                $busca[0]      = '~' . $v . '(?![^<]*>)~';
+                $busca[1]      = '~' . strtolower($v) . '(?![^<]*>)~';
+                $busca[2]      = '~' . strtoupper($v) . '(?![^<]*>)~';
+                $busca[3]      = '~' . ucfirst(strtolower($v)) . '(?![^<]*>)~';
+                $troca[0]      = '<span style="font-weight:bold; color: ' . $ctexto . '; background-color: ' . $cfundo . ';">' . $v . '</span>';
+                $troca[1]      = '<span style="font-weight:bold; color: ' . $ctexto . '; background-color: ' . $cfundo . ';">' . strtolower($v) . '</span>';
+                $troca[2]      = '<span style="font-weight:bold; color: ' . $ctexto . '; background-color: ' . $cfundo . ';">' . strtoupper($v) . '</span>';
+                $troca[3]      = '<span style="font-weight:bold; color: ' . $ctexto . '; background-color: ' . $cfundo . ';">' . ucfirst(strtolower($v)) . '</span>';
+                $content       = preg_replace($busca, $troca, $content);
                 $search_string .= '<span style="font-weight:bold; color: ' . $ctexto . '; background-color: ' . $cfundo . ';">' . $v . '</span>, ';
-                $found = 1;
+                $found         = 1;
                 if ($ctrl == 8) {
                     $ctrl = 0;
                 } else {

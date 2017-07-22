@@ -1,4 +1,4 @@
-<?PHP
+<?php
 ### =============================================================
 ### Mastop InfoDigital - Paixão por Internet
 ### =============================================================
@@ -12,8 +12,8 @@
 ### =============================================================
 ###
 ### =============================================================
-include_once __DIR__ . '/admin_header.php';
-include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+require_once __DIR__ . '/admin_header.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 $op              = empty($_GET['op']) ? 'list' : $_GET['op'];
 $op              = empty($_POST['op']) ? $op : $_POST['op'];
 $mpb_wysiwyg_url = XOOPS_URL . $xoopsModuleConfig['mpu_conf_wysiwyg_path'];
@@ -49,6 +49,7 @@ $tipos           = array(
 
             return;
         }
+
         function init() {
             window.focus();
         }
@@ -56,6 +57,7 @@ $tipos           = array(
         function cancelAction() {
             top.close();
         }
+
         function LargAlt() {
             var tipo = document.forms[1].med_10_tipo;
             if (tipo.options[tipo.selectedIndex].value == 1) {
@@ -64,6 +66,7 @@ $tipos           = array(
                 document.getElementById('largalt').style.display = "";
             }
         }
+
         //-->
     </script>
     <base target="_self"/>
@@ -72,18 +75,18 @@ $tipos           = array(
 <div class="tabs">
     <ul>
         <li id="gerenciador_tab" <?php echo ($op === 'listmed' || $op === 'list') ? ' class="current"' : ''; ?>><span><a
-                    href="javascript:mcTabs.displayTab('gerenciador_tab','gerenciador_panel');"
-                    onmousedown="return false;">{$lang_browser_ger_medias}</a></span></li>
+                        href="javascript:mcTabs.displayTab('gerenciador_tab','gerenciador_panel');"
+                        onmousedown="return false;">{$lang_browser_ger_medias}</a></span></li>
         <li id="nova_media_tab" <?php echo ($op === 'addmedia') ? ' class="current"' : ''; ?>><span><a
-                    href="javascript:mcTabs.displayTab('nova_media_tab','nova_media_panel');"
-                    onmousedown="return false;">{$lang_browser_nova_media}</a></span></li>
+                        href="javascript:mcTabs.displayTab('nova_media_tab','nova_media_panel');"
+                        onmousedown="return false;">{$lang_browser_nova_media}</a></span></li>
     </ul>
 </div>
 <div class="panel_wrapper">
     <div id="gerenciador_panel" class="panel <?php echo ($op === 'listmed' || $op === 'list') ? 'current' : ''; ?>"
          style="overflow: auto;">
         <h3>{$lang_browser_media_title}</h3>
-        <?PHP
+        <?php
         if ($op === 'listmed') {
             $med_10_tipo = (int)$_GET['med_10_tipo'];
             $med_classe  = new mpu_med_media();
@@ -107,8 +110,18 @@ $tipos           = array(
                 echo '<h4><a href="' . $_SERVER['PHP_SELF'] . '">' . MPU_ADM_BROWSER_GER_MED . '</a>&nbsp;<span style="font-weight:bold;">&raquo;&raquo;</span>&nbsp;' . $tipos[$med_10_tipo] . '</h4>';
                 echo '<fieldset><legend>' . MPU_ADM_FILTROS . '</legend>';
                 echo "<form action='" . $_SERVER['PHP_SELF'] . "' method='GET'>";
-                echo MPU_ADM_MED_30_NOME . " <input type='hidden' name='op' value='listmed'> <input type='text' name='med_30_nome' value='" . ((!empty($_GET['med_30_nome'])) ? $_GET['med_30_nome'] : '') . "'> " . MPU_ADM_MED_10_TIPO
-                     . " <select name='med_10_tipo'>" . $tipos_select . "</select> <input type='image' src='" . XOOPS_URL . '/modules/' . MPU_MOD_DIR . "/assets/images/envia.gif' align='absmiddle' style='border:0'>";
+                echo MPU_ADM_MED_30_NOME
+                     . " <input type='hidden' name='op' value='listmed'> <input type='text' name='med_30_nome' value='"
+                     . ((!empty($_GET['med_30_nome'])) ? $_GET['med_30_nome'] : '')
+                     . "'> "
+                     . MPU_ADM_MED_10_TIPO
+                     . " <select name='med_10_tipo'>"
+                     . $tipos_select
+                     . "</select> <input type='image' src='"
+                     . XOOPS_URL
+                     . '/modules/'
+                     . MPU_MOD_DIR
+                     . "/assets/images/envia.gif' align='absmiddle' style='border:0'>";
                 echo '</form></fieldset><br>';
                 echo '<table style="width:100%;"><thead><tr>
     <td>&nbsp;</td>
@@ -121,17 +134,32 @@ $tipos           = array(
                 foreach ($medias as $med) {
                     $media_url = MPU_MEDIA_URL . '/' . $med->getVar('med_30_arquivo');
                     echo '<tr><td width="30%" style="text-align: center">';
-                    echo '<a href="javascript:void(0)" style="border:2px solid white" onclick="addItem(\'' . $media_url . '\', \'' . $med->getVar('med_30_nome') . '\', \'' . $med->getVar('med_10_largura') . '\', \'' . $med->getVar('med_10_altura')
-                         . '\')"/>' . $med->getVar('med_10_id') . '</a>';
-                    echo '</td><td style="border: 2px double #F0F0EE; text-align: center">' . $med->getVar('med_30_nome') . '</td><td style="border: 2px double #F0F0EE; text-align: center">' . $med->getVar('med_10_largura') . 'px X '
-                         . $med->getVar('med_10_altura') . 'px</td><td style="border: 2px double #F0F0EE; text-align: center">' . number_format($med->getVar('med_10_tamanho') / 1024, 2, '.', '') . 'Kb</td>';
-                    echo '<td style="border: 2px double #F0F0EE; text-align: center"><a href="javascript:void(0)" onclick="addItem(\'' . $media_url . '\', \'' . $med->getVar('med_30_nome') . '\', \'' . $med->getVar('med_10_largura') . '\', \''
-                         . $med->getVar('med_10_altura') . '\')">' . _SELECT . '</a></td></tr>';
+                    echo '<a href="javascript:void(0)" style="border:2px solid white" onclick="addItem(\'' . $media_url . '\', \'' . $med->getVar('med_30_nome') . '\', \'' . $med->getVar('med_10_largura') . '\', \'' . $med->getVar('med_10_altura') . '\')"/>' . $med->getVar('med_10_id') . '</a>';
+                    echo '</td><td style="border: 2px double #F0F0EE; text-align: center">'
+                         . $med->getVar('med_30_nome')
+                         . '</td><td style="border: 2px double #F0F0EE; text-align: center">'
+                         . $med->getVar('med_10_largura')
+                         . 'px X '
+                         . $med->getVar('med_10_altura')
+                         . 'px</td><td style="border: 2px double #F0F0EE; text-align: center">'
+                         . number_format($med->getVar('med_10_tamanho') / 1024, 2, '.', '')
+                         . 'Kb</td>';
+                    echo '<td style="border: 2px double #F0F0EE; text-align: center"><a href="javascript:void(0)" onclick="addItem(\''
+                         . $media_url
+                         . '\', \''
+                         . $med->getVar('med_30_nome')
+                         . '\', \''
+                         . $med->getVar('med_10_largura')
+                         . '\', \''
+                         . $med->getVar('med_10_altura')
+                         . '\')">'
+                         . _SELECT
+                         . '</a></td></tr>';
                 }
                 echo '</tbody></table>';
                 if ($medias_total > 0) {
                     if ($medias_total > 20) {
-                        include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+                        require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
                         $nav = new XoopsPageNav($medias_total, 20, $start, 'start', 'op=listmed&amp;med_10_tipo=' . $med_10_tipo . ((!empty($_GET['med_30_nome'])) ? '&amp;med_30_nome=' . $_GET['med_30_nome'] : ''));
                         echo '<div style="text-align:right">' . $nav->renderNav() . '</div>';
                     }
@@ -144,14 +172,24 @@ $tipos           = array(
             for ($i = 1; $i <= 5; ++$i) {
                 $tipos_select .= "<option value='" . $i . "' " . ((!empty($_GET['med_10_tipo'])
                                                                    && $_GET['med_10_tipo'] == $i) ? 'selected' : '') . '>' . $tipos[$i] . "</option>\n";
-                $medias = $med_classe->contar(new Criteria('med_10_tipo', $i));
+                $medias       = $med_classe->contar(new Criteria('med_10_tipo', $i));
                 echo '<li>' . $tipos[$i] . ' (<b>' . $medias . '</b> ' . MPU_ADM_BROWSER_GER_MED . ') ' . (($medias > 0) ? '[<a href="' . $_SERVER['PHP_SELF'] . '?op=listmed&amp;med_10_tipo=' . $i . '">' . _LIST . '</a>]</li>' : '');
             }
             echo '</ul>';
             echo '<fieldset><legend>' . MPU_ADM_FILTROS . '</legend>';
             echo "<form action='" . $_SERVER['PHP_SELF'] . "' method='GET'>";
-            echo MPU_ADM_MED_30_NOME . " <input type='hidden' name='op' value='listmed'> <input type='text' name='med_30_nome' value='" . ((!empty($_GET['med_30_nome'])) ? $_GET['med_30_nome'] : '') . "'> " . MPU_ADM_MED_10_TIPO
-                 . " <select name='med_10_tipo'>" . $tipos_select . "</select> <input type='image' src='" . XOOPS_URL . '/modules/' . MPU_MOD_DIR . "/assets/images/envia.gif' align='absmiddle' style='border:0'>";
+            echo MPU_ADM_MED_30_NOME
+                 . " <input type='hidden' name='op' value='listmed'> <input type='text' name='med_30_nome' value='"
+                 . ((!empty($_GET['med_30_nome'])) ? $_GET['med_30_nome'] : '')
+                 . "'> "
+                 . MPU_ADM_MED_10_TIPO
+                 . " <select name='med_10_tipo'>"
+                 . $tipos_select
+                 . "</select> <input type='image' src='"
+                 . XOOPS_URL
+                 . '/modules/'
+                 . MPU_MOD_DIR
+                 . "/assets/images/envia.gif' align='absmiddle' style='border:0'>";
             echo '</form></fieldset>';
             if (!empty($_GET['erro'])) {
                 echo "<br><div style='border: 2px solid red; text-align:center; font-weight:bold'>" . $_GET['erro'] . '</div>';
@@ -162,13 +200,13 @@ $tipos           = array(
 
     <div id="nova_media_panel" class="panel <?php echo ($op === 'addmedia') ? 'current' : ''; ?>"
          style="overflow: visible;">
-        <?PHP
+        <?php
         if ($op === 'addmedia') {
             $media     = new mpu_med_media();
             $file_nome = $_FILES[$_POST['xoops_upload_file'][0]];
             $file_nome = get_magic_quotes_gpc() ? stripslashes($file_nome['name']) : $file_nome['name'];
             if (xoops_trim($file_nome != '')) {
-                include_once XOOPS_ROOT_PATH . '/class/uploader.php';
+                require_once XOOPS_ROOT_PATH . '/class/uploader.php';
                 switch ($_POST['med_10_tipo']) {
                     case 1:
                         $permittedtypes = array('application/x-shockwave-flash');
@@ -232,12 +270,37 @@ $tipos           = array(
                     ';
                             $media_url = MPU_MEDIA_URL . '/' . $uploader->getSavedFileName();
                             echo '<tr><td width="30%" style="text-align: center">';
-                            echo '<a href="javascript:void(0)" style="border:2px solid white" onclick="addItem(\'' . $media_url . '\', \'' . $media->getVar('med_30_nome') . '\', \'' . $media->getVar('med_10_largura') . '\', \''
-                                 . $media->getVar('med_10_altura') . '\')"/>' . $media->getVar('med_10_id') . '</a>';
-                            echo '</td><td style="border: 2px double #F0F0EE; text-align: center">' . $media->getVar('med_30_nome') . '</td><td style="border: 2px double #F0F0EE; text-align: center">' . $media->getVar('med_10_largura') . 'px X '
-                                 . $media->getVar('med_10_altura') . 'px</td><td style="border: 2px double #F0F0EE; text-align: center">' . number_format($media->getVar('med_10_tamanho') / 1024, 2, '.', '') . 'Kb</td>';
-                            echo '<td style="border: 2px double #F0F0EE; text-align: center"><a href="javascript:void(0)" onclick="addItem(\'' . $media_url . '\', \'' . $media->getVar('med_30_nome') . '\', \'' . $media->getVar('med_10_largura')
-                                 . '\', \'' . $media->getVar('med_10_altura') . '\')">' . _SELECT . '</a></td></tr>';
+                            echo '<a href="javascript:void(0)" style="border:2px solid white" onclick="addItem(\''
+                                 . $media_url
+                                 . '\', \''
+                                 . $media->getVar('med_30_nome')
+                                 . '\', \''
+                                 . $media->getVar('med_10_largura')
+                                 . '\', \''
+                                 . $media->getVar('med_10_altura')
+                                 . '\')"/>'
+                                 . $media->getVar('med_10_id')
+                                 . '</a>';
+                            echo '</td><td style="border: 2px double #F0F0EE; text-align: center">'
+                                 . $media->getVar('med_30_nome')
+                                 . '</td><td style="border: 2px double #F0F0EE; text-align: center">'
+                                 . $media->getVar('med_10_largura')
+                                 . 'px X '
+                                 . $media->getVar('med_10_altura')
+                                 . 'px</td><td style="border: 2px double #F0F0EE; text-align: center">'
+                                 . number_format($media->getVar('med_10_tamanho') / 1024, 2, '.', '')
+                                 . 'Kb</td>';
+                            echo '<td style="border: 2px double #F0F0EE; text-align: center"><a href="javascript:void(0)" onclick="addItem(\''
+                                 . $media_url
+                                 . '\', \''
+                                 . $media->getVar('med_30_nome')
+                                 . '\', \''
+                                 . $media->getVar('med_10_largura')
+                                 . '\', \''
+                                 . $media->getVar('med_10_altura')
+                                 . '\')">'
+                                 . _SELECT
+                                 . '</a></td></tr>';
                             echo '</tbody></table></fieldset>';
                         }
                     } else {
@@ -288,7 +351,7 @@ $tipos           = array(
     </div>
 </div>
 <div class="mceActionPanel">
-    <div style="float: right">
+    <div style="float: right;">
         <input type="button" id="cancel" name="cancel" value="{$lang_close}" onclick="tinyMCEPopup.close();"/>
     </div>
 </div>

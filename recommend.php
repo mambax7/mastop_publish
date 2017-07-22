@@ -1,4 +1,4 @@
-<?PHP
+<?php
 ### =============================================================
 ### Mastop InfoDigital - Paixão por Internet
 ### =============================================================
@@ -12,7 +12,7 @@
 ###
 ### =============================================================
 include __DIR__ . '/../../mainfile.php';
-include_once __DIR__ . '/header.php';
+require_once __DIR__ . '/header.php';
 if (!$_POST) {
     $tac = isset($_GET['tac']) ? $_GET['tac'] : 0;
     $tac = is_int($tac) ? $tac : str_replace('_', ' ', $tac);
@@ -23,13 +23,13 @@ if (!$_POST) {
         if (!$mpu_classe->getVar('mpb_10_id')) {
             redirect_header(XOOPS_URL, 2, MPU_MAI_404);
         } else {
-            $groups        = (!empty($xoopsUser)
-                              && is_object($xoopsUser)) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-            $gperm_handler = xoops_getHandler('groupperm');
-            if (!$gperm_handler->checkRight('mpu_mpublish_acesso', $mpu_classe->getVar('mpb_10_id'), $groups, $xoopsModule->getVar('mid'))) {
+            $groups       = (!empty($xoopsUser)
+                             && is_object($xoopsUser)) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+            $gpermHandler = xoops_getHandler('groupperm');
+            if (!$gpermHandler->checkRight('mpu_mpublish_acesso', $mpu_classe->getVar('mpb_10_id'), $groups, $xoopsModule->getVar('mid'))) {
                 redirect_header(XOOPS_URL, 3, _NOPERM);
             }
-            include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+            require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
             echo '<h2>' . sprintf(MPU_MAI_RECTOAFRIEND, $mpu_classe->getVar('mpb_30_titulo')) . '</h2>';
             $rec_form = new XoopsThemeForm('', 'rec_form', $_SERVER['PHP_SELF']);
             $rec_form->addElement(new XoopsFormText(MPU_MAI_YNAME, 'yname', 20, 150), true);
@@ -40,7 +40,7 @@ if (!$_POST) {
             $rec_form->addElement(new XoopsFormHidden('tac', $mpu_classe->getVar('mpb_10_id')), true);
             $rec_form->addElement(new XoopsFormButton('', 'submit', _SUBMIT, 'submit'));
             $rec_form->display();
-            include_once XOOPS_ROOT_PATH . '/footer.php';
+            require_once XOOPS_ROOT_PATH . '/footer.php';
         }
     }
 } else {
@@ -74,7 +74,7 @@ if (!$_POST) {
             ' . sprintf(MPU_MAI_MAILSUCCESS, $fname, $mpu_classe->pegaLink()) . '
             </div>
             ';
-            include_once XOOPS_ROOT_PATH . '/footer.php';
+            require_once XOOPS_ROOT_PATH . '/footer.php';
         }
     }
 }

@@ -8,7 +8,7 @@
     <link href="css/flash.css" rel="stylesheet" type="text/css"/>
     <base target="_self"/>
 </head>
-<body onload="tinyMCEPopup.executeOnLoad('init();');" style="display: none">
+<body onload="tinyMCEPopup.executeOnLoad('init();');" style="display: none;">
 <form onsubmit="insertFlash();return false;" action="#">
     <div class="tabs">
         <ul>
@@ -44,12 +44,12 @@
                         <td nowrap="nowrap"><label>{$lang_flash_size}</label></td>
                         <td nowrap="nowrap">
                             <input type="text" id="width" name="width" value="" onfocus="this.select();"/>
-                            <select name="width2" id="width2" style="width: 50px">
+                            <select name="width2" id="width2" style="width: 50px;">
                                 <option value="">px</option>
                                 <option value="%">%</option>
                             </select>&nbsp;x&nbsp;<input id="height" name="height" type="text" value=""
                                                          onfocus="this.select();"/>
-                            <select name="height2" id="height2" style="width: 50px">
+                            <select name="height2" id="height2" style="width: 50px;">
                                 <option value="">px</option>
                                 <option value="%">%</option>
                             </select>
@@ -61,11 +61,11 @@
     </div>
 
     <div class="mceActionPanel">
-        <div style="float: left">
+        <div style="float: left;">
             <input type="button" id="insert" name="insert" value="{$lang_insert}" onclick="insertFlash();"/>
         </div>
 
-        <div style="float: right">
+        <div style="float: right;">
             <input type="button" id="cancel" name="cancel" value="{$lang_cancel}" onclick="tinyMCEPopup.close();"/>
         </div>
     </div>

@@ -17,7 +17,7 @@
         <{if $xoops_isadmin||$mpu_isauthor}>
             <{$tools_image}>
             <div id="admin_page"
-                 style="text-align:left; clear: right; float: right;    width: 270px; padding-left: 10px; padding-bottom: 5px; border: 2px solid #9C9C9C; background-color: #F2F2F2; display:none; margin: 10px 10px 10px 10px; z-index:10000">
+                 style="text-align:left; clear: right; float: right;    width: 270px; padding-left: 10px; padding-bottom: 5px; border: 2px solid #9C9C9C; background-color: #F2F2F2; display:none; margin: 10px 10px 10px 10px; z-index:10000;">
                 <h4><{$infos}></h4>
                 <{$autor}><b>
                     <{$criado}><b>

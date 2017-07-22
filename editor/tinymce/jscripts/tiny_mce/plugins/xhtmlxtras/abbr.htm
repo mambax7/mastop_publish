@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="css/popup.css"/>
     <base target="_self"/>
 </head>
-<body onload="tinyMCEPopup.executeOnLoad('init();');" style="display: none">
+<body onload="tinyMCEPopup.executeOnLoad('init();');" style="display: none;">
 <form onsubmit="insertAbbr();return false;" action="#">
     <div class="tabs">
         <ul>
@@ -145,14 +145,14 @@
         </div>
     </div>
     <div class="mceActionPanel">
-        <div style="float: left">
+        <div style="float: left;">
             <input type="button" id="insert" name="insert" value="{$lang_update}" onclick="insertAbbr();"/>
         </div>
-        <div style="float: left">
+        <div style="float: left;">
             <input type="button" id="remove" name="remove" value="{$lang_xhtmlxtras_remove}" onclick="removeAbbr();"
                    style="display: none;"/>
         </div>
-        <div style="float: right">
+        <div style="float: right;">
             <input type="button" id="cancel" name="cancel" value="{$lang_cancel}" onclick="tinyMCEPopup.close();"/>
         </div>
     </div>

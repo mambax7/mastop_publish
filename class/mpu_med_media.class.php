@@ -11,7 +11,7 @@
 ### =============================================================
 ###
 ### =============================================================
-include_once XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/class/mpu_geral.class.php';
+require_once XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/class/mpu_geral.class.php';
 
 class mpu_med_media extends mpu_geral
 {

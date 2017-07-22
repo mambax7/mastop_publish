@@ -1,4 +1,4 @@
-<?PHP
+<?php
 ### =============================================================
 ### Mastop InfoDigital - Paixão por Internet
 ### =============================================================
@@ -12,8 +12,8 @@
 ### =============================================================
 ###
 ### =============================================================
-include_once __DIR__ . '/../../../mainfile.php';
-include_once __DIR__ . '../admin/admin_header.php';
+require_once __DIR__ . '/../../../mainfile.php';
+require_once __DIR__ . '../admin/admin_header.php';
 $xoopsLogger->activated = false;
 $ret = '';
 if (!is_object($xoopsUser) || !$xoopsUserIsAdmin) {

@@ -9,7 +9,7 @@
     <link href="css/devkit.css" rel="stylesheet" type="text/css"/>
     <base target="_self"/>
 </head>
-<body id="devkit" onload="tinyMCEPopup.executeOnLoad('init();');" style="display: none">
+<body id="devkit" onload="tinyMCEPopup.executeOnLoad('init();');" style="display: none;">
 <form action="#">
     <h1>{$lang_devkit_title}</h1>
 
@@ -36,21 +36,21 @@
             <fieldset>
                 <legend>{$lang_devkit_log_tab}</legend>
 
-                <div style="float: left">
+                <div style="float: left;">
                     <label>{$lang_devkit_filter} </label><input type="text" id="logfilter" name="logfilter" value=""
                                                                 onchange="changeFilter(this.value);"/>
                 </div>
 
-                <div style="float: left">
+                <div style="float: left;">
                     <input type="checkbox" id="logenabled" name="logenabled" value="true" checked="checked"
                            onclick="toggleLog(this.checked);"/>
                 </div>
 
-                <div style="float: right">
+                <div style="float: right;">
                     <a href="javascript:clearLog();">[{$lang_devkit_clear_log}]</a>
                 </div>
 
-                <br style="clear: both"/>
+                <br style="clear: both;"/>
 
                 <div id="log">
                 </div>
@@ -135,13 +135,13 @@
                         selection]</a></p>
                     <hr/>
                     <div><strong>Insert custom HTML content</strong></div>
-                    <div><textarea id="htmlcont" name="htmlcont" style="width: 90%" rows="5"></textarea></div>
+                    <div><textarea id="htmlcont" name="htmlcont" style="width: 90%;" rows="5"></textarea></div>
                     <div><a href="#"
                             onclick="return tinyMCE.execCommand('mceInsertContent',false,document.getElementById('htmlcont').value);">[Insert
                         content]</a></div>
                     <hr/>
                     <div><strong>Eval JS:</strong></div>
-                    <div><textarea id="jscont" name="jscont" style="width: 90%" rows="5">tinyMCE.execCommand('Bold',false,null);</textarea>
+                    <div><textarea id="jscont" name="jscont" style="width: 90%;" rows="5">tinyMCE.execCommand('Bold',false,null);</textarea>
                     </div>
                     <div><a href="#" onclick="return parent.window.eval(document.getElementById('jscont').value);">[Evaluate]</a>
                     </div>

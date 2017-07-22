@@ -1,4 +1,4 @@
-<?PHP
+<?php
 ### =============================================================
 ### Mastop InfoDigital - Paixão por Internet
 ### =============================================================
@@ -12,7 +12,7 @@
 ### =============================================================
 ###
 ### =============================================================
-include_once __DIR__ . '/../../../mainfile.php';
+require_once __DIR__ . '/../../../mainfile.php';
 $xoopsLogger->activated = false;
 $ret = '';
 if (!is_object($xoopsUser)) {
@@ -20,23 +20,23 @@ if (!is_object($xoopsUser)) {
 } else {
     $group =& $xoopsUser->getGroups();
 }
-$imgcat_handler = xoops_getHandler('imagecategory');
-$catlist =& $imgcat_handler->getList($group, 'imgcat_read', 1);
+$imgcatHandler = xoops_getHandler('imagecategory');
+$catlist = $imgcatHandler->getList($group, 'imgcat_read', 1);
 $catcount = count($catlist);
 if ($catcount > 0) {
     foreach ($catlist as $c_id => $c_name) {
-        $ret .= '["--- ' . $c_name . ' ---", ""],';
-        $image_handler = xoops_getHandler('image');
-        $criteria      = new CriteriaCompo(new Criteria('imgcat_id', $c_id));
+        $ret          .= '["--- ' . $c_name . ' ---", ""],';
+        $imageHandler = xoops_getHandler('image');
+        $criteria     = new CriteriaCompo(new Criteria('imgcat_id', $c_id));
         $criteria->add(new Criteria('image_display', 1));
-        $total = $image_handler->getCount($criteria);
+        $total = $imageHandler->getCount($criteria);
         if ($total > 0) {
-            $imgcat    =& $imgcat_handler->get($c_id);
+            $imgcat    =& $imgcatHandler->get($c_id);
             $storetype = $imgcat->getVar('imgcat_storetype');
             if ($storetype == 'db') {
-                $images = $image_handler->getObjects($criteria, false, true);
+                $images = $imageHandler->getObjects($criteria, false, true);
             } else {
-                $images = $image_handler->getObjects($criteria, false, false);
+                $images = $imageHandler->getObjects($criteria, false, false);
             }
             $imgcount = count($images);
             for ($i = 0; $i < $imgcount; ++$i) {

@@ -11,13 +11,13 @@
 ### =============================================================
 ###
 ### =============================================================
-include_once __DIR__ . '/../../../include/cp_header.php';
+require_once __DIR__ . '/../../../include/cp_header.php';
 if (file_exists(__DIR__ . '/../language/' . $xoopsConfig['language'] . '/modinfo.php')) {
-    include_once __DIR__ . '/../language/' . $xoopsConfig['language'] . '/modinfo.php';
+    require_once __DIR__ . '/../language/' . $xoopsConfig['language'] . '/modinfo.php';
 } else {
-    include_once __DIR__ . '/../language/english/modinfo.php';
+    require_once __DIR__ . '/../language/english/modinfo.php';
 }
-include_once XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/include/funcoes.inc.php';
+require_once XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/include/funcoes.inc.php';
 $op = isset($_GET['op']) ? $_GET['op'] : 'feature';
 if (isset($_GET)) {
     foreach ($_GET as $k => $v) {
@@ -39,9 +39,9 @@ switch ($op) {
         $feedback_other = $_POST['feedback_other'];
         $titulo         = 'Mastop Publish - FeedBack from ' . $ydomain;
         $body           = '<b>' . $yname . ' (' . $yemail . ') - ' . $ydomain . '</b><br>';
-        $body .= 'Type: ' . $feedback_type . ((!empty($feedback_other)) ? ' - ' . $feedback_other : '') . '<br>';
-        $body .= prepareContent($_POST['feedback_content']);
-        $xoopsMailer = xoops_getMailer();
+        $body           .= 'Type: ' . $feedback_type . ((!empty($feedback_other)) ? ' - ' . $feedback_other : '') . '<br>';
+        $body           .= prepareContent($_POST['feedback_content']);
+        $xoopsMailer    = xoops_getMailer();
         $xoopsMailer->useMail();
         $xoopsMailer->setToEmails('publish@mastop.com.br');
         $xoopsMailer->setFromEmail($yemail);
@@ -65,7 +65,13 @@ switch ($op) {
         $feedbackform->display();
         break;
 }
-echo "<div align='center'><a href='http://www.mastop.com.br/produtos/publish/'><img src='images/footer.gif'></a><br><a style='color: #029116; font-size:11px' href='feedback.php'>" . MPU_ADM_FEEDBACK
-     . "</a> - <a style='color: #FF0000; font-size:11px' href='http://www.mastop.com.br/produtos/publish/checkversion.php?lang=" . $xoopsConfig['language'] . '&version=' . round($xoopsModule->getVar('version') / 100, 2) . "' target='_blank'>"
-     . MPU_ADM_CHKVERSION . '</a></div>';
+echo "<div align='center'><a href='http://www.mastop.com.br/produtos/publish/'><img src='images/footer.gif'></a><br><a style='color: #029116; font-size:11px' href='feedback.php'>"
+     . MPU_ADM_FEEDBACK
+     . "</a> - <a style='color: #FF0000; font-size:11px' href='http://www.mastop.com.br/produtos/publish/checkversion.php?lang="
+     . $xoopsConfig['language']
+     . '&version='
+     . round($xoopsModule->getVar('version') / 100, 2)
+     . "' target='_blank'>"
+     . MPU_ADM_CHKVERSION
+     . '</a></div>';
 xoops_cp_footer();

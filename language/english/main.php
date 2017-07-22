@@ -21,8 +21,7 @@ define('MPU_MAI_FNAME', "Your friend's name");
 define('MPU_MAI_FEMAIL', "Your friend's email");
 define('MPU_MAI_MESSAGE', 'Additional Message');
 define('MPU_MAI_MAILSUBJECT', 'Recommendation from %s');
-define('MPU_MAI_MAILBODY',
-       "Hello %s!<br>%s (%s) visited the page ' <a href='%s'>%s</a> ' and would like to recommend it to you.<br>In case you're not being able to see the link, copy and paste it at your browser: <br> %s <br><br>Additional message from %s:<br>%s");
+define('MPU_MAI_MAILBODY', "Hello %s!<br>%s (%s) visited the page ' <a href='%s'>%s</a> ' and would like to recommend it to you.<br>In case you're not being able to see the link, copy and paste it at your browser: <br> %s <br><br>Additional message from %s:<br>%s");
 define('MPU_MAI_MAILSUCCESS', "<h3>Message sent to %s </h3><a href='%s'>Return</a>");
 define('MPU_MAI_PRINT', 'Prepare to print');
 define('MPU_MAI_INFOPG', 'Information');

@@ -13,7 +13,7 @@
 ### =============================================================
 include __DIR__ . '/../../mainfile.php';
 $GLOBALS['xoopsOption']['template_main'] = 'mpu_index.tpl';
-include_once __DIR__ . '/header.php';
+require_once __DIR__ . '/header.php';
 $tac = isset($_GET['tac']) ? $_GET['tac'] : 0;
 $tac = is_int($tac) ? $tac : str_replace('_', ' ', $tac);
 if (!$tac) {
@@ -29,9 +29,9 @@ if (!$tac) {
 if (!$mpu_classe->getVar('mpb_10_id')) {
     redirect_header(XOOPS_URL, 2, MPU_MAI_404);
 } else {
-    $groups        = (!empty($xoopsUser) && is_object($xoopsUser)) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-    $gperm_handler = xoops_getHandler('groupperm');
-    if (!$gperm_handler->checkRight('mpu_mpublish_acesso', $mpu_classe->getVar('mpb_10_id'), $groups, $xoopsModule->getVar('mid'))) {
+    $groups       = (!empty($xoopsUser) && is_object($xoopsUser)) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+    $gpermHandler = xoops_getHandler('groupperm');
+    if (!$gpermHandler->checkRight('mpu_mpublish_acesso', $mpu_classe->getVar('mpb_10_id'), $groups, $xoopsModule->getVar('mid'))) {
         redirect_header(XOOPS_URL, 3, _NOPERM);
     }
     if ($xoopsModuleConfig['mpu_conf_navigation']) {
@@ -40,8 +40,7 @@ if (!$mpu_classe->getVar('mpb_10_id')) {
         $xoopsTpl->assign('navigation', '');
     }
     if ($mpu_classe->getVar('mpb_30_arquivo') != ''
-        && substr($mpu_classe->getVar('mpb_30_arquivo'), 0, 7) === 'http://'
-    ) {
+        && substr($mpu_classe->getVar('mpb_30_arquivo'), 0, 7) === 'http://') {
         $content = '<iframe src ="' . $mpu_classe->getVar('mpb_30_arquivo') . '" width="' . $xoopsModuleConfig['mpu_conf_iframe_width'] . '" height="' . $xoopsModuleConfig['mpu_conf_iframe_height'] . '" scrolling="auto" frameborder="0"></iframe>';
         $xoopsTpl->assign('content', $content);
     } elseif ($mpu_classe->getVar('mpb_30_arquivo') != '' && $mpu_classe->getVar('mpb_35_conteudo') == '') {
@@ -67,14 +66,12 @@ if (!$mpu_classe->getVar('mpb_10_id')) {
     }
     $xoopsTpl->assign('comentarios', $mpu_classe->getVar('mpb_12_comentarios'));
     if ($mpu_classe->getVar('mpb_12_recomendar') == 1) {
-        $xoopsTpl->assign('recomendar',
-                          "<a href='" . $mpu_classe->pegaLink('recommend.php') . "' title='" . MPU_MAI_RECOMMEND . "'><img src='" . XOOPS_URL . '/modules/' . MPU_MOD_DIR . "/assets/images/recomendar.jpg' alt='" . MPU_MAI_RECOMMEND . "'></a> ");
+        $xoopsTpl->assign('recomendar', "<a href='" . $mpu_classe->pegaLink('recommend.php') . "' title='" . MPU_MAI_RECOMMEND . "'><img src='" . XOOPS_URL . '/modules/' . MPU_MOD_DIR . "/assets/images/recomendar.jpg' alt='" . MPU_MAI_RECOMMEND . "'></a> ");
     } else {
         $xoopsTpl->assign('recomendar', '');
     }
     if ($mpu_classe->getVar('mpb_12_imprimir') == 1) {
-        $xoopsTpl->assign('imprimir',
-                          "<a href='" . $mpu_classe->pegaLink('print.php') . "' target='_blank'  title='" . MPU_MAI_PRINT . "'><img src='" . XOOPS_URL . '/modules/' . MPU_MOD_DIR . "/assets/images/imprimir.jpg' alt='" . MPU_MAI_PRINT . "'></a>");
+        $xoopsTpl->assign('imprimir', "<a href='" . $mpu_classe->pegaLink('print.php') . "' target='_blank'  title='" . MPU_MAI_PRINT . "'><img src='" . XOOPS_URL . '/modules/' . MPU_MOD_DIR . "/assets/images/imprimir.jpg' alt='" . MPU_MAI_PRINT . "'></a>");
     } else {
         $xoopsTpl->assign('imprimir', '');
     }
@@ -84,39 +81,93 @@ if (!$mpu_classe->getVar('mpb_10_id')) {
         $xoopsTpl->assign('criado', MPU_MAI_CRIADO . ' <b>' . date(_SHORTDATESTRING, $mpu_classe->getVar('mpb_22_criado')) . '</b>');
         $xoopsTpl->assign('atualizado', MPU_MAI_ATUALIZADO . ' <b>' . date(_SHORTDATESTRING, $mpu_classe->getVar('mpb_22_atualizado')) . '</b>');
         $xoopsTpl->assign('contador', sprintf(MPU_MAI_CONTADOR, $mpu_classe->getVar('mpb_10_contador')));
-        $xoopsTpl->assign('zerar_cont',
-                          '<input style="font-size: 11px; border:2px solid #9C9C9C; background-color: #FFFFFF" name="limpacont" id="limpacont" value="' . MPU_MAI_ZCONTADOR . '" onclick="document.location= \'' . XOOPS_URL . '/modules/' . MPU_MOD_DIR
-                          . '/admin/index.php?op=limpacont&mpb_10_id=' . $mpu_classe->getVar('mpb_10_id') . '\'" type="button">');
-        $xoopsTpl->assign('editar_pagina',
-                          '<input style="font-size: 11px; border:2px solid #9C9C9C; background-color: #FFFFFF" name="editcont" id="editcont" value="' . MPU_MAI_EDITPAGE . '" onclick="document.location= \'' . XOOPS_URL . '/modules/' . MPU_MOD_DIR
-                          . '/admin/index.php?op=listar_editar&mpb_10_id=' . $mpu_classe->getVar('mpb_10_id') . '\'" type="button">');
-        $xoopsTpl->assign('tools_image',
-                          "<a href='javascript:void(0)' title='" . MPU_MAI_INFOPG . "' onclick='document.getElementById(\"admin_page\").style.display=(document.getElementById(\"admin_page\").style.display)? \"\" : \"none\"'><img src='" . XOOPS_URL
-                          . '/modules/' . MPU_MOD_DIR . "/assets/images/tools.jpg' alt='" . MPU_MAI_INFOPG . "'></a>");
+        $xoopsTpl->assign('zerar_cont', '<input style="font-size: 11px; border:2px solid #9C9C9C; background-color: #FFFFFF" name="limpacont" id="limpacont" value="'
+                                        . MPU_MAI_ZCONTADOR
+                                        . '" onclick="document.location= \''
+                                        . XOOPS_URL
+                                        . '/modules/'
+                                        . MPU_MOD_DIR
+                                        . '/admin/index.php?op=limpacont&mpb_10_id='
+                                        . $mpu_classe->getVar('mpb_10_id')
+                                        . '\'" type="button">');
+        $xoopsTpl->assign('editar_pagina', '<input style="font-size: 11px; border:2px solid #9C9C9C; background-color: #FFFFFF" name="editcont" id="editcont" value="'
+                                           . MPU_MAI_EDITPAGE
+                                           . '" onclick="document.location= \''
+                                           . XOOPS_URL
+                                           . '/modules/'
+                                           . MPU_MOD_DIR
+                                           . '/admin/index.php?op=listar_editar&mpb_10_id='
+                                           . $mpu_classe->getVar('mpb_10_id')
+                                           . '\'" type="button">');
+        $xoopsTpl->assign('tools_image', "<a href='javascript:void(0)' title='"
+                                         . MPU_MAI_INFOPG
+                                         . "' onclick='document.getElementById(\"admin_page\").style.display=(document.getElementById(\"admin_page\").style.display)? \"\" : \"none\"'><img src='"
+                                         . XOOPS_URL
+                                         . '/modules/'
+                                         . MPU_MOD_DIR
+                                         . "/assets/images/tools.jpg' alt='"
+                                         . MPU_MAI_INFOPG
+                                         . "'></a>");
         $xoopsTpl->assign('mpu_isauthor', 1);
     } elseif (!empty($xoopsUser) && $xoopsUser->getVar('uid') == $mpu_classe->getVar('usr_10_uid')
-              && ($xoopsModuleConfig['mpu_conf_canedit'] == 1 || $xoopsModuleConfig['mpu_conf_cancreate'] == 1)
-    ) {
+              && ($xoopsModuleConfig['mpu_conf_canedit'] == 1 || $xoopsModuleConfig['mpu_conf_cancreate'] == 1)) {
         $xoopsTpl->assign('infos', MPU_MAI_INFOPG);
         $xoopsTpl->assign('autor', MPU_MAI_AUTOR . ' <b>' . XoopsUser::getUnameFromId($mpu_classe->getVar('usr_10_uid')) . '</b>');
         $xoopsTpl->assign('criado', MPU_MAI_CRIADO . ' <b>' . date(_SHORTDATESTRING, $mpu_classe->getVar('mpb_22_criado')) . '</b>');
         $xoopsTpl->assign('atualizado', MPU_MAI_ATUALIZADO . ' <b>' . date(_SHORTDATESTRING, $mpu_classe->getVar('mpb_22_atualizado')) . '</b>');
         $xoopsTpl->assign('contador', sprintf(MPU_MAI_CONTADOR, $mpu_classe->getVar('mpb_10_contador')));
-        $xoopsTpl->assign('zerar_cont',
-                          '<input style="font-size: 11px; border:2px solid #9C9C9C; background-color: #FFFFFF" name="limpacont" id="limpacont" value="' . MPU_MAI_ZCONTADOR . '" onclick="document.location= \'' . XOOPS_URL . '/modules/' . MPU_MOD_DIR
-                          . '/author.php?op=limpacont&mpb_10_id=' . $mpu_classe->getVar('mpb_10_id') . '\'" type="button">');
-        $xoopsTpl->assign('editar_pagina',
-                          ($xoopsModuleConfig['mpu_conf_canedit'] ? '<input style="font-size: 11px; border:2px solid #9C9C9C; background-color: #FFFFFF" name="editcont" id="editcont" value="' . MPU_MAI_EDITPAGE . '" onclick="document.location= \''
-                                                                    . XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/author.php?op=editar&mpb_10_id=' . $mpu_classe->getVar('mpb_10_id') . '\'" type="button"><br><br>' : '')
-                          . '<input style="font-size: 11px; border:2px solid #FF0000; background-color: #FFFFFF" name="mycont" id="mycont" value="' . MPU_MAI_MYPAGES . '" onclick="document.location= \'' . XOOPS_URL . '/modules/' . MPU_MOD_DIR
-                          . '/author.php?op=listar\'" type="button"> ' . ($xoopsModuleConfig['mpu_conf_cancreate'] ? ' <input style="font-size: 11px; border:2px solid #FF0000; background-color: #FFFFFF" name="newcont" id="newcont" value="'
-                                                                                                                     . MPU_MAI_NEWPAGE . '" onclick="document.location= \'' . XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/author.php?op=novo&mpb_10_id='
-                                                                                                                     . $mpu_classe->getVar('mpb_10_id') . '\'" type="button">' : '')
-                          . ($xoopsModuleConfig['mpu_conf_candelete'] ? ' <input style="font-size: 11px; border:2px solid #FF0000; background-color: #FFFFFF" name="delcont" id="delcont" value="' . _DELETE . '" onclick="document.location= \''
-                                                                        . XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/author.php?op=deletar&mpb_10_id=' . $mpu_classe->getVar('mpb_10_id') . '\'" type="button">' : ''));
-        $xoopsTpl->assign('tools_image',
-                          "<a href='javascript:void(0)' title='" . MPU_MAI_INFOPG . "' onclick='document.getElementById(\"admin_page\").style.display=(document.getElementById(\"admin_page\").style.display)? \"\" : \"none\"'><img src='" . XOOPS_URL
-                          . '/modules/' . MPU_MOD_DIR . "/assets/images/tools.jpg' alt='" . MPU_MAI_INFOPG . "'></a>");
+        $xoopsTpl->assign('zerar_cont', '<input style="font-size: 11px; border:2px solid #9C9C9C; background-color: #FFFFFF" name="limpacont" id="limpacont" value="'
+                                        . MPU_MAI_ZCONTADOR
+                                        . '" onclick="document.location= \''
+                                        . XOOPS_URL
+                                        . '/modules/'
+                                        . MPU_MOD_DIR
+                                        . '/author.php?op=limpacont&mpb_10_id='
+                                        . $mpu_classe->getVar('mpb_10_id')
+                                        . '\'" type="button">');
+        $xoopsTpl->assign('editar_pagina', ($xoopsModuleConfig['mpu_conf_canedit'] ? '<input style="font-size: 11px; border:2px solid #9C9C9C; background-color: #FFFFFF" name="editcont" id="editcont" value="'
+                                                                                     . MPU_MAI_EDITPAGE
+                                                                                     . '" onclick="document.location= \''
+                                                                                     . XOOPS_URL
+                                                                                     . '/modules/'
+                                                                                     . MPU_MOD_DIR
+                                                                                     . '/author.php?op=editar&mpb_10_id='
+                                                                                     . $mpu_classe->getVar('mpb_10_id')
+                                                                                     . '\'" type="button"><br><br>' : '')
+                                           . '<input style="font-size: 11px; border:2px solid #FF0000; background-color: #FFFFFF" name="mycont" id="mycont" value="'
+                                           . MPU_MAI_MYPAGES
+                                           . '" onclick="document.location= \''
+                                           . XOOPS_URL
+                                           . '/modules/'
+                                           . MPU_MOD_DIR
+                                           . '/author.php?op=listar\'" type="button"> '
+                                           . ($xoopsModuleConfig['mpu_conf_cancreate'] ? ' <input style="font-size: 11px; border:2px solid #FF0000; background-color: #FFFFFF" name="newcont" id="newcont" value="'
+                                                                                         . MPU_MAI_NEWPAGE
+                                                                                         . '" onclick="document.location= \''
+                                                                                         . XOOPS_URL
+                                                                                         . '/modules/'
+                                                                                         . MPU_MOD_DIR
+                                                                                         . '/author.php?op=novo&mpb_10_id='
+                                                                                         . $mpu_classe->getVar('mpb_10_id')
+                                                                                         . '\'" type="button">' : '')
+                                           . ($xoopsModuleConfig['mpu_conf_candelete'] ? ' <input style="font-size: 11px; border:2px solid #FF0000; background-color: #FFFFFF" name="delcont" id="delcont" value="'
+                                                                                         . _DELETE
+                                                                                         . '" onclick="document.location= \''
+                                                                                         . XOOPS_URL
+                                                                                         . '/modules/'
+                                                                                         . MPU_MOD_DIR
+                                                                                         . '/author.php?op=deletar&mpb_10_id='
+                                                                                         . $mpu_classe->getVar('mpb_10_id')
+                                                                                         . '\'" type="button">' : ''));
+        $xoopsTpl->assign('tools_image', "<a href='javascript:void(0)' title='"
+                                         . MPU_MAI_INFOPG
+                                         . "' onclick='document.getElementById(\"admin_page\").style.display=(document.getElementById(\"admin_page\").style.display)? \"\" : \"none\"'><img src='"
+                                         . XOOPS_URL
+                                         . '/modules/'
+                                         . MPU_MOD_DIR
+                                         . "/assets/images/tools.jpg' alt='"
+                                         . MPU_MAI_INFOPG
+                                         . "'></a>");
         $xoopsTpl->assign('mpu_isauthor', 1);
     } else {
         $xoopsTpl->assign('mpu_isauthor', 0);
@@ -150,5 +201,5 @@ if (!$mpu_classe->getVar('mpb_10_id')) {
     $xoopsTpl->assign('mpversion', round($xoopsModule->getVar('version') / 100, 2));
     $mpu_classe->updateCount();
 }
-include_once XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/include/comment_view.php';
-include_once XOOPS_ROOT_PATH . '/footer.php';
+require_once XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/include/comment_view.php';
+require_once XOOPS_ROOT_PATH . '/footer.php';

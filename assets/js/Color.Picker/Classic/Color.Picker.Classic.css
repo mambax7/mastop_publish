@@ -26,7 +26,7 @@
 
 #ColorPicker input.hexInput:hover,
 #ColorPicker input.hexInput:focus {
-    color: #FFD000
+    color: #FFD000;
 }
 
 #ColorPicker input.hexInput {

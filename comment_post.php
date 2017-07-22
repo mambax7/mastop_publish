@@ -15,26 +15,26 @@ include __DIR__ . '/../../mainfile.php';
 if (!defined('XOOPS_ROOT_PATH') || !is_object($xoopsModule)) {
     exit();
 }
-include_once XOOPS_ROOT_PATH . '/language/' . $xoopsConfig['language'] . '/comment.php';
-include_once XOOPS_ROOT_PATH . '/include/comment_constants.php';
+require_once XOOPS_ROOT_PATH . '/language/' . $xoopsConfig['language'] . '/comment.php';
+require_once XOOPS_ROOT_PATH . '/include/comment_constants.php';
 if ('system' === $xoopsModule->getVar('dirname')) {
     $com_id = isset($_POST['com_id']) ? (int)$_POST['com_id'] : 0;
     if (empty($com_id)) {
         exit();
     }
-    $comment_handler = xoops_getHandler('comment');
-    $comment         =& $comment_handler->get($com_id);
+    $commentHandler = xoops_getHandler('comment');
+    $comment        = $commentHandler->get($com_id);
     /** @var XoopsModuleHandler $moduleHandler */
-    $moduleHandler = xoops_getHandler('module');
-    $module          = $moduleHandler->get($comment->getVar('com_modid'));
-    $comment_config  = $module->getInfo('comments');
-    $com_modid       = $module->getVar('mid');
-    $redirect_page   = XOOPS_URL . '/modules/system/admin.php?fct=comments&amp;com_modid=' . $com_modid . '&amp;com_itemid';
-    $moddir          = $module->getVar('dirname');
+    $moduleHandler  = xoops_getHandler('module');
+    $module         = $moduleHandler->get($comment->getVar('com_modid'));
+    $comment_config = $module->getInfo('comments');
+    $com_modid      = $module->getVar('mid');
+    $redirect_page  = XOOPS_URL . '/modules/system/admin.php?fct=comments&amp;com_modid=' . $com_modid . '&amp;com_itemid';
+    $moddir         = $module->getVar('dirname');
     unset($comment);
 } else {
     if ($xoopsModuleConfig['mpu_conf_captcha']) {
-        require 'include/captcha/php-captcha.inc.php';
+        require_once __DIR__ . '/include/captcha/php-captcha.inc.php';
         $captcha = (!empty($_POST['captcha_field'])) ? $_POST['captcha_field'] : 0;
         if (PhpCaptcha::Validate($captcha)) {
             $captcha_code = true;
@@ -60,8 +60,8 @@ if ('system' === $xoopsModule->getVar('dirname')) {
         $redirect_page .= $extra_params;
     }
     $redirect_page .= $comment_config['itemName'];
-    $comment_url = $redirect_page;
-    $moddir      = $xoopsModule->getVar('dirname');
+    $comment_url   = $redirect_page;
+    $moddir        = $xoopsModule->getVar('dirname');
 }
 $op = '';
 if (!empty($_POST)) {
@@ -102,8 +102,8 @@ switch ($op) {
         if ($dohtml != 0) {
             if (is_object($xoopsUser)) {
                 if (!$xoopsUser->isAdmin($com_modid)) {
-                    $sysperm_handler = xoops_getHandler('groupperm');
-                    if (!$sysperm_handler->checkRight('system_admin', XOOPS_SYSTEM_COMMENT, $xoopsUser->getGroups())) {
+                    $syspermHandler = xoops_getHandler('groupperm');
+                    if (!$syspermHandler->checkRight('system_admin', XOOPS_SYSTEM_COMMENT, $xoopsUser->getGroups())) {
                         $dohtml = 0;
                     }
                 }
@@ -135,8 +135,8 @@ switch ($op) {
             if ($dohtml != 0) {
                 if (is_object($xoopsUser)) {
                     if (!$xoopsUser->isAdmin($com_modid)) {
-                        $sysperm_handler = xoops_getHandler('groupperm');
-                        if (!$sysperm_handler->checkRight('system_admin', XOOPS_SYSTEM_COMMENT, $xoopsUser->getGroups())) {
+                        $syspermHandler = xoops_getHandler('groupperm');
+                        if (!$syspermHandler->checkRight('system_admin', XOOPS_SYSTEM_COMMENT, $xoopsUser->getGroups())) {
                             $dohtml = 0;
                         }
                     }
@@ -162,20 +162,19 @@ switch ($op) {
         }
 
         $doimage          = 1;
-        $comment_handler  = xoops_getHandler('comment');
+        $commentHandler   = xoops_getHandler('comment');
         $add_userpost     = false;
         $call_approvefunc = false;
         $call_updatefunc  = false;
         // RMV-NOTIFY - this can be set to 'comment' or 'comment_submit'
         $notify_event = false;
         if (!empty($com_id)) {
-            $comment     =& $comment_handler->get($com_id);
+            $comment     =& $commentHandler->get($com_id);
             $accesserror = false;
             if (is_object($xoopsUser)) {
-                $sysperm_handler = xoops_getHandler('groupperm');
+                $syspermHandler = xoops_getHandler('groupperm');
                 if ($xoopsUser->isAdmin($com_modid)
-                    || $sysperm_handler->checkRight('system_admin', XOOPS_SYSTEM_COMMENT, $xoopsUser->getGroups())
-                ) {
+                    || $syspermHandler->checkRight('system_admin', XOOPS_SYSTEM_COMMENT, $xoopsUser->getGroups())) {
                     if (!empty($com_status) && $com_status != XOOPS_COMMENT_PENDING) {
                         $old_com_status = $comment->getVar('com_status');
                         $comment->setVar('com_status', $com_status);
@@ -210,17 +209,16 @@ switch ($op) {
                 redirect_header($redirect_page . '=' . $com_itemid . '&amp;com_id=' . $com_id . '&amp;com_mode=' . $com_mode . '&amp;com_order=' . $com_order, 1, _NOPERM);
             }
         } else {
-            $comment = $comment_handler->create();
+            $comment = $commentHandler->create();
             $comment->setVar('com_created', time());
             $comment->setVar('com_pid', $com_pid);
             $comment->setVar('com_itemid', $com_itemid);
             $comment->setVar('com_rootid', $com_rootid);
             $comment->setVar('com_ip', xoops_getenv('REMOTE_ADDR'));
             if (is_object($xoopsUser)) {
-                $sysperm_handler = xoops_getHandler('groupperm');
+                $syspermHandler = xoops_getHandler('groupperm');
                 if ($xoopsUser->isAdmin($com_modid)
-                    || $sysperm_handler->checkRight('system_admin', XOOPS_SYSTEM_COMMENT, $xoopsUser->getGroups())
-                ) {
+                    || $syspermHandler->checkRight('system_admin', XOOPS_SYSTEM_COMMENT, $xoopsUser->getGroups())) {
                     $comment->setVar('com_status', XOOPS_COMMENT_ACTIVE);
                     $add_userpost     = true;
                     $call_approvefunc = true;
@@ -294,14 +292,14 @@ switch ($op) {
         if (isset($extra_params)) {
             $comment->setVar('com_exparams', $extra_params);
         }
-        if (false != $comment_handler->insert($comment)) {
+        if (false != $commentHandler->insert($comment)) {
             $newcid = $comment->getVar('com_id');
 
             // set own id as root id if this is a top comment
             if ($com_rootid == 0) {
                 $com_rootid = $newcid;
-                if (!$comment_handler->updateByField($comment, 'com_rootid', $com_rootid)) {
-                    $comment_handler->delete($comment);
+                if (!$commentHandler->updateByField($comment, 'com_rootid', $com_rootid)) {
+                    $commentHandler->delete($comment);
                     include XOOPS_ROOT_PATH . '/header.php';
                     xoops_error();
                     include XOOPS_ROOT_PATH . '/footer.php';
@@ -310,16 +308,14 @@ switch ($op) {
 
             // call custom approve function if any
             if (false != $call_approvefunc && isset($comment_config['callback']['approve'])
-                && trim($comment_config['callback']['approve']) != ''
-            ) {
+                && trim($comment_config['callback']['approve']) != '') {
                 $skip = false;
                 if (!function_exists($comment_config['callback']['approve'])) {
                     if (isset($comment_config['callbackFile'])) {
                         $callbackfile = trim($comment_config['callbackFile']);
                         if ($callbackfile != ''
-                            && file_exists(XOOPS_ROOT_PATH . '/modules/' . $moddir . '/' . $callbackfile)
-                        ) {
-                            include_once XOOPS_ROOT_PATH . '/modules/' . $moddir . '/' . $callbackfile;
+                            && file_exists(XOOPS_ROOT_PATH . '/modules/' . $moddir . '/' . $callbackfile)) {
+                            require_once XOOPS_ROOT_PATH . '/modules/' . $moddir . '/' . $callbackfile;
                         }
                         if (!function_exists($comment_config['callback']['approve'])) {
                             $skip = true;
@@ -335,16 +331,14 @@ switch ($op) {
 
             // call custom update function if any
             if (false != $call_updatefunc && isset($comment_config['callback']['update'])
-                && trim($comment_config['callback']['update']) != ''
-            ) {
+                && trim($comment_config['callback']['update']) != '') {
                 $skip = false;
                 if (!function_exists($comment_config['callback']['update'])) {
                     if (isset($comment_config['callbackFile'])) {
                         $callbackfile = trim($comment_config['callbackFile']);
                         if ($callbackfile != ''
-                            && file_exists(XOOPS_ROOT_PATH . '/modules/' . $moddir . '/' . $callbackfile)
-                        ) {
-                            include_once XOOPS_ROOT_PATH . '/modules/' . $moddir . '/' . $callbackfile;
+                            && file_exists(XOOPS_ROOT_PATH . '/modules/' . $moddir . '/' . $callbackfile)) {
+                            require_once XOOPS_ROOT_PATH . '/modules/' . $moddir . '/' . $callbackfile;
                         }
                         if (!function_exists($comment_config['callback']['update'])) {
                             $skip = true;
@@ -357,7 +351,7 @@ switch ($op) {
                     $criteria = new CriteriaCompo(new Criteria('com_modid', $com_modid));
                     $criteria->add(new Criteria('com_itemid', $com_itemid));
                     $criteria->add(new Criteria('com_status', XOOPS_COMMENT_ACTIVE));
-                    $comment_count = $comment_handler->getCount($criteria);
+                    $comment_count = $commentHandler->getCount($criteria);
                     $func          = $comment_config['callback']['update'];
                     call_user_func_array($func, array($com_itemid, $comment_count, $comment->getVar('com_id')));
                 }
@@ -365,11 +359,11 @@ switch ($op) {
 
             // increment user post if needed
             $uid = $comment->getVar('com_uid');
-            if ($uid > 0 && false != $add_userpost) {
-                $member_handler = xoops_getHandler('member');
-                $poster         =& $member_handler->getUser($uid);
+            if ($uid > 0 && false !== $add_userpost) {
+                $memberHandler = xoops_getHandler('member');
+                $poster        = $memberHandler->getUser($uid);
                 if (is_object($poster)) {
-                    $member_handler->updateUserByField($poster, 'posts', $poster->getVar('posts') + 1);
+                    $memberHandler->updateUserByField($poster, 'posts', $poster->getVar('posts') + 1);
                 }
             }
 
@@ -377,7 +371,7 @@ switch ($op) {
             // trigger notification event if necessary
             if ($notify_event) {
                 $not_modid = $com_modid;
-                include_once XOOPS_ROOT_PATH . '/include/notification_functions.php';
+                require_once XOOPS_ROOT_PATH . '/include/notification_functions.php';
                 $not_catinfo  =& notificationCommentCategoryInfo($not_modid);
                 $not_category = $not_catinfo['name'];
                 $not_itemid   = $com_itemid;
@@ -406,10 +400,9 @@ switch ($op) {
                     }
                     $comment_url .= $com_config['itemName'];
                 }
-                $comment_tags['X_COMMENT_URL'] = XOOPS_URL . '/modules/' . $not_module->getVar('dirname') . '/' . $comment_url . '=' . $com_itemid . '&amp;com_id=' . $newcid . '&amp;com_rootid=' . $com_rootid . '&amp;com_mode=' . $com_mode
-                                                 . '&amp;com_order=' . $com_order . '#comment' . $newcid;
-                $notification_handler          = xoops_getHandler('notification');
-                $notification_handler->triggerEvent($not_category, $not_itemid, $not_event, $comment_tags, false, $not_modid);
+                $comment_tags['X_COMMENT_URL'] = XOOPS_URL . '/modules/' . $not_module->getVar('dirname') . '/' . $comment_url . '=' . $com_itemid . '&amp;com_id=' . $newcid . '&amp;com_rootid=' . $com_rootid . '&amp;com_mode=' . $com_mode . '&amp;com_order=' . $com_order . '#comment' . $newcid;
+                $notificationHandler           = xoops_getHandler('notification');
+                $notificationHandler->triggerEvent($not_category, $not_itemid, $not_event, $comment_tags, false, $not_modid);
             }
 
             if (!isset($comment_post_results)) {

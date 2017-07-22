@@ -11,7 +11,8 @@
 ### =============================================================
 ###
 ### =============================================================
-include_once XOOPS_ROOT_PATH . '/kernel/object.php';
+require_once XOOPS_ROOT_PATH . '/kernel/object.php';
+
 if (!class_exists('mpu_geral')) {
     class mpu_geral extends XoopsObject
     {
@@ -211,15 +212,14 @@ if (!class_exists('mpu_geral')) {
                     $hiddens[$v] = $campos['precrit']['valor'][$k];
                     $criterio->add(new Criteria($v, $campos['precrit']['valor'][$k], $operador, $this->tabela));
                     $precrit_hidden .= "<input type='hidden' name='" . $v . "' value='" . $campos['precrit']['valor'][$k] . "'>";
-                    $precrit_url .= '&' . $v . '=' . $campos['precrit']['valor'][$k];
+                    $precrit_url    .= '&' . $v . '=' . $campos['precrit']['valor'][$k];
                 }
             } else {
                 $precrit_hidden = '';
                 $precrit_url    = '';
             }
             if (!empty($campos['checks']) && !empty($_POST['group_action']) && is_array($_POST['checks'])
-                && $_POST['group_action'] == 'group_del_ok'
-            ) {
+                && $_POST['group_action'] == 'group_del_ok') {
                 $chks   = $_POST['checks'];
                 $classe = get_class($this);
                 foreach ($chks as $k => $v) {
@@ -233,8 +233,7 @@ if (!class_exists('mpu_geral')) {
                 }
             }
             if (!empty($campos['checks']) && !empty($_POST['group_action']) && $_POST['group_action'] == 'group_del'
-                && is_array($_POST['checks'])
-            ) {
+                && is_array($_POST['checks'])) {
                 $chks = $_POST['checks'];
                 foreach ($chks as $k => $v) {
                     $hiddens['checks[' . $k . ']'] = 1;
@@ -253,8 +252,7 @@ if (!class_exists('mpu_geral')) {
                         } elseif (is_array($v)) {
                             if (!empty($v['dday']) || !empty($v['dmonth']) || !empty($v['dyear']) || !empty($v['aday'])
                                 || !empty($v['amonth'])
-                                || !empty($v['ayear'])
-                            ) {
+                                || !empty($v['ayear'])) {
                                 $dday   = (!empty($v['dday'])) ? $v['dday'] : 1;
                                 $dmonth = (!empty($v['dmonth'])) ? $v['dmonth'] : 1;
                                 $dyear  = (!empty($v['dyear'])) ? $v['dyear'] : 1;
@@ -269,8 +267,30 @@ if (!class_exists('mpu_geral')) {
                         } else {
                             $criterio->add(new Criteria($k, "%$v%", 'LIKE', $this->tabela));
                         }
-                        $busca_url .= (!is_array($v)) ? '&busca[' . $k . ']=' . $v : '&busca[' . $k . '][dday]=' . $v['dday'] . '&busca[' . $k . '][dmonth]=' . $v['dmonth'] . '&busca[' . $k . '][dyear]=' . $v['dyear'] . '&busca[' . $k . '][aday]='
-                                                                                     . $v['aday'] . '&busca[' . $k . '][amonth]=' . $v['amonth'] . '&busca[' . $k . '][ayear]=' . $v['ayear'];
+                        $busca_url .= (!is_array($v)) ? '&busca[' . $k . ']=' . $v : '&busca['
+                                                                                     . $k
+                                                                                     . '][dday]='
+                                                                                     . $v['dday']
+                                                                                     . '&busca['
+                                                                                     . $k
+                                                                                     . '][dmonth]='
+                                                                                     . $v['dmonth']
+                                                                                     . '&busca['
+                                                                                     . $k
+                                                                                     . '][dyear]='
+                                                                                     . $v['dyear']
+                                                                                     . '&busca['
+                                                                                     . $k
+                                                                                     . '][aday]='
+                                                                                     . $v['aday']
+                                                                                     . '&busca['
+                                                                                     . $k
+                                                                                     . '][amonth]='
+                                                                                     . $v['amonth']
+                                                                                     . '&busca['
+                                                                                     . $k
+                                                                                     . '][ayear]='
+                                                                                     . $v['ayear'];
                     }
                 }
             }
@@ -351,7 +371,7 @@ var grp_sel = document.getElementById("group_action");
 if(grp_sel.options[grp_sel.selectedIndex].value == 0) return true;
 var inputs = document.getElementsByTagName("input");
     for (var t = 0;t < inputs.length;t++) {
-        if(inputs[t].type == "checkbox" && inputs[t].checked == true) return true;
+        if(inputs[t].type == "checkbox" && inputs[t].checked === true) return true;
     }
     alert("' . $campos['lang']['group_erro_sel'] . '");
 
@@ -362,7 +382,7 @@ function marcaCheck(linha, ckbx, classe)
 var tr = document.getElementById(linha);
 var valor = document.getElementById(ckbx).checked;
 //alert(tr.onmouseout);
-if (valor == true) {
+if (valor === true) {
 tr.className = "neutro";
 tr.onmouseout = function(){};
 return true;
@@ -373,21 +393,32 @@ return true;
 }
 }
 </script>' : '</script>');
-            $ret .= (!empty($campos['noadminmenu'])) ? '
+            $ret         .= (!empty($campos['noadminmenu'])) ? '
         <script language="javascript" type="text/javascript">
 if (window.addEventListener)
 window.addEventListener("load", esconde_menus, false)
 else if (window.attachEvent)
 window.attachEvent("onload", esconde_menus)
 </script>' : '';
-            $ret .= '
+            $ret         .= '
 <table width="100%" border="0" cellspacing="0" class="outer">
-<tr><td style="padding:5px; font-size:16px; border: 1px solid #C0C0C0; border-bottom:0px"><div style="font-size:12px; text-align:right; float:right">'
-                    . (empty($campos['nofilters']) ? '<a href="javascript:void(0);"  onclick="exibe_esconde(\'busca\');">' . $campos['lang']['filtros'] . '</a> - <a href="javascript:void(0);"  onclick="esconde_menus();">'
-                                                     . $campos['lang']['showhidemenu'] . '</a>' : '') . '</div><b>' . $campos['lang']['titulo'] . '</b></td></tr>
+<tr><td style="padding:5px; font-size:16px; border: 1px solid #C0C0C0; border-bottom:0px"><div style="font-size:12px; text-align:right; float:right">' . (empty($campos['nofilters']) ? '<a href="javascript:void(0);"  onclick="exibe_esconde(\'busca\');">'
+                                                                                                                                                                                        . $campos['lang']['filtros']
+                                                                                                                                                                                        . '</a> - <a href="javascript:void(0);"  onclick="esconde_menus();">'
+                                                                                                                                                                                        . $campos['lang']['showhidemenu']
+                                                                                                                                                                                        . '</a>' : '') . '</div><b>' . $campos['lang']['titulo'] . '</b></td></tr>
 <tr><td class="outer" style="background-color: #F3F2F2;"><div style="text-align: center;">';
-            $ret .= "<form action='" . $url . "' method='GET' name='form_npag'>" . $precrit_hidden . '<b>' . $campos['lang']['exibir'] . "&nbsp;&nbsp;<input type='text' name='limit' value='" . $limit
-                    . "' size='4' maxlength='3' style='text-align:center'>&nbsp;&nbsp;" . $campos['lang']['por_pagina'] . '</b>';
+            $ret         .= "<form action='"
+                            . $url
+                            . "' method='GET' name='form_npag'>"
+                            . $precrit_hidden
+                            . '<b>'
+                            . $campos['lang']['exibir']
+                            . "&nbsp;&nbsp;<input type='text' name='limit' value='"
+                            . $limit
+                            . "' size='4' maxlength='3' style='text-align:center'>&nbsp;&nbsp;"
+                            . $campos['lang']['por_pagina']
+                            . '</b>';
             if (!empty($_GET['busca'])) {
                 foreach ($_GET['busca'] as $k => $v) {
                     if ($v != '' && $v != '-1' && !is_array($v)) {
@@ -403,16 +434,26 @@ window.attachEvent("onload", esconde_menus)
                 }
             }
             $ret .= "<input type='hidden' name='op' value='" . $op . "'><input type='hidden' name='sort' value='" . $sort . "'><input type='hidden' name='order' value='" . $order . "'>";
-            $ret .= "&nbsp;&nbsp;&nbsp;<input type='image' src='../assets/images/envia.gif' style='border:0px; background-color:none' align='absmiddle'></form>";
+            $ret .= "&nbsp;&nbsp;&nbsp;<input type='image' src='../assets/images/envia.gif' style='border:0px; background-color:transparent' align='absmiddle'></form>";
             $ret .= "<table width='100%' border='0' cellspacing='0'>";
             $ret .= "<tbody><tr><td colspan='" . $colunas . "' align='right'>" . sprintf($campos['lang']['exibindo'], $start + 1, ((($start + $limit) < $contar) ? $start + $limit : $contar), $contar) . '</td></tr></tbody>';
             $ret .= "<tbody><tr class='hd'>";
             $ret .= $checks ? "<td align='center'><input type='checkbox' name='checkAll' id='checkAll' onclick='changecheck();'></td>" : '';
             foreach ($campos['rotulo'] as $k => $v) {
                 $ret .= "<td nowrap='nowrap' align='center' " . (($sort == $campos['nome'][$k]
-                                                                  && empty($campos['nosort'][$k])) ? "class='hds'" : '') . '>' . (empty($campos['nosort'][$k]) ? "<A HREF='" . $url_colunas . '&sort=' . $campos['nome'][$k] . '&order=' . $norder . "'>"
-                                                                                                                                                                 . $v . ' ' . (($sort == $campos['nome'][$k]) ? "<img src='../assets/images/" . $order
-                                                                                                                                                                                                                . ".gif' align='absmiddle'>" : '')
+                                                                  && empty($campos['nosort'][$k])) ? "class='hds'" : '') . '>' . (empty($campos['nosort'][$k]) ? "<A HREF='"
+                                                                                                                                                                 . $url_colunas
+                                                                                                                                                                 . '&sort='
+                                                                                                                                                                 . $campos['nome'][$k]
+                                                                                                                                                                 . '&order='
+                                                                                                                                                                 . $norder
+                                                                                                                                                                 . "'>"
+                                                                                                                                                                 . $v
+                                                                                                                                                                 . ' '
+                                                                                                                                                                 . (($sort
+                                                                                                                                                                     == $campos['nome'][$k]) ? "<img src='../assets/images/"
+                                                                                                                                                                                               . $order
+                                                                                                                                                                                               . ".gif' align='absmiddle'>" : '')
                                                                                                                                                                  . '</a></td>' : $v . '</td>');
             }
             $ret .= (!empty($campos['botoes'])) ? "<td align='center'>" . $campos['lang']['acao'] . '</td>' : '';
@@ -426,14 +467,32 @@ window.attachEvent("onload", esconde_menus)
                         case 'none':
                             break;
                         case 'date':
-                            $ret .= "<input type='text' name='busca[" . $campos['nome'][$k] . "][dday]' size='2' maxlength='2' value=" . ((!empty($_GET['busca'][$campos['nome'][$k]]['dday'])) ? $_GET['busca'][$campos['nome'][$k]]['dday'] : '')
-                                    . "> <input type='text' name='busca[" . $campos['nome'][$k] . "][dmonth]' size='2' maxlength='2' value="
-                                    . ((!empty($_GET['busca'][$campos['nome'][$k]]['dmonth'])) ? $_GET['busca'][$campos['nome'][$k]]['dmonth'] : '') . "> <input type='text' name='busca[" . $campos['nome'][$k]
-                                    . "][dyear]' size='2' maxlength='4' value=" . ((!empty($_GET['busca'][$campos['nome'][$k]]['dyear'])) ? $_GET['busca'][$campos['nome'][$k]]['dyear'] : '') . '><br>';
-                            $ret .= "<input type='text' name='busca[" . $campos['nome'][$k] . "][aday]' size='2' maxlength='2' value=" . ((!empty($_GET['busca'][$campos['nome'][$k]]['aday'])) ? $_GET['busca'][$campos['nome'][$k]]['aday'] : '')
-                                    . "> <input type='text' name='busca[" . $campos['nome'][$k] . "][amonth]' size='2' maxlength='2' value="
-                                    . ((!empty($_GET['busca'][$campos['nome'][$k]]['amonth'])) ? $_GET['busca'][$campos['nome'][$k]]['amonth'] : '') . "> <input type='text' name='busca[" . $campos['nome'][$k]
-                                    . "][ayear]' size='2' maxlength='4' value=" . ((!empty($_GET['busca'][$campos['nome'][$k]]['ayear'])) ? $_GET['busca'][$campos['nome'][$k]]['ayear'] : '') . '>';
+                            $ret .= "<input type='text' name='busca["
+                                    . $campos['nome'][$k]
+                                    . "][dday]' size='2' maxlength='2' value="
+                                    . ((!empty($_GET['busca'][$campos['nome'][$k]]['dday'])) ? $_GET['busca'][$campos['nome'][$k]]['dday'] : '')
+                                    . "> <input type='text' name='busca["
+                                    . $campos['nome'][$k]
+                                    . "][dmonth]' size='2' maxlength='2' value="
+                                    . ((!empty($_GET['busca'][$campos['nome'][$k]]['dmonth'])) ? $_GET['busca'][$campos['nome'][$k]]['dmonth'] : '')
+                                    . "> <input type='text' name='busca["
+                                    . $campos['nome'][$k]
+                                    . "][dyear]' size='2' maxlength='4' value="
+                                    . ((!empty($_GET['busca'][$campos['nome'][$k]]['dyear'])) ? $_GET['busca'][$campos['nome'][$k]]['dyear'] : '')
+                                    . '><br>';
+                            $ret .= "<input type='text' name='busca["
+                                    . $campos['nome'][$k]
+                                    . "][aday]' size='2' maxlength='2' value="
+                                    . ((!empty($_GET['busca'][$campos['nome'][$k]]['aday'])) ? $_GET['busca'][$campos['nome'][$k]]['aday'] : '')
+                                    . "> <input type='text' name='busca["
+                                    . $campos['nome'][$k]
+                                    . "][amonth]' size='2' maxlength='2' value="
+                                    . ((!empty($_GET['busca'][$campos['nome'][$k]]['amonth'])) ? $_GET['busca'][$campos['nome'][$k]]['amonth'] : '')
+                                    . "> <input type='text' name='busca["
+                                    . $campos['nome'][$k]
+                                    . "][ayear]' size='2' maxlength='4' value="
+                                    . ((!empty($_GET['busca'][$campos['nome'][$k]]['ayear'])) ? $_GET['busca'][$campos['nome'][$k]]['ayear'] : '')
+                                    . '>';
                             break;
                         case 'select':
                             $ret .= "<select name='busca[" . $campos['nome'][$k] . "]'><option value='-1'>" . _SELECT . '</option>';
@@ -459,18 +518,16 @@ window.attachEvent("onload", esconde_menus)
                             break;
                         case 'text':
                         default:
-                            $ret .= "<input type='text' name='busca[" . $campos['nome'][$k] . "]' value='" . (isset($_GET['busca'][$campos['nome'][$k]]) ? $_GET['busca'][$campos['nome'][$k]] : '') . "' size='"
-                                    . (isset($campos['tamanho'][$k]) ? $campos['tamanho'][$k] : 20) . "'/>";
+                            $ret .= "<input type='text' name='busca[" . $campos['nome'][$k] . "]' value='" . (isset($_GET['busca'][$campos['nome'][$k]]) ? $_GET['busca'][$campos['nome'][$k]] : '') . "' size='" . (isset($campos['tamanho'][$k]) ? $campos['tamanho'][$k] : 20) . "'/>";
                     }
                     if (empty($campos['botoes']) && $k == count($campos['rotulo'])) {
-                        $ret .= " <input type='image' src='../assets/images/envia.gif' style='border:0px; background-color:none' align='absmiddle'>";
+                        $ret .= " <input type='image' src='../assets/images/envia.gif' style='border:0px; background-color:transparent' align='absmiddle'>";
                     }
                     $ret .= '</td>';
                 }
-                $ret .= (!empty($campos['botoes'])) ? "<td align='center'><input type='image' src='../assets/images/envia.gif' style='border:0px; background-color:none'></td>" : '';
+                $ret .= (!empty($campos['botoes'])) ? "<td align='center'><input type='image' src='../assets/images/envia.gif' style='border:0px; background-color:transparent'></td>" : '';
                 $ret .= '</tr></tbody>';
-                $ret .= $precrit_hidden . "<input type='hidden' name='op' value='" . $op . "'><input type='hidden' name='sort' value='" . $sort . "'><input type='hidden' name='order' value='" . $order . "'><input type='hidden' name='limit' value='"
-                        . $limit . "'></form>";
+                $ret .= $precrit_hidden . "<input type='hidden' name='op' value='" . $op . "'><input type='hidden' name='sort' value='" . $sort . "'><input type='hidden' name='order' value='" . $order . "'><input type='hidden' name='limit' value='" . $limit . "'></form>";
             }
             $registros = empty($campos['join']) ? $this->PegaTudo($criterio) : $this->PegaTudo($criterio, true, $campos['join']);
             if (!$registros || count($registros) == 0) {
@@ -481,8 +538,17 @@ window.attachEvent("onload", esconde_menus)
                 foreach ($registros as $reg) {
                     $eod = (!isset($eod) || $eod == 'fundo1') ? 'fundo2' : 'fundo1';
                     $ret .= "<tbody><tr id='tr_reg_" . $reg->getVar($reg->id) . "' class='" . $eod . "' onmouseover='this.className=\"neutro\";' onmouseout='this.className=\"" . $eod . "\"'>";
-                    $ret .= $checks ? "<td align='center'><input type='checkbox' name='checks[" . $reg->getVar($reg->id) . "]' id='checks[" . $reg->getVar($reg->id) . "]' value='1' onclick='marcaCheck(\"tr_reg_" . $reg->getVar($reg->id)
-                                      . "\", \"checks[" . $reg->getVar($reg->id) . "]\", \"" . $eod . "\");'></td>" : '';
+                    $ret .= $checks ? "<td align='center'><input type='checkbox' name='checks["
+                                      . $reg->getVar($reg->id)
+                                      . "]' id='checks["
+                                      . $reg->getVar($reg->id)
+                                      . "]' value='1' onclick='marcaCheck(\"tr_reg_"
+                                      . $reg->getVar($reg->id)
+                                      . "\", \"checks["
+                                      . $reg->getVar($reg->id)
+                                      . "]\", \""
+                                      . $eod
+                                      . "\");'></td>" : '';
                     foreach ($campos['rotulo'] as $l => $f) {
                         $ret .= '<td>';
                         switch ($campos['tipo'][$l]) {
@@ -526,9 +592,15 @@ window.attachEvent("onload", esconde_menus)
                                 break;
                             case 'text':
                             default:
-                                $ret .= ($form && empty($campos['show'][$l])) ? "<input type='text' name='campos[" . $reg->getVar($reg->id) . '][' . $campos['nome'][$l] . "]' value='" . $reg->getVar($campos['nome'][$l]) . "' size='"
-                                                                                . (isset($campos['tamanho'][$l]) ? $campos['tamanho'][$l] : 20) . "'/>" : (!empty($campos['show'][$l]) ? eval('return ' . $campos['show'][$l]
-                                                                                                                                                                                              . ';') : $reg->getVar($campos['nome'][$l]));
+                                $ret .= ($form && empty($campos['show'][$l])) ? "<input type='text' name='campos["
+                                                                                . $reg->getVar($reg->id)
+                                                                                . ']['
+                                                                                . $campos['nome'][$l]
+                                                                                . "]' value='"
+                                                                                . $reg->getVar($campos['nome'][$l])
+                                                                                . "' size='"
+                                                                                . (isset($campos['tamanho'][$l]) ? $campos['tamanho'][$l] : 20)
+                                                                                . "'/>" : (!empty($campos['show'][$l]) ? eval('return ' . $campos['show'][$l] . ';') : $reg->getVar($campos['nome'][$l]));
                         }
 
                         $ret .= '</td>';
@@ -547,8 +619,7 @@ window.attachEvent("onload", esconde_menus)
                 }
                 if ($form || $checks) {
                     $ret .= "<tbody><tr><td colspan='" . $colunas . "'>";
-                    $ret .= $precrit_hidden . "<input type='hidden' name='sort' value='" . $sort . "'><input type='hidden' name='order' value='" . $order . "'><input type='hidden' name='limit' value='" . $limit
-                            . "'><input type='hidden' name='start' value='" . $start . "'>";
+                    $ret .= $precrit_hidden . "<input type='hidden' name='sort' value='" . $sort . "'><input type='hidden' name='order' value='" . $order . "'><input type='hidden' name='limit' value='" . $limit . "'><input type='hidden' name='start' value='" . $start . "'>";
                     if (!empty($_GET['busca'])) {
                         foreach ($_GET['busca'] as $k => $v) {
                             if ($v != '' && $v != '-1' && !is_array($v)) {
@@ -634,8 +705,20 @@ window.attachEvent("onload", esconde_menus)
             $todos = $this->contar($criterio);
             $total = ($todos % $limit == 0) ? ($todos / $limit) : (int)($todos / $limit) + 1;
             $pg    = $start ? (int)($start / $limit) + 1 : 1;
-            $ret .= (!empty($_GET['busca'])) ? "<input type=button value='" . _ALL . "' onclick=\"document.location= '" . $_SERVER['PHP_SELF'] . '?limit=' . $limit . '&order=' . $order . '&sort=' . $sort . '&op=' . $GLOBALS['op'] . $precrit_url
-                                               . "'\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+            $ret   .= (!empty($_GET['busca'])) ? "<input type=button value='"
+                                                 . _ALL
+                                                 . "' onclick=\"document.location= '"
+                                                 . $_SERVER['PHP_SELF']
+                                                 . '?limit='
+                                                 . $limit
+                                                 . '&order='
+                                                 . $order
+                                                 . '&sort='
+                                                 . $sort
+                                                 . '&op='
+                                                 . $GLOBALS['op']
+                                                 . $precrit_url
+                                                 . "'\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
             for ($i = 1; $i <= $total; ++$i) {
                 $start = $limit * ($i - 1);
                 if ($i == $pg) {

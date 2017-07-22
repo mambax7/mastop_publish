@@ -9,7 +9,7 @@
     <link href="css/advimage.css" rel="stylesheet" type="text/css"/>
     <base target="_self"/>
 </head>
-<body id="advimage" onload="tinyMCEPopup.executeOnLoad('init();');" style="display: none">
+<body id="advimage" onload="tinyMCEPopup.executeOnLoad('init();');" style="display: none;">
 <form onsubmit="insertAction();return false;" action="#">
     <div class="tabs">
         <ul>
@@ -158,7 +158,7 @@
 
                     <!-- <tr>
                         <td class="column1"><label id="classeslabel" for="classes">{$lang_advimage_classes}</label></td>
-                        <td colspan="2"><input id="classes" name="classes" type="text" value="" onchange="selectByValue(this.form,'classlist',this.value,true);" /></td>
+                        <td colspan="2"><input id="classes" name="classes" type="text" value="" onchange="selectByValue(this.form,'classlist',this.value,true);"></td>
                     </tr> -->
                 </table>
             </fieldset>
@@ -260,11 +260,11 @@
     </div>
 
     <div class="mceActionPanel">
-        <div style="float: left">
+        <div style="float: left;">
             <input type="button" id="insert" name="insert" value="{$lang_insert}" onclick="insertAction();"/>
         </div>
 
-        <div style="float: right">
+        <div style="float: right;">
             <input type="button" id="cancel" name="cancel" value="{$lang_cancel}" onclick="cancelAction();"/>
         </div>
     </div>

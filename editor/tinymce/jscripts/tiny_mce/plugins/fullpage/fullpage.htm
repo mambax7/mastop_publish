@@ -9,7 +9,7 @@
     <link href="css/fullpage.css" rel="stylesheet" type="text/css"/>
     <base target="_self"/>
 </head>
-<body id="advlink" onload="tinyMCEPopup.executeOnLoad('init();');" style="display: none">
+<body id="advlink" onload="tinyMCEPopup.executeOnLoad('init();');" style="display: none;">
 <form onsubmit="updateAction();return false;" name="fullpage" action="#">
     <div class="tabs">
         <ul>
@@ -251,7 +251,7 @@
                                                     <td>
                                                         <table border="0" cellpadding="0" cellspacing="0">
                                                             <tr>
-                                                                <td><input id="hover_color" name="hover_color" type="text" value="" size="9" onchange="changedStyleField(this);" /></td>
+                                                                <td><input id="hover_color" name="hover_color" type="text" value="" size="9" onchange="changedStyleField(this);"></td>
                                                                 <td id="hover_color_pickcontainer">&nbsp;</td>
                                                             </tr>
                                                         </table>
@@ -323,19 +323,19 @@
 
                 <div class="headlistwrapper">
                     <div class="toolbar">
-                        <div style="float: left">
+                        <div style="float: left;">
                             <a id="addbutton" href="javascript:showAddMenu();" onmousedown="return false;"
                                class="addbutton" title="{$lang_fullpage_add}"></a>
                             <a href="#" onmousedown="return false;" class="removebutton"
                                title="{$lang_fullpage_remove}"></a>
                         </div>
-                        <div style="float: right">
+                        <div style="float: right;">
                             <a href="#" onmousedown="return false;" class="moveupbutton"
                                title="{$lang_fullpage_moveup}"></a>
                             <a href="#" onmousedown="return false;" class="movedownbutton"
                                title="{$lang_fullpage_movedown}"></a>
                         </div>
-                        <br style="clear: both"/>
+                        <br style="clear: both;"/>
                     </div>
                     <select id="headlist" size="26" onchange="updateHeadElm(this.options[this.selectedIndex].value);">
                         <option value="title_0">&lt;title&gt;Some title bla bla bla&lt;/title&gt;</option>
@@ -406,7 +406,7 @@
                     </ul>
                 </div>
 
-                <br style="clear: both"/>
+                <br style="clear: both;"/>
 
                 <div class="panel_wrapper">
                     <div id="script_props_panel" class="panel current">
@@ -474,7 +474,7 @@
                     </ul>
                 </div>
 
-                <br style="clear: both"/>
+                <br style="clear: both;"/>
 
                 <div class="panel_wrapper">
                     <div id="style_props_panel" class="panel current">
@@ -534,7 +534,7 @@
                     </ul>
                 </div>
 
-                <br style="clear: both"/>
+                <br style="clear: both;"/>
 
                 <div class="panel_wrapper">
                     <div id="link_general_panel" class="panel current">
@@ -655,11 +655,11 @@
     </div>
 
     <div class="mceActionPanel">
-        <div style="float: left">
+        <div style="float: left;">
             <input type="button" id="insert" name="update" value="{$lang_update}" onclick="updateAction();"/>
         </div>
 
-        <div style="float: right">
+        <div style="float: right;">
             <input type="button" id="cancel" name="cancel" value="{$lang_cancel}" onclick="tinyMCEPopup.close();"/>
         </div>
     </div>
