@@ -204,7 +204,7 @@ $mpb_wysiwyg_url = XOOPS_URL . $xoopsModuleConfig['mpu_conf_wysiwyg_path'];
         }
         echo '<h4>' . MPU_ADM_NFILE . '</h4>';
         $fil_classe = new mpu_fil_files();
-        $fil_form   = new XoopsThemeForm('', 'mpu_fil_form', $_SERVER['PHP_SELF'], 'post');
+        $fil_form   = new XoopsThemeForm('', 'mpu_fil_form', $_SERVER['PHP_SELF'], 'post', true);
         $fil_form->setExtra('enctype="multipart/form-data"');
         $fil_form->addElement(new XoopsFormText(MPU_ADM_FIL_30_NOME, 'fil_30_nome', 50, 50, $fil_classe->getVar('fil_30_nome')), true);
         $fil_arquivo  = new XoopsFormFile('', 'fil_30_arquivo', $xoopsModuleConfig['mpu_max_filesize'] * 1024);

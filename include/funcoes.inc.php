@@ -95,7 +95,7 @@ function mpu_apagaPermissoes($id)
     $criteria->add(new Criteria('gperm_itemid', $id));
     $criteria->add(new Criteria('gperm_modid', $xoopsModule->getVar('mid')));
     $criteria->add(new Criteria('gperm_name', 'mpu_mpublish_acesso'));
-    if ($old_perms =& $moduleperm_handler->getObjects($criteria)) {
+    if ($old_perms = $moduleperm_handler->getObjects($criteria)) {
         foreach ($old_perms as $p) {
             $moduleperm_handler->delete($p);
         }

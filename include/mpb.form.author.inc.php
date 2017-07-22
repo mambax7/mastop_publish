@@ -13,7 +13,7 @@
 ### =============================================================
 // defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
 include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
-$mpb_form = new XoopsThemeForm($form['titulo'], 'mpu_mpb_form', $_SERVER['PHP_SELF'], 'post');
+$mpb_form = new XoopsThemeForm($form['titulo'], 'mpu_mpb_form', $_SERVER['PHP_SELF'], 'post', true);
 if ($mpb_10_id > 0) {
     $mpb_infos_tray = new XoopsFormElementTray(MPU_ADM_INFO, '<br>');
     $mpb_infos_tray->addElement(new XoopsFormLabel(MPU_ADM_BY, XoopsUser::getUnameFromId($mpu_classe->getVar('usr_10_uid'))));

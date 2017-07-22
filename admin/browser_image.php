@@ -59,7 +59,7 @@ if (is_array($groups) && !empty($groups)) {
     $criteriaRead->add(new Criteria('gperm_modid', 1));
 }
 $criteriaRead->add(new Criteria('imgcat_display', 1));
-$imagecategorys =& $imgcat_handler->getObjects($criteriaRead);
+$imagecategorys = $imgcat_handler->getObjects($criteriaRead);
 $criteriaWrite  = new CriteriaCompo();
 if (is_array($groups) && !empty($groups)) {
     $criteriaWrite->add($criteriaTray);
@@ -67,7 +67,7 @@ if (is_array($groups) && !empty($groups)) {
     $criteriaWrite->add(new Criteria('gperm_modid', 1));
 }
 $criteriaWrite->add(new Criteria('imgcat_display', 1));
-$imagecategorysWrite =& $imgcat_handler->getObjects($criteriaWrite);
+$imagecategorysWrite = $imgcat_handler->getObjects($criteriaWrite);
 $readCount           = count($imagecategorys);
 $writeCount          = count($imagecategorysWrite);
 $mpb_wysiwyg_url     = XOOPS_URL . $MPublishModuleConfig['mpu_conf_wysiwyg_path'];
@@ -198,7 +198,7 @@ if ($op === 'delcatok' && $admin) {
         redirect_header($_SERVER['PHP_SELF'], 1);
     }
     $image_handler = xoops_getHandler('image');
-    $images        =& $image_handler->getObjects(new Criteria('imgcat_id', $imgcat_id), true, false);
+    $images        = $image_handler->getObjects(new Criteria('imgcat_id', $imgcat_id), true, false);
     $errors        = array();
     foreach (array_keys($images) as $i) {
         $image_handler->delete($images[$i]);
@@ -325,7 +325,7 @@ if ($op === 'delcatok' && $admin) {
             $start    = isset($_GET['start']) ? (int)$_GET['start'] : 0;
             $criteria->setStart($start);
             $criteria->setLimit(20);
-            $images =& $image_handler->getObjects($criteria, true, false);
+            $images = $image_handler->getObjects($criteria, true, false);
             echo '<table style="width:100%;"><thead><tr>
     <td>&nbsp;</td>
     <td style="border: 1px double black; text-align: center">' . _IMAGENAME . '</td>

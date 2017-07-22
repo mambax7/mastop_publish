@@ -17,7 +17,7 @@ if (!defined('XOOPS_ROOT_PATH') || !is_object($xoopsModule)) {
 $com_modid = $xoopsModule->getVar('mid');
 include_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
 include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
-$cform = new XoopsThemeForm(_CM_POSTCOMMENT, 'commentform', 'comment_post.php', 'post');
+$cform = new XoopsThemeForm(_CM_POSTCOMMENT, 'commentform', 'comment_post.php', 'post', true);
 if (isset($xoopsModuleConfig['com_rule'])) {
     include_once XOOPS_ROOT_PATH . '/include/comment_constants.php';
     switch ($xoopsModuleConfig['com_rule']) {

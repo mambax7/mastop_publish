@@ -13,7 +13,7 @@
 ### =============================================================
 // defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
 include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
-$feedbackform = new XoopsThemeForm($form['titulo'], 'mpu_feedbackform', $_SERVER['PHP_SELF'], 'post');
+$feedbackform = new XoopsThemeForm($form['titulo'], 'mpu_feedbackform', $_SERVER['PHP_SELF'], 'post', true);
 $feedbackform->addElement(new XoopsFormText(MPU_ADM_YNAME, 'yname', 35, 50, $xoopsUser->getVar('name')));
 $feedbackform->addElement(new XoopsFormText(MPU_ADM_YEMAIL, 'yemail', 35, 50, $xoopsConfig['adminmail']));
 $feedbackform->addElement(new XoopsFormText(MPU_ADM_YSITE, 'ydomain', 35, 50, XOOPS_URL));

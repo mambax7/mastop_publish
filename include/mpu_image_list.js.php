@@ -34,9 +34,9 @@ if ($catcount > 0) {
             $imgcat    =& $imgcat_handler->get($c_id);
             $storetype = $imgcat->getVar('imgcat_storetype');
             if ($storetype == 'db') {
-                $images =& $image_handler->getObjects($criteria, false, true);
+                $images = $image_handler->getObjects($criteria, false, true);
             } else {
-                $images =& $image_handler->getObjects($criteria, false, false);
+                $images = $image_handler->getObjects($criteria, false, false);
             }
             $imgcount = count($images);
             for ($i = 0; $i < $imgcount; ++$i) {

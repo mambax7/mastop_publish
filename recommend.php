@@ -60,7 +60,7 @@ if (!$_POST) {
             $titulo      = $mpu_classe->getVar('mpb_30_titulo');
             $msg         = nl2br(strip_tags($_POST['message']));
             $body        = sprintf(MPU_MAI_MAILBODY, $fname, $yname, $yemail, $link, $titulo, $link, $yname, $msg);
-            $xoopsMailer =& xoops_getMailer();
+            $xoopsMailer = xoops_getMailer();
             $xoopsMailer->useMail();
             $xoopsMailer->setToEmails($femail);
             $xoopsMailer->setFromEmail($yemail);

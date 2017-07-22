@@ -13,7 +13,7 @@
 ### =============================================================
 // defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
 include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
-$cfi_form = new XoopsThemeForm($form['titulo'], 'mpu_cfi_form', $_SERVER['PHP_SELF'], 'post');
+$cfi_form = new XoopsThemeForm($form['titulo'], 'mpu_cfi_form', $_SERVER['PHP_SELF'], 'post', true);
 $cfi_form->setExtra('enctype="multipart/form-data"');
 $cfi_form->addElement(new XoopsFormText(MPU_ADM_CFI_30_NOME, 'cfi_30_nome', 50, 50, $cfi_classe->getVar('cfi_30_nome')), true);
 $cfi_arquivo  = new XoopsFormFile('', 'cfi_30_arquivo', $xoopsModuleConfig['mpu_max_filesize'] * 1024);

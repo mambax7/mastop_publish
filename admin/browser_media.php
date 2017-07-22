@@ -258,7 +258,7 @@ $tipos           = array(
         }
         echo '<h4>' . MPU_ADM_NMEDIA . '</h4>';
         $med_classe = new mpu_med_media();
-        $med_form   = new XoopsThemeForm('', 'mpu_med_form', $_SERVER['PHP_SELF'], 'post');
+        $med_form   = new XoopsThemeForm('', 'mpu_med_form', $_SERVER['PHP_SELF'], 'post', true);
         $med_form->setExtra('enctype="multipart/form-data"');
         $med_form->addElement(new XoopsFormText(MPU_ADM_MED_30_NOME, 'med_30_nome', 50, 50), true);
         $tipo_select = new XoopsFormSelect('', 'med_10_tipo');

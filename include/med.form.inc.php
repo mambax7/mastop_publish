@@ -31,7 +31,7 @@ document.getElementById('largalt').style.display="";
 
 JSCRIPT;
 include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
-$med_form = new XoopsThemeForm($form['titulo'], 'mpu_med_form', $_SERVER['PHP_SELF'], 'post');
+$med_form = new XoopsThemeForm($form['titulo'], 'mpu_med_form', $_SERVER['PHP_SELF'], 'post', true);
 $med_form->setExtra('enctype="multipart/form-data"');
 if ($med_classe->getVar('med_10_id') != '') {
     $arquivo = MPU_MEDIA_URL . '/' . $med_classe->getVar('med_30_arquivo');
