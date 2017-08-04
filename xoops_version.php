@@ -27,14 +27,8 @@ $modversion['license_url']   = 'www.gnu.org/licenses/gpl-2.0.html';
 $modversion['official']      = 0; //1 indicates supported by XOOPS Dev Team, 0 means 3rd party supported
 $modversion['image']         = 'assets/images/logoModule.png';
 $modversion['dirname']       = basename(__DIR__);
-
-//$modversion['dirmoduleadmin'] = '/Frameworks/moduleclasses/moduleadmin';
-//$modversion['icons16']        = '../../Frameworks/moduleclasses/icons/16';
-//$modversion['icons32']        = '../../Frameworks/moduleclasses/icons/32';
 $modversion['modicons16'] = 'assets/images/icons/16';
 $modversion['modicons32'] = 'assets/images/icons/32';
-
-//about
 $modversion['module_website_url']  = 'www.xoops.org/';
 $modversion['module_website_name'] = 'XOOPS';
 $modversion['author_website_url']  = 'https://xoops.org/';
@@ -58,6 +52,13 @@ $modversion['system_menu'] = 1;
 $modversion['adminindex']  = 'admin/index.php';
 $modversion['adminmenu']   = 'admin/menu.php';
 
+// ------------------- Help files ------------------- //
+$modversion['helpsection'] = array(
+    ['name' => _MI_MPU_OVERVIEW, 'link' => 'page=help'],
+    ['name' => _MI_MPU_DISCLAIMER, 'link' => 'page=disclaimer'],
+    ['name' => _MI_MPU_LICENSE, 'link' => 'page=license'],
+    ['name' => _MI_MPU_SUPPORT, 'link' => 'page=support'],
+);
 // Templates
 $modversion['templates'][1]['file']        = MPU_MOD_TEMPLATE1;
 $modversion['templates'][1]['description'] = MPU_MOD_TEMPLATE1_DESC;

@@ -151,3 +151,16 @@ define('MPU_MOD_WYSIWYG_BKG_DESC', "By activating this option the editor's backg
 
 define('MPU_MOD_HOME_ID', 'Main Page ID');
 define('MPU_MOD_HOME_ID_DESC', 'Enter the Page ID that will open as the default page when entering the module. Leave it blank so that the last inserted page becomes the main page.');
+//1.50
+//Help
+define('_MI_MPU_DIRNAME', basename(dirname(dirname(__DIR__))));
+define('_MI_MPU_HELP_HEADER', __DIR__.'/help/helpheader.tpl');
+define('_MI_MPU_BACK_2_ADMIN', 'Back to Administration of ');
+define('_MI_MPU_OVERVIEW', 'Overview');
+
+//define('_MI_MPU_HELP_DIR', __DIR__);
+
+//help multi-page
+define('_MI_MPU_DISCLAIMER', 'Disclaimer');
+define('_MI_MPU_LICENSE', 'License');
+define('_MI_MPU_SUPPORT', 'Support');

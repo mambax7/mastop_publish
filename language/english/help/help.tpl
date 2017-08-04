@@ -1,10 +1,7 @@
 <div id="help-template" class="outer">
-    <h1 class="head">Help:
-        <a class="ui-corner-all tooltip" href="<{$xoops_url}>/modules/mastop_publish/admin/index.php"
-           title="Back to the administration of Mastop Publish"> Mastop Publish
-            <img src="<{xoAdminIcons home.png}>"
-                 alt="Back to the Administration of Mastop Publish">
-        </a></h1>
+    <{include file=$smarty.const._MI_MPU_HELP_HEADER}>
+
+    <h4 class="odd">DESCRIPTION</h4> <br>
 
 
     <h4 class="odd">DESCRIPTION</h4><br>

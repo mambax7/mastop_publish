@@ -190,3 +190,11 @@ define('MPU_ADM_SUBS', 'Sub-Pages');
 define('MPU_ADM_CLONE', '-- Clone --');
 define('MPU_ADM_CONFIRMA_CLONE', 'Are you sure you want to clone the page <b># %u</b> - %s?');
 define('MPU_ADM_TOGGLE_EDITOR', 'Text area / Visual Editor');
+//1.50
+define('_AM_MPU_UPGRADEFAILED0', "Update failed - couldn't rename field '%s'");
+define('_AM_MPU_UPGRADEFAILED1', "Update failed - couldn't add new fields");
+define('_AM_MPU_UPGRADEFAILED2', "Update failed - couldn't rename table '%s'");
+define('_AM_MPU_ERROR_COLUMN', 'Could not create column in database : %s');
+define('_AM_MPU_ERROR_BAD_XOOPS', 'This module requires XOOPS %s+ (%s installed)');
+define('_AM_MPU_ERROR_BAD_PHP', 'This module requires PHP version %s+ (%s installed)');
+define('_AM_MPU_ERROR_TAG_REMOVAL', 'Could not remove tags from Tag Module');
