@@ -3,7 +3,7 @@
         <a class="ui-corner-all tooltip" href="<{$xoops_url}>/modules/mastop_publish/admin/index.php"
            title="Back to the administration of Mastop Publish"> Mastop Publish
             <img src="<{xoAdminIcons home.png}>"
-                 alt="Back to the Administration of Mastop Publish"/>
+                 alt="Back to the Administration of Mastop Publish">
         </a></h1>
 
 
