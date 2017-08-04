@@ -69,7 +69,7 @@ $tipos           = array(
 
         //-->
     </script>
-    <base target="_self"/>
+    <base target="_self">
 </head>
 <body onload="tinyMCEPopup.executeOnLoad('init();');">
 <div class="tabs">
@@ -134,7 +134,7 @@ $tipos           = array(
                 foreach ($medias as $med) {
                     $media_url = MPU_MEDIA_URL . '/' . $med->getVar('med_30_arquivo');
                     echo '<tr><td width="30%" style="text-align: center">';
-                    echo '<a href="javascript:void(0)" style="border:2px solid white" onclick="addItem(\'' . $media_url . '\', \'' . $med->getVar('med_30_nome') . '\', \'' . $med->getVar('med_10_largura') . '\', \'' . $med->getVar('med_10_altura') . '\')"/>' . $med->getVar('med_10_id') . '</a>';
+                    echo '<a href="javascript:void(0)" style="border:2px solid white" onclick="addItem(\'' . $media_url . '\', \'' . $med->getVar('med_30_nome') . '\', \'' . $med->getVar('med_10_largura') . '\', \'' . $med->getVar('med_10_altura') . '\')">' . $med->getVar('med_10_id') . '</a>';
                     echo '</td><td style="border: 2px double #F0F0EE; text-align: center">'
                          . $med->getVar('med_30_nome')
                          . '</td><td style="border: 2px double #F0F0EE; text-align: center">'
@@ -278,7 +278,7 @@ $tipos           = array(
                                  . $media->getVar('med_10_largura')
                                  . '\', \''
                                  . $media->getVar('med_10_altura')
-                                 . '\')"/>'
+                                 . '\')">'
                                  . $media->getVar('med_10_id')
                                  . '</a>';
                             echo '</td><td style="border: 2px double #F0F0EE; text-align: center">'
@@ -352,7 +352,7 @@ $tipos           = array(
 </div>
 <div class="mceActionPanel">
     <div style="float: right;">
-        <input type="button" id="cancel" name="cancel" value="{$lang_close}" onclick="tinyMCEPopup.close();"/>
+        <input type="button" id="cancel" name="cancel" value="{$lang_close}" onclick="tinyMCEPopup.close();">
     </div>
 </div>
 <!--

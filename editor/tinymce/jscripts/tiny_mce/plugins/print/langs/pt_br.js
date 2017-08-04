@@ -8,6 +8,6 @@
  * First Release : November 26, 2005 - TinyMCE Version : 2.0RC4
  * Last Updated : November 20, 2006 - TinyMCE Version : 2.0.8
  */
-tinyMCE.addToLang('',{
-print_desc : 'Imprimir'
+tinyMCE.addToLang('', {
+    print_desc: 'Imprimir'
 });

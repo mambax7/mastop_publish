@@ -245,7 +245,7 @@ if ($op === 'delcatok' && $admin) {
 
         //-->
     </script>
-    <base target="_self"/>
+    <base target="_self">
 </head>
 <body onload="tinyMCEPopup.executeOnLoad('init();');">
 <div class="tabs">
@@ -342,7 +342,7 @@ if ($op === 'delcatok' && $admin) {
                      . $images[$i]->getVar('image_nicename')
                      . '\', \''
                      . $images[$i]->getVar('image_nicename')
-                     . '\')"/>';
+                     . '\')">';
                 echo '</td><td style="border: 2px double #F0F0EE; text-align: center">' . $images[$i]->getVar('image_nicename') . '</td><td style="border: 2px double #F0F0EE; text-align: center">' . $images[$i]->getVar('image_mimetype') . '</td>';
                 echo '<td style="border: 2px double #F0F0EE; text-align: center"><a href="javascript:void(0)" onclick="addItem(\'' . $imagem_url . '\', \'' . $images[$i]->getVar('image_nicename') . '\', \'' . $images[$i]->getVar('image_nicename') . '\')">' . _SELECT . '</a></td></tr>';
             }
@@ -480,7 +480,7 @@ if ($op === 'delcatok' && $admin) {
                          . $image->getVar('image_nicename')
                          . '\', \''
                          . $image->getVar('image_nicename')
-                         . '\')"/>';
+                         . '\')">';
                     echo '</td><td style="border: 2px double #F0F0EE; text-align: center">' . $image->getVar('image_nicename') . '</td><td style="border: 2px double #F0F0EE; text-align: center">' . $image->getVar('image_mimetype') . '</td>';
                     echo '<td style="border: 2px double #F0F0EE; text-align: center"><a href="javascript:void(0)" onclick="addItem(\'' . $imagem_url . '\', \'' . $image->getVar('image_nicename') . '\', \'' . $image->getVar('image_nicename') . '\')">' . _SELECT . '</a></td></tr>';
                 }
@@ -510,7 +510,7 @@ if ($op === 'delcatok' && $admin) {
 </div>
 <div class="mceActionPanel">
     <div style="float: right;">
-        <input type="button" id="cancel" name="cancel" value="{$lang_close}" onclick="tinyMCEPopup.close();"/>
+        <input type="button" id="cancel" name="cancel" value="{$lang_close}" onclick="tinyMCEPopup.close();">
     </div>
 </div>
 <!--

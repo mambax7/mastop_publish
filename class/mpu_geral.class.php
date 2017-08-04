@@ -518,7 +518,7 @@ window.attachEvent("onload", esconde_menus)
                             break;
                         case 'text':
                         default:
-                            $ret .= "<input type='text' name='busca[" . $campos['nome'][$k] . "]' value='" . (isset($_GET['busca'][$campos['nome'][$k]]) ? $_GET['busca'][$campos['nome'][$k]] : '') . "' size='" . (isset($campos['tamanho'][$k]) ? $campos['tamanho'][$k] : 20) . "'/>";
+                            $ret .= "<input type='text' name='busca[" . $campos['nome'][$k] . "]' value='" . (isset($_GET['busca'][$campos['nome'][$k]]) ? $_GET['busca'][$campos['nome'][$k]] : '') . "' size='" . (isset($campos['tamanho'][$k]) ? $campos['tamanho'][$k] : 20) . "'>";
                     }
                     if (empty($campos['botoes']) && $k == count($campos['rotulo'])) {
                         $ret .= " <input type='image' src='../assets/images/envia.gif' style='border:0px; background-color:transparent' align='absmiddle'>";
@@ -600,7 +600,7 @@ window.attachEvent("onload", esconde_menus)
                                                                                 . $reg->getVar($campos['nome'][$l])
                                                                                 . "' size='"
                                                                                 . (isset($campos['tamanho'][$l]) ? $campos['tamanho'][$l] : 20)
-                                                                                . "'/>" : (!empty($campos['show'][$l]) ? eval('return ' . $campos['show'][$l] . ';') : $reg->getVar($campos['nome'][$l]));
+                                                                                . "'>" : (!empty($campos['show'][$l]) ? eval('return ' . $campos['show'][$l] . ';') : $reg->getVar($campos['nome'][$l]));
                         }
 
                         $ret .= '</td>';

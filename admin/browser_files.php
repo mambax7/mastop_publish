@@ -50,7 +50,7 @@ $mpb_wysiwyg_url = XOOPS_URL . $xoopsModuleConfig['mpu_conf_wysiwyg_path'];
 
         //-->
     </script>
-    <base target="_self"/>
+    <base target="_self">
 </head>
 <body onload="tinyMCEPopup.executeOnLoad('init();');">
 <div class="tabs">
@@ -115,7 +115,7 @@ $mpb_wysiwyg_url = XOOPS_URL . $xoopsModuleConfig['mpu_conf_wysiwyg_path'];
                 foreach ($files as $fil) {
                     $file_url = MPU_FILES_URL . '/' . $fil->getVar('fil_30_arquivo');
                     echo '<tr><td width="30%" style="text-align: center">';
-                    echo '<a href="javascript:void(0)" style="border:2px solid white" onclick="addItem(\'' . $file_url . '\', \'' . $fil->getVar('fil_30_nome') . '\')"/>' . $fil->getVar('fil_10_id') . '</a>';
+                    echo '<a href="javascript:void(0)" style="border:2px solid white" onclick="addItem(\'' . $file_url . '\', \'' . $fil->getVar('fil_30_nome') . '\')">' . $fil->getVar('fil_10_id') . '</a>';
                     echo '</td><td style="border: 2px double #F0F0EE; text-align: center">'
                          . $fil->getVar('fil_30_nome')
                          . '</td><td style="border: 2px double #F0F0EE; text-align: center">'
@@ -205,7 +205,7 @@ $mpb_wysiwyg_url = XOOPS_URL . $xoopsModuleConfig['mpu_conf_wysiwyg_path'];
                     ';
                             $file_url = MPU_FILES_URL . '/' . $uploader->getSavedFileName();
                             echo '<tr><td width="30%" style="text-align: center">';
-                            echo '<a href="javascript:void(0)" style="border:2px solid white" onclick="addItem(\'' . $file_url . '\', \'' . $file->getVar('fil_30_nome') . '\')"/>' . $file->getVar('fil_10_id') . '</a>';
+                            echo '<a href="javascript:void(0)" style="border:2px solid white" onclick="addItem(\'' . $file_url . '\', \'' . $file->getVar('fil_30_nome') . '\')">' . $file->getVar('fil_10_id') . '</a>';
                             echo '</td><td style="border: 2px double #F0F0EE; text-align: center">'
                                  . $file->getVar('fil_30_nome')
                                  . '</td><td style="border: 2px double #F0F0EE; text-align: center">'
@@ -256,7 +256,7 @@ $mpb_wysiwyg_url = XOOPS_URL . $xoopsModuleConfig['mpu_conf_wysiwyg_path'];
 </div>
 <div class="mceActionPanel">
     <div style="float: right;">
-        <input type="button" id="cancel" name="cancel" value="{$lang_close}" onclick="tinyMCEPopup.close();"/>
+        <input type="button" id="cancel" name="cancel" value="{$lang_close}" onclick="tinyMCEPopup.close();">
     </div>
 </div>
 <!--

@@ -1,5 +1,5 @@
 // UK lang variables
 
-tinyMCE.addToLang('',{
-preview_desc : 'Preview'
+tinyMCE.addToLang('', {
+    preview_desc: 'Preview'
 });

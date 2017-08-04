@@ -77,7 +77,7 @@ function sanitize($str, $type = 'strict')
             break;
         case 'loose':
             $str = preg_replace('/</i', '&gt;', $str);
-            $str = preg_replace('/>/i', '&lt;', $str);
+            $str = preg_replace('>/i', '&lt;', $str);
             break;
         case 'bool':
             if ($str == 'true' || $str === true) {

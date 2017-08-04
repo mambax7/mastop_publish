@@ -3,8 +3,8 @@ I needed a simple way of adding a dropdown button with my own data (keywords tha
 
 * Usage:
 Add to your tinyMCE.init:
-	plugin_keyword_list : "<keyword1>=<data1>;<keyword2>=<data2>..."
-	theme_advanced_buttons1_add : "keyword"
+    plugin_keyword_list : "<keyword1>=<data1>;<keyword2>=<data2>..."
+    theme_advanced_buttons1_add : "keyword"
 
 and ofcourse add "keyword" to your "plugins" list
 

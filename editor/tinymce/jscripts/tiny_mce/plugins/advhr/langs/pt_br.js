@@ -8,9 +8,9 @@
  * First Release : November 26, 2005 - TinyMCE Version : 2.0RC4
  * Last Updated : November 20, 2006 - TinyMCE Version : 2.0.8
  */
-tinyMCE.addToLang('',{
-insert_advhr_desc : 'Inserir / editar Linha Horizontal',
-insert_advhr_width : 'Largura',
-insert_advhr_size : 'Altura',
-insert_advhr_noshade : 'Sem Sombra'
+tinyMCE.addToLang('', {
+    insert_advhr_desc: 'Inserir / editar Linha Horizontal',
+    insert_advhr_width: 'Largura',
+    insert_advhr_size: 'Altura',
+    insert_advhr_noshade: 'Sem Sombra'
 });

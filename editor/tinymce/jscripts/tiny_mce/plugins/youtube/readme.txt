@@ -7,7 +7,7 @@ Currently this plugin will NOT play nice with the flash plugin, but this should 
 INSTALL:
 To install simply place entire "youtube" folder in the "tinymce\jscripts\tiny_mce\plugins" folder.
 
-To add context menu support edit the file "tinymce\jscripts\tiny_mce\plugins\contextmenu\editor_plugin.js" 
+To add context menu support edit the file "tinymce\jscripts\tiny_mce\plugins\contextmenu\editor_plugin.js"
 
 Find the code that reads:
 
