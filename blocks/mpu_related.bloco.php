@@ -23,7 +23,7 @@ function mpu_related_exibe($options)
     require_once XOOPS_ROOT_PATH . '/modules/' . MPU_BLO_MODDIR . '/class/mpu_mpb_mpublish.class.php';
     $tac               = isset($_GET['tac']) ? $_GET['tac'] : 0;
     $tac               = is_int($tac) ? $tac : str_replace('_', ' ', $tac);
-    $block             = array();
+    $block             = [];
     $block['relateds'] = 0;
     $style             = "style='font-size:" . $options[0] . '; color:#' . $options[1] . "'";
     if (!$tac) {

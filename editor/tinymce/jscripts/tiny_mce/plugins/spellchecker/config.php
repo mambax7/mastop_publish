@@ -1,5 +1,5 @@
 <?php
-$spellCheckerConfig = array();
+$spellCheckerConfig = [];
 
 // Spellchecker class use
 // require_once("classes/TinyPspellShell.class.php"); // Command line pspell

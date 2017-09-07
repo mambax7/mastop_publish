@@ -153,7 +153,7 @@ if (!class_exists('mpu_geral')) {
 
         public function PegaTudo($criterio = null, $objeto = true, $join = null)
         {
-            $ret    = array();
+            $ret    = [];
             $limit  = $start = 0;
             $classe = get_class($this);
             if (!$objeto) {

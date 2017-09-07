@@ -119,7 +119,7 @@ class Mastop_PublishUtility extends XoopsObject
             }
         }
 
-        if (!$success) {
+        if (false === $success) {
             $module->setErrors(sprintf(_AM_MPU_ERROR_BAD_XOOPS, $requiredVer, $currentVer));
         }
 

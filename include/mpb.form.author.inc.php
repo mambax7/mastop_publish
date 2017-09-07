@@ -11,7 +11,7 @@
 ### =============================================================
 ###
 ### =============================================================
-// defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+// defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 $mpb_form = new XoopsThemeForm($form['titulo'], 'mpu_mpb_form', $_SERVER['PHP_SELF'], 'post', true);
 if ($mpb_10_id > 0) {
@@ -402,15 +402,15 @@ $mpb_tray_conteudo->addElement(new XoopsFormLabel('', "<a href='" . XOOPS_URL . 
 $mpb_form->addElement($mpb_tray_conteudo);
 $mpb_opcoes_tray    = new XoopsFormElementTray(_OPTIONS, '<br>');
 $mpb_visivel_select = new XoopsFormSelect(MPU_ADM_MPB_11_VISIVEL, 'mpb_11_visivel', $mpu_classe->getVar('mpb_11_visivel'));
-$mpb_visivel_select->addOptionArray(array(
+$mpb_visivel_select->addOptionArray([
                                         1 => MPU_ADM_MPB_11_VISIVEL_1,
                                         3 => MPU_ADM_MPB_11_VISIVEL_3,
                                         2 => MPU_ADM_MPB_11_VISIVEL_2,
                                         4 => MPU_ADM_MPB_11_VISIVEL_4
-                                    ));
+                                    ]);
 $mpb_opcoes_tray->addElement($mpb_visivel_select);
 $mpb_abrir_select = new XoopsFormSelect(MPU_ADM_MPB_11_ABRIR, 'mpb_11_abrir', $mpu_classe->getVar('mpb_11_abrir'));
-$mpb_abrir_select->addOptionArray(array(0 => MPU_ADM_MPB_11_ABRIR_0, 1 => MPU_ADM_MPB_11_ABRIR_1));
+$mpb_abrir_select->addOptionArray([0 => MPU_ADM_MPB_11_ABRIR_0, 1 => MPU_ADM_MPB_11_ABRIR_1]);
 $mpb_opcoes_tray->addElement($mpb_abrir_select);
 $mpb_comentarios = new XoopsFormCheckBox('', 'mpb_12_comentarios', $mpu_classe->getVar('mpb_12_comentarios'));
 $mpb_comentarios->addOption(1, MPU_ADM_MPB_12_COMENTARIOS);

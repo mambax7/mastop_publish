@@ -46,7 +46,7 @@ switch ($op) {
         if (empty($cfi_10_id) || $cfi_classe->getVar('cfi_10_id') == '') {
             redirect_header(XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/admin/paginas.php', 3, MPU_ADM_ERRO_FIL404);
         }
-        xoops_confirm(array('op' => 'contentfiles_deletar_ok', 'cfi_10_id' => $cfi_10_id), 'paginas.php', sprintf(MPU_ADM_CONFIRMA_DELPG, $cfi_10_id, $cfi_classe->getVar('cfi_30_nome')));
+        xoops_confirm(['op' => 'contentfiles_deletar_ok', 'cfi_10_id' => $cfi_10_id], 'paginas.php', sprintf(MPU_ADM_CONFIRMA_DELPG, $cfi_10_id, $cfi_classe->getVar('cfi_30_nome')));
         break;
     case 'contentfiles_deletar_ok':
         $cfi_10_id  = (!empty($cfi_10_id)) ? $cfi_10_id : 0;
@@ -124,6 +124,7 @@ switch ($op) {
         } else {
             redirect_header(XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/admin/paginas.php', 3, MPU_ADM_ERR_SELECT_FILE);
         }
+        // no break
     case 'contentfiles':
     default:
         mpu_adm_menu();

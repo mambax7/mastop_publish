@@ -18,7 +18,7 @@ class TinyGoogleSpell
     // Returns array with bad words or false if failed.
     public function checkWords($word_array)
     {
-        $words   = array();
+        $words   = [];
         $wordstr = implode(' ', $word_array);
 
         $matches = $this->_getMatches($wordstr);
@@ -51,7 +51,7 @@ class TinyGoogleSpell
     // Returns array with suggestions or false if failed.
     public function getSuggestion($word)
     {
-        $sug = array();
+        $sug = [];
 
         $matches = $this->_getMatches($word);
 

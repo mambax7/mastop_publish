@@ -88,10 +88,12 @@ define('MPU_MOD_MMAXFILESIZE_DESC', 'Valores em Kbytes');
 define('MPU_MOD_MAXFILESIZE', 'Tamanho máximo para envio de arquivos.');
 define('MPU_MOD_MAXFILESIZE_DESC', 'Valores em Kbytes');
 define('MPU_MOD_GZIP', 'Usar compactação GZIP no Editor?');
-define('MPU_MOD_GZIP_DESC',
+define(
+    'MPU_MOD_GZIP_DESC',
        "Se seu servidor suportar GZIP, este recurso usa um arquivo javascript compactado que faz com que o editor carregue mais rapidamente.<br><b>Atenção:</b> Para que este recurso funcione corretamente, o diretório raiz do Editor Visual (definido acima, no parâmetro de configuração '"
        . MPU_MOD_WYSIWYG_PATH
-       . "') deve ter permissões de escrita!");
+       . "') deve ter permissões de escrita!"
+);
 define('MPU_MOD_CONTENTMIMES', 'Extensões permitidas no gerenciador de arquivos de conteúdo.');
 define('MPU_MOD_CONTENTMIMES_DESC', 'Selecione as extensões permitidas para envio no gerenciador de arquivos de conteúdo. Mantenha a tecla <b>CTRL</b> pressionada para selecionar mais de uma opção.');
 define('MPU_MOD_MIMETYPES', 'Extensões permitidas no gerenciador de arquivos.');
@@ -109,8 +111,10 @@ define('MPU_MOD_RELATED_DESC', "Esta opção permite exibir links para páginas 
 define('MPU_MOD_NAVIGATION', 'Exibir barra de navegação no topo das páginas?');
 define('MPU_MOD_NAVIGATION_DESC', "Esta opção possibilita a exibição da barra de navegação no topo das páginas. <br>Você pode desabilitar esta opção caso esteja usando o bloco 'Barra de Navegação'");
 define('MPU_MOD_CAPTCHA', 'Utilizar CAPTCHA nos comentários?');
-define('MPU_MOD_CAPTCHA_DESC',
-       "<a href='http://pt.wikipedia.org/wiki/CAPTCHA' target='_blank'>CAPTCHA</a> é uma técnica que solicita que o usuário escreva uma série de letras ou números que aparecem num quadro antes de enviar o comentário, para evitar que o sistema seja usado por máquinas que vasculham a internet (biblioteca GD é requerida).");
+define(
+    'MPU_MOD_CAPTCHA_DESC',
+       "<a href='http://pt.wikipedia.org/wiki/CAPTCHA' target='_blank'>CAPTCHA</a> é uma técnica que solicita que o usuário escreva uma série de letras ou números que aparecem num quadro antes de enviar o comentário, para evitar que o sistema seja usado por máquinas que vasculham a internet (biblioteca GD é requerida)."
+);
 define('MPU_MOD_CAPTCHA_LABEL', 'Código de Segurança');
 define('MPU_MOD_CAPTCHA_ERROR', 'Código de Segurança Inválido!<br> Tente Novamente');
 define('MPU_MOD_HIGHLIGHT_SEARCH', "<b style='color: red'>Os seguintes termos de pesquisa foram destacados:</b> ");

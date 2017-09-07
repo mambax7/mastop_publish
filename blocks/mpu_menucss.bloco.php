@@ -22,7 +22,7 @@ function mpu_menucss_exibe($options)
 {
     require_once XOOPS_ROOT_PATH . '/modules/' . MPU_BLO_MODDIR . '/class/mpu_mpb_mpublish.class.php';
     $mpu_classe            = new mpu_mpb_mpublish();
-    $block                 = array();
+    $block                 = [];
     $options[0]            = empty($options[0]) ? rand(0, 9999) : $options[0];
     $block['menuID']       = 'menu_' . $options[0];
     $block['menuHome']     = $options[1];

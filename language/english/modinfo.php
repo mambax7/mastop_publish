@@ -88,10 +88,12 @@ define('MPU_MOD_MMAXFILESIZE_DESC', 'Values in Kbytes');
 define('MPU_MOD_MAXFILESIZE', 'Maximum size for sending files.');
 define('MPU_MOD_MAXFILESIZE_DESC', 'Values in Kbytes');
 define('MPU_MOD_GZIP', 'Use GZIP compression in the Editor?');
-define('MPU_MOD_GZIP_DESC',
+define(
+    'MPU_MOD_GZIP_DESC',
        "If your server supports GZIP compression, this resource makes use of a compacted javascript that allows the editor to be loaded faster.<br><b>Warning:</b> So that this resource can run correctly, the root directory of the visual editor (defined above, in the configuration parameter '"
        . MPU_MOD_WYSIWYG_PATH
-       . "') must have write permissions!");
+       . "') must have write permissions!"
+);
 define('MPU_MOD_CONTENTMIMES', 'Allowed extensions in the content file manager.');
 define('MPU_MOD_CONTENTMIMES_DESC', 'Select the allowed extensions for upload in the content file manager. Keep the <b>CTRL</b> key pressed to select more than one option.');
 define('MPU_MOD_MIMETYPES', 'Allowed extensions in the file manager.');
@@ -109,8 +111,10 @@ define('MPU_MOD_RELATED_DESC', "This option allows to show links to pages that a
 define('MPU_MOD_NAVIGATION', 'Show navigation bar at the top of pages?');
 define('MPU_MOD_NAVIGATION_DESC', "This option allows the navigation bar to be shown at the top of each page. <br>You can disable this option if you already use the 'Navigation bar' block");
 define('MPU_MOD_CAPTCHA', 'Use CAPTCHA in the comments?');
-define('MPU_MOD_CAPTCHA_DESC',
-       "<a href='http://en.wikipedia.org/wiki/CAPTCHA' target='_blank'>CAPTCHA</a> is a technique that asks the user to write a sequence of letters or numbers that are shown in a box before posting a comment, to avoid that the system is used by crawlers (GD library is required).");
+define(
+    'MPU_MOD_CAPTCHA_DESC',
+       "<a href='http://en.wikipedia.org/wiki/CAPTCHA' target='_blank'>CAPTCHA</a> is a technique that asks the user to write a sequence of letters or numbers that are shown in a box before posting a comment, to avoid that the system is used by crawlers (GD library is required)."
+);
 define('MPU_MOD_CAPTCHA_LABEL', 'Security code');
 define('MPU_MOD_CAPTCHA_ERROR', 'Security code not valid!<br> Try again');
 define('MPU_MOD_HIGHLIGHT_SEARCH', "<b style='color: red'>The following search terms were highlighted:</b> ");

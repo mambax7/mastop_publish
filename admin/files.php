@@ -46,7 +46,7 @@ switch ($op) {
         if (empty($fil_10_id) || $fil_classe->getVar('fil_10_id') == '') {
             redirect_header(XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/admin/files.php', 3, MPU_ADM_ERRO_FIL404);
         }
-        xoops_confirm(array('op' => 'files_deletar_ok', 'fil_10_id' => $fil_10_id), 'files.php', sprintf(MPU_ADM_CONFIRMA_DELFIL, $fil_10_id, $fil_classe->getVar('fil_30_nome')));
+        xoops_confirm(['op' => 'files_deletar_ok', 'fil_10_id' => $fil_10_id], 'files.php', sprintf(MPU_ADM_CONFIRMA_DELFIL, $fil_10_id, $fil_classe->getVar('fil_30_nome')));
         break;
     case 'files_deletar_ok':
         $fil_10_id  = (!empty($fil_10_id)) ? $fil_10_id : 0;
@@ -120,6 +120,7 @@ switch ($op) {
         } else {
             redirect_header(XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/admin/files.php', 3, MPU_ADM_ERR_SELECT_FILE);
         }
+        // no break
     case 'files':
     default:
         mpu_adm_menu();

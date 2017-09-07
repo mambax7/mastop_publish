@@ -40,8 +40,8 @@ function mpu_mpublish_busca($queryarray, $andor, $limit, $offset, $userid)
 
     $sql      .= ' ORDER BY mpb_10_ordem ASC';
     $result   = $xoopsDB->query($sql, $limit, $offset);
-    $ret      = array();
-    $contents = array();
+    $ret      = [];
+    $contents = [];
     while ($myrow = $xoopsDB->fetchArray($result)) {
         if (!in_array($myrow['mpb_10_id'], $MyPages)) {
             continue;

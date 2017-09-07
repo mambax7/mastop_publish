@@ -22,7 +22,7 @@ function mpu_menutree_exibe($options)
 {
     require_once XOOPS_ROOT_PATH . '/modules/' . MPU_BLO_MODDIR . '/class/mpu_mpb_mpublish.class.php';
     $mpu_classe           = new mpu_mpb_mpublish();
-    $block                = array();
+    $block                = [];
     $block['menusrc']     = XOOPS_URL . '/modules/' . MPU_BLO_MODDIR . '/include/treemenu.js';
     $block['moduleimg']   = XOOPS_URL . '/modules/' . MPU_BLO_MODDIR . '/assets/images/';
     $block['menuID']      = $options[0];

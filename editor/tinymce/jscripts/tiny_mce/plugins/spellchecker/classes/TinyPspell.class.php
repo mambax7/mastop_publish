@@ -24,7 +24,7 @@ class TinyPSpell
         $this->lang     = $lang;
         $this->mode     = $mode;
         $this->plink    = false;
-        $this->errorMsg = array();
+        $this->errorMsg = [];
 
         if (!function_exists('pspell_new')) {
             $this->errorMsg[] = 'PSpell not found.';
@@ -41,10 +41,10 @@ class TinyPSpell
         if (!$this->plink) {
             $this->errorMsg[] = 'No PSpell link found for checkWords.';
 
-            return array();
+            return [];
         }
 
-        $wordError = array();
+        $wordError = [];
         foreach ($wordArray as $word) {
             if (!pspell_check($this->plink, trim($word))) {
                 $wordError[] = $word;
@@ -60,7 +60,7 @@ class TinyPSpell
         if (!$this->plink) {
             $this->errorMsg[] = 'No PSpell link found for getSuggestion.';
 
-            return array();
+            return [];
         }
 
         return pspell_suggest($this->plink, $word);

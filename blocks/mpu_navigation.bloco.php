@@ -24,7 +24,7 @@ function mpu_navigation_exibe($options)
     require_once XOOPS_ROOT_PATH . '/modules/' . MPU_BLO_MODDIR . '/class/mpu_mpb_mpublish.class.php';
     $tac   = isset($_GET['tac']) ? $_GET['tac'] : 0;
     $tac   = is_int($tac) ? $tac : str_replace('_', ' ', $tac);
-    $block = array();
+    $block = [];
     $style = "style='font-weight:bold; font-size:" . $options[0] . '; color:#' . $options[1] . "'";
     if (!$tac) {
         if (!empty($xoopsModule) && is_object($xoopsModule)) {

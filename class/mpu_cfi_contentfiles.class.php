@@ -60,13 +60,13 @@ class mpu_cfi_contentfiles extends mpu_geral
 
             return $ret;
         } else {
-            return array();
+            return [];
         }
     }
 
     public function listaPaginas()
     {
-        $ret         = array(0 => MPU_ADM_SELECIONE);
+        $ret         = [0 => MPU_ADM_SELECIONE];
         $sql         = 'SELECT cfi_30_nome, cfi_30_arquivo FROM ' . $this->tabela;
         $resultado   = $this->db->query($sql);
         $this->total = $this->db->getRowsNum($resultado);

@@ -11,7 +11,7 @@
 ### =============================================================
 ###
 ### =============================================================
-// defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+// defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 echo <<<JSCRIPT
 <script type="text/javascript">
 <!--
@@ -105,13 +105,13 @@ if ($med_classe->getVar('med_10_id') != '') {
 $med_form->addElement(new XoopsFormText(MPU_ADM_MED_30_NOME, 'med_30_nome', 50, 50, $med_classe->getVar('med_30_nome')), true);
 $tipo_select = new XoopsFormSelect('', 'med_10_tipo', $med_classe->getVar('med_10_tipo'));
 $tipo_select->setExtra("onchange='LargAlt();'");
-$tipo_select->addOptionArray(array(
+$tipo_select->addOptionArray([
                                  1 => MPU_ADM_MED_10_TIPO_1,
                                  2 => MPU_ADM_MED_10_TIPO_2,
                                  3 => MPU_ADM_MED_10_TIPO_3,
                                  4 => MPU_ADM_MED_10_TIPO_4,
                                  5 => MPU_ADM_MED_10_TIPO_5
-                             ));
+                             ]);
 $tipo_tray = new XoopsFormElementTray(MPU_ADM_MED_10_TIPO);
 $tipo_tray->addElement($tipo_select);
 $tipo_tray->addElement(new XoopsFormLabel('', "<br><div id='largalt' " . (($med_classe->getVar('med_10_id') <= 0) ? "style='display:none'" : '') . '>'));

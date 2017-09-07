@@ -36,7 +36,13 @@ $modversion['author_website_name'] = 'XOOPS';
 $modversion['min_php']             = '5.5';
 $modversion['min_xoops']           = '2.5.9';
 $modversion['min_admin']           = '1.2';
-$modversion['min_db']              = array('mysql' => '5.5');
+$modversion['min_db']              = ['mysql' => '5.5'];
+
+// Itens da Administra��o
+$modversion['hasAdmin']    = 1;
+$modversion['system_menu'] = 1;
+$modversion['adminindex']  = 'admin/index.php';
+$modversion['adminmenu']   = 'admin/menu.php';
 
 $modversion['sqlfile']['mysql'] = 'sql/mysql.sql';
 
@@ -46,19 +52,14 @@ $modversion['tables'][1] = MPU_MOD_TABELA2;
 $modversion['tables'][2] = MPU_MOD_TABELA3;
 $modversion['tables'][3] = MPU_MOD_TABELA4;
 
-// Itens da Administra��o
-$modversion['hasAdmin']    = 1;
-$modversion['system_menu'] = 1;
-$modversion['adminindex']  = 'admin/index.php';
-$modversion['adminmenu']   = 'admin/menu.php';
 
 // ------------------- Help files ------------------- //
-$modversion['helpsection'] = array(
+$modversion['helpsection'] = [
     ['name' => _MI_MPU_OVERVIEW, 'link' => 'page=help'],
     ['name' => _MI_MPU_DISCLAIMER, 'link' => 'page=disclaimer'],
     ['name' => _MI_MPU_LICENSE, 'link' => 'page=license'],
     ['name' => _MI_MPU_SUPPORT, 'link' => 'page=support'],
-);
+];
 // Templates
 $modversion['templates'][1]['file']        = MPU_MOD_TEMPLATE1;
 $modversion['templates'][1]['description'] = MPU_MOD_TEMPLATE1_DESC;
@@ -252,7 +253,7 @@ $modversion['config'][$i]['valuetype']   = 'array';
 $modversion['config'][$i]['options']     = include XOOPS_ROOT_PATH . '/include/mimetypes.inc.php';
 ksort($modversion['config'][$i]['options']);
 reset($modversion['config'][$i]['options']);
-$modversion['config'][$i]['default'] = array(
+$modversion['config'][$i]['default'] = [
     'application/x-gtar',
     'application/x-tar',
     'application/x-gzip',
@@ -262,25 +263,25 @@ $modversion['config'][$i]['default'] = array(
     'application/vnd.ms-excel',
     'application/vnd.ms-powerpoint',
     'application/zip'
-);
+];
 ++$i;
 $modversion['config'][$i]['name']        = 'mpu_conf_contentmimes';
 $modversion['config'][$i]['title']       = 'MPU_MOD_CONTENTMIMES';
 $modversion['config'][$i]['description'] = 'MPU_MOD_CONTENTMIMES_DESC';
 $modversion['config'][$i]['formtype']    = 'select_multi';
 $modversion['config'][$i]['valuetype']   = 'array';
-$modversion['config'][$i]['options']     = array(
+$modversion['config'][$i]['options']     = [
     'html' => 'text/html',
     'txt'  => 'text/plain',
     'php'  => 'application/x-httpd-php',
     'js'   => 'application/x-javascript'
-);
-$modversion['config'][$i]['default']     = array(
+];
+$modversion['config'][$i]['default']     = [
     'text/html',
     'text/plain',
     'application/x-httpd-php',
     'application/x-javascript'
-);
+];
 ++$i;
 $modversion['config'][$i]['name']        = 'mpu_max_filesize';
 $modversion['config'][$i]['title']       = 'MPU_MOD_MAXFILESIZE';

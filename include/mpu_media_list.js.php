@@ -23,13 +23,13 @@ $criterio = new CriteriaCompo(new Criteria('med_12_exibir', 1));
 $criterio->setSort('med_30_nome');
 $med_classe = new mpu_med_media();
 $medias = $med_classe->PegaTudo($criterio);
-$tipos = array(
+$tipos = [
     1 => MPU_ADM_MED_10_TIPO_1,
     2 => MPU_ADM_MED_10_TIPO_2,
     3 => MPU_ADM_MED_10_TIPO_3,
     4 => MPU_ADM_MED_10_TIPO_4,
     5 => MPU_ADM_MED_10_TIPO_5
-);
+];
 if ($med_classe->total > 0) {
     foreach ($medias as $med) {
         $ret .= '["' . $med->getVar('med_30_nome') . '  [' . $tipos[$med->getVar('med_10_tipo')] . ']", "' . MPU_MEDIA_URL . '/' . $med->getVar('med_30_arquivo') . '"],';

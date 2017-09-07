@@ -55,6 +55,7 @@ switch ($op) {
             <h3>' . MPU_ADM_FEEDSUCCESS . '</h3>
             </div>
             ';
+        // no break
     case 'feature':
     default:
         mpu_adm_menu();

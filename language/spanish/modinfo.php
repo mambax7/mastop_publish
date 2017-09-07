@@ -91,10 +91,12 @@ define('MPU_MOD_MMAXFILESIZE_DESC', 'en Kbytes');
 define('MPU_MOD_MAXFILESIZE', 'Tamaño máximo de los ficheros a enviar.');
 define('MPU_MOD_MAXFILESIZE_DESC', 'en Kbytes');
 define('MPU_MOD_GZIP', '¿Usar compresión GZIP en el Editor?');
-define('MPU_MOD_GZIP_DESC',
+define(
+    'MPU_MOD_GZIP_DESC',
        "Si su servidor soporta compresión GZIP, este recurso utiliza un script java compactado que permite cargar más rápidamente el editor.<br><b>¡ATENCION:</b> Para que funcione correctamente, el directorio raiz del editor (definido anteriormente en la opción de configuración '"
        . MPU_MOD_WYSIWYG_PATH
-       . "') debe tener permisos de escritura!");
+       . "') debe tener permisos de escritura!"
+);
 define('MPU_MOD_CONTENTMIMES', 'Extensiones permitidas en el gestor de contenidos.');
 define('MPU_MOD_CONTENTMIMES_DESC', 'Seleccione las extensiones permitidas para subir archivos en el gestor de contenidos. Mantenga pulsada la tecla <b>CTRL</b> para selecionar más de una opción.');
 define('MPU_MOD_MIMETYPES', 'Extensiones permitidas en el gestor de archivos.');
@@ -112,8 +114,10 @@ define('MPU_MOD_RELATED_DESC', "Esta opción permite mostrar los enlaces a laas 
 define('MPU_MOD_NAVIGATION', '¿Mostrar la barra de navegación al principio de las páginas?');
 define('MPU_MOD_NAVIGATION_DESC', "Esta opción muestra las opciones de navegación al inicio de cada página. <br>Puede deshabilitar esta opción si utiliza el bloque 'Barra de Navegation'");
 define('MPU_MOD_CAPTCHA', '¿Utilizar CAPTCHA en los comentarios?');
-define('MPU_MOD_CAPTCHA_DESC',
-       "<a href='http://en.wikipedia.org/wiki/CAPTCHA' target='_blank'>CAPTCHA</a> es una técnica que solicita al usuario que escriba una secuencia de letras o números que se muestran en un recuadro antes de enviar un comentario para evitar que el sistema sea utilizado por robots (se necesita la ibrería GD).");
+define(
+    'MPU_MOD_CAPTCHA_DESC',
+       "<a href='http://en.wikipedia.org/wiki/CAPTCHA' target='_blank'>CAPTCHA</a> es una técnica que solicita al usuario que escriba una secuencia de letras o números que se muestran en un recuadro antes de enviar un comentario para evitar que el sistema sea utilizado por robots (se necesita la ibrería GD)."
+);
 define('MPU_MOD_CAPTCHA_LABEL', 'Código de Seguridad');
 define('MPU_MOD_CAPTCHA_ERROR', '¡Código de seguridad no válido!<br> Pruebe otra vez');
 define('MPU_MOD_HIGHLIGHT_SEARCH', "<b style='color: red'>Se han resaltado los siguientes términos de búsqueda:</b> ");

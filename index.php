@@ -183,7 +183,7 @@ if (!$mpu_classe->getVar('mpb_10_id')) {
         $all_related = $mpu_classe->PegaTudo($rel_crit);
         if ($all_related) {
             foreach ($all_related as $v) {
-                $relateds           = array();
+                $relateds           = [];
                 $relateds['titulo'] = $v->getVar('mpb_30_titulo');
                 $relateds['link']   = $v->pegaLink();
                 $xoopsTpl->append('relpages', $relateds);

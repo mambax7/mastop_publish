@@ -27,7 +27,7 @@ class TinyPspellShell
         $this->lang     = $lang;
         $this->mode     = $mode;
         $this->error    = false;
-        $this->errorMsg = array();
+        $this->errorMsg = [];
 
         $this->tmpfile = tempnam($config['tinypspellshell.tmp'], 'tinyspell');
 
@@ -50,17 +50,17 @@ class TinyPspellShell
         } else {
             $this->errorMsg[] = 'PSpell not found.';
 
-            return array();
+            return [];
         }
 
         $data = shell_exec($this->cmd);
         @unlink($this->tmpfile);
 
-        $returnData = array();
+        $returnData = [];
         $dataArr    = preg_split("/\n/", $data, -1, PREG_SPLIT_NO_EMPTY);
 
         foreach ($dataArr as $dstr) {
-            $matches = array();
+            $matches = [];
 
             // Skip this line.
             if (strpos($dstr, '@') === 0) {
@@ -98,11 +98,11 @@ class TinyPspellShell
 
         @unlink($this->tmpfile);
 
-        $returnData = array();
+        $returnData = [];
         $dataArr    = preg_split("/\n/", $data, -1, PREG_SPLIT_NO_EMPTY);
 
         foreach ($dataArr as $dstr) {
-            $matches = array();
+            $matches = [];
 
             // Skip this line.
             if (strpos($dstr, '@') === 0) {

@@ -17,13 +17,13 @@ require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 $op              = empty($_GET['op']) ? 'list' : $_GET['op'];
 $op              = empty($_POST['op']) ? $op : $_POST['op'];
 $mpb_wysiwyg_url = XOOPS_URL . $xoopsModuleConfig['mpu_conf_wysiwyg_path'];
-$tipos           = array(
+$tipos           = [
     1 => MPU_ADM_MED_10_TIPO_1,
     2 => MPU_ADM_MED_10_TIPO_2,
     3 => MPU_ADM_MED_10_TIPO_3,
     4 => MPU_ADM_MED_10_TIPO_4,
     5 => MPU_ADM_MED_10_TIPO_5
-);
+];
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -209,33 +209,33 @@ $tipos           = array(
                 require_once XOOPS_ROOT_PATH . '/class/uploader.php';
                 switch ($_POST['med_10_tipo']) {
                     case 1:
-                        $permittedtypes = array('application/x-shockwave-flash');
+                        $permittedtypes = ['application/x-shockwave-flash'];
                         break;
                     case 2:
-                        $permittedtypes = array('video/quicktime');
+                        $permittedtypes = ['video/quicktime'];
                         break;
                     case 3:
-                        $permittedtypes = array('application/x-director');
+                        $permittedtypes = ['application/x-director'];
                         break;
                     case 4:
-                        $permittedtypes = array(
+                        $permittedtypes = [
                             'application/octet-stream',
                             'video/x-ms-asf',
                             'video/x-msvideo',
                             'video/x-ms-wmv'
-                        );
+                        ];
                         break;
                     case 5:
                     default:
-                        $permittedtypes = array('audio/x-pn-realaudio');
+                        $permittedtypes = ['audio/x-pn-realaudio'];
                         break;
                 }
                 $uploader                  = new XoopsMediaUploader(MPU_MEDIA_PATH, $permittedtypes, $xoopsModuleConfig['mpu_mmax_filesize'] * 1024);
-                $uploader->extensionToMime = array_merge($uploader->extensionToMime, array(
+                $uploader->extensionToMime = array_merge($uploader->extensionToMime, [
                     'wmv' => 'video/x-ms-wmv',
                     'asf' => 'video/x-ms-asf',
                     'rm'  => 'audio/x-pn-realaudio'
-                ));
+                ]);
                 unset($uploader->imageExtensions[4]);
                 $uploader->setPrefix('media_');
                 if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {

@@ -11,7 +11,7 @@
 ### =============================================================
 ###
 ### =============================================================
-// defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+// defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 $cfi_form = new XoopsThemeForm($form['titulo'], 'mpu_cfi_form', $_SERVER['PHP_SELF'], 'post', true);
 $cfi_form->setExtra('enctype="multipart/form-data"');

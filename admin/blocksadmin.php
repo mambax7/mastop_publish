@@ -90,7 +90,7 @@ if ($xoopsUser->isAdmin($xoopsModule->mid())) {
             $groups_perms = $modulepermHandler->getGroupIds('block_read', $i->getVar('bid'));
             $sql          = 'SELECT module_id FROM ' . $db->prefix('block_module_link') . ' WHERE block_id=' . $i->getVar('bid');
             $result       = $db->query($sql);
-            $modules      = array();
+            $modules      = [];
             while ($row = $db->fetchArray($result)) {
                 $modules[] = (int)$row['module_id'];
             }
@@ -240,12 +240,12 @@ if ($xoopsUser->isAdmin($xoopsModule->mid())) {
         $db      = XoopsDatabaseFactory::getDatabaseConnection();
         $sql     = 'SELECT module_id FROM ' . $db->prefix('block_module_link') . ' WHERE block_id=' . (int)$bid;
         $result  = $db->query($sql);
-        $modules = array();
+        $modules = [];
         while ($row = $db->fetchArray($result)) {
             $modules[] = (int)$row['module_id'];
         }
         $is_custom = ($myblock->getVar('block_type') === 'C' || $myblock->getVar('block_type') === 'E') ? true : false;
-        $block     = array(
+        $block     = [
             'title'      => $myblock->getVar('title') . ' Clone',
             'form_title' => _AM_CLONEBLOCK,
             'name'       => $myblock->getVar('name'),
@@ -262,7 +262,7 @@ if ($xoopsUser->isAdmin($xoopsModule->mid())) {
             'edit_form'  => $myblock->getOptions(),
             'template'   => $myblock->getVar('template'),
             'options'    => $myblock->getVar('options')
-        );
+        ];
         echo '<a href="blocksadmin.php">' . _AM_BADMIN . '</a>&nbsp;<span style="font-weight:bold;">&raquo;&raquo;</span>&nbsp;' . _AM_CLONEBLOCK . '<br><br>';
         include __DIR__ . '/blockform.php';
         $form->display();

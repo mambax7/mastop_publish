@@ -19,7 +19,7 @@ if (file_exists(dirname(dirname(dirname(dirname(__DIR__)))) . '/mainfile.php')) 
 $xoopsLogger->activated = false;
 require_once XOOPS_ROOT_PATH . '/header.php';
 require_once __DIR__ . '/php-captcha.inc.php';
-$aFonts      = array('fonts/font1.ttf', 'fonts/font2.ttf', 'fonts/font3.ttf');
+$aFonts      = ['fonts/font1.ttf', 'fonts/font2.ttf', 'fonts/font3.ttf'];
 $oPhpCaptcha = new PhpCaptcha($aFonts, 200, 50);
 $oPhpCaptcha->SetBackgroundImages('captcha.jpg');
 $oPhpCaptcha->SetOwnerText($xoopsConfig['sitename']);

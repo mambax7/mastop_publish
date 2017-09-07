@@ -16,7 +16,7 @@ require_once __DIR__ . '/../../../mainfile.php';
 $xoopsLogger->activated = false;
 $ret = '';
 if (!is_object($xoopsUser)) {
-    $group = array(XOOPS_GROUP_ANONYMOUS);
+    $group = [XOOPS_GROUP_ANONYMOUS];
 } else {
     $group =& $xoopsUser->getGroups();
 }

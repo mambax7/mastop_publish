@@ -32,7 +32,7 @@ switch ($op) {
             redirect_header(XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/admin/main.php', 3, MPU_ADM_ERRO2);
         }
         mpu_adm_menu();
-        xoops_confirm(array('op' => 'limpacont_ok', 'mpb_10_id' => $mpb_10_id), 'main.php', sprintf(MPU_ADM_CONFIRMA_LIMPACONT, $mpb_10_id, $mpu_classe->getVar('mpb_30_menu')));
+        xoops_confirm(['op' => 'limpacont_ok', 'mpb_10_id' => $mpb_10_id], 'main.php', sprintf(MPU_ADM_CONFIRMA_LIMPACONT, $mpb_10_id, $mpu_classe->getVar('mpb_30_menu')));
         break;
 
     case 'limpacont_ok':
@@ -101,7 +101,7 @@ switch ($op) {
             redirect_header(XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/admin/main.php', 3, MPU_ADM_ERRO2);
         }
         mpu_adm_menu();
-        xoops_confirm(array('op' => 'listar_clone_ok', 'mpb_10_id' => $mpb_10_id), 'main.php', sprintf(MPU_ADM_CONFIRMA_CLONE, $mpb_10_id, $mpu_classe->getVar('mpb_30_menu')));
+        xoops_confirm(['op' => 'listar_clone_ok', 'mpb_10_id' => $mpb_10_id], 'main.php', sprintf(MPU_ADM_CONFIRMA_CLONE, $mpb_10_id, $mpu_classe->getVar('mpb_30_menu')));
         break;
     case 'listar_clone_ok':
         $mpu_classe = (isset($mpb_10_id) && $mpb_10_id > 0) ? new mpu_mpb_mpublish($mpb_10_id) : new mpu_mpb_mpublish();
@@ -140,10 +140,10 @@ switch ($op) {
         }
         if ($mpu_classe->tem_subcategorias()) {
             mpu_adm_menu();
-            xoops_confirm(array('op' => 'listar_deletar_ok', 'mpb_10_id' => $mpb_10_id), 'main.php', sprintf(MPU_ADM_CONFIRMA_DEL_SUB, $mpb_10_id, $mpu_classe->getVar('mpb_30_menu'), $mpu_classe->contar(new Criteria('mpb_10_idpai', $mpb_10_id))));
+            xoops_confirm(['op' => 'listar_deletar_ok', 'mpb_10_id' => $mpb_10_id], 'main.php', sprintf(MPU_ADM_CONFIRMA_DEL_SUB, $mpb_10_id, $mpu_classe->getVar('mpb_30_menu'), $mpu_classe->contar(new Criteria('mpb_10_idpai', $mpb_10_id))));
         } else {
             mpu_adm_menu();
-            xoops_confirm(array('op' => 'listar_deletar_ok', 'mpb_10_id' => $mpb_10_id), 'main.php', sprintf(MPU_ADM_CONFIRMA_DEL, $mpb_10_id, $mpu_classe->getVar('mpb_30_menu')));
+            xoops_confirm(['op' => 'listar_deletar_ok', 'mpb_10_id' => $mpb_10_id], 'main.php', sprintf(MPU_ADM_CONFIRMA_DEL, $mpb_10_id, $mpu_classe->getVar('mpb_30_menu')));
         }
         break;
     case 'listar_deletar_ok':
@@ -194,12 +194,12 @@ switch ($op) {
             $c['nome'][5]    = 'mpb_11_visivel';
             $c['rotulo'][5]  = MPU_ADM_MPB_11_VISIVEL;
             $c['tipo'][5]    = 'select';
-            $c['options'][5] = array(
+            $c['options'][5] = [
                 1 => MPU_ADM_MPB_11_VISIVEL_1,
                 3 => MPU_ADM_MPB_11_VISIVEL_3,
                 2 => MPU_ADM_MPB_11_VISIVEL_2,
                 4 => MPU_ADM_MPB_11_VISIVEL_4
-            );
+            ];
 
             $c['nome'][6]    = 'mpb_10_ordem';
             $c['rotulo'][6]  = MPU_ADM_MPB_10_ORDEM;
@@ -280,12 +280,12 @@ switch ($op) {
             $c['nome'][4]    = 'mpb_11_visivel';
             $c['rotulo'][4]  = MPU_ADM_MPB_11_VISIVEL;
             $c['tipo'][4]    = 'select';
-            $c['options'][4] = array(
+            $c['options'][4] = [
                 1 => MPU_ADM_MPB_11_VISIVEL_1,
                 3 => MPU_ADM_MPB_11_VISIVEL_3,
                 2 => MPU_ADM_MPB_11_VISIVEL_2,
                 4 => MPU_ADM_MPB_11_VISIVEL_4
-            );
+            ];
 
             $c['nome'][5]    = 'mpb_10_ordem';
             $c['rotulo'][5]  = MPU_ADM_MPB_10_ORDEM;

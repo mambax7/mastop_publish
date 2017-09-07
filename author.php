@@ -44,7 +44,7 @@ if (empty($op)) {
 }
 switch ($op) {
     case 'limpacont':
-        xoops_confirm(array('op' => 'limpacont_ok', 'mpb_10_id' => $mpb_10_id), 'author.php', sprintf(MPU_ADM_CONFIRMA_LIMPACONT, $mpb_10_id, $mpu_classe->getVar('mpb_30_menu')));
+        xoops_confirm(['op' => 'limpacont_ok', 'mpb_10_id' => $mpb_10_id], 'author.php', sprintf(MPU_ADM_CONFIRMA_LIMPACONT, $mpb_10_id, $mpu_classe->getVar('mpb_30_menu')));
         break;
     case 'limpacont_ok':
         $mpu_classe->setVar('mpb_10_contador', 0);
@@ -124,6 +124,7 @@ switch ($op) {
             }
             redirect_header($mpu_classe->pegaLink(), 3, MPU_ADM_SUCESS1);
         }
+        // no break
     case 'editar':
         if (!$xoopsModuleConfig['mpu_conf_canedit']) {
             redirect_header(XOOPS_URL, 3, MPU_ADM_403);
@@ -146,9 +147,9 @@ switch ($op) {
             redirect_header(XOOPS_URL, 3, MPU_ADM_403);
         }
         if ($mpu_classe->tem_subcategorias()) {
-            xoops_confirm(array('op' => 'deletar_ok', 'mpb_10_id' => $mpb_10_id), 'author.php', sprintf(MPU_ADM_CONFIRMA_DEL_SUB, $mpb_10_id, $mpu_classe->getVar('mpb_30_menu'), $mpu_classe->contar(new Criteria('mpb_10_idpai', $mpb_10_id))));
+            xoops_confirm(['op' => 'deletar_ok', 'mpb_10_id' => $mpb_10_id], 'author.php', sprintf(MPU_ADM_CONFIRMA_DEL_SUB, $mpb_10_id, $mpu_classe->getVar('mpb_30_menu'), $mpu_classe->contar(new Criteria('mpb_10_idpai', $mpb_10_id))));
         } else {
-            xoops_confirm(array('op' => 'deletar_ok', 'mpb_10_id' => $mpb_10_id), 'author.php', sprintf(MPU_ADM_CONFIRMA_DEL, $mpb_10_id, $mpu_classe->getVar('mpb_30_menu')));
+            xoops_confirm(['op' => 'deletar_ok', 'mpb_10_id' => $mpb_10_id], 'author.php', sprintf(MPU_ADM_CONFIRMA_DEL, $mpb_10_id, $mpu_classe->getVar('mpb_30_menu')));
         }
         break;
     case 'deletar_ok':
@@ -204,12 +205,12 @@ switch ($op) {
         $c['nome'][5]    = 'mpb_11_visivel';
         $c['rotulo'][5]  = MPU_ADM_MPB_11_VISIVEL;
         $c['tipo'][5]    = 'select';
-        $c['options'][5] = array(
+        $c['options'][5] = [
             1 => MPU_ADM_MPB_11_VISIVEL_1,
             3 => MPU_ADM_MPB_11_VISIVEL_3,
             2 => MPU_ADM_MPB_11_VISIVEL_2,
             4 => MPU_ADM_MPB_11_VISIVEL_4
-        );
+        ];
 
         $c['nome'][6]    = 'mpb_10_ordem';
         $c['rotulo'][6]  = MPU_ADM_MPB_10_ORDEM;

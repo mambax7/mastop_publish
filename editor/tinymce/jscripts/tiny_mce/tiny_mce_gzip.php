@@ -24,17 +24,17 @@ $suffix        = getParam('suffix', '_src') == '_src' ? '_src' : '';
 $cachePath     = realpath('.'); // Cache path, this is where the .gz files will be stored
 $expiresOffset = 3600 * 24 * 10; // Cache for 10 days in browser cache
 $content       = '';
-$encodings     = array();
+$encodings     = [];
 $supportsGzip  = false;
 $enc           = '';
 $cacheKey      = '';
 
 // Custom extra javascripts to pack
-$custom = array(/*
+$custom = [/*
         "some custom .js file",
         "some custom .js file"
     */
-);
+];
 
 // Headers
 header('Content-type: text/javascript');

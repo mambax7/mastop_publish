@@ -41,7 +41,7 @@ $spelling = sanitize($_REQUEST['spelling'], 'strict');
 $jargon   = sanitize($_REQUEST['jargon'], 'strict');
 $encoding = sanitize($_REQUEST['encoding'], 'strict');
 $sg       = sanitize($_REQUEST['sg'], 'bool');
-$words    = array();
+$words    = [];
 
 $validRequest = true;
 
@@ -91,7 +91,7 @@ function sanitize($str, $type = 'strict')
     return $str;
 }
 
-$result    = array();
+$result    = [];
 $tinyspell = new $spellCheckerConfig['class']($spellCheckerConfig, $lang, $mode, $spelling, $jargon, $encoding);
 
 if (count($tinyspell->errorMsg) == 0) {
@@ -117,7 +117,7 @@ if (count($tinyspell->errorMsg) == 0) {
 }
 
 if (!$result) {
-    $result = array();
+    $result = [];
 }
 
 // Output data

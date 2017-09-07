@@ -593,21 +593,21 @@ tinyMCE.init({
                           . XOOPS_URL
                           . "/images/quote.gif' alt='quote'><br>\n";
 
-            $sizearray = array('xx-small', 'x-small', 'small', 'medium', 'large', 'x-large', 'xx-large');
+            $sizearray = ['xx-small', 'x-small', 'small', 'medium', 'large', 'x-large', 'xx-large'];
             $form      .= "<select id='" . $this->getName() . "Size' onchange='setVisible(\"" . $hiddenText . "\");setElementSize(\"" . $hiddenText . "\",this.options[this.selectedIndex].value);'>\n";
             $form      .= "<option value='SIZE'>" . _SIZE . "</option>\n";
             foreach ($sizearray as $size) {
                 $form .= "<option value='$size'>$size</option>\n";
             }
             $form      .= "</select>\n";
-            $fontarray = array('Arial', 'Courier', 'Georgia', 'Helvetica', 'Impact', 'Verdana');
+            $fontarray = ['Arial', 'Courier', 'Georgia', 'Helvetica', 'Impact', 'Verdana'];
             $form      .= "<select id='" . $this->getName() . "Font' onchange='setVisible(\"" . $hiddenText . "\");setElementFont(\"" . $hiddenText . "\",this.options[this.selectedIndex].value);'>\n";
             $form      .= "<option value='FONT'>" . _FONT . "</option>\n";
             foreach ($fontarray as $font) {
                 $form .= "<option value='$font'>$font</option>\n";
             }
             $form       .= "</select>\n";
-            $colorarray = array('00', '33', '66', '99', 'CC', 'FF');
+            $colorarray = ['00', '33', '66', '99', 'CC', 'FF'];
             $form       .= "<select id='" . $this->getName() . "Color' onchange='setVisible(\"" . $hiddenText . "\");setElementColor(\"" . $hiddenText . "\",this.options[this.selectedIndex].value);'>\n";
             $form       .= "<option value='COLOR'>" . _COLOR . "</option>\n";
             foreach ($colorarray as $color1) {

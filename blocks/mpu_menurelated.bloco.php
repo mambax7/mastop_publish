@@ -23,7 +23,7 @@ function mpu_menurelated_exibe($options)
     require_once XOOPS_ROOT_PATH . '/modules/' . MPU_BLO_MODDIR . '/class/mpu_mpb_mpublish.class.php';
     $tac                   = isset($_GET['tac']) ? $_GET['tac'] : 0;
     $tac                   = is_int($tac) ? $tac : str_replace('_', ' ', $tac);
-    $block                 = array();
+    $block                 = [];
     $block['menurelateds'] = 0;
     if (!$tac) {
         return false;

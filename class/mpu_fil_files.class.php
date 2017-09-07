@@ -60,7 +60,7 @@ class mpu_fil_files extends mpu_geral
 
             return $ret;
         } else {
-            return array();
+            return [];
         }
     }
 }

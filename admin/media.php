@@ -46,7 +46,7 @@ switch ($op) {
         if (empty($med_10_id) || $med_classe->getVar('med_10_id') == '') {
             redirect_header(XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/admin/media.php', 3, MPU_ADM_ERRO_MED404);
         }
-        xoops_confirm(array('op' => 'media_deletar_ok', 'med_10_id' => $med_10_id), 'media.php', sprintf(MPU_ADM_CONFIRMA_DELMED, $med_10_id, $med_classe->getVar('med_30_nome')));
+        xoops_confirm(['op' => 'media_deletar_ok', 'med_10_id' => $med_10_id], 'media.php', sprintf(MPU_ADM_CONFIRMA_DELMED, $med_10_id, $med_classe->getVar('med_30_nome')));
         break;
     case 'media_deletar_ok':
         $med_10_id  = (!empty($med_10_id)) ? $med_10_id : 0;
@@ -79,33 +79,33 @@ switch ($op) {
             require_once XOOPS_ROOT_PATH . '/class/uploader.php';
             switch ($_POST['med_10_tipo']) {
                 case 1:
-                    $permittedtypes = array('application/x-shockwave-flash');
+                    $permittedtypes = ['application/x-shockwave-flash'];
                     break;
                 case 2:
-                    $permittedtypes = array('video/quicktime');
+                    $permittedtypes = ['video/quicktime'];
                     break;
                 case 3:
-                    $permittedtypes = array('application/x-director');
+                    $permittedtypes = ['application/x-director'];
                     break;
                 case 4:
-                    $permittedtypes = array(
+                    $permittedtypes = [
                         'application/octet-stream',
                         'video/x-ms-asf',
                         'video/x-msvideo',
                         'video/x-ms-wmv'
-                    );
+                    ];
                     break;
                 case 5:
                 default:
-                    $permittedtypes = array('audio/x-pn-realaudio');
+                    $permittedtypes = ['audio/x-pn-realaudio'];
                     break;
             }
             $uploader                  = new XoopsMediaUploader(MPU_MEDIA_PATH, $permittedtypes, $xoopsModuleConfig['mpu_mmax_filesize'] * 1024);
-            $uploader->extensionToMime = array_merge($uploader->extensionToMime, array(
+            $uploader->extensionToMime = array_merge($uploader->extensionToMime, [
                 'wmv' => 'video/x-ms-wmv',
                 'asf' => 'video/x-ms-asf',
                 'rm'  => 'audio/x-pn-realaudio'
-            ));
+            ]);
             unset($uploader->imageExtensions[4]);
             $uploader->setPrefix('media_');
             if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
@@ -159,6 +159,7 @@ switch ($op) {
         } else {
             redirect_header(XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/admin/media.php', 3, MPU_ADM_ERR_SELECT_MEDIA);
         }
+        // no break
     case 'media':
     default:
         mpu_adm_menu();
@@ -196,13 +197,13 @@ switch ($op) {
         $c['nome'][5]    = 'med_10_tipo';
         $c['rotulo'][5]  = MPU_ADM_MED_10_TIPO;
         $c['tipo'][5]    = 'select';
-        $c['options'][5] = array(
+        $c['options'][5] = [
             1 => MPU_ADM_MED_10_TIPO_1,
             2 => MPU_ADM_MED_10_TIPO_2,
             3 => MPU_ADM_MED_10_TIPO_3,
             4 => MPU_ADM_MED_10_TIPO_4,
             5 => MPU_ADM_MED_10_TIPO_5
-        );
+        ];
 
         $c['nome'][6]   = 'med_12_exibir';
         $c['rotulo'][6] = trim(MPU_ADM_EXIBIR);

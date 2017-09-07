@@ -159,7 +159,7 @@ class mpu_mpb_mpublish extends mpu_geral
     public function getPages()
     {
         global $xoopsUser;
-        static $myPages = array();
+        static $myPages = [];
         /** @var XoopsModuleHandler $moduleHandler */
         $moduleHandler     = xoops_getHandler('module');
         $groups            = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
@@ -178,7 +178,7 @@ class mpu_mpb_mpublish extends mpu_geral
         if (!is_object($criterio)) {
             $criterio = new CriteriaCompo(new Criteria('mpb_10_idpai', 0));
             $first    = true;
-            $ret      = array();
+            $ret      = [];
         } else {
             $first = false;
             $ret   = '';
@@ -260,7 +260,7 @@ class mpu_mpb_mpublish extends mpu_geral
         if (!is_object($criterio)) {
             $criterio = new CriteriaCompo(new Criteria('mpb_10_idpai', $this->getVar('mpb_10_idpai')));
             $first    = true;
-            $ret      = array();
+            $ret      = [];
         } else {
             $first = false;
             $ret   = '';

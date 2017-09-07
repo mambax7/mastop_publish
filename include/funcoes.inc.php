@@ -16,10 +16,10 @@ function mpu_adm_menu()
 {
     global $xoopsModule, $xoopsConfig, $xoopsModuleConfig;
     $adm_url = XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/admin/';
-    $links[] = array(
+    $links[] = [
         0 => XOOPS_URL . '/modules/system/admin.php?fct=preferences&op=showmod&mod=' . $xoopsModule->getVar('mid'),
         1 => _PREFERENCES
-    );
+    ];
     xoops_cp_header();
     echo '
 <link rel="stylesheet" type="text/css" href="../assets/js/menu/style_menu.css">
@@ -156,7 +156,7 @@ function prepareContent($content)
     if (!empty($_GET['busca']) && is_array($_GET['busca'])) {
         $search_string = MPU_MOD_HIGHLIGHT_SEARCH;
         $found         = 0;
-        $bgs           = array(
+        $bgs           = [
             '#ffff66',
             '#a0ffff',
             '#99ff99',
@@ -166,8 +166,8 @@ function prepareContent($content)
             '#886800',
             '#004699',
             '#990099'
-        );
-        $colors        = array('black', 'black', 'black', 'black', 'white', 'white', 'white', 'white', 'white');
+        ];
+        $colors        = ['black', 'black', 'black', 'black', 'white', 'white', 'white', 'white', 'white'];
         $ctrl          = 0;
         $busca         = array_unique($_GET['busca']);
         foreach ($busca as $v) {
