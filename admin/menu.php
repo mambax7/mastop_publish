@@ -19,54 +19,59 @@ if (false !== ($moduleHelper = Xmf\Module\Helper::getHelper($moduleDirName))) {
     $moduleHelper = Xmf\Module\Helper::getHelper('system');
 }
 
-
 $pathIcon32 = \Xmf\Module\Admin::menuIconPath('');
 //$pathModIcon32 = $moduleHelper->getModule()->getInfo('modicons32');
 
 $moduleHelper->loadLanguage('modinfo');
 
-// Index
-$adminmenu              = [];
-$i                      = 0;
-'title' =>  _AM_MODULEADMIN_HOME,
-'link' =>  'admin/index.php',
-'icon' =>  $pathIcon32 . '/home.png',
+$adminmenu[] = [
+    'title' => _AM_MODULEADMIN_HOME,
+    'link'  => 'admin/index.php',
+    'icon'  => $pathIcon32 . '/home.png',
+];
 
 // User
-++$i;
-'title' =>  MPU_MOD_MENU_ADD,
-'link' => novo',
-'icon' =>  $pathIcon32 . '/add.png',
+$adminmenu[] = [
+    'title' => MPU_MOD_MENU_ADD,
+    'link'  => 'admin/main.php?op=novo',
+    'icon'  => $pathIcon32 . '/add.png',
+];
 
 // List Content
-++$i;
-'title' =>  MPU_MOD_MENU_LST,
-'link' => listar',
-'icon' =>  $pathIcon32 . '/manage.png',
-
+$adminmenu[] = [
+    'title' => MPU_MOD_MENU_LST,
+    'link'  => 'admin/main.php?op=listar',
+    'icon'  => $pathIcon32 . '/manage.png',
+];
 // HTML Files
-++$i;
-'title' =>  MPU_MOD_MENU_LNK,
-'link' =>  'admin/paginas.php',
-'icon' =>  $pathIcon32 . '/content.png',
+
+$adminmenu[] = [
+    'title' => MPU_MOD_MENU_LNK,
+    'link'  => 'admin/paginas.php',
+    'icon'  => $pathIcon32 . '/content.png',
+];
 
 // Media
-++$i;
-'title' =>  MPU_MOD_MENU_MED,
-'link' =>  'admin/media.php',
-'icon' =>  $pathIcon32 . '/marquee.png',
+$adminmenu[] = [
+    'title' => MPU_MOD_MENU_MED,
+    'link'  => 'admin/media.php',
+    'icon'  => $pathIcon32 . '/marquee.png',
+];
 
-++$i;
-'title' =>  MPU_MOD_MENU_FIL,
-'link' =>  'admin/files.php',
-'icon' =>  $pathIcon32 . '/folder_txt.png',
+$adminmenu[] = [
+    'title' => MPU_MOD_MENU_FIL,
+    'link'  => 'admin/files.php',
+    'icon'  => $pathIcon32 . '/folder_txt.png',
+];
 
-//++$i;
+//$adminmenu[] = [
 //'title' =>  _MI_SYSTEM_ADMENU2,
 //'link' =>   'admin/blocksadmin.php',
 //$adminmenu[$i]["icon"] = $pathIcon32.'/export.png';
+//];
 
-++$i;
-'title' =>  _AM_MODULEADMIN_ABOUT,
-'link' =>  'admin/about.php',
-'icon' =>  $pathIcon32 . '/about.png',
+$adminmenu[] = [
+    'title' => _AM_MODULEADMIN_ABOUT,
+    'link'  => 'admin/about.php',
+    'icon'  => $pathIcon32 . '/about.png',
+];
