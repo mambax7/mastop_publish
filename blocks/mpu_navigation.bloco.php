@@ -36,7 +36,7 @@ function mpu_navigation_exibe($options)
         }
     } else {
         $mpu_classe = new mpu_mpb_mpublish($tac);
-        if ($mpu_classe->getVar('mpb_10_id') != '') {
+        if ('' != $mpu_classe->getVar('mpb_10_id')) {
             $block['content'] = $mpu_classe->geraNavigation(null, $options[2], $style);
 
             return $block;

@@ -173,7 +173,7 @@ $modversion['config'][$i]['title']       = 'MPU_MOD_WYSIWYG_LANG';
 $modversion['config'][$i]['description'] = 'MPU_MOD_WYSIWYG_LANG_DESC';
 $modversion['config'][$i]['formtype']    = 'texbox';
 $modversion['config'][$i]['valuetype']   = 'text';
-$modversion['config'][$i]['default']     = ($xoopsConfig['language'] == 'portuguesebr') ? 'pt_br' : 'en';
+$modversion['config'][$i]['default']     = ('portuguesebr' == $xoopsConfig['language']) ? 'pt_br' : 'en';
 ++$i;
 $modversion['config'][$i]['name']        = 'mpu_conf_wysiwyg_bt1b';
 $modversion['config'][$i]['title']       = 'MPU_MOD_WYSIWYG_BT1B';

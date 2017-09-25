@@ -63,7 +63,7 @@ class TinyPspellShell
             $matches = [];
 
             // Skip this line.
-            if (strpos($dstr, '@') === 0) {
+            if (0 === strpos($dstr, '@')) {
                 continue;
             }
 
@@ -105,7 +105,7 @@ class TinyPspellShell
             $matches = [];
 
             // Skip this line.
-            if (strpos($dstr, '@') === 0) {
+            if (0 === strpos($dstr, '@')) {
                 continue;
             }
 

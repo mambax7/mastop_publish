@@ -39,22 +39,22 @@ if (!$mpu_classe->getVar('mpb_10_id')) {
     } else {
         $xoopsTpl->assign('navigation', '');
     }
-    if ($mpu_classe->getVar('mpb_30_arquivo') != ''
-        && substr($mpu_classe->getVar('mpb_30_arquivo'), 0, 7) === 'http://') {
+    if ('' != $mpu_classe->getVar('mpb_30_arquivo')
+        && 'http://' === substr($mpu_classe->getVar('mpb_30_arquivo'), 0, 7)) {
         $content = '<iframe src ="' . $mpu_classe->getVar('mpb_30_arquivo') . '" width="' . $xoopsModuleConfig['mpu_conf_iframe_width'] . '" height="' . $xoopsModuleConfig['mpu_conf_iframe_height'] . '" scrolling="auto" frameborder="0"></iframe>';
         $xoopsTpl->assign('content', $content);
-    } elseif ($mpu_classe->getVar('mpb_30_arquivo') != '' && $mpu_classe->getVar('mpb_35_conteudo') == '') {
+    } elseif ('' != $mpu_classe->getVar('mpb_30_arquivo') && '' == $mpu_classe->getVar('mpb_35_conteudo')) {
         $pageContent = MPU_HTML_PATH . '/' . $mpu_classe->getVar('mpb_30_arquivo');
         if (file_exists($pageContent)) {
             ob_start();
-            if (substr(strtolower($mpu_classe->getVar('mpb_30_arquivo')), -3) === 'php') {
+            if ('php' === substr(strtolower($mpu_classe->getVar('mpb_30_arquivo')), -3)) {
                 include $pageContent;
             } else {
                 readfile($pageContent);
             }
             $content = ob_get_contents();
             ob_end_clean();
-            if (substr(strtolower($mpu_classe->getVar('mpb_30_arquivo')), -3) === 'txt') {
+            if ('txt' === substr(strtolower($mpu_classe->getVar('mpb_30_arquivo')), -3)) {
                 $content = nl2br($content);
             }
             $content = prepareContent($content);
@@ -65,12 +65,12 @@ if (!$mpu_classe->getVar('mpb_10_id')) {
         $xoopsTpl->assign('content', $mpb_35_conteudo);
     }
     $xoopsTpl->assign('comentarios', $mpu_classe->getVar('mpb_12_comentarios'));
-    if ($mpu_classe->getVar('mpb_12_recomendar') == 1) {
+    if (1 == $mpu_classe->getVar('mpb_12_recomendar')) {
         $xoopsTpl->assign('recomendar', "<a href='" . $mpu_classe->pegaLink('recommend.php') . "' title='" . MPU_MAI_RECOMMEND . "'><img src='" . XOOPS_URL . '/modules/' . MPU_MOD_DIR . "/assets/images/recomendar.jpg' alt='" . MPU_MAI_RECOMMEND . "'></a> ");
     } else {
         $xoopsTpl->assign('recomendar', '');
     }
-    if ($mpu_classe->getVar('mpb_12_imprimir') == 1) {
+    if (1 == $mpu_classe->getVar('mpb_12_imprimir')) {
         $xoopsTpl->assign('imprimir', "<a href='" . $mpu_classe->pegaLink('print.php') . "' target='_blank'  title='" . MPU_MAI_PRINT . "'><img src='" . XOOPS_URL . '/modules/' . MPU_MOD_DIR . "/assets/images/imprimir.jpg' alt='" . MPU_MAI_PRINT . "'></a>");
     } else {
         $xoopsTpl->assign('imprimir', '');
@@ -110,7 +110,7 @@ if (!$mpu_classe->getVar('mpb_10_id')) {
                                          . "'></a>");
         $xoopsTpl->assign('mpu_isauthor', 1);
     } elseif (!empty($xoopsUser) && $xoopsUser->getVar('uid') == $mpu_classe->getVar('usr_10_uid')
-              && ($xoopsModuleConfig['mpu_conf_canedit'] == 1 || $xoopsModuleConfig['mpu_conf_cancreate'] == 1)) {
+              && (1 == $xoopsModuleConfig['mpu_conf_canedit'] || 1 == $xoopsModuleConfig['mpu_conf_cancreate'])) {
         $xoopsTpl->assign('infos', MPU_MAI_INFOPG);
         $xoopsTpl->assign('autor', MPU_MAI_AUTOR . ' <b>' . XoopsUser::getUnameFromId($mpu_classe->getVar('usr_10_uid')) . '</b>');
         $xoopsTpl->assign('criado', MPU_MAI_CRIADO . ' <b>' . date(_SHORTDATESTRING, $mpu_classe->getVar('mpb_22_criado')) . '</b>');
@@ -172,7 +172,7 @@ if (!$mpu_classe->getVar('mpb_10_id')) {
     } else {
         $xoopsTpl->assign('mpu_isauthor', 0);
     }
-    if ($xoopsModuleConfig['mpu_conf_related'] && $mpu_classe->getVar('mpb_10_idpai') != 0) {
+    if ($xoopsModuleConfig['mpu_conf_related'] && 0 != $mpu_classe->getVar('mpb_10_idpai')) {
         $rel_crit = new CriteriaCompo(new Criteria('mpb_10_idpai', $mpu_classe->getVar('mpb_10_idpai')));
         $rel_crit->add(new Criteria('mpb_10_id', $mpu_classe->getVar('mpb_10_id'), '<>'));
         $rel_crit->add(new Criteria('mpb_12_semlink', 0));

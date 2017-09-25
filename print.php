@@ -34,22 +34,22 @@ if (!$tac) {
         } else {
             $navigation = '';
         }
-        if ($mpu_classe->getVar('mpb_30_arquivo') != ''
-            && substr($mpu_classe->getVar('mpb_30_arquivo'), 0, 7) == 'http://') {
+        if ('' != $mpu_classe->getVar('mpb_30_arquivo')
+            && 'http://' == substr($mpu_classe->getVar('mpb_30_arquivo'), 0, 7)) {
             $content       = '<iframe src ="' . $mpu_classe->getVar('mpb_30_arquivo') . '" width="' . $xoopsModuleConfig['mpu_conf_iframe_width'] . '" height="' . $xoopsModuleConfig['mpu_conf_iframe_height'] . '" scrolling="auto" frameborder="0"></iframe>';
             $mpb_30_titulo = $mpu_classe->getVar('mpb_30_titulo');
-        } elseif ($mpu_classe->getVar('mpb_30_arquivo') != '' && $mpu_classe->getVar('mpb_35_conteudo') == '') {
+        } elseif ('' != $mpu_classe->getVar('mpb_30_arquivo') && '' == $mpu_classe->getVar('mpb_35_conteudo')) {
             $pageContent = MPU_HTML_PATH . '/' . $mpu_classe->getVar('mpb_30_arquivo');
             if (file_exists($pageContent)) {
                 ob_start();
-                if (substr(strtolower($mpu_classe->getVar('mpb_30_arquivo')), -3) == 'php') {
+                if ('php' == substr(strtolower($mpu_classe->getVar('mpb_30_arquivo')), -3)) {
                     include $pageContent;
                 } else {
                     readfile($pageContent);
                 }
                 $content = ob_get_contents();
                 ob_end_clean();
-                if (substr(strtolower($mpu_classe->getVar('mpb_30_arquivo')), -3) == 'txt') {
+                if ('txt' == substr(strtolower($mpu_classe->getVar('mpb_30_arquivo')), -3)) {
                     $content = nl2br($content);
                 }
                 $content = prepareContent($content);

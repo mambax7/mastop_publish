@@ -54,7 +54,7 @@ class mpu_cfi_contentfiles extends mpu_geral
         $this->total = $this->db->getRowsNum($resultado);
         if ($this->total > 0) {
             while ($linha = $this->db->fetchArray($resultado)) {
-                $ext                        = (substr($linha['cfi_30_arquivo'], -4, 1) == '.') ? substr($linha['cfi_30_arquivo'], -4) : substr($linha['cfi_30_arquivo'], -5);
+                $ext                        = ('.' == substr($linha['cfi_30_arquivo'], -4, 1)) ? substr($linha['cfi_30_arquivo'], -4) : substr($linha['cfi_30_arquivo'], -5);
                 $ret[$linha['cfi_30_mime']] = $linha['cfi_30_mime'] . ' (' . $ext . ')';
             }
 
@@ -72,7 +72,7 @@ class mpu_cfi_contentfiles extends mpu_geral
         $this->total = $this->db->getRowsNum($resultado);
         if ($this->total > 0) {
             while ($linha = $this->db->fetchArray($resultado)) {
-                $ext                           = (substr($linha['cfi_30_arquivo'], -4, 1) == '.') ? substr($linha['cfi_30_arquivo'], -4) : substr($linha['cfi_30_arquivo'], -5);
+                $ext                           = ('.' == substr($linha['cfi_30_arquivo'], -4, 1)) ? substr($linha['cfi_30_arquivo'], -4) : substr($linha['cfi_30_arquivo'], -5);
                 $ret[$linha['cfi_30_arquivo']] = $linha['cfi_30_nome'] . ' (' . $ext . ')';
             }
         }

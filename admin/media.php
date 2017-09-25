@@ -31,7 +31,7 @@ switch ($op) {
         mpu_adm_menu();
         $med_10_id  = (!empty($med_10_id)) ? $med_10_id : 0;
         $med_classe = new mpu_med_media($med_10_id);
-        if (empty($med_10_id) || $med_classe->getVar('med_10_id') == '') {
+        if (empty($med_10_id) || '' == $med_classe->getVar('med_10_id')) {
             redirect_header(XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/admin/media.php', 3, MPU_ADM_ERRO_MED404);
         }
         $form['titulo'] = MPU_ADM_EMEDIA;
@@ -43,7 +43,7 @@ switch ($op) {
         mpu_adm_menu();
         $med_10_id  = (!empty($med_10_id)) ? $med_10_id : 0;
         $med_classe = new mpu_med_media($med_10_id);
-        if (empty($med_10_id) || $med_classe->getVar('med_10_id') == '') {
+        if (empty($med_10_id) || '' == $med_classe->getVar('med_10_id')) {
             redirect_header(XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/admin/media.php', 3, MPU_ADM_ERRO_MED404);
         }
         xoops_confirm(['op' => 'media_deletar_ok', 'med_10_id' => $med_10_id], 'media.php', sprintf(MPU_ADM_CONFIRMA_DELMED, $med_10_id, $med_classe->getVar('med_30_nome')));
@@ -51,7 +51,7 @@ switch ($op) {
     case 'media_deletar_ok':
         $med_10_id  = (!empty($med_10_id)) ? $med_10_id : 0;
         $med_classe = new mpu_med_media($med_10_id);
-        if (empty($med_10_id) || $med_classe->getVar('med_10_id') == '') {
+        if (empty($med_10_id) || '' == $med_classe->getVar('med_10_id')) {
             redirect_header(XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/admin/media.php', 3, MPU_ADM_ERRO_MED404);
         }
         $med_classe->delete();
@@ -75,7 +75,7 @@ switch ($op) {
         $erro      = '';
         $file_nome = $_FILES[$_POST['xoops_upload_file'][0]];
         $file_nome = get_magic_quotes_gpc() ? stripslashes($file_nome['name']) : $file_nome['name'];
-        if (xoops_trim($file_nome != '')) {
+        if (xoops_trim('' != $file_nome)) {
             require_once XOOPS_ROOT_PATH . '/class/uploader.php';
             switch ($_POST['med_10_tipo']) {
                 case 1:
@@ -144,7 +144,7 @@ switch ($op) {
                 xoops_error($uploader->getErrors());
                 $erro .= ob_get_clean();
             }
-        } elseif ($file_nome == '' && !empty($med_10_id)) {
+        } elseif ('' == $file_nome && !empty($med_10_id)) {
             $media->setVar('med_30_nome', $_POST['med_30_nome']);
             $media->setVar('med_10_altura', $_POST['med_10_altura']);
             $media->setVar('med_10_largura', $_POST['med_10_largura']);

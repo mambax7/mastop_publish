@@ -74,20 +74,20 @@ $tipos           = [
 <body onload="tinyMCEPopup.executeOnLoad('init();');">
 <div class="tabs">
     <ul>
-        <li id="gerenciador_tab" <?php echo ($op === 'listmed' || $op === 'list') ? ' class="current"' : ''; ?>><span><a
+        <li id="gerenciador_tab" <?php echo ('listmed' === $op || 'list' === $op) ? ' class="current"' : ''; ?>><span><a
                         href="javascript:mcTabs.displayTab('gerenciador_tab','gerenciador_panel');"
                         onmousedown="return false;">{$lang_browser_ger_medias}</a></span></li>
-        <li id="nova_media_tab" <?php echo ($op === 'addmedia') ? ' class="current"' : ''; ?>><span><a
+        <li id="nova_media_tab" <?php echo ('addmedia' === $op) ? ' class="current"' : ''; ?>><span><a
                         href="javascript:mcTabs.displayTab('nova_media_tab','nova_media_panel');"
                         onmousedown="return false;">{$lang_browser_nova_media}</a></span></li>
     </ul>
 </div>
 <div class="panel_wrapper">
-    <div id="gerenciador_panel" class="panel <?php echo ($op === 'listmed' || $op === 'list') ? 'current' : ''; ?>"
+    <div id="gerenciador_panel" class="panel <?php echo ('listmed' === $op || 'list' === $op) ? 'current' : ''; ?>"
          style="overflow: auto;">
         <h3>{$lang_browser_media_title}</h3>
         <?php
-        if ($op === 'listmed') {
+        if ('listmed' === $op) {
             $med_10_tipo = (int)$_GET['med_10_tipo'];
             $med_classe  = new mpu_med_media();
             $criterio    = new CriteriaCompo(new Criteria('med_10_tipo', $med_10_tipo));
@@ -198,14 +198,14 @@ $tipos           = [
         ?>
     </div>
 
-    <div id="nova_media_panel" class="panel <?php echo ($op === 'addmedia') ? 'current' : ''; ?>"
+    <div id="nova_media_panel" class="panel <?php echo ('addmedia' === $op) ? 'current' : ''; ?>"
          style="overflow: visible;">
         <?php
-        if ($op === 'addmedia') {
+        if ('addmedia' === $op) {
             $media     = new mpu_med_media();
             $file_nome = $_FILES[$_POST['xoops_upload_file'][0]];
             $file_nome = get_magic_quotes_gpc() ? stripslashes($file_nome['name']) : $file_nome['name'];
-            if (xoops_trim($file_nome != '')) {
+            if (xoops_trim('' != $file_nome)) {
                 require_once XOOPS_ROOT_PATH . '/class/uploader.php';
                 switch ($_POST['med_10_tipo']) {
                     case 1:

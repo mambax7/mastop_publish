@@ -54,7 +54,7 @@ class mpu_fil_files extends mpu_geral
         $this->total = $this->db->getRowsNum($resultado);
         if ($this->total > 0) {
             while ($linha = $this->db->fetchArray($resultado)) {
-                $ext                        = (substr($linha['fil_30_arquivo'], -4, 1) == '.') ? substr($linha['fil_30_arquivo'], -4) : substr($linha['fil_30_arquivo'], -5);
+                $ext                        = ('.' == substr($linha['fil_30_arquivo'], -4, 1)) ? substr($linha['fil_30_arquivo'], -4) : substr($linha['fil_30_arquivo'], -5);
                 $ret[$linha['fil_30_mime']] = $linha['fil_30_mime'] . ' (' . $ext . ')';
             }
 

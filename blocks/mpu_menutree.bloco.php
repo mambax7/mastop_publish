@@ -40,7 +40,7 @@ function mpu_menutree_exibe($options)
     $block['menuOI']      = (!empty($options[13])) ? 'italic' : 'normal';
     $block['menuOU']      = (!empty($options[14])) ? 'underline' : 'none';
     $exibe_subpgs         = ($options[15] > 0) ? new CriteriaCompo(new Criteria('mpb_10_idpai', $options[15])) : null;
-    $block['menuTREE']    = $mpu_classe->geraMenuCSS($exibe_subpgs, (($options[15] == 0) ? $options[3] : false));
+    $block['menuTREE']    = $mpu_classe->geraMenuCSS($exibe_subpgs, ((0 == $options[15]) ? $options[3] : false));
 
     return $block;
 }
@@ -118,21 +118,21 @@ PICKER;
 
     $form .= MPU_BLO_OPT_ID . " <input type='text' name='options[0]' value='" . $options[0] . "'><br>";
     $form .= MPU_BLO_OPT_HOME . "&nbsp;<input type='radio' name='options[1]' value='1'";
-    if ($options[1] == 1) {
+    if (1 == $options[1]) {
         $form .= ' checked';
     }
     $form .= '>&nbsp;' . _YES . "<input type='radio' name='options[1]' value='0'";
-    if ($options[1] == 0) {
+    if (0 == $options[1]) {
         $form .= ' checked';
     }
     $form .= '>&nbsp;' . _NO . '<br>';
     $form .= MPU_BLO_OPT_HOMETEXT . " <input type='text' name='options[2]' value='" . $options[2] . "'><br>";
     $form .= MPU_BLO_OPT_MOD . "&nbsp;<input type='radio' name='options[3]' value='1'";
-    if ($options[3] == 1) {
+    if (1 == $options[3]) {
         $form .= ' checked';
     }
     $form .= '>&nbsp;' . _YES . "<input type='radio' name='options[3]' value='0'";
-    if ($options[3] == 0) {
+    if (0 == $options[3]) {
         $form .= ' checked';
     }
     $form .= '>&nbsp;' . _NO . '<br>';

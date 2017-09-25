@@ -690,7 +690,7 @@ tinyMCE.init({
             } else {
                 $count = count($smiles);
                 for ($i = 0; $i < $count; ++$i) {
-                    if ($smiles[$i]['display'] == 1) {
+                    if (1 == $smiles[$i]['display']) {
                         $ret .= "<img onclick='xoopsCodeSmilie(\"" . $this->getName() . "\", \" " . $smiles[$i]['code'] . " \");' onmouseover='style.cursor=\"hand\"' src='" . XOOPS_UPLOAD_URL . '/' . $myts->oopsHtmlSpecialChars($smiles['smile_url']) . "' border='0' alt=''>";
                     }
                 }
@@ -722,7 +722,7 @@ tinyMCE.init({
             } else {
                 $count = count($smiles);
                 for ($i = 0; $i < $count; ++$i) {
-                    if ($smiles[$i]['display'] == 1) {
+                    if (1 == $smiles[$i]['display']) {
                         $ret .= "<img onclick=\"tinyMCE.execInstanceCommand('"
                                 . $this->getName()
                                 . "', 'mceInsertContent', false, '<img src=\'"

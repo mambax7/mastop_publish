@@ -56,7 +56,7 @@ $option_tray = new XoopsFormElementTray(_OPTIONS, '<br>');
 $button_tray = new XoopsFormElementTray('', '&nbsp;');
 
 if (is_object($xoopsUser)) {
-    if ($xoopsModuleConfig['com_anonpost'] == 1) {
+    if (1 == $xoopsModuleConfig['com_anonpost']) {
         $noname          = !empty($noname) ? 1 : 0;
         $noname_checkbox = new XoopsFormCheckBox('', 'noname', $noname);
         $noname_checkbox->addOption(1, _POSTANON);

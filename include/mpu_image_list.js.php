@@ -33,14 +33,14 @@ if ($catcount > 0) {
         if ($total > 0) {
             $imgcat    =& $imgcatHandler->get($c_id);
             $storetype = $imgcat->getVar('imgcat_storetype');
-            if ($storetype == 'db') {
+            if ('db' == $storetype) {
                 $images = $imageHandler->getObjects($criteria, false, true);
             } else {
                 $images = $imageHandler->getObjects($criteria, false, false);
             }
             $imgcount = count($images);
             for ($i = 0; $i < $imgcount; ++$i) {
-                if ($storetype == 'db') {
+                if ('db' == $storetype) {
                     $ret .= '["' . $images[$i]->getVar('image_nicename') . '", "' . XOOPS_URL . '/image.php?id=' . $images[$i]->getVar('image_id') . '"],';
                 } else {
                     $ret .= '["' . $images[$i]->getVar('image_nicename') . '", "' . XOOPS_UPLOAD_URL . '/' . $images[$i]->getVar('image_name') . '"],';

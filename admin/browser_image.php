@@ -21,7 +21,7 @@ $moduleHandler  = xoops_getHandler('module');
 $MPublishModule = $moduleHandler->getByDirname($url_arr[2]);
 unset($url_arr);
 
-if ($MPublishModule->getVar('hasconfig') == 1 || $MPublishModule->getVar('hascomments') == 1) {
+if (1 == $MPublishModule->getVar('hasconfig') || 1 == $MPublishModule->getVar('hascomments')) {
     $configHandler        = xoops_getHandler('config');
     $MPublishModuleConfig =& $configHandler->getConfigsByCat(0, $MPublishModule->getVar('mid'));
 }
@@ -72,7 +72,7 @@ $readCount           = count($imagecategorys);
 $writeCount          = count($imagecategorysWrite);
 $mpb_wysiwyg_url     = XOOPS_URL . $MPublishModuleConfig['mpu_conf_wysiwyg_path'];
 require_once XOOPS_ROOT_PATH . '/modules/system/language/' . $xoopsConfig['language'] . '/admin/images.php';
-if ($op === 'updatecat' && $admin) {
+if ('updatecat' === $op && $admin) {
     $imgcat_id  = $_POST['imgcat_id'];
     $readgroup  = $_POST['readgroup'];
     $writegroup = $_POST['writegroup'];
@@ -132,7 +132,7 @@ if ($op === 'updatecat' && $admin) {
     }
     $op = 'list';
 }
-if ($op === 'addcat' && $admin) {
+if ('addcat' === $op && $admin) {
     if (!$GLOBALS['xoopsSecurity']->check()) {
         redirect_header($_SERVER['PHP_SELF'], 2, implode('<br>', $GLOBALS['xoopsSecurity']->getErrors()));
     }
@@ -185,7 +185,7 @@ if ($op === 'addcat' && $admin) {
     }
     $op = 'list';
 }
-if ($op === 'delcatok' && $admin) {
+if ('delcatok' === $op && $admin) {
     if (!$GLOBALS['xoopsSecurity']->check()) {
         redirect_header($_SERVER['PHP_SELF'], 3, implode('<br>', $GLOBALS['xoopsSecurity']->getErrors()));
     }
@@ -252,20 +252,20 @@ if ($op === 'delcatok' && $admin) {
     <ul>
         <?php if ($readCount > 0) {
     ?>
-        <li id="gerenciador_tab" <?php echo ($op === 'listimg' || $op === 'editcat' || $op === 'delcat'
-                                             || $op == 'list') ? ' class="current"' : ''; ?>>
+        <li id="gerenciador_tab" <?php echo ('listimg' === $op || 'editcat' === $op || 'delcat' === $op
+                                             || 'list' == $op) ? ' class="current"' : ''; ?>>
                 <span><a href="javascript:mcTabs.displayTab('gerenciador_tab','gerenciador_panel');"
                          onmousedown="return false;">{$lang_browser_ger_imagens}</a></span></li><?php
 } ?>
         <?php if ($writeCount > 0) {
                                                  ?>
-        <li id="nova_imagem_tab" <?php echo ($op === 'addfile') ? ' class="current"' : ''; ?>>
+        <li id="nova_imagem_tab" <?php echo ('addfile' === $op) ? ' class="current"' : ''; ?>>
                 <span><a href="javascript:mcTabs.displayTab('nova_imagem_tab','nova_imagem_panel');"
                          onmousedown="return false;">{$lang_browser_nova_imagem}</a></span></li><?php
                                              } ?>
         <?php if ($admin) {
                                                  ?>
-        <li id="nova_cat_tab" <?php echo ($op === 'addcat' || $readCount <= 0) ? ' class="current"' : ''; ?>>
+        <li id="nova_cat_tab" <?php echo ('addcat' === $op || $readCount <= 0) ? ' class="current"' : ''; ?>>
                 <span><a href="javascript:mcTabs.displayTab('nova_cat_tab','nova_cat_panel');"
                          onmousedown="return false;">{$lang_browser_nova_cat}</a></span></li><?php
                                              } ?>
@@ -274,13 +274,13 @@ if ($op === 'delcatok' && $admin) {
 <div class="panel_wrapper">
     <?php if ($readCount > 0) {
                                                  ?>
-    <div id="gerenciador_panel" class="panel <?php echo ($op === 'listimg' || $op === 'editcat' || $op === 'delcat'
-                                                         || $op === 'list') ? 'current' : ''; ?>" style="overflow: auto;">
+    <div id="gerenciador_panel" class="panel <?php echo ('listimg' === $op || 'editcat' === $op || 'delcat' === $op
+                                                         || 'list' === $op) ? 'current' : ''; ?>" style="overflow: auto;">
         <h3>{$lang_browser_gimg_title}</h3>
         <?php
-        if ($op === 'delcat' && $admin) {
+        if ('delcat' === $op && $admin) {
             xoops_confirm(['op' => 'delcatok', 'imgcat_id' => $_GET['imgcat_id']], $_SERVER['PHP_SELF'], MPU_ADM_CONFIRMA_DEL_CATIMG);
-        } elseif ($op === 'editcat' && $admin) {
+        } elseif ('editcat' === $op && $admin) {
             $imgcat_id = $_GET['imgcat_id'];
             if ($imgcat_id <= 0) {
                 redirect_header($_SERVER['PHP_SELF'], 1);
@@ -306,7 +306,7 @@ if ($op === 'delcatok' && $admin) {
             $form->addElement(new XoopsFormButton('', 'imgcat_button', _SUBMIT, 'submit'));
             echo '<a href="' . $_SERVER['PHP_SELF'] . '">' . _MD_IMGMAIN . '</a>&nbsp;<span style="font-weight:bold;">&raquo;&raquo;</span>&nbsp;' . $imagecategory->getVar('imgcat_name') . '<br><br>';
             $form->display();
-        } elseif ($op === 'listimg') {
+        } elseif ('listimg' === $op) {
             $imgcat_id     = (int)$_GET['imgcat_id'];
             $imagecategory = $imgcatHandler->get($imgcat_id);
             if (!is_object($imagecategory)) {
@@ -329,7 +329,7 @@ if ($op === 'delcatok' && $admin) {
     ';
             foreach (array_keys($images) as $i) {
                 echo '<tr><td width="30%" style="text-align: center">';
-                if ($imagecategory->getVar('imgcat_storetype') === 'db') {
+                if ('db' === $imagecategory->getVar('imgcat_storetype')) {
                     $imagem_url = XOOPS_URL . '/image.php?id=' . $i;
                 } else {
                     $imagem_url = XOOPS_UPLOAD_URL . '/' . $images[$i]->getVar('image_name');
@@ -363,7 +363,7 @@ if ($op === 'delcatok' && $admin) {
                 echo '<li>' . $imagecategorys[$i]->getVar('imgcat_name') . ' (' . sprintf(_NUMIMAGES, '<b>' . $count . '</b>') . ')';
                 echo ($count > 0) ? ' [<a href="' . $_SERVER['PHP_SELF'] . '?op=listimg&amp;imgcat_id=' . $imagecategorys[$i]->getVar('imgcat_id') . '">' . _LIST . '</a>]' : '';
                 echo $admin ? ' [<a href="' . $_SERVER['PHP_SELF'] . '?op=editcat&amp;imgcat_id=' . $imagecategorys[$i]->getVar('imgcat_id') . '">' . _EDIT . '</a>]' : '';
-                if ($imagecategorys[$i]->getVar('imgcat_type') === 'C' && $admin) {
+                if ('C' === $imagecategorys[$i]->getVar('imgcat_type') && $admin) {
                     echo ' [<a href="' . $_SERVER['PHP_SELF'] . '?op=delcat&amp;imgcat_id=' . $imagecategorys[$i]->getVar('imgcat_id') . '">' . _DELETE . '</a>]';
                 }
                 echo '</li>';
@@ -374,7 +374,7 @@ if ($op === 'delcatok' && $admin) {
                                              } ?>
     <?php if ($admin) {
                                                  ?>
-        <div id="nova_cat_panel" class="panel <?php echo ($op === 'addcat' || $readCount <= 0) ? 'current' : ''; ?>" style="overflow: auto;">
+        <div id="nova_cat_panel" class="panel <?php echo ('addcat' === $op || $readCount <= 0) ? 'current' : ''; ?>" style="overflow: auto;">
             <div id="nova_catcontainer">
                 <h3><?= _MD_ADDIMGCAT; ?></h3>
                 <?php
@@ -400,9 +400,9 @@ if ($op === 'delcatok' && $admin) {
                                              } ?>
     <?php if ($writeCount > 0) {
                                                  ?>
-        <div id="nova_imagem_panel" class="panel <?php echo ($op === 'addfile') ? 'current' : ''; ?>" style="overflow: visible;">
+        <div id="nova_imagem_panel" class="panel <?php echo ('addfile' === $op) ? 'current' : ''; ?>" style="overflow: visible;">
             <?php
-            if ($op === 'addfile') {
+            if ('addfile' === $op) {
                 if (!$GLOBALS['xoopsSecurity']->check()) {
                     redirect_header($_SERVER['PHP_SELF'], 3, implode('<br>', $GLOBALS['xoopsSecurity']->getErrors()));
                 }
@@ -437,7 +437,7 @@ if ($op === 'delcatok' && $admin) {
                             $image->setVar('image_display', $_POST['image_display']);
                             $image->setVar('image_weight', $_POST['image_weight']);
                             $image->setVar('imgcat_id', $_POST['imgcat_id']);
-                            if ($imagecategory->getVar('imgcat_storetype') === 'db') {
+                            if ('db' === $imagecategory->getVar('imgcat_storetype')) {
                                 $fp      = @fopen($uploader->getSavedDestination(), 'rb');
                                 $fbinary = @fread($fp, filesize($uploader->getSavedDestination()));
                                 @fclose($fp);
@@ -467,7 +467,7 @@ if ($op === 'delcatok' && $admin) {
     </tr></thead><tbody>
     ';
                     echo '<tr><td width="30%" style="text-align: center">';
-                    if ($imagecategory->getVar('imgcat_storetype') === 'db') {
+                    if ('db' === $imagecategory->getVar('imgcat_storetype')) {
                         $imagem_url = XOOPS_URL . '/image.php?id=' . $image->getVar('image_id');
                     } else {
                         $imagem_url = XOOPS_UPLOAD_URL . '/' . $image->getVar('image_name');

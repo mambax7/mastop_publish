@@ -24,7 +24,7 @@ function mpu_mpublish_busca($queryarray, $andor, $limit, $offset, $userid)
     $query_str         = '';
     require_once XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/class/mpu_mpb_mpublish.class.php';
     $sql = 'SELECT mpb_10_id, mpb_10_ordem FROM ' . $xoopsDB->prefix(MPU_MOD_TABELA1) . ' WHERE mpb_11_visivel < 4 AND mpb_12_semlink = 0';
-    if ($userid != 0) {
+    if (0 != $userid) {
         $sql .= ' AND uid=' . $userid . ' ';
     }
     if (is_array($queryarray) && $count = count($queryarray)) {
@@ -49,7 +49,7 @@ function mpu_mpublish_busca($queryarray, $andor, $limit, $offset, $userid)
         $contents[$myrow['mpb_10_id']] = $myrow['mpb_10_ordem'];
     }
     $sql = 'SELECT mpb_10_id, mpb_10_ordem, mpb_30_arquivo FROM ' . $xoopsDB->prefix(MPU_MOD_TABELA1) . " WHERE mpb_11_visivel < 4 AND mpb_12_semlink = 0 AND mpb_30_arquivo != '' AND SUBSTRING(mpb_30_arquivo, 1, 4) != 'http'";
-    if ($userid != 0) {
+    if (0 != $userid) {
         $sql .= ' AND uid=' . $userid . ' ';
     }
     $result = $xoopsDB->query($sql);
@@ -60,7 +60,7 @@ function mpu_mpublish_busca($queryarray, $andor, $limit, $offset, $userid)
         $pageContent = MPU_HTML_PATH . '/' . $myrow['mpb_30_arquivo'];
         if (file_exists($pageContent)) {
             ob_start();
-            if (substr(strtolower($myrow['mpb_30_arquivo']), -3) === 'php') {
+            if ('php' === substr(strtolower($myrow['mpb_30_arquivo']), -3)) {
                 include $pageContent;
             } else {
                 readfile($pageContent);
@@ -70,14 +70,14 @@ function mpu_mpublish_busca($queryarray, $andor, $limit, $offset, $userid)
             $content = strip_tags($content);
             if (is_array($queryarray) && $count = count($queryarray)) {
                 $ver_content = stristr($content, $queryarray[0]);
-                if (!$ver_content && $andor === 'AND') {
+                if (!$ver_content && 'AND' === $andor) {
                     continue;
                 }
                 for ($i = 1; $i < $count; ++$i) {
-                    if ($ver_content && $andor === 'OR') {
+                    if ($ver_content && 'OR' === $andor) {
                         break;
                     }
-                    if (!$ver_content && $andor === 'AND') {
+                    if (!$ver_content && 'AND' === $andor) {
                         break;
                     }
                     $ver_content = stristr($content, $queryarray[$i]);

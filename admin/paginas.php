@@ -31,7 +31,7 @@ switch ($op) {
         mpu_adm_menu();
         $cfi_10_id  = (!empty($cfi_10_id)) ? $cfi_10_id : 0;
         $cfi_classe = new mpu_cfi_contentfiles($cfi_10_id);
-        if (empty($cfi_10_id) || $cfi_classe->getVar('cfi_10_id') == '') {
+        if (empty($cfi_10_id) || '' == $cfi_classe->getVar('cfi_10_id')) {
             redirect_header(XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/admin/paginas.php', 3, MPU_ADM_ERRO_FIL404);
         }
         $form['titulo'] = MPU_ADM_EFILE;
@@ -43,7 +43,7 @@ switch ($op) {
         mpu_adm_menu();
         $cfi_10_id  = (!empty($cfi_10_id)) ? $cfi_10_id : 0;
         $cfi_classe = new mpu_cfi_contentfiles($cfi_10_id);
-        if (empty($cfi_10_id) || $cfi_classe->getVar('cfi_10_id') == '') {
+        if (empty($cfi_10_id) || '' == $cfi_classe->getVar('cfi_10_id')) {
             redirect_header(XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/admin/paginas.php', 3, MPU_ADM_ERRO_FIL404);
         }
         xoops_confirm(['op' => 'contentfiles_deletar_ok', 'cfi_10_id' => $cfi_10_id], 'paginas.php', sprintf(MPU_ADM_CONFIRMA_DELPG, $cfi_10_id, $cfi_classe->getVar('cfi_30_nome')));
@@ -51,7 +51,7 @@ switch ($op) {
     case 'contentfiles_deletar_ok':
         $cfi_10_id  = (!empty($cfi_10_id)) ? $cfi_10_id : 0;
         $cfi_classe = new mpu_cfi_contentfiles($cfi_10_id);
-        if (empty($cfi_10_id) || $cfi_classe->getVar('cfi_10_id') == '') {
+        if (empty($cfi_10_id) || '' == $cfi_classe->getVar('cfi_10_id')) {
             redirect_header(XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/admin/paginas.php', 3, MPU_ADM_ERRO_FIL404);
         }
         $cfi_classe->delete();
@@ -75,7 +75,7 @@ switch ($op) {
         $erro      = '';
         $file_nome = $_FILES[$_POST['xoops_upload_file'][0]];
         $file_nome = get_magic_quotes_gpc() ? stripslashes($file_nome['name']) : $file_nome['name'];
-        if (xoops_trim($file_nome != '')) {
+        if (xoops_trim('' != $file_nome)) {
             require_once XOOPS_ROOT_PATH . '/class/uploader.php';
             $uploader = new XoopsMediaUploader(MPU_HTML_PATH, $xoopsModuleConfig['mpu_conf_contentmimes'], $xoopsModuleConfig['mpu_max_filesize'] * 1024);
             $uploader->setPrefix('page_');
@@ -83,7 +83,7 @@ switch ($op) {
                 if ($uploader->upload()) {
                     if (!empty($cfi_10_id)) {
                         $contentfiles->deletaArquivo();
-                        if ($contentfiles->getVar('cfi_30_arquivo') != '') {
+                        if ('' != $contentfiles->getVar('cfi_30_arquivo')) {
                             $mpu_classe = new mpu_mpb_mpublish();
                             $mpu_classe->atualizaTodos('mpb_30_arquivo', $uploader->getSavedFileName(), new Criteria('mpb_30_arquivo', $contentfiles->getVar('cfi_30_arquivo')));
                         }
@@ -111,7 +111,7 @@ switch ($op) {
                 xoops_error($uploader->getErrors());
                 $erro .= ob_get_clean();
             }
-        } elseif ($file_nome == '' && !empty($cfi_10_id)) {
+        } elseif ('' == $file_nome && !empty($cfi_10_id)) {
             $contentfiles->setVar('cfi_30_nome', $_POST['cfi_30_nome']);
             $contentfiles->setVar('cfi_12_exibir', $_POST['cfi_12_exibir']);
             if (!$contentfiles->store()) {

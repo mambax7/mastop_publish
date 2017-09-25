@@ -31,7 +31,7 @@ switch ($op) {
         mpu_adm_menu();
         $fil_10_id  = (!empty($fil_10_id)) ? $fil_10_id : 0;
         $fil_classe = new mpu_fil_files($fil_10_id);
-        if (empty($fil_10_id) || $fil_classe->getVar('fil_10_id') == '') {
+        if (empty($fil_10_id) || '' == $fil_classe->getVar('fil_10_id')) {
             redirect_header(XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/admin/files.php', 3, MPU_ADM_ERRO_FIL404);
         }
         $form['titulo'] = MPU_ADM_EFILE;
@@ -43,7 +43,7 @@ switch ($op) {
         mpu_adm_menu();
         $fil_10_id  = (!empty($fil_10_id)) ? $fil_10_id : 0;
         $fil_classe = new mpu_fil_files($fil_10_id);
-        if (empty($fil_10_id) || $fil_classe->getVar('fil_10_id') == '') {
+        if (empty($fil_10_id) || '' == $fil_classe->getVar('fil_10_id')) {
             redirect_header(XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/admin/files.php', 3, MPU_ADM_ERRO_FIL404);
         }
         xoops_confirm(['op' => 'files_deletar_ok', 'fil_10_id' => $fil_10_id], 'files.php', sprintf(MPU_ADM_CONFIRMA_DELFIL, $fil_10_id, $fil_classe->getVar('fil_30_nome')));
@@ -51,7 +51,7 @@ switch ($op) {
     case 'files_deletar_ok':
         $fil_10_id  = (!empty($fil_10_id)) ? $fil_10_id : 0;
         $fil_classe = new mpu_fil_files($fil_10_id);
-        if (empty($fil_10_id) || $fil_classe->getVar('fil_10_id') == '') {
+        if (empty($fil_10_id) || '' == $fil_classe->getVar('fil_10_id')) {
             redirect_header(XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/admin/files.php', 3, MPU_ADM_ERRO_FIL404);
         }
         $fil_classe->delete();
@@ -75,7 +75,7 @@ switch ($op) {
         $erro      = '';
         $file_nome = $_FILES[$_POST['xoops_upload_file'][0]];
         $file_nome = get_magic_quotes_gpc() ? stripslashes($file_nome['name']) : $file_nome['name'];
-        if (xoops_trim($file_nome != '')) {
+        if (xoops_trim('' != $file_nome)) {
             require_once XOOPS_ROOT_PATH . '/class/uploader.php';
             $uploader = new XoopsMediaUploader(MPU_FILES_PATH, $xoopsModuleConfig['mpu_conf_mimetypes'], $xoopsModuleConfig['mpu_max_filesize'] * 1024);
             $uploader->setPrefix('files_');
@@ -107,7 +107,7 @@ switch ($op) {
                 xoops_error($uploader->getErrors());
                 $erro .= ob_get_clean();
             }
-        } elseif ($file_nome == '' && !empty($fil_10_id)) {
+        } elseif ('' == $file_nome && !empty($fil_10_id)) {
             $files->setVar('fil_30_nome', $_POST['fil_30_nome']);
             $files->setVar('fil_12_exibir', $_POST['fil_12_exibir']);
             if (!$files->store()) {

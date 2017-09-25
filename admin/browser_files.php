@@ -55,20 +55,20 @@ $mpb_wysiwyg_url = XOOPS_URL . $xoopsModuleConfig['mpu_conf_wysiwyg_path'];
 <body onload="tinyMCEPopup.executeOnLoad('init();');">
 <div class="tabs">
     <ul>
-        <li id="gerenciador_tab" <?php echo ($op === 'listfil' || $op === 'list') ? ' class="current"' : ''; ?>><span><a
+        <li id="gerenciador_tab" <?php echo ('listfil' === $op || 'list' === $op) ? ' class="current"' : ''; ?>><span><a
                         href="javascript:mcTabs.displayTab('gerenciador_tab','gerenciador_panel');"
                         onmousedown="return false;">{$lang_browser_ger_files}</a></span></li>
-        <li id="novo_file_tab" <?php echo ($op === 'addfile') ? ' class="current"' : ''; ?>><span><a
+        <li id="novo_file_tab" <?php echo ('addfile' === $op) ? ' class="current"' : ''; ?>><span><a
                         href="javascript:mcTabs.displayTab('novo_file_tab','novo_file_panel');" onmousedown="return false;">{$lang_browser_novo_file}</a></span>
         </li>
     </ul>
 </div>
 <div class="panel_wrapper">
-    <div id="gerenciador_panel" class="panel <?php echo ($op === 'listfil' || $op === 'list') ? 'current' : ''; ?>"
+    <div id="gerenciador_panel" class="panel <?php echo ('listfil' === $op || 'list' === $op) ? 'current' : ''; ?>"
          style="overflow: auto;">
         <h3>{$lang_browser_file_title}</h3>
         <?php
-        if ($op === 'listfil') {
+        if ('listfil' === $op) {
             $fil_30_mime = $_GET['fil_30_mime'];
             $fil_classe  = new mpu_fil_files();
             $criterio    = new CriteriaCompo(new Criteria('fil_30_mime', $fil_30_mime));
@@ -170,14 +170,14 @@ $mpb_wysiwyg_url = XOOPS_URL . $xoopsModuleConfig['mpu_conf_wysiwyg_path'];
         ?>
     </div>
 
-    <div id="novo_file_panel" class="panel <?php echo ($op === 'addfile') ? 'current' : ''; ?>"
+    <div id="novo_file_panel" class="panel <?php echo ('addfile' === $op) ? 'current' : ''; ?>"
          style="overflow: visible;">
         <?php
-        if ($op === 'addfile') {
+        if ('addfile' === $op) {
             $file      = new mpu_fil_files();
             $file_nome = $_FILES[$_POST['xoops_upload_file'][0]];
             $file_nome = get_magic_quotes_gpc() ? stripslashes($file_nome['name']) : $file_nome['name'];
-            if (xoops_trim($file_nome != '')) {
+            if (xoops_trim('' != $file_nome)) {
                 require_once XOOPS_ROOT_PATH . '/class/uploader.php';
                 $uploader = new XoopsMediaUploader(MPU_FILES_PATH, $xoopsModuleConfig['mpu_conf_mimetypes'], $xoopsModuleConfig['mpu_mmax_filesize'] * 1024);
                 $uploader->setPrefix('files_');

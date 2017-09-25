@@ -22,7 +22,7 @@ if ('system' !== $xoopsModule->getVar('dirname') && XOOPS_COMMENT_APPROVENONE ==
 require_once XOOPS_ROOT_PATH . '/language/' . $xoopsConfig['language'] . '/comment.php';
 $com_id   = isset($_GET['com_id']) ? (int)$_GET['com_id'] : 0;
 $com_mode = isset($_GET['com_mode']) ? htmlspecialchars(trim($_GET['com_mode']), ENT_QUOTES) : '';
-if ($com_mode == '') {
+if ('' == $com_mode) {
     if (is_object($xoopsUser)) {
         $com_mode = $xoopsUser->getVar('umode');
     } else {
@@ -51,7 +51,7 @@ $com_text       = $comment->getVar('com_text', 'E');
 $com_pid        = $comment->getVar('com_pid');
 $com_status     = $comment->getVar('com_status');
 $com_rootid     = $comment->getVar('com_rootid');
-if ($xoopsModule->getVar('dirname') !== 'system') {
+if ('system' !== $xoopsModule->getVar('dirname')) {
     include XOOPS_ROOT_PATH . '/header.php';
     include XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/include/comment_form.php';
     include XOOPS_ROOT_PATH . '/footer.php';

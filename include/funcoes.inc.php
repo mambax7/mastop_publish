@@ -185,7 +185,7 @@ function prepareContent($content)
                 $content       = preg_replace($busca, $troca, $content);
                 $search_string .= '<span style="font-weight:bold; color: ' . $ctexto . '; background-color: ' . $cfundo . ';">' . $v . '</span>, ';
                 $found         = 1;
-                if ($ctrl == 8) {
+                if (8 == $ctrl) {
                     $ctrl = 0;
                 } else {
                     ++$ctrl;

@@ -99,7 +99,7 @@ switch ($op) {
         $myts      = MyTextSanitizer::getInstance();
         $doimage   = 1;
         $com_title = $myts->htmlSpecialChars($myts->stripSlashesGPC($_POST['com_title']));
-        if ($dohtml != 0) {
+        if (0 != $dohtml) {
             if (is_object($xoopsUser)) {
                 if (!$xoopsUser->isAdmin($com_modid)) {
                     $syspermHandler = xoops_getHandler('groupperm');
@@ -114,7 +114,7 @@ switch ($op) {
         $p_comment = $myts->previewTarea($_POST['com_text'], $dohtml, $dosmiley, $doxcode, $doimage, $dobr);
         $noname    = isset($noname) ? (int)$noname : 0;
         $com_text  = $myts->htmlSpecialChars($myts->stripSlashesGPC($_POST['com_text']));
-        if ($xoopsModule->getVar('dirname') !== 'system') {
+        if ('system' !== $xoopsModule->getVar('dirname')) {
             include XOOPS_ROOT_PATH . '/header.php';
             themecenterposts($com_title, $p_comment);
             include XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/include/comment_form.php';
@@ -132,7 +132,7 @@ switch ($op) {
             $myts      = MyTextSanitizer::getInstance();
             $doimage   = 1;
             $com_title = $myts->htmlSpecialChars($myts->stripSlashesGPC($_POST['com_title']));
-            if ($dohtml != 0) {
+            if (0 != $dohtml) {
                 if (is_object($xoopsUser)) {
                     if (!$xoopsUser->isAdmin($com_modid)) {
                         $syspermHandler = xoops_getHandler('groupperm');
@@ -147,7 +147,7 @@ switch ($op) {
             $p_comment = $myts->previewTarea($_POST['com_text'], $dohtml, $dosmiley, $doxcode, $doimage, $dobr);
             $noname    = isset($noname) ? (int)$noname : 0;
             $com_text  = $myts->htmlSpecialChars($myts->stripSlashesGPC($_POST['com_text']));
-            if ($xoopsModule->getVar('dirname') !== 'system') {
+            if ('system' !== $xoopsModule->getVar('dirname')) {
                 include XOOPS_ROOT_PATH . '/header.php';
                 xoops_error(MPU_MOD_CAPTCHA_ERROR);
                 include XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/include/comment_form.php';
@@ -175,7 +175,7 @@ switch ($op) {
                 $syspermHandler = xoops_getHandler('groupperm');
                 if ($xoopsUser->isAdmin($com_modid)
                     || $syspermHandler->checkRight('system_admin', XOOPS_SYSTEM_COMMENT, $xoopsUser->getGroups())) {
-                    if (!empty($com_status) && $com_status != XOOPS_COMMENT_PENDING) {
+                    if (!empty($com_status) && XOOPS_COMMENT_PENDING != $com_status) {
                         $old_com_status = $comment->getVar('com_status');
                         $comment->setVar('com_status', $com_status);
                         // if changing status from pending state, increment user post
@@ -252,11 +252,11 @@ switch ($op) {
             } else {
                 $dohtml = 0;
                 $uid    = 0;
-                if ($xoopsModuleConfig['com_anonpost'] != 1) {
+                if (1 != $xoopsModuleConfig['com_anonpost']) {
                     redirect_header($redirect_page . '=' . $com_itemid . '&amp;com_id=' . $com_id . '&amp;com_mode=' . $com_mode . '&amp;com_order=' . $com_order, 1, _NOPERM);
                 }
             }
-            if ($uid == 0) {
+            if (0 == $uid) {
                 switch ($xoopsModuleConfig['com_rule']) {
                     case XOOPS_COMMENT_APPROVEALL:
                         $comment->setVar('com_status', XOOPS_COMMENT_ACTIVE);
@@ -278,7 +278,7 @@ switch ($op) {
             $comment->setVar('com_uid', $uid);
         }
         $com_title = xoops_trim($_POST['com_title']);
-        $com_title = ($com_title == '') ? _NOTITLE : $com_title;
+        $com_title = ('' == $com_title) ? _NOTITLE : $com_title;
         $comment->setVar('com_title', $com_title);
         $comment->setVar('com_text', $_POST['com_text']);
         $comment->setVar('dohtml', $dohtml);
@@ -296,7 +296,7 @@ switch ($op) {
             $newcid = $comment->getVar('com_id');
 
             // set own id as root id if this is a top comment
-            if ($com_rootid == 0) {
+            if (0 == $com_rootid) {
                 $com_rootid = $newcid;
                 if (!$commentHandler->updateByField($comment, 'com_rootid', $com_rootid)) {
                     $commentHandler->delete($comment);
@@ -308,12 +308,12 @@ switch ($op) {
 
             // call custom approve function if any
             if (false != $call_approvefunc && isset($comment_config['callback']['approve'])
-                && trim($comment_config['callback']['approve']) != '') {
+                && '' != trim($comment_config['callback']['approve'])) {
                 $skip = false;
                 if (!function_exists($comment_config['callback']['approve'])) {
                     if (isset($comment_config['callbackFile'])) {
                         $callbackfile = trim($comment_config['callbackFile']);
-                        if ($callbackfile != ''
+                        if ('' != $callbackfile
                             && file_exists(XOOPS_ROOT_PATH . '/modules/' . $moddir . '/' . $callbackfile)) {
                             require_once XOOPS_ROOT_PATH . '/modules/' . $moddir . '/' . $callbackfile;
                         }
@@ -331,12 +331,12 @@ switch ($op) {
 
             // call custom update function if any
             if (false != $call_updatefunc && isset($comment_config['callback']['update'])
-                && trim($comment_config['callback']['update']) != '') {
+                && '' != trim($comment_config['callback']['update'])) {
                 $skip = false;
                 if (!function_exists($comment_config['callback']['update'])) {
                     if (isset($comment_config['callbackFile'])) {
                         $callbackfile = trim($comment_config['callbackFile']);
-                        if ($callbackfile != ''
+                        if ('' != $callbackfile
                             && file_exists(XOOPS_ROOT_PATH . '/modules/' . $moddir . '/' . $callbackfile)) {
                             require_once XOOPS_ROOT_PATH . '/modules/' . $moddir . '/' . $callbackfile;
                         }
@@ -408,7 +408,7 @@ switch ($op) {
             if (!isset($comment_post_results)) {
 
                 // if the comment is active, redirect to posted comment
-                if ($comment->getVar('com_status') == XOOPS_COMMENT_ACTIVE) {
+                if (XOOPS_COMMENT_ACTIVE == $comment->getVar('com_status')) {
                     redirect_header($redirect_page . '=' . $com_itemid . '&amp;com_id=' . $newcid . '&amp;com_rootid=' . $com_rootid . '&amp;com_mode=' . $com_mode . '&amp;com_order=' . $com_order . '#comment' . $newcid, 2, _CM_THANKSPOST);
                 } else {
                     // not active, so redirect to top comment page

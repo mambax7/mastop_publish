@@ -39,7 +39,7 @@ if (!class_exists('mpu_geral')) {
                 $valores[] = $v;
                 //$$k = $v;
             }
-            if (is_null($this->getVar($this->id)) || $this->getVar($this->id) == 0) {
+            if (is_null($this->getVar($this->id)) || 0 == $this->getVar($this->id)) {
                 $sql = 'INSERT INTO ' . $this->tabela . ' (';
                 $sql .= implode(',', $indices);
                 $sql .= ') VALUES (';
@@ -77,7 +77,7 @@ if (!class_exists('mpu_geral')) {
 
                 return false;
             }
-            if (is_null($this->getVar($this->id)) || $this->getVar($this->id) == 0) {
+            if (is_null($this->getVar($this->id)) || 0 == $this->getVar($this->id)) {
                 $this->setVar($this->id, $this->db->getInsertId());
 
                 return $this->db->getInsertId();
@@ -160,7 +160,7 @@ if (!class_exists('mpu_geral')) {
                 $sql = 'SELECT ' . $this->id . ' FROM ' . $this->tabela;
                 if (isset($criterio) && is_subclass_of($criterio, 'criteriaelement')) {
                     $sql .= ' ' . $criterio->renderWhere();
-                    if ($criterio->getSort() != '') {
+                    if ('' != $criterio->getSort()) {
                         $sql .= ' ORDER BY ' . $criterio->getSort() . ' ' . $criterio->getOrder();
                     }
                     $limit = $criterio->getLimit();
@@ -181,7 +181,7 @@ if (!class_exists('mpu_geral')) {
                 $sql = 'SELECT ' . $this->tabela . '.* FROM ' . $this->tabela . ((!empty($join)) ? ' ' . $join : '');
                 if (isset($criterio) && is_subclass_of($criterio, 'criteriaelement')) {
                     $sql .= ' ' . $criterio->renderWhere();
-                    if ($criterio->getSort() != '') {
+                    if ('' != $criterio->getSort()) {
                         $sql .= ' ORDER BY ' . $criterio->getSort() . ' ' . $criterio->getOrder();
                     }
                     $limit = $criterio->getLimit();
@@ -219,7 +219,7 @@ if (!class_exists('mpu_geral')) {
                 $precrit_url    = '';
             }
             if (!empty($campos['checks']) && !empty($_POST['group_action']) && is_array($_POST['checks'])
-                && $_POST['group_action'] == 'group_del_ok') {
+                && 'group_del_ok' == $_POST['group_action']) {
                 $chks   = $_POST['checks'];
                 $classe = get_class($this);
                 foreach ($chks as $k => $v) {
@@ -232,7 +232,7 @@ if (!class_exists('mpu_geral')) {
                     $nova->delete();
                 }
             }
-            if (!empty($campos['checks']) && !empty($_POST['group_action']) && $_POST['group_action'] == 'group_del'
+            if (!empty($campos['checks']) && !empty($_POST['group_action']) && 'group_del' == $_POST['group_action']
                 && is_array($_POST['checks'])) {
                 $chks = $_POST['checks'];
                 foreach ($chks as $k => $v) {
@@ -246,7 +246,7 @@ if (!class_exists('mpu_geral')) {
             $busca_url = '';
             if (!empty($_GET['busca'])) {
                 foreach ($_GET['busca'] as $k => $v) {
-                    if ($v != '' && $v != '-1' && in_array($k, $campos['nome'])) {
+                    if ('' != $v && '-1' != $v && in_array($k, $campos['nome'])) {
                         if (is_numeric($v)) {
                             $criterio->add(new Criteria($k, $v, '=', $this->tabela));
                         } elseif (is_array($v)) {
@@ -306,7 +306,7 @@ if (!class_exists('mpu_geral')) {
             $form        = (!empty($campos['form'])) ? 1 : 0;
             $checks      = (!empty($campos['checks'])) ? 1 : 0;
             $op          = (!empty($campos['op'])) ? $campos['op'] : '';
-            $norder      = ($order == 'ASC') ? 'DESC' : 'ASC';
+            $norder      = ('ASC' == $order) ? 'DESC' : 'ASC';
             $colunas     = count($campos['rotulo']);
             $colunas     = (!empty($campos['checks'])) ? $colunas + 1 : $colunas;
             $colunas     = (!empty($campos['botoes'])) ? $colunas + 1 : $colunas;
@@ -421,7 +421,7 @@ window.attachEvent("onload", esconde_menus)
                             . '</b>';
             if (!empty($_GET['busca'])) {
                 foreach ($_GET['busca'] as $k => $v) {
-                    if ($v != '' && $v != '-1' && !is_array($v)) {
+                    if ('' != $v && '-1' != $v && !is_array($v)) {
                         $ret .= "<input type='hidden' name='busca[" . $k . "]' value='" . $v . "'>";
                     } elseif (is_array($v)) {
                         $ret .= "<input type='hidden' name='busca[" . $k . "][dday]' value='" . $v['dday'] . "'>";
@@ -508,11 +508,11 @@ window.attachEvent("onload", esconde_menus)
                             $ret .= "<select name='busca[" . $campos['nome'][$k] . "]'><option value='-1'>" . _SELECT . '</option>';
                             $ret .= "<option value='1'";
                             $ret .= (isset($_GET['busca'][$campos['nome'][$k]])
-                                     && $_GET['busca'][$campos['nome'][$k]] == 1) ? ' selected' : '';
+                                     && 1 == $_GET['busca'][$campos['nome'][$k]]) ? ' selected' : '';
                             $ret .= '>' . _YES . '</option>';
                             $ret .= "<option value='0'";
                             $ret .= (isset($_GET['busca'][$campos['nome'][$k]])
-                                     && $_GET['busca'][$campos['nome'][$k]] == 0) ? ' selected' : '';
+                                     && 0 == $_GET['busca'][$campos['nome'][$k]]) ? ' selected' : '';
                             $ret .= '>' . _NO . '</option>';
                             $ret .= '</select>';
                             break;
@@ -530,13 +530,13 @@ window.attachEvent("onload", esconde_menus)
                 $ret .= $precrit_hidden . "<input type='hidden' name='op' value='" . $op . "'><input type='hidden' name='sort' value='" . $sort . "'><input type='hidden' name='order' value='" . $order . "'><input type='hidden' name='limit' value='" . $limit . "'></form>";
             }
             $registros = empty($campos['join']) ? $this->PegaTudo($criterio) : $this->PegaTudo($criterio, true, $campos['join']);
-            if (!$registros || count($registros) == 0) {
+            if (!$registros || 0 == count($registros)) {
                 $ret .= "<tbody><tr><td colspan='" . $colunas . "'><h2>" . $campos['lang']['semresult'] . '</h2></td></tr></tbody>';
                 $ret .= "<tbody><tr class='bx'><td colspan='" . $colunas . "' align='left'>" . $this->paginar($url_full_pg, $criterio, $precrit_url) . '</td></tr></tbody>';
             } else {
                 $ret .= ($form || $checks) ? "<form action='" . $url . "' method='POST' name='update_form' id='update_form' " . ($checks ? "onsubmit='return verificaChecks()'" : '') . '>' : '';
                 foreach ($registros as $reg) {
-                    $eod = (!isset($eod) || $eod == 'fundo1') ? 'fundo2' : 'fundo1';
+                    $eod = (!isset($eod) || 'fundo1' == $eod) ? 'fundo2' : 'fundo1';
                     $ret .= "<tbody><tr id='tr_reg_" . $reg->getVar($reg->id) . "' class='" . $eod . "' onmouseover='this.className=\"neutro\";' onmouseout='this.className=\"" . $eod . "\"'>";
                     $ret .= $checks ? "<td align='center'><input type='checkbox' name='checks["
                                       . $reg->getVar($reg->id)
@@ -556,8 +556,8 @@ window.attachEvent("onload", esconde_menus)
                                 $ret .= empty($campos['show'][$l]) ? $reg->getVar($campos['nome'][$l]) : eval('return ' . $campos['show'][$l] . ';');
                                 break;
                             case 'date':
-                                $ret .= (!empty($campos['show'][$l]) ? eval('return ' . $campos['show'][$l] . ';') : (($reg->getVar($campos['nome'][$l]) != 0
-                                                                                                                       && $reg->getVar($campos['nome'][$l]) != '') ? date(_SHORTDATESTRING, $reg->getVar($campos['nome'][$l])) : ''));
+                                $ret .= (!empty($campos['show'][$l]) ? eval('return ' . $campos['show'][$l] . ';') : ((0 != $reg->getVar($campos['nome'][$l])
+                                                                                                                       && '' != $reg->getVar($campos['nome'][$l])) ? date(_SHORTDATESTRING, $reg->getVar($campos['nome'][$l])) : ''));
                                 break;
                             case 'select':
                                 if ($form && empty($campos['show'][$l])) {
@@ -578,16 +578,16 @@ window.attachEvent("onload", esconde_menus)
                                 if ($form && empty($campos['show'][$l])) {
                                     $ret .= "<select name='campos[" . $reg->getVar($reg->id) . '][' . $campos['nome'][$l] . "]'>";
                                     $ret .= "<option value='1'";
-                                    $ret .= ($reg->getVar($campos['nome'][$l]) == 1) ? ' selected' : '';
+                                    $ret .= (1 == $reg->getVar($campos['nome'][$l])) ? ' selected' : '';
                                     $ret .= '>' . _YES . '</option>';
                                     $ret .= "<option value='0'";
-                                    $ret .= ($reg->getVar($campos['nome'][$l]) == 0) ? ' selected' : '';
+                                    $ret .= (0 == $reg->getVar($campos['nome'][$l])) ? ' selected' : '';
                                     $ret .= '>' . _NO . '</option>';
                                     $ret .= '</select>';
                                 } elseif (!empty($campos['show'][$l])) {
                                     $ret .= eval('return ' . $campos['show'][$l] . ';');
                                 } else {
-                                    $ret .= ($reg->getVar($campos['nome'][$l]) == 1) ? _YES : (($reg->getVar($campos['nome'][$l]) == 0) ? _NO : $reg->getVar($campos['nome'][$l]));
+                                    $ret .= (1 == $reg->getVar($campos['nome'][$l])) ? _YES : ((0 == $reg->getVar($campos['nome'][$l])) ? _NO : $reg->getVar($campos['nome'][$l]));
                                 }
                                 break;
                             case 'text':
@@ -622,7 +622,7 @@ window.attachEvent("onload", esconde_menus)
                     $ret .= $precrit_hidden . "<input type='hidden' name='sort' value='" . $sort . "'><input type='hidden' name='order' value='" . $order . "'><input type='hidden' name='limit' value='" . $limit . "'><input type='hidden' name='start' value='" . $start . "'>";
                     if (!empty($_GET['busca'])) {
                         foreach ($_GET['busca'] as $k => $v) {
-                            if ($v != '' && $v != '-1' && !is_array($v)) {
+                            if ('' != $v && '-1' != $v && !is_array($v)) {
                                 $ret .= "<input type='hidden' name='busca[" . $k . "]' value='" . $v . "'>";
                             } elseif (is_array($v)) {
                                 $ret .= "<input type='hidden' name='busca[" . $k . "][dday]' value='" . $v['dday'] . "'>";
@@ -694,7 +694,7 @@ window.attachEvent("onload", esconde_menus)
             if (isset($criterio) && is_subclass_of($criterio, 'criteriaelement')) {
                 $limit = $criterio->getLimit();
                 $start = $criterio->getStart();
-                if ($criterio->getSort() != '') {
+                if ('' != $criterio->getSort()) {
                     $order = $criterio->getOrder();
                     $sort  = $criterio->getSort();
                 }
@@ -703,7 +703,7 @@ window.attachEvent("onload", esconde_menus)
                 $start = 0;
             }
             $todos = $this->contar($criterio);
-            $total = ($todos % $limit == 0) ? ($todos / $limit) : (int)($todos / $limit) + 1;
+            $total = (0 == $todos % $limit) ? ($todos / $limit) : (int)($todos / $limit) + 1;
             $pg    = $start ? (int)($start / $limit) + 1 : 1;
             $ret   .= (!empty($_GET['busca'])) ? "<input type=button value='"
                                                  . _ALL
@@ -732,7 +732,7 @@ window.attachEvent("onload", esconde_menus)
                 } elseif ($i < ($pg + 10)) {
                     $ret .= (" <A HREF='" . $link . '&start=' . $start . "'>" . $i . '</a> ');
                 } else {
-                    $ret .= (". . . <A HREF='" . $link . '&start=' . (($todos % $limit == 0) ? $todos - $limit : $todos - ($todos % $limit)) . "'>" . $total . '</a>');
+                    $ret .= (". . . <A HREF='" . $link . '&start=' . ((0 == $todos % $limit) ? $todos - $limit : $todos - ($todos % $limit)) . "'>" . $total . '</a>');
                     break;
                 }
                 if ($i != $total) {

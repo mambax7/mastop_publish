@@ -107,7 +107,7 @@ class mpu_mpb_mpublish extends mpu_geral
     {
         global $xoopsUser;
         $retorna[0] = MPU_ADM_MENUP;
-        if ($mpb_10_idpai == 0 && $modules === true) {
+        if (0 == $mpb_10_idpai && true === $modules) {
             /** @var XoopsModuleHandler $moduleHandler */
             $moduleHandler = xoops_getHandler('module');
             $criteria      = new CriteriaCompo(new Criteria('hasmain', 1));
@@ -228,11 +228,11 @@ class mpu_mpb_mpublish extends mpu_geral
                     continue;
                 }
                 if ($first) {
-                    $ret[$it->getVar('mpb_10_ordem')][$it->getVar($it->id)] = "<li><a href='" . $it->pegaLink() . "' " . (($it->getVar('mpb_11_abrir') == 1) ? "target='_blank'" : '') . '>' . $it->getVar('mpb_30_menu') . '</a>';
+                    $ret[$it->getVar('mpb_10_ordem')][$it->getVar($it->id)] = "<li><a href='" . $it->pegaLink() . "' " . ((1 == $it->getVar('mpb_11_abrir')) ? "target='_blank'" : '') . '>' . $it->getVar('mpb_30_menu') . '</a>';
                     $subpgs                                                 = $it->getVar('mpb_12_exibesub') ? $it->tem_subcategorias($it->getVar($it->id), true) : 0;
                     $ret[$it->getVar('mpb_10_ordem')][$it->getVar($it->id)] .= $subpgs ? "<ul>\n" . $it->geraMenuCSS(new CriteriaCompo(new Criteria('mpb_10_idpai', $it->getVar($it->id))), false) . "\n</ul>\n</li>\n" : "</li>\n";
                 } else {
-                    $ret    .= "<li><a href='" . $it->pegaLink() . "' " . (($it->getVar('mpb_11_abrir') == 1) ? "target='_blank'" : '') . '>' . $it->getVar('mpb_30_menu') . '</a>';
+                    $ret    .= "<li><a href='" . $it->pegaLink() . "' " . ((1 == $it->getVar('mpb_11_abrir')) ? "target='_blank'" : '') . '>' . $it->getVar('mpb_30_menu') . '</a>';
                     $subpgs = $it->getVar('mpb_12_exibesub') ? $it->tem_subcategorias($it->getVar($it->id), true) : 0;
                     $ret    .= $subpgs ? "<ul>\n" . $it->geraMenuCSS(new CriteriaCompo(new Criteria('mpb_10_idpai', $it->getVar($it->id))), false) . "\n</ul>\n</li>\n" : "</li>\n";
                 }
@@ -280,11 +280,11 @@ class mpu_mpb_mpublish extends mpu_geral
                     continue;
                 }
                 if ($first) {
-                    $ret[$it->getVar('mpb_10_ordem')][$it->getVar($it->id)] = "<li><a href='" . $it->pegaLink() . "' " . (($it->getVar('mpb_11_abrir') == 1) ? "target='_blank'" : '') . '>' . $it->getVar('mpb_30_menu') . '</a>';
+                    $ret[$it->getVar('mpb_10_ordem')][$it->getVar($it->id)] = "<li><a href='" . $it->pegaLink() . "' " . ((1 == $it->getVar('mpb_11_abrir')) ? "target='_blank'" : '') . '>' . $it->getVar('mpb_30_menu') . '</a>';
                     $subpgs                                                 = $it->getVar('mpb_12_exibesub') ? $it->tem_subcategorias($it->getVar($it->id), true) : 0;
                     $ret[$it->getVar('mpb_10_ordem')][$it->getVar($it->id)] .= $subpgs ? "<ul>\n" . $it->geraMenuRelated(new CriteriaCompo(new Criteria('mpb_10_idpai', $it->getVar($it->id)))) . "\n</ul>\n</li>\n" : "</li>\n";
                 } else {
-                    $ret    .= "<li><a href='" . $it->pegaLink() . "' " . (($it->getVar('mpb_11_abrir') == 1) ? "target='_blank'" : '') . '>' . $it->getVar('mpb_30_menu') . '</a>';
+                    $ret    .= "<li><a href='" . $it->pegaLink() . "' " . ((1 == $it->getVar('mpb_11_abrir')) ? "target='_blank'" : '') . '>' . $it->getVar('mpb_30_menu') . '</a>';
                     $subpgs = $it->getVar('mpb_12_exibesub') ? $it->tem_subcategorias($it->getVar($it->id), true) : 0;
                     $ret    .= $subpgs ? "<ul>\n" . $it->geraMenuRelated(new CriteriaCompo(new Criteria('mpb_10_idpai', $it->getVar($it->id)))) . "\n</ul>\n</li>\n" : "</li>\n";
                 }
@@ -310,7 +310,7 @@ class mpu_mpb_mpublish extends mpu_geral
     {
         if ($this->getVar('mpb_12_semlink')) {
             return 'javascript:void(0);';
-        } elseif (substr($this->getVar('mpb_30_arquivo'), 0, 4) == 'ext:') {
+        } elseif ('ext:' == substr($this->getVar('mpb_30_arquivo'), 0, 4)) {
             return substr($this->getVar('mpb_30_arquivo'), 4);
         }
         /** @var XoopsModuleHandler $moduleHandler */
@@ -341,9 +341,9 @@ class mpu_mpb_mpublish extends mpu_geral
 
     public function geraNavigation($id = null, $separador = '/', $style = "style='font-weight:bold'")
     {
-        if ($id == null) {
+        if (null == $id) {
             $ret = "<span $style>" . $this->getVar('mpb_30_menu') . '</span>';
-            if ($this->getVar('mpb_10_idpai') == 0) {
+            if (0 == $this->getVar('mpb_10_idpai')) {
                 $ret = "<a href='" . XOOPS_URL . "'>Home</a> $separador " . $ret;
 
                 return $ret;
@@ -362,8 +362,8 @@ class mpu_mpb_mpublish extends mpu_geral
                 $classe = get_class($this);
                 $novo   = new $classe($id);
                 if ($novo->getVar($novo->id) > 0) {
-                    $ret = "<a href='" . $novo->pegaLink() . "' " . (($novo->getVar('mpb_11_abrir') == 1) ? "target='_blank'" : '') . '>' . $novo->getVar('mpb_30_menu') . '</a>';
-                    if ($novo->getVar('mpb_10_idpai') == 0) {
+                    $ret = "<a href='" . $novo->pegaLink() . "' " . ((1 == $novo->getVar('mpb_11_abrir')) ? "target='_blank'" : '') . '>' . $novo->getVar('mpb_30_menu') . '</a>';
+                    if (0 == $novo->getVar('mpb_10_idpai')) {
                         return "<a href='" . XOOPS_URL . "'>Home</a> $separador " . $ret;
                     } elseif ($novo->getVar('mpb_10_idpai') > 0) {
                         $ret = $novo->geraNavigation($novo->getVar('mpb_10_idpai'), $separador) . " $separador " . $ret;
@@ -385,11 +385,11 @@ class mpu_mpb_mpublish extends mpu_geral
     public function geraNavigationAdmin($id = null, $separador = '/', $style = "style='font-weight:bold'")
     {
         $admin_url = XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/admin/index.php?op=listar';
-        if ($id === false) {
+        if (false === $id) {
             return false;
-        } elseif ($id == null) {
+        } elseif (null == $id) {
             $ret = "<span $style>" . $this->getVar('mpb_30_menu') . '</span>';
-            if ($this->getVar('mpb_10_idpai') == 0) {
+            if (0 == $this->getVar('mpb_10_idpai')) {
                 $ret = "<a href='" . $admin_url . "&mpb_10_id=0'>" . MPU_ADM_MENUP . "</a> $separador " . $ret;
 
                 return $ret;
@@ -416,7 +416,7 @@ class mpu_mpb_mpublish extends mpu_geral
                 $novo   = new $classe($id);
                 if ($novo->getVar($novo->id) > 0) {
                     $ret = "<a href='" . $admin_url . '&mpb_10_id=' . $novo->getVar('mpb_10_id') . "'>" . $novo->getVar('mpb_30_menu') . '</a>';
-                    if ($novo->getVar('mpb_10_idpai') == 0) {
+                    if (0 == $novo->getVar('mpb_10_idpai')) {
                         return "<a href='" . $admin_url . "&mpb_10_id=0'>" . MPU_ADM_MENUP . "</a> $separador " . $ret;
                     } elseif ($novo->getVar('mpb_10_idpai') > 0) {
                         $ret = $novo->geraNavigationAdmin($novo->getVar('mpb_10_idpai'), $separador) . " $separador " . $ret;
@@ -462,7 +462,7 @@ class mpu_mpb_mpublish extends mpu_geral
         } else {
             $count = count($smiles);
             for ($i = 0; $i < $count; ++$i) {
-                if ($smiles[$i]['display'] == 1) {
+                if (1 == $smiles[$i]['display']) {
                     $ret .= "<img onclick=\"tinyMCE.execInstanceCommand('$campo', 'mceInsertContent', false, '<img src=\'"
                             . XOOPS_UPLOAD_URL
                             . '/'

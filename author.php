@@ -34,10 +34,10 @@ if (file_exists('language/' . $xoopsConfig['language'] . '/admin.php')) {
 }
 if (empty($op)) {
     $op = 'listar';
-} elseif ($op === 'editar' || $op === 'limpacont' || $op === 'limpacont_ok' || $op === 'novo') {
+} elseif ('editar' === $op || 'limpacont' === $op || 'limpacont_ok' === $op || 'novo' === $op) {
     $mpb_10_id  = (!empty($mpb_10_id)) ? $mpb_10_id : 0;
     $mpu_classe = new mpu_mpb_mpublish($mpb_10_id);
-    if (empty($xoopsUser) || empty($mpb_10_id) || $mpu_classe->getVar('mpb_10_id') == ''
+    if (empty($xoopsUser) || empty($mpb_10_id) || '' == $mpu_classe->getVar('mpb_10_id')
         || $mpu_classe->getVar('usr_10_uid') != $xoopsUser->getVar('uid')) {
         redirect_header(XOOPS_URL, 3, MPU_ADM_403);
     }
@@ -77,9 +77,9 @@ switch ($op) {
             }
         }
         $mpu_classe = (isset($mpb_10_id) && $mpb_10_id > 0) ? new mpu_mpb_mpublish($mpb_10_id) : new mpu_mpb_mpublish();
-        if (($mpu_classe->getVar('mpb_10_id') != '' && !$xoopsModuleConfig['mpu_conf_canedit'])
-            || ($mpu_classe->getVar('mpb_10_id') == '' && !$xoopsModuleConfig['mpu_conf_cancreate'])
-            || ($mpu_classe->getVar('mpb_10_id') != ''
+        if (('' != $mpu_classe->getVar('mpb_10_id') && !$xoopsModuleConfig['mpu_conf_canedit'])
+            || ('' == $mpu_classe->getVar('mpb_10_id') && !$xoopsModuleConfig['mpu_conf_cancreate'])
+            || ('' != $mpu_classe->getVar('mpb_10_id')
                 && $mpu_classe->getVar('usr_10_uid') != $xoopsUser->getVar('uid'))) {
             redirect_header(XOOPS_URL, 3, MPU_ADM_403);
         }
@@ -141,7 +141,7 @@ switch ($op) {
         $mpu_classe = new mpu_mpb_mpublish($mpb_10_id);
         if (empty($xoopsUser)
             || empty($mpb_10_id)
-            || $mpu_classe->getVar('mpb_10_id') == ''
+            || '' == $mpu_classe->getVar('mpb_10_id')
             || $mpu_classe->getVar('usr_10_uid') != $xoopsUser->getVar('uid')
             || !$xoopsModuleConfig['mpu_conf_candelete']) {
             redirect_header(XOOPS_URL, 3, MPU_ADM_403);
@@ -157,7 +157,7 @@ switch ($op) {
         $mpu_classe = new mpu_mpb_mpublish($mpb_10_id);
         if (empty($xoopsUser)
             || empty($mpb_10_id)
-            || $mpu_classe->getVar('mpb_10_id') == ''
+            || '' == $mpu_classe->getVar('mpb_10_id')
             || $mpu_classe->getVar('usr_10_uid') != $xoopsUser->getVar('uid')
             || !$xoopsModuleConfig['mpu_conf_candelete']) {
             redirect_header(XOOPS_URL, 3, MPU_ADM_403);

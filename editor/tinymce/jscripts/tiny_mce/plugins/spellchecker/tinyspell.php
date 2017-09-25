@@ -80,7 +80,7 @@ function sanitize($str, $type = 'strict')
             $str = preg_replace('>/i', '&lt;', $str);
             break;
         case 'bool':
-            if ($str == 'true' || $str === true) {
+            if ('true' == $str || true === $str) {
                 $str = true;
             } else {
                 $str = false;
@@ -94,7 +94,7 @@ function sanitize($str, $type = 'strict')
 $result    = [];
 $tinyspell = new $spellCheckerConfig['class']($spellCheckerConfig, $lang, $mode, $spelling, $jargon, $encoding);
 
-if (count($tinyspell->errorMsg) == 0) {
+if (0 == count($tinyspell->errorMsg)) {
     switch ($cmd) {
         case 'spell':
             // Space for non-exec version and \n for the exec version.
@@ -127,7 +127,7 @@ switch ($outputType) {
         $body = '<?xml version="1.0" encoding="utf-8" ?>';
         $body .= "\n";
 
-        if (count($result) == 0) {
+        if (0 == count($result)) {
             $body .= '<res id="' . $id . '" cmd="' . $cmd . '">';
         } else {
             $body .= '<res id="' . $id . '" cmd="' . $cmd . '">' . urlencode(implode(' ', $result)) . '</res>';

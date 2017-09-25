@@ -28,7 +28,7 @@ switch ($op) {
     case 'limpacont':
         $mpb_10_id  = (!empty($mpb_10_id)) ? $mpb_10_id : 0;
         $mpu_classe = new mpu_mpb_mpublish($mpb_10_id);
-        if (empty($mpb_10_id) || $mpu_classe->getVar('mpb_10_id') == '') {
+        if (empty($mpb_10_id) || '' == $mpu_classe->getVar('mpb_10_id')) {
             redirect_header(XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/admin/main.php', 3, MPU_ADM_ERRO2);
         }
         mpu_adm_menu();
@@ -38,7 +38,7 @@ switch ($op) {
     case 'limpacont_ok':
         $mpb_10_id  = (!empty($mpb_10_id)) ? $mpb_10_id : 0;
         $mpu_classe = new mpu_mpb_mpublish($mpb_10_id);
-        if (empty($mpb_10_id) || $mpu_classe->getVar('mpb_10_id') == '') {
+        if (empty($mpb_10_id) || '' == $mpu_classe->getVar('mpb_10_id')) {
             redirect_header(XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/admin/main.php', 3, MPU_ADM_ERRO2);
         }
         $mpu_classe->setVar('mpb_10_contador', 0);
@@ -97,7 +97,7 @@ switch ($op) {
     case 'listar_clone':
         $mpb_10_id  = (!empty($mpb_10_id)) ? $mpb_10_id : 0;
         $mpu_classe = new mpu_mpb_mpublish($mpb_10_id);
-        if (empty($mpb_10_id) || $mpu_classe->getVar('mpb_10_id') == '') {
+        if (empty($mpb_10_id) || '' == $mpu_classe->getVar('mpb_10_id')) {
             redirect_header(XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/admin/main.php', 3, MPU_ADM_ERRO2);
         }
         mpu_adm_menu();
@@ -124,7 +124,7 @@ switch ($op) {
         $mpb_10_id  = (!empty($mpb_10_id)) ? $mpb_10_id : 0;
         $mpu_classe = new mpu_mpb_mpublish($mpb_10_id);
         $cfi_classe = new mpu_cfi_contentfiles();
-        if (empty($mpb_10_id) || $mpu_classe->getVar('mpb_10_id') == '') {
+        if (empty($mpb_10_id) || '' == $mpu_classe->getVar('mpb_10_id')) {
             redirect_header(XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/admin/main.php', 3, MPU_ADM_ERRO2);
         }
         $form['titulo'] = MPU_ADM_EPAGE;
@@ -135,7 +135,7 @@ switch ($op) {
     case 'listar_deletar':
         $mpb_10_id  = (!empty($mpb_10_id)) ? $mpb_10_id : 0;
         $mpu_classe = new mpu_mpb_mpublish($mpb_10_id);
-        if (empty($mpb_10_id) || $mpu_classe->getVar('mpb_10_id') == '') {
+        if (empty($mpb_10_id) || '' == $mpu_classe->getVar('mpb_10_id')) {
             redirect_header(XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/admin/main.php', 3, MPU_ADM_ERRO2);
         }
         if ($mpu_classe->tem_subcategorias()) {
@@ -149,7 +149,7 @@ switch ($op) {
     case 'listar_deletar_ok':
         $mpb_10_id  = (!empty($mpb_10_id)) ? $mpb_10_id : 0;
         $mpu_classe = new mpu_mpb_mpublish($mpb_10_id);
-        if (empty($mpb_10_id) || $mpu_classe->getVar('mpb_10_id') == '') {
+        if (empty($mpb_10_id) || '' == $mpu_classe->getVar('mpb_10_id')) {
             redirect_header(XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/admin/main.php', 3, MPU_ADM_ERRO2);
         }
         $mpu_total_deletados = 0;
@@ -258,7 +258,7 @@ switch ($op) {
             $c['form']                = 1; // 0 para exibir os registros em modo visualização, 1 em modo edição
             $c['precrit']['campo'][1] = 'mpb_10_idpai';
             $c['precrit']['valor'][1] = $mpb_10_id;
-            if ($mpb_10_id == 0) {
+            if (0 == $mpb_10_id) {
                 $c['precrit']['operador'][1] = '<=';
             }
 

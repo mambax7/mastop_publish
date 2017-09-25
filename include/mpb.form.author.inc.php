@@ -47,21 +47,21 @@ $mpb_semlink->setExtra("id='mpb_12_semlink' onclick='if (this.checked) { documen
 $mpb_semlink->addOption(1, MPU_ADM_MPB_12_SEMLINK);
 $mpb_tray_titulo_semlink->addElement($mpb_semlink);
 
-$mpb_external_check = new XoopsFormCheckBox('', 'mpb_external', ((substr($mpu_classe->getVar('mpb_30_arquivo'), 0, 4) == 'ext:') ? 1 : 0));
+$mpb_external_check = new XoopsFormCheckBox('', 'mpb_external', (('ext:' == substr($mpu_classe->getVar('mpb_30_arquivo'), 0, 4)) ? 1 : 0));
 $mpb_external_check->setExtra("id='mpb_external' onclick='if (this.checked) { document.getElementById(\"mpb_pagina\").checked=false; document.getElementById(\"mpb_12_semlink\").checked=false; document.getElementById(\"mpb_frame\").checked=false; document.getElementById(\"mpb_external_span\").style.display=\"\"; document.getElementById(\"mpb_30_arquivo_span\").style.display=\"none\"; document.getElementById(\"mpb_pagina_span\").style.display=\"none\"; document.getElementById(\"mpb_35_conteudo_span\").style.display=\"none\";} else {document.getElementById(\"mpb_external_span\").style.display=\"none\";document.getElementById(\"mpb_35_conteudo_span\").style.display=\"\";"
                               . ($xoopsModuleConfig['mpu_conf_wysiwyg'] ? "tinyMCE.execCommand(\"mceResetDesignMode\");" : '')
                               . "}'");
 $mpb_external_check->addOption(1, MPU_ADM_MPB_EXTERNAL);
 $mpb_tray_titulo_semlink->addElement($mpb_external_check);
 
-$mpb_frame_check = new XoopsFormCheckBox('', 'mpb_frame', ((substr($mpu_classe->getVar('mpb_30_arquivo'), 0, 4) == 'http') ? 1 : 0));
+$mpb_frame_check = new XoopsFormCheckBox('', 'mpb_frame', (('http' == substr($mpu_classe->getVar('mpb_30_arquivo'), 0, 4)) ? 1 : 0));
 $mpb_frame_check->setExtra("id='mpb_frame' onclick='if (this.checked) { document.getElementById(\"mpb_external\").checked=false; document.getElementById(\"mpb_pagina\").checked=false; document.getElementById(\"mpb_12_semlink\").checked=false; document.getElementById(\"mpb_external_span\").style.display=\"none\"; document.getElementById(\"mpb_30_arquivo_span\").style.display=\"\"; document.getElementById(\"mpb_pagina_span\").style.display=\"none\"; document.getElementById(\"mpb_35_conteudo_span\").style.display=\"none\";} else {document.getElementById(\"mpb_30_arquivo_span\").style.display=\"none\";document.getElementById(\"mpb_35_conteudo_span\").style.display=\"\";"
                            . ($xoopsModuleConfig['mpu_conf_wysiwyg'] ? "tinyMCE.execCommand(\"mceResetDesignMode\");" : '')
                            . "}'");
 $mpb_frame_check->addOption(1, MPU_ADM_MPB_FRAME);
 $mpb_tray_titulo_semlink->addElement($mpb_frame_check);
-$mpb_pagina = new XoopsFormCheckBox('', 'mpb_pagina', (($mpu_classe->getVar('mpb_30_arquivo') != '' && substr($mpu_classe->getVar('mpb_30_arquivo'), 0, 4) != 'http'
-                                                        && substr($mpu_classe->getVar('mpb_30_arquivo'), 0, 4) != 'ext:') ? 1 : 0));
+$mpb_pagina = new XoopsFormCheckBox('', 'mpb_pagina', (('' != $mpu_classe->getVar('mpb_30_arquivo') && 'http' != substr($mpu_classe->getVar('mpb_30_arquivo'), 0, 4)
+                                                        && 'ext:' != substr($mpu_classe->getVar('mpb_30_arquivo'), 0, 4)) ? 1 : 0));
 $mpb_pagina->setExtra("id='mpb_pagina' onclick='if (this.checked) { document.getElementById(\"mpb_external\").checked=false; document.getElementById(\"mpb_frame\").checked=false; document.getElementById(\"mpb_12_semlink\").checked=false; document.getElementById(\"mpb_external_span\").style.display=\"none\"; document.getElementById(\"mpb_35_conteudo_span\").style.display=\"none\";document.getElementById(\"mpb_30_arquivo_span\").style.display=\"none\";document.getElementById(\"mpb_pagina_span\").style.display=\"\";} else { document.getElementById(\"mpb_35_conteudo_span\").style.display=\"\";document.getElementById(\"mpb_pagina_span\").style.display=\"none\";"
                       . ($xoopsModuleConfig['mpu_conf_wysiwyg'] ? "tinyMCE.execCommand(\"mceResetDesignMode\");" : '')
                       . "}'");
@@ -70,8 +70,8 @@ $mpb_tray_titulo_semlink->addElement($mpb_pagina);
 
 $mpb_form->addElement($mpb_tray_titulo_semlink);
 $mpb_tray_conteudo = new XoopsFormElementTray(MPU_ADM_MPB_35_CONTEUDO, '');
-$mpb_tray_conteudo->addElement(new XoopsFormLabel('', "<span id='mpb_35_conteudo_span' " . (($mpu_classe->getVar('mpb_30_arquivo') != ''
-                                                                                             || $mpu_classe->getVar('mpb_12_semlink') == 1) ? 'style="display:none"' : '') . '>'));
+$mpb_tray_conteudo->addElement(new XoopsFormLabel('', "<span id='mpb_35_conteudo_span' " . (('' != $mpu_classe->getVar('mpb_30_arquivo')
+                                                                                             || 1 == $mpu_classe->getVar('mpb_12_semlink')) ? 'style="display:none"' : '') . '>'));
 if (!$xoopsModuleConfig['mpu_conf_wysiwyg']) {
     $mpb_tray_conteudo->addElement(new XoopsFormDhtmlTextArea('', 'mpb_35_conteudo', $mpu_classe->getVar('mpb_35_conteudo')));
 } else {
@@ -383,17 +383,17 @@ tinyMCE.init({
     $mpb_tray_conteudo->addElement($textarea);
     $mpb_tray_conteudo->addElement(new XoopsFormLabel('', $mpu_classe->PegaSmileys()));
 }
-$mpb_tray_conteudo->addElement(new XoopsFormLabel('', "</span><span id='mpb_30_arquivo_span' " . ((substr($mpu_classe->getVar('mpb_30_arquivo'), 0, 4) != 'http') ? 'style="display:none"' : '') . '>'));
-$mpb_tray_conteudo->addElement(new XoopsFormText(MPU_ADM_MPB_FRAME_URL, 'mpb_30_arquivo_frame', 30, 100, ((substr($mpu_classe->getVar('mpb_30_arquivo'), 0, 4) == 'http') ? $mpu_classe->getVar('mpb_30_arquivo') : '')));
+$mpb_tray_conteudo->addElement(new XoopsFormLabel('', "</span><span id='mpb_30_arquivo_span' " . (('http' != substr($mpu_classe->getVar('mpb_30_arquivo'), 0, 4)) ? 'style="display:none"' : '') . '>'));
+$mpb_tray_conteudo->addElement(new XoopsFormText(MPU_ADM_MPB_FRAME_URL, 'mpb_30_arquivo_frame', 30, 100, (('http' == substr($mpu_classe->getVar('mpb_30_arquivo'), 0, 4)) ? $mpu_classe->getVar('mpb_30_arquivo') : '')));
 $mpb_tray_conteudo->addElement(new XoopsFormLabel('', '</span>'));
 
-$mpb_tray_conteudo->addElement(new XoopsFormLabel('', "</span><span id='mpb_external_span' " . ((substr($mpu_classe->getVar('mpb_30_arquivo'), 0, 4) != 'ext:') ? 'style="display:none"' : '') . '>'));
-$mpb_tray_conteudo->addElement(new XoopsFormText(MPU_ADM_MPB_EXTERNAL_URL, 'mpb_30_arquivo_external', 30, 100, ((substr($mpu_classe->getVar('mpb_30_arquivo'), 0, 4) == 'ext:') ? substr($mpu_classe->getVar('mpb_30_arquivo'), 4) : 'http://')));
+$mpb_tray_conteudo->addElement(new XoopsFormLabel('', "</span><span id='mpb_external_span' " . (('ext:' != substr($mpu_classe->getVar('mpb_30_arquivo'), 0, 4)) ? 'style="display:none"' : '') . '>'));
+$mpb_tray_conteudo->addElement(new XoopsFormText(MPU_ADM_MPB_EXTERNAL_URL, 'mpb_30_arquivo_external', 30, 100, (('ext:' == substr($mpu_classe->getVar('mpb_30_arquivo'), 0, 4)) ? substr($mpu_classe->getVar('mpb_30_arquivo'), 4) : 'http://')));
 $mpb_tray_conteudo->addElement(new XoopsFormLabel('', '</span>'));
 
-$mpb_tray_conteudo->addElement(new XoopsFormLabel('', "<span id='mpb_pagina_span' " . (($mpu_classe->getVar('mpb_30_arquivo') == ''
-                                                                                        || substr($mpu_classe->getVar('mpb_30_arquivo'), 0, 4) == 'http'
-                                                                                        || substr($mpu_classe->getVar('mpb_30_arquivo'), 0, 4) == 'ext:') ? 'style="display:none"' : '') . '>'));
+$mpb_tray_conteudo->addElement(new XoopsFormLabel('', "<span id='mpb_pagina_span' " . (('' == $mpu_classe->getVar('mpb_30_arquivo')
+                                                                                        || 'http' == substr($mpu_classe->getVar('mpb_30_arquivo'), 0, 4)
+                                                                                        || 'ext:' == substr($mpu_classe->getVar('mpb_30_arquivo'), 0, 4)) ? 'style="display:none"' : '') . '>'));
 $paginas_select = new XoopsFormSelect(MPU_ADM_SELECIONE, 'pagina', $mpu_classe->getVar('mpb_30_arquivo'));
 $paginas_select->addOptionArray($cfi_classe->listaPaginas());
 $mpb_tray_conteudo->addElement($paginas_select);
