@@ -96,7 +96,7 @@ switch ($op) {
         include XOOPS_ROOT_PATH . '/include/comment_delete.php';
         break;
     case 'preview':
-        $myts      = MyTextSanitizer::getInstance();
+        $myts      = \MyTextSanitizer::getInstance();
         $doimage   = 1;
         $com_title = $myts->htmlSpecialChars($myts->stripSlashesGPC($_POST['com_title']));
         if (0 != $dohtml) {
@@ -112,7 +112,7 @@ switch ($op) {
             }
         }
         $p_comment = $myts->previewTarea($_POST['com_text'], $dohtml, $dosmiley, $doxcode, $doimage, $dobr);
-        $noname    = isset($noname) ? (int)$noname : 0;
+        $noname    = isset($noname) ? $noname : 0;
         $com_text  = $myts->htmlSpecialChars($myts->stripSlashesGPC($_POST['com_text']));
         if ('system' !== $xoopsModule->getVar('dirname')) {
             include XOOPS_ROOT_PATH . '/header.php';
@@ -129,7 +129,7 @@ switch ($op) {
     case 'post':
     default:
         if (!$captcha_code) {
-            $myts      = MyTextSanitizer::getInstance();
+            $myts      = \MyTextSanitizer::getInstance();
             $doimage   = 1;
             $com_title = $myts->htmlSpecialChars($myts->stripSlashesGPC($_POST['com_title']));
             if (0 != $dohtml) {
@@ -145,7 +145,7 @@ switch ($op) {
                 }
             }
             $p_comment = $myts->previewTarea($_POST['com_text'], $dohtml, $dosmiley, $doxcode, $doimage, $dobr);
-            $noname    = isset($noname) ? (int)$noname : 0;
+            $noname    = isset($noname) ? $noname : 0;
             $com_text  = $myts->htmlSpecialChars($myts->stripSlashesGPC($_POST['com_text']));
             if ('system' !== $xoopsModule->getVar('dirname')) {
                 include XOOPS_ROOT_PATH . '/header.php';

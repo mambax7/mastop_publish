@@ -4,6 +4,6 @@ https://xoops.org.cn/uploads/mydownloads/xoops/xoops-class-xoopseditor.zip
 Depois é só abrir o arquivo /class/xoopsform/formdhtmltextarea.php e procurar a seguinte linha (linha 74, aproximadamente):
 var $htmlEditor = array();
 Troque-a por:
-var $htmlEditor = array('XoopsFormMPublishTextArea', '/class/xoopseditor/mastop_publish/formmpublishtextarea.php');
+var $htmlEditor = array('XoopsFormMPublishTextArea', '/class/xoopseditor/mastoppublish/formmpublishtextarea.php');
 
 (FAÇA ISSO APÓS INSTALAR O MÓDULO MASTOP PUBLISH)

@@ -52,7 +52,7 @@ class mpu_mpb_mpublish extends mpu_geral
 
     public function loadByMenu($menu)
     {
-        $myts  = MyTextSanitizer::getInstance();
+        $myts  = \MyTextSanitizer::getInstance();
         $sql   = 'SELECT * FROM ' . $this->tabela . " WHERE mpb_30_menu='" . $myts->addSlashes(html_entity_decode(urldecode($menu), ENT_QUOTES)) . "'";
         $myrow = $this->db->fetchArray($this->db->query($sql));
         if (is_array($myrow) && count($myrow) > 0) {
@@ -439,7 +439,7 @@ class mpu_mpb_mpublish extends mpu_geral
 
     public function PegaSmileys($campo = 'mpb_35_conteudo')
     {
-        $myts   = MyTextSanitizer::getInstance();
+        $myts   = \MyTextSanitizer::getInstance();
         $smiles = $myts->getSmileys();
         $ret    = '';
         if (empty($smileys)) {

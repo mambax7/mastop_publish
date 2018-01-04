@@ -42,7 +42,7 @@ charmap = [
     ['&sbquo;', '&#8218;', true, 'single low-9 quotation mark'],
     ['&bdquo;', '&#8222;', true, 'double low-9 quotation mark'],
     ['&lt;', '&#60;', true, 'less-than sign'],
-    ['&gt;', '&#62;', true, 'greater-than sign'],
+    ['>', '&#62;', true, 'greater-than sign'],
     ['&le;', '&#8804;', true, 'less-than or equal to'],
     ['&ge;', '&#8805;', true, 'greater-than or equal to'],
     ['&ndash;', '&#8211;', true, 'en dash'],

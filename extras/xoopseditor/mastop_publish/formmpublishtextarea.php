@@ -17,7 +17,7 @@ class XoopsFormMPublishTextArea extends XoopsFormElement
     public $name;
     public $width     = '100%';
     public $height    = '400px';
-    public $moduleDir = 'mastop_publish';
+    public $moduleDir = 'mastoppublish';
 
     /**
      * Constructor
@@ -542,7 +542,7 @@ tinyMCE.init({
                 }
             }
             // this is sooooo dirty and ugly, but the xoops-validation-script never gets the correct content, so I had to add a blank at the end of the textarea
-            $form = "<textarea id=\"" . $this->getName() . "\" name=\"" . $this->getName() . "\" rows=\"1\" cols=\"1\" style=\"width:" . $this->getWidth() . '; height:' . $this->getHeight() . "\" class=\"mpu_wysiwyg\">" . $this->getValue() . ' </textarea>';
+            $form = '<textarea id="' . $this->getName() . '" name="' . $this->getName() . '" rows="1" cols="1" style="width:' . $this->getWidth() . '; height:' . $this->getHeight() . '" class="mpu_wysiwyg">' . $this->getValue() . ' </textarea>';
             $form .= "<a href='javascript:trocaEditor(\"" . $this->getName() . "\")' style='float:right; padding:3px; color:#000000; background-color:#F0F0EE; border: 1px solid #CCCCCC; border-top:0px; margin-top:-1px'>" . MPU_ADM_TOGGLE_EDITOR . '</a>';
             $form .= $this->_renderSmileys(1);
         } else {
@@ -551,25 +551,25 @@ tinyMCE.init({
                           . XOOPS_URL
                           . "/images/url.gif' alt='url' onclick='xoopsCodeUrl(\""
                           . $this->getName()
-                          . "\", \""
+                          . '", "'
                           . htmlspecialchars(_ENTERURL, ENT_QUOTES)
-                          . "\", \""
+                          . '", "'
                           . htmlspecialchars(_ENTERWEBTITLE, ENT_QUOTES)
                           . "\");'>&nbsp;<img onmouseover='style.cursor=\"hand\"' src='"
                           . XOOPS_URL
                           . "/images/email.gif' alt='email' onclick='javascript:xoopsCodeEmail(\""
                           . $this->getName()
-                          . "\", \""
+                          . '", "'
                           . htmlspecialchars(_ENTEREMAIL, ENT_QUOTES)
                           . "\");'>&nbsp;<img onclick='javascript:xoopsCodeImg(\""
                           . $this->getName()
-                          . "\", \""
+                          . '", "'
                           . htmlspecialchars(_ENTERIMGURL, ENT_QUOTES)
-                          . "\", \""
+                          . '", "'
                           . htmlspecialchars(_ENTERIMGPOS, ENT_QUOTES)
-                          . "\", \""
+                          . '", "'
                           . htmlspecialchars(_IMGPOSRORL, ENT_QUOTES)
-                          . "\", \""
+                          . '", "'
                           . htmlspecialchars(_ERRORIMGPOS, ENT_QUOTES)
                           . "\");' onmouseover='style.cursor=\"hand\"' src='"
                           . XOOPS_URL
@@ -583,32 +583,32 @@ tinyMCE.init({
                           . XOOPS_URL
                           . "/images/code.gif' onmouseover='style.cursor=\"hand\"' alt='code' onclick='javascript:xoopsCodeCode(\""
                           . $this->getName()
-                          . "\", \""
+                          . '", "'
                           . htmlspecialchars(_ENTERCODE, ENT_QUOTES)
                           . "\");'>&nbsp;<img onclick='javascript:xoopsCodeQuote(\""
                           . $this->getName()
-                          . "\", \""
+                          . '", "'
                           . htmlspecialchars(_ENTERQUOTE, ENT_QUOTES)
                           . "\");' onmouseover='style.cursor=\"hand\"' src='"
                           . XOOPS_URL
                           . "/images/quote.gif' alt='quote'><br>\n";
 
             $sizearray = ['xx-small', 'x-small', 'small', 'medium', 'large', 'x-large', 'xx-large'];
-            $form      .= "<select id='" . $this->getName() . "Size' onchange='setVisible(\"" . $hiddenText . "\");setElementSize(\"" . $hiddenText . "\",this.options[this.selectedIndex].value);'>\n";
+            $form      .= "<select id='" . $this->getName() . "Size' onchange='setVisible(\"" . $hiddenText . '");setElementSize("' . $hiddenText . "\",this.options[this.selectedIndex].value);'>\n";
             $form      .= "<option value='SIZE'>" . _SIZE . "</option>\n";
             foreach ($sizearray as $size) {
                 $form .= "<option value='$size'>$size</option>\n";
             }
             $form      .= "</select>\n";
             $fontarray = ['Arial', 'Courier', 'Georgia', 'Helvetica', 'Impact', 'Verdana'];
-            $form      .= "<select id='" . $this->getName() . "Font' onchange='setVisible(\"" . $hiddenText . "\");setElementFont(\"" . $hiddenText . "\",this.options[this.selectedIndex].value);'>\n";
+            $form      .= "<select id='" . $this->getName() . "Font' onchange='setVisible(\"" . $hiddenText . '");setElementFont("' . $hiddenText . "\",this.options[this.selectedIndex].value);'>\n";
             $form      .= "<option value='FONT'>" . _FONT . "</option>\n";
             foreach ($fontarray as $font) {
                 $form .= "<option value='$font'>$font</option>\n";
             }
             $form       .= "</select>\n";
             $colorarray = ['00', '33', '66', '99', 'CC', 'FF'];
-            $form       .= "<select id='" . $this->getName() . "Color' onchange='setVisible(\"" . $hiddenText . "\");setElementColor(\"" . $hiddenText . "\",this.options[this.selectedIndex].value);'>\n";
+            $form       .= "<select id='" . $this->getName() . "Color' onchange='setVisible(\"" . $hiddenText . '");setElementColor("' . $hiddenText . "\",this.options[this.selectedIndex].value);'>\n";
             $form       .= "<option value='COLOR'>" . _COLOR . "</option>\n";
             foreach ($colorarray as $color1) {
                 foreach ($colorarray as $color2) {
@@ -621,25 +621,25 @@ tinyMCE.init({
             $form .= "<br>\n";
             $form .= "<img onclick='javascript:setVisible(\""
                      . $hiddenText
-                     . "\");makeBold(\""
+                     . '");makeBold("'
                      . $hiddenText
                      . "\");' onmouseover='style.cursor=\"hand\"' src='"
                      . XOOPS_URL
                      . "/images/bold.gif' alt='bold'>&nbsp;<img onclick='javascript:setVisible(\""
                      . $hiddenText
-                     . "\");makeItalic(\""
+                     . '");makeItalic("'
                      . $hiddenText
                      . "\");' onmouseover='style.cursor=\"hand\"' src='"
                      . XOOPS_URL
                      . "/images/italic.gif' alt='italic'>&nbsp;<img onclick='javascript:setVisible(\""
                      . $hiddenText
-                     . "\");makeUnderline(\""
+                     . '");makeUnderline("'
                      . $hiddenText
                      . "\");' onmouseover='style.cursor=\"hand\"' src='"
                      . XOOPS_URL
                      . "/images/underline.gif' alt='underline'>&nbsp;<img onclick='javascript:setVisible(\""
                      . $hiddenText
-                     . "\");makeLineThrough(\""
+                     . '");makeLineThrough("'
                      . $hiddenText
                      . "\");' src='"
                      . XOOPS_URL
@@ -647,9 +647,9 @@ tinyMCE.init({
                      . $this->getName()
                      . "Addtext' size='20'>&nbsp;<input type='button' onclick='xoopsCodeText(\""
                      . $this->getName()
-                     . "\", \""
+                     . '", "'
                      . $hiddenText
-                     . "\", \""
+                     . '", "'
                      . htmlspecialchars(_ENTERTEXTBOX, ENT_QUOTES)
                      . "\")' class='formButton' value='"
                      . _ADD
@@ -677,27 +677,27 @@ tinyMCE.init({
     public function _renderSmileys($visual)
     {
         if (!$visual) {
-            $myts   = MyTextSanitizer::getInstance();
+            $myts   = \MyTextSanitizer::getInstance();
             $smiles = $myts->getSmileys();
             $ret    = '';
             if (empty($smileys)) {
                 $db = XoopsDatabaseFactory::getDatabaseConnection();
                 if ($result = $db->query('SELECT * FROM ' . $db->prefix('smiles') . ' WHERE display=1')) {
                     while ($smiles = $db->fetchArray($result)) {
-                        $ret .= "<img onclick='xoopsCodeSmilie(\"" . $this->getName() . "\", \" " . $smiles['code'] . " \");' onmouseover='style.cursor=\"hand\"' src='" . XOOPS_UPLOAD_URL . '/' . htmlspecialchars($smiles['smile_url'], ENT_QUOTES) . "' alt=''>";
+                        $ret .= "<img onclick='xoopsCodeSmilie(\"" . $this->getName() . '", " ' . $smiles['code'] . " \");' onmouseover='style.cursor=\"hand\"' src='" . XOOPS_UPLOAD_URL . '/' . htmlspecialchars($smiles['smile_url'], ENT_QUOTES) . "' alt=''>";
                     }
                 }
             } else {
                 $count = count($smiles);
                 for ($i = 0; $i < $count; ++$i) {
                     if (1 == $smiles[$i]['display']) {
-                        $ret .= "<img onclick='xoopsCodeSmilie(\"" . $this->getName() . "\", \" " . $smiles[$i]['code'] . " \");' onmouseover='style.cursor=\"hand\"' src='" . XOOPS_UPLOAD_URL . '/' . $myts->oopsHtmlSpecialChars($smiles['smile_url']) . "' border='0' alt=''>";
+                        $ret .= "<img onclick='xoopsCodeSmilie(\"" . $this->getName() . '", " ' . $smiles[$i]['code'] . " \");' onmouseover='style.cursor=\"hand\"' src='" . XOOPS_UPLOAD_URL . '/' . $myts->oopsHtmlSpecialChars($smiles['smile_url']) . "' border='0' alt=''>";
                     }
                 }
             }
             $ret .= "&nbsp;[<a href='#moresmiley' onclick='javascript:openWithSelfMain(\"" . XOOPS_URL . '/misc.php?action=showpopups&amp;type=smilies&amp;target=' . $this->getName() . "\",\"smilies\",300,475);'>" . _MORE . '</a>]';
         } else {
-            $myts   = MyTextSanitizer::getInstance();
+            $myts   = \MyTextSanitizer::getInstance();
             $smiles = $myts->getSmileys();
             $ret    = '';
             if (empty($smileys)) {

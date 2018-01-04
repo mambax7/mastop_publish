@@ -46,28 +46,28 @@ $mpb_titulo              = new XoopsFormText('', 'mpb_30_titulo', 50, 100, $mpu_
 $mpb_tray_titulo_semlink->addElement($mpb_titulo);
 $mpb_semlink = new XoopsFormCheckBox('', 'mpb_12_semlink', $mpu_classe->getVar('mpb_12_semlink'));
 $mpb_semlink->setExtra("id='mpb_12_semlink1' onclick='if (this.checked) { document.getElementById(\"mpb_external1\").checked=false; document.getElementById(\"mpb_pagina1\").checked=false; document.getElementById(\"mpb_frame1\").checked=false; document.getElementById(\"mpb_external_span\").style.display=\"none\"; document.getElementById(\"mpb_35_conteudo_span\").style.display=\"none\"; document.getElementById(\"mpb_pagina_span\").style.display=\"none\"; document.getElementById(\"mpb_30_arquivo_span\").style.display=\"none\"; } else { document.getElementById(\"mpb_35_conteudo_span\").style.display=\"\";"
-                       . ($xoopsModuleConfig['mpu_conf_wysiwyg'] ? "tinyMCE.execCommand(\"mceResetDesignMode\");" : '')
+                       . ($xoopsModuleConfig['mpu_conf_wysiwyg'] ? 'tinyMCE.execCommand("mceResetDesignMode");' : '')
                        . "}'");
 $mpb_semlink->addOption(1, MPU_ADM_MPB_12_SEMLINK);
 $mpb_tray_titulo_semlink->addElement($mpb_semlink);
 
 $mpb_external_check = new XoopsFormCheckBox('', 'mpb_external', (('ext:' == substr($mpu_classe->getVar('mpb_30_arquivo'), 0, 4)) ? 1 : 0));
 $mpb_external_check->setExtra("id='mpb_external1' onclick='if (this.checked) { document.getElementById(\"mpb_pagina1\").checked=false; document.getElementById(\"mpb_12_semlink1\").checked=false; document.getElementById(\"mpb_frame1\").checked=false; document.getElementById(\"mpb_external_span\").style.display=\"\"; document.getElementById(\"mpb_30_arquivo_span\").style.display=\"none\"; document.getElementById(\"mpb_pagina_span\").style.display=\"none\"; document.getElementById(\"mpb_35_conteudo_span\").style.display=\"none\";} else {document.getElementById(\"mpb_external_span\").style.display=\"none\";document.getElementById(\"mpb_35_conteudo_span\").style.display=\"\";"
-                              . ($xoopsModuleConfig['mpu_conf_wysiwyg'] ? "tinyMCE.execCommand(\"mceResetDesignMode\");" : '')
+                              . ($xoopsModuleConfig['mpu_conf_wysiwyg'] ? 'tinyMCE.execCommand("mceResetDesignMode");' : '')
                               . "}'");
 $mpb_external_check->addOption(1, MPU_ADM_MPB_EXTERNAL);
 $mpb_tray_titulo_semlink->addElement($mpb_external_check);
 
 $mpb_frame_check = new XoopsFormCheckBox('', 'mpb_frame', (('http' == substr($mpu_classe->getVar('mpb_30_arquivo'), 0, 4)) ? 1 : 0));
 $mpb_frame_check->setExtra("id='mpb_frame1' onclick='if (this.checked) { document.getElementById(\"mpb_external1\").checked=false; document.getElementById(\"mpb_pagina1\").checked=false; document.getElementById(\"mpb_12_semlink1\").checked=false; document.getElementById(\"mpb_external_span\").style.display=\"none\"; document.getElementById(\"mpb_30_arquivo_span\").style.display=\"\"; document.getElementById(\"mpb_pagina_span\").style.display=\"none\"; document.getElementById(\"mpb_35_conteudo_span\").style.display=\"none\";} else {document.getElementById(\"mpb_30_arquivo_span\").style.display=\"none\";document.getElementById(\"mpb_35_conteudo_span\").style.display=\"\";"
-                           . ($xoopsModuleConfig['mpu_conf_wysiwyg'] ? "tinyMCE.execCommand(\"mceResetDesignMode\");" : '')
+                           . ($xoopsModuleConfig['mpu_conf_wysiwyg'] ? 'tinyMCE.execCommand("mceResetDesignMode");' : '')
                            . "}'");
 $mpb_frame_check->addOption(1, MPU_ADM_MPB_FRAME);
 $mpb_tray_titulo_semlink->addElement($mpb_frame_check);
 $mpb_pagina = new XoopsFormCheckBox('', 'mpb_pagina', (('' != $mpu_classe->getVar('mpb_30_arquivo') && 'http' != substr($mpu_classe->getVar('mpb_30_arquivo'), 0, 4)
                                                         && 'ext:' != substr($mpu_classe->getVar('mpb_30_arquivo'), 0, 4)) ? 1 : 0));
 $mpb_pagina->setExtra("id='mpb_pagina1' onclick='if (this.checked) { document.getElementById(\"mpb_external1\").checked=false; document.getElementById(\"mpb_frame1\").checked=false; document.getElementById(\"mpb_12_semlink1\").checked=false; document.getElementById(\"mpb_external_span\").style.display=\"none\"; document.getElementById(\"mpb_35_conteudo_span\").style.display=\"none\";document.getElementById(\"mpb_30_arquivo_span\").style.display=\"none\";document.getElementById(\"mpb_pagina_span\").style.display=\"\";} else { document.getElementById(\"mpb_35_conteudo_span\").style.display=\"\";document.getElementById(\"mpb_pagina_span\").style.display=\"none\";"
-                      . ($xoopsModuleConfig['mpu_conf_wysiwyg'] ? "tinyMCE.execCommand(\"mceResetDesignMode\");" : '')
+                      . ($xoopsModuleConfig['mpu_conf_wysiwyg'] ? 'tinyMCE.execCommand("mceResetDesignMode");' : '')
                       . "}'");
 $mpb_pagina->addOption(1, MPU_ADM_MPB_FROMFILE);
 $mpb_tray_titulo_semlink->addElement($mpb_pagina);

@@ -14,6 +14,8 @@
 
 // Dados do M�dulo
 
+include __DIR__ . '/preloads/autoloader.php';
+
 $modversion['version']       = 1.5;
 $modversion['module_status'] = 'Beta 1';
 $modversion['release_date']  = '2014/04/23';

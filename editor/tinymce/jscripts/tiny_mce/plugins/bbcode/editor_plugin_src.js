@@ -66,7 +66,7 @@ var TinyMCE_BBCodePlugin = {
         rep(/&nbsp;/gi, " ");
         rep(/&quot;/gi, "\"");
         rep(/&lt;/gi, "<");
-        rep(/&gt;/gi, ">");
+        rep(/>/gi, ">");
         rep(/&amp;/gi, "&");
         rep(/&undefined;/gi, "'"); // quickfix
 

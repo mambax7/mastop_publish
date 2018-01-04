@@ -265,7 +265,7 @@ function makeAttrib(attrib, value) {
     value = value.replace(/&/g, '&amp;');
     value = value.replace(/\"/g, '&quot;');
     value = value.replace(/</g, '&lt;');
-    value = value.replace(/>/g, '&gt;');
+    value = value.replace(/>/g, '>');
 
     return ' ' + attrib + '="' + value + '"';
 }

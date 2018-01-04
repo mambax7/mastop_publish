@@ -476,11 +476,11 @@ class AudioPhpCaptcha
         }
 
         $aPhrases = [
-            "The %1\$s characters are as follows: %2\$s",
-            "%2\$s, are the %1\$s letters",
-            "Here are the %1\$s characters: %2\$s",
-            "%1\$s characters are: %2\$s",
-            "%1\$s letters: %2\$s"
+            'The %1$s characters are as follows: %2$s',
+            '%2$s, are the %1$s letters',
+            'Here are the %1$s characters: %2$s',
+            '%1$s characters are: %2$s',
+            '%1$s letters: %2$s'
         ];
 
         $iPhrase = array_rand($aPhrases);

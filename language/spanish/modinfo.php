@@ -18,7 +18,7 @@
 //V1.0
 define('MPU_MOD_NOME', 'Mastop Publish');
 define('MPU_MOD_DESC', '¡Cree páginas estáticas en su sitio!');
-define('MPU_MOD_DIR', 'mastop_publish');
+define('MPU_MOD_DIR', 'mastoppublish');
 define('MPU_MOD_TABELA1', 'mpu_mpb_mpublish');
 define('MPU_MOD_TABELA2', 'mpu_fil_files');
 define('MPU_MOD_TABELA3', 'mpu_med_media');
@@ -158,3 +158,6 @@ define('MPU_MOD_WYSIWYG_BKG_DESC', "By activating this option the editor's backg
 
 define('MPU_MOD_HOME_ID', 'Main Page ID');
 define('MPU_MOD_HOME_ID_DESC', 'Enter the Page ID that will open as the default page when entering the module. Leave it blank so that the last inserted page becomes the main page.');
+
+define('_MI_MPU_HOME', 'Home');
+define('_MI_MPU_ABOUT', 'About');

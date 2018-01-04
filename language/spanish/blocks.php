@@ -16,7 +16,7 @@
 ### carlos@centropyme.com
 ### =============================================================
 // V1.0
-define('MPU_BLO_MODDIR', 'mastop_publish');
+define('MPU_BLO_MODDIR', 'mastoppublish');
 define('MPU_BLO_OPT_ID', 'ID de bloque: ');
 define('MPU_BLO_OPT_HOME', '¿Mostrar enlace a pág. de Inicio?');
 define('MPU_BLO_OPT_HOMETEXT', 'Texto del enlace a inicio: ');

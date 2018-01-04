@@ -15,7 +15,7 @@
 //V1.0
 define('MPU_MOD_NOME', 'Mastop Publish');
 define('MPU_MOD_DESC', 'Create static pages for your site!');
-define('MPU_MOD_DIR', 'mastop_publish');
+define('MPU_MOD_DIR', 'mastoppublish');
 define('MPU_MOD_TABELA1', 'mpu_mpb_mpublish');
 define('MPU_MOD_TABELA2', 'mpu_fil_files');
 define('MPU_MOD_TABELA3', 'mpu_med_media');
@@ -168,3 +168,6 @@ define('_MI_MPU_OVERVIEW', 'Overview');
 define('_MI_MPU_DISCLAIMER', 'Disclaimer');
 define('_MI_MPU_LICENSE', 'License');
 define('_MI_MPU_SUPPORT', 'Support');
+
+define('_MI_MPU_HOME', 'Home');
+define('_MI_MPU_ABOUT', 'About');

@@ -12,7 +12,7 @@
 ###
 ### =============================================================
 //V1.0
-define('MPU_BLO_MODDIR', 'mastop_publish');
+define('MPU_BLO_MODDIR', 'mastoppublish');
 define('MPU_BLO_OPT_ID', 'Block ID: ');
 define('MPU_BLO_OPT_HOME', 'Show Home Page Link?');
 define('MPU_BLO_OPT_HOMETEXT', 'Link Text for home: ');

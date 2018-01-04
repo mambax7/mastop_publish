@@ -24,9 +24,9 @@ if (DIRECTORY_SEPARATOR !== '/') {
 $root_path = dirname($current_path);
 
 return $config = [
-    'name'  => 'mastop_publish',
+    'name'  => 'mastoppublish',
     'class' => 'XoopsFormMPublishTextArea',
     'file'  => $root_path . '/formmpublishtextarea.php',
-    'title' => 'mastop_publish',
+    'title' => 'mastoppublish',
     'order' => 5
 ];

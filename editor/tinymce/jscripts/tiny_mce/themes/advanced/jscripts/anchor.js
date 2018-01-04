@@ -44,7 +44,7 @@ function insertAnchor() {
         name = name.replace(/&/g, '&amp;');
         name = name.replace(/\"/g, '&quot;');
         name = name.replace(/</g, '&lt;');
-        name = name.replace(/>/g, '&gt;');
+        name = name.replace(/>/g, '>');
 
         // Fix for bug #1447335
         if (tinyMCE.isGecko)

@@ -82,7 +82,7 @@ var TinyMCE_FullPagePlugin = {
                         title = title.replace(/&/g, '&amp;');
                         title = title.replace(/\"/g, '&quot;');
                         title = title.replace(/</g, '&lt;');
-                        title = title.replace(/>/g, '&gt;');
+                        title = title.replace(/>/g, '>');
 
                         tmp = '';
 

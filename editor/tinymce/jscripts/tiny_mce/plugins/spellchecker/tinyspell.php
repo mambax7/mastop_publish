@@ -76,7 +76,7 @@ function sanitize($str, $type = 'strict')
             $str = preg_replace("/[^a-zA-Z0-9_\-]/i", '', $str);
             break;
         case 'loose':
-            $str = preg_replace('/</i', '&gt;', $str);
+            $str = preg_replace('/</i', '>', $str);
             $str = preg_replace('>/i', '&lt;', $str);
             break;
         case 'bool':
