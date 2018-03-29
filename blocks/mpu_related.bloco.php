@@ -31,11 +31,11 @@ function mpu_related_exibe($options)
     } else {
         $mpu_classe = new mpu_mpb_mpublish($tac);
         if ('' != $mpu_classe->getVar('mpb_10_id') && 0 != $mpu_classe->getVar('mpb_10_idpai')) {
-            $rel_crit = new CriteriaCompo(new Criteria('mpb_10_idpai', $mpu_classe->getVar('mpb_10_idpai')));
-            $rel_crit->add(new Criteria('mpb_10_id', $mpu_classe->getVar('mpb_10_id'), '<>'));
-            $rel_crit->add(new Criteria('mpb_12_semlink', 0));
-            $rel_crit2 = new CriteriaCompo(new Criteria('mpb_11_visivel', 2));
-            $rel_crit2->add(new Criteria('mpb_11_visivel', 3), 'OR');
+            $rel_crit = new \CriteriaCompo(new \Criteria('mpb_10_idpai', $mpu_classe->getVar('mpb_10_idpai')));
+            $rel_crit->add(new \Criteria('mpb_10_id', $mpu_classe->getVar('mpb_10_id'), '<>'));
+            $rel_crit->add(new \Criteria('mpb_12_semlink', 0));
+            $rel_crit2 = new \CriteriaCompo(new \Criteria('mpb_11_visivel', 2));
+            $rel_crit2->add(new \Criteria('mpb_11_visivel', 3), 'OR');
             $rel_crit->add($rel_crit2);
             $rel_crit->setSort('mpb_10_ordem');
             $all_related = $mpu_classe->PegaTudo($rel_crit);
@@ -137,10 +137,10 @@ PICKER;
                    . '"><br>';
     $form       .= MPU_BLO_SHOW . " <select name='options[2]'>
     <option value='mpb_30_menu'";
-    $form       .= ('mpb_30_menu' == $options[2]) ? 'selected' : ' ';
+    $form       .= ('mpb_30_menu' === $options[2]) ? 'selected' : ' ';
     $form       .= '>' . MPU_BLO_MPB_30_MENU . "</option>
     <option value='mpb_30_titulo'";
-    $form       .= ('mpb_30_titulo' == $options[2]) ? 'selected' : ' ';
+    $form       .= ('mpb_30_titulo' === $options[2]) ? 'selected' : ' ';
     $form       .= '>' . MPU_BLO_MPB_30_TITULO . '</option></select><br>';
     $form       .= MPU_BLO_OPT_CARACTS . " <input type='text' name='options[3]' value='" . $options[3] . "'>";
 

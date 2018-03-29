@@ -42,7 +42,7 @@ function mpu_mpublish_busca($queryarray, $andor, $limit, $offset, $userid)
     $result   = $xoopsDB->query($sql, $limit, $offset);
     $ret      = [];
     $contents = [];
-    while ($myrow = $xoopsDB->fetchArray($result)) {
+    while (false !== ($myrow = $xoopsDB->fetchArray($result))) {
         if (!in_array($myrow['mpb_10_id'], $MyPages)) {
             continue;
         }
@@ -53,7 +53,7 @@ function mpu_mpublish_busca($queryarray, $andor, $limit, $offset, $userid)
         $sql .= ' AND uid=' . $userid . ' ';
     }
     $result = $xoopsDB->query($sql);
-    while ($myrow = $xoopsDB->fetchArray($result)) {
+    while (false !== ($myrow = $xoopsDB->fetchArray($result))) {
         if (!in_array($myrow['mpb_10_id'], $MyPages)) {
             continue;
         }

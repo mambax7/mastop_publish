@@ -11,10 +11,18 @@
 ### =============================================================
 ###
 ### =============================================================
+
+use XoopsModules\Mastoppublish;
+/** @var Mastoppublish\Helper $helper */
+$helper = Mastoppublish\Helper::getInstance();
+
 // Administração
 function mpu_adm_menu()
 {
-    global $xoopsModule, $xoopsConfig, $xoopsModuleConfig;
+    global $xoopsModule, $xoopsConfig ;
+    /** @var Mastoppublish\Helper $helper */
+    $helper = Mastoppublish\Helper::getInstance();
+
     $adm_url = XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/admin/';
     $links[] = [
         0 => XOOPS_URL . '/modules/system/admin.php?fct=preferences&op=showmod&mod=' . $xoopsModule->getVar('mid'),
@@ -81,19 +89,19 @@ function createjsDOMenu()
     if (!is_writable($dir3)) {
         xoops_error(MPU_ADM_HTMLERROR);
     }
-    if ($xoopsModuleConfig['mpu_conf_wysiwyg'] && $xoopsModuleConfig['mpu_conf_gzip']
-        && !is_writable(XOOPS_ROOT_PATH . $xoopsModuleConfig['mpu_conf_wysiwyg_path'])) {
-        xoops_error(sprintf(MPU_ADM_WYSIWYG_PATHERROR, XOOPS_ROOT_PATH . $xoopsModuleConfig['mpu_conf_wysiwyg_path']));
+    if ($helper->getConfig('mpu_conf_wysiwyg') && $helper->getConfig('mpu_conf_gzip')
+        && !is_writable(XOOPS_ROOT_PATH . $helper->getConfig('mpu_conf_wysiwyg_path'))) {
+        xoops_error(sprintf(MPU_ADM_WYSIWYG_PATHERROR, XOOPS_ROOT_PATH . $helper->getConfig('mpu_conf_wysiwyg_path')));
     }
 }
 
 function mpu_apagaPermissoes($id)
 {
     global $xoopsModule, $modulepermHandler;
-    $criteria = new CriteriaCompo();
-    $criteria->add(new Criteria('gperm_itemid', $id));
-    $criteria->add(new Criteria('gperm_modid', $xoopsModule->getVar('mid')));
-    $criteria->add(new Criteria('gperm_name', 'mpu_mpublish_acesso'));
+    $criteria = new \CriteriaCompo();
+    $criteria->add(new \Criteria('gperm_itemid', $id));
+    $criteria->add(new \Criteria('gperm_modid', $xoopsModule->getVar('mid')));
+    $criteria->add(new \Criteria('gperm_name', 'mpu_mpublish_acesso'));
     if ($old_perms = $modulepermHandler->getObjects($criteria)) {
         foreach ($old_perms as $p) {
             $modulepermHandler->delete($p);
@@ -109,7 +117,7 @@ function mpu_apagaPermissoesPai($id)
     global $xoopsModule;
     require_once XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/class/mpu_mpb_mpublish.class.php';
     $mpu_classe = new mpu_mpb_mpublish();
-    $todos      = $mpu_classe->PegaTudo(new Criteria('mpb_10_idpai', $id));
+    $todos      = $mpu_classe->PegaTudo(new \Criteria('mpb_10_idpai', $id));
     if (!empty($todos)) {
         foreach ($todos as $v) {
             mpu_apagaPermissoes($v->getVar('mpb_10_id'));

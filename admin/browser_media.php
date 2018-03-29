@@ -12,11 +12,16 @@
 ### =============================================================
 ###
 ### =============================================================
+
+use XoopsModules\Mastoppublish;
+/** @var Mastoppublish\Helper $helper */
+$helper = Mastoppublish\Helper::getInstance();
+
 require_once __DIR__ . '/admin_header.php';
 require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 $op              = empty($_GET['op']) ? 'list' : $_GET['op'];
 $op              = empty($_POST['op']) ? $op : $_POST['op'];
-$mpb_wysiwyg_url = XOOPS_URL . $xoopsModuleConfig['mpu_conf_wysiwyg_path'];
+$mpb_wysiwyg_url = XOOPS_URL . $helper->getConfig('mpu_conf_wysiwyg_path');
 $tipos           = [
     1 => MPU_ADM_MED_10_TIPO_1,
     2 => MPU_ADM_MED_10_TIPO_2,
@@ -90,9 +95,9 @@ $tipos           = [
         if ('listmed' === $op) {
             $med_10_tipo = (int)$_GET['med_10_tipo'];
             $med_classe  = new mpu_med_media();
-            $criterio    = new CriteriaCompo(new Criteria('med_10_tipo', $med_10_tipo));
+            $criterio    = new \CriteriaCompo(new \Criteria('med_10_tipo', $med_10_tipo));
             if (!empty($_GET['med_30_nome'])) {
-                $criterio->add(new Criteria('med_30_nome', '%' . $_GET['med_30_nome'] . '%', 'LIKE'));
+                $criterio->add(new \Criteria('med_30_nome', '%' . $_GET['med_30_nome'] . '%', 'LIKE'));
             }
             $start = isset($_GET['start']) ? (int)$_GET['start'] : 0;
             $criterio->setStart($start);
@@ -160,7 +165,7 @@ $tipos           = [
                 if ($medias_total > 0) {
                     if ($medias_total > 20) {
                         require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
-                        $nav = new XoopsPageNav($medias_total, 20, $start, 'start', 'op=listmed&amp;med_10_tipo=' . $med_10_tipo . ((!empty($_GET['med_30_nome'])) ? '&amp;med_30_nome=' . $_GET['med_30_nome'] : ''));
+                        $nav = new \XoopsPageNav($medias_total, 20, $start, 'start', 'op=listmed&amp;med_10_tipo=' . $med_10_tipo . ((!empty($_GET['med_30_nome'])) ? '&amp;med_30_nome=' . $_GET['med_30_nome'] : ''));
                         echo '<div style="text-align:right">' . $nav->renderNav() . '</div>';
                     }
                 }
@@ -172,7 +177,7 @@ $tipos           = [
             for ($i = 1; $i <= 5; ++$i) {
                 $tipos_select .= "<option value='" . $i . "' " . ((!empty($_GET['med_10_tipo'])
                                                                    && $_GET['med_10_tipo'] == $i) ? 'selected' : '') . '>' . $tipos[$i] . "</option>\n";
-                $medias       = $med_classe->contar(new Criteria('med_10_tipo', $i));
+                $medias       = $med_classe->contar(new \Criteria('med_10_tipo', $i));
                 echo '<li>' . $tipos[$i] . ' (<b>' . $medias . '</b> ' . MPU_ADM_BROWSER_GER_MED . ') ' . (($medias > 0) ? '[<a href="' . $_SERVER['PHP_SELF'] . '?op=listmed&amp;med_10_tipo=' . $i . '">' . _LIST . '</a>]</li>' : '');
             }
             echo '</ul>';
@@ -230,7 +235,7 @@ $tipos           = [
                         $permittedtypes = ['audio/x-pn-realaudio'];
                         break;
                 }
-                $uploader                  = new XoopsMediaUploader(MPU_MEDIA_PATH, $permittedtypes, $xoopsModuleConfig['mpu_mmax_filesize'] * 1024);
+                $uploader                  = new \XoopsMediaUploader(MPU_MEDIA_PATH, $permittedtypes, $helper->getConfig('mpu_mmax_filesize') * 1024);
                 $uploader->extensionToMime = array_merge($uploader->extensionToMime, [
                     'wmv' => 'video/x-ms-wmv',
                     'asf' => 'video/x-ms-asf',
@@ -321,28 +326,28 @@ $tipos           = [
         }
         echo '<h4>' . MPU_ADM_NMEDIA . '</h4>';
         $med_classe = new mpu_med_media();
-        $med_form   = new XoopsThemeForm('', 'mpu_med_form', $_SERVER['PHP_SELF'], 'post', true);
+        $med_form   = new \XoopsThemeForm('', 'mpu_med_form', $_SERVER['PHP_SELF'], 'post', true);
         $med_form->setExtra('enctype="multipart/form-data"');
-        $med_form->addElement(new XoopsFormText(MPU_ADM_MED_30_NOME, 'med_30_nome', 50, 50), true);
-        $tipo_select = new XoopsFormSelect('', 'med_10_tipo');
+        $med_form->addElement(new \XoopsFormText(MPU_ADM_MED_30_NOME, 'med_30_nome', 50, 50), true);
+        $tipo_select = new \XoopsFormSelect('', 'med_10_tipo');
         $tipo_select->setExtra("onchange='LargAlt();'");
         $tipo_select->addOptionArray($tipos);
-        $tipo_tray = new XoopsFormElementTray(MPU_ADM_MED_10_TIPO);
+        $tipo_tray = new \XoopsFormElementTray(MPU_ADM_MED_10_TIPO);
         $tipo_tray->addElement($tipo_select);
-        $tipo_tray->addElement(new XoopsFormLabel('', "<br><div id='largalt' style='display:none'>"));
-        $tipo_tray->addElement(new XoopsFormText(MPU_ADM_MED_10_LARGURA, 'med_10_largura', 4, 4), true);
-        $tipo_tray->addElement(new XoopsFormText(MPU_ADM_MED_10_ALTURA, 'med_10_altura', 4, 4), true);
-        $tipo_tray->addElement(new XoopsFormLabel('', '</div>'));
+        $tipo_tray->addElement(new \XoopsFormLabel('', "<br><div id='largalt' style='display:none'>"));
+        $tipo_tray->addElement(new \XoopsFormText(MPU_ADM_MED_10_LARGURA, 'med_10_largura', 4, 4), true);
+        $tipo_tray->addElement(new \XoopsFormText(MPU_ADM_MED_10_ALTURA, 'med_10_altura', 4, 4), true);
+        $tipo_tray->addElement(new \XoopsFormLabel('', '</div>'));
         $med_form->addElement($tipo_tray);
-        $med_arquivo  = new XoopsFormFile('', 'med_30_arquivo', 50000000);
-        $arquivo_tray = new XoopsFormElementTray(MPU_ADM_MED_30_ARQUIVO, '&nbsp;');
+        $med_arquivo  = new \XoopsFormFile('', 'med_30_arquivo', 50000000);
+        $arquivo_tray = new \XoopsFormElementTray(MPU_ADM_MED_30_ARQUIVO, '&nbsp;');
         $arquivo_tray->addElement($med_arquivo);
         $med_form->addElement($arquivo_tray);
-        $med_form->addElement(new XoopsFormRadioYN(MPU_ADM_MED_12_EXIBIR, 'med_12_exibir', 1));
-        $med_form->addElement(new XoopsFormHidden('op', 'addmedia'));
-        $med_botoes_tray  = new XoopsFormElementTray('', '&nbsp;&nbsp;');
-        $med_botao_cancel = new XoopsFormButton('', 'cancelar', _CANCEL);
-        $med_botoes_tray->addElement(new XoopsFormButton('', 'submit', _SUBMIT, 'submit'));
+        $med_form->addElement(new \XoopsFormRadioYN(MPU_ADM_MED_12_EXIBIR, 'med_12_exibir', 1));
+        $med_form->addElement(new \XoopsFormHidden('op', 'addmedia'));
+        $med_botoes_tray  = new \XoopsFormElementTray('', '&nbsp;&nbsp;');
+        $med_botao_cancel = new \XoopsFormButton('', 'cancelar', _CANCEL);
+        $med_botoes_tray->addElement(new \XoopsFormButton('', 'submit', _SUBMIT, 'submit'));
         $med_botao_cancel->setExtra("onclick=\"document.location= '" . $_SERVER['PHP_SELF'] . "'\"");
         $med_botoes_tray->addElement($med_botao_cancel);
         $med_form->addElement($med_botoes_tray);

@@ -141,7 +141,7 @@ $modversion['config'][$i]['description'] = 'MPU_MOD_HOME_ID_DESC';
 $modversion['config'][$i]['formtype']    = 'texbox';
 $modversion['config'][$i]['valuetype']   = 'text';
 ++$i;
-$modversion['config'][$i]['name']        = 'mpu_conf_wysiwyg'; // Nome do �ndice para reconhecer o valor espec�fico da configura��o. Ex.: Se for definido 'teste', ser� chamado como $xoopsModuleConfig['teste']
+$modversion['config'][$i]['name']        = 'mpu_conf_wysiwyg'; // Nome do �ndice para reconhecer o valor espec�fico da configura��o. Ex.: Se for definido 'teste', ser� chamado como $helper->getConfig('teste')
 $modversion['config'][$i]['title']       = 'MPU_MOD_WYSIWYG';
 $modversion['config'][$i]['description'] = 'MPU_MOD_WYSIWYG_DESC';
 $modversion['config'][$i]['formtype']    = 'yesno'; // Tipo de elemento usado no formul�rio de prefer�ncias. Pode ser 'yesno', 'select', 'select_multi', 'group', 'group_multi', 'textbox', 'textarea', 'user', 'user_multi', 'timezone', 'password', 'color', 'hidden' ou 'language'.
@@ -175,7 +175,7 @@ $modversion['config'][$i]['title']       = 'MPU_MOD_WYSIWYG_LANG';
 $modversion['config'][$i]['description'] = 'MPU_MOD_WYSIWYG_LANG_DESC';
 $modversion['config'][$i]['formtype']    = 'texbox';
 $modversion['config'][$i]['valuetype']   = 'text';
-$modversion['config'][$i]['default']     = ('portuguesebr' == $xoopsConfig['language']) ? 'pt_br' : 'en';
+$modversion['config'][$i]['default']     = ('portuguesebr' === $xoopsConfig['language']) ? 'pt_br' : 'en';
 ++$i;
 $modversion['config'][$i]['name']        = 'mpu_conf_wysiwyg_bt1b';
 $modversion['config'][$i]['title']       = 'MPU_MOD_WYSIWYG_BT1B';

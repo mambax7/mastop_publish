@@ -11,6 +11,11 @@
 ### =============================================================
 ###
 ### =============================================================
+
+use XoopsModules\Mastoppublish;
+/** @var Mastoppublish\Helper $helper */
+$helper = Mastoppublish\Helper::getInstance();
+
 include __DIR__ . '/../../mainfile.php';
 require_once __DIR__ . '/header.php';
 require_once XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/class/mpu_cfi_contentfiles.class.php';
@@ -27,11 +32,10 @@ if (isset($_POST)) {
         $$k = $v;
     }
 }
-if (file_exists('language/' . $xoopsConfig['language'] . '/admin.php')) {
-    require_once __DIR__ . '/language/' . $xoopsConfig['language'] . '/admin.php';
-} elseif (file_exists('language/portuguesebr/admin.php')) {
-    require_once __DIR__ . '/language/portuguesebr/admin.php';
-}
+
+/** @var Mastoppublish\Helper $helper */
+$helper = Mastoppublish\Helper::getInstance();
+$helper->loadLanguage('admin');
 if (empty($op)) {
     $op = 'listar';
 } elseif ('editar' === $op || 'limpacont' === $op || 'limpacont_ok' === $op || 'novo' === $op) {
@@ -56,7 +60,7 @@ switch ($op) {
         }
         break;
     case 'novo':
-        if (!$xoopsModuleConfig['mpu_conf_cancreate']) {
+        if (!$helper->getConfig('mpu_conf_cancreate')) {
             redirect_header(XOOPS_URL, 3, MPU_ADM_403);
         }
         $mpb_10_idpai   = $mpb_10_id;
@@ -72,13 +76,13 @@ switch ($op) {
         if (!empty($mpb_10_idpai) && empty($mpb_10_id)) {
             $mpu_classe_pai = new mpu_mpb_mpublish($mpb_10_idpai);
             if (empty($xoopsUser) || $mpu_classe_pai->getVar('usr_10_uid') != $xoopsUser->getVar('uid')
-                || !$xoopsModuleConfig['mpu_conf_cancreate']) {
+                || !$helper->getConfig('mpu_conf_cancreate')) {
                 redirect_header(XOOPS_URL, 3, MPU_ADM_403);
             }
         }
         $mpu_classe = (isset($mpb_10_id) && $mpb_10_id > 0) ? new mpu_mpb_mpublish($mpb_10_id) : new mpu_mpb_mpublish();
-        if (('' != $mpu_classe->getVar('mpb_10_id') && !$xoopsModuleConfig['mpu_conf_canedit'])
-            || ('' == $mpu_classe->getVar('mpb_10_id') && !$xoopsModuleConfig['mpu_conf_cancreate'])
+        if (('' != $mpu_classe->getVar('mpb_10_id') && !$helper->getConfig('mpu_conf_canedit'))
+            || ('' == $mpu_classe->getVar('mpb_10_id') && !$helper->getConfig('mpu_conf_cancreate'))
             || ('' != $mpu_classe->getVar('mpb_10_id')
                 && $mpu_classe->getVar('usr_10_uid') != $xoopsUser->getVar('uid'))) {
             redirect_header(XOOPS_URL, 3, MPU_ADM_403);
@@ -126,7 +130,7 @@ switch ($op) {
         }
         // no break
     case 'editar':
-        if (!$xoopsModuleConfig['mpu_conf_canedit']) {
+        if (!$helper->getConfig('mpu_conf_canedit')) {
             redirect_header(XOOPS_URL, 3, MPU_ADM_403);
         }
         $mpb_10_idpai   = $mpu_classe->getVar('mpb_10_idpai');
@@ -143,11 +147,11 @@ switch ($op) {
             || empty($mpb_10_id)
             || '' == $mpu_classe->getVar('mpb_10_id')
             || $mpu_classe->getVar('usr_10_uid') != $xoopsUser->getVar('uid')
-            || !$xoopsModuleConfig['mpu_conf_candelete']) {
+            || !$helper->getConfig('mpu_conf_candelete')) {
             redirect_header(XOOPS_URL, 3, MPU_ADM_403);
         }
         if ($mpu_classe->tem_subcategorias()) {
-            xoops_confirm(['op' => 'deletar_ok', 'mpb_10_id' => $mpb_10_id], 'author.php', sprintf(MPU_ADM_CONFIRMA_DEL_SUB, $mpb_10_id, $mpu_classe->getVar('mpb_30_menu'), $mpu_classe->contar(new Criteria('mpb_10_idpai', $mpb_10_id))));
+            xoops_confirm(['op' => 'deletar_ok', 'mpb_10_id' => $mpb_10_id], 'author.php', sprintf(MPU_ADM_CONFIRMA_DEL_SUB, $mpb_10_id, $mpu_classe->getVar('mpb_30_menu'), $mpu_classe->contar(new \Criteria('mpb_10_idpai', $mpb_10_id))));
         } else {
             xoops_confirm(['op' => 'deletar_ok', 'mpb_10_id' => $mpb_10_id], 'author.php', sprintf(MPU_ADM_CONFIRMA_DEL, $mpb_10_id, $mpu_classe->getVar('mpb_30_menu')));
         }
@@ -159,7 +163,7 @@ switch ($op) {
             || empty($mpb_10_id)
             || '' == $mpu_classe->getVar('mpb_10_id')
             || $mpu_classe->getVar('usr_10_uid') != $xoopsUser->getVar('uid')
-            || !$xoopsModuleConfig['mpu_conf_candelete']) {
+            || !$helper->getConfig('mpu_conf_candelete')) {
             redirect_header(XOOPS_URL, 3, MPU_ADM_403);
         }
         $mpu_total_deletados = 0;
@@ -168,7 +172,7 @@ switch ($op) {
         $mpu_total_deletados += $mpu_classe->afetadas;
         if ($mpu_classe->tem_subcategorias()) {
             mpu_apagaPermissoesPai($mpb_10_id);
-            $mpu_classe->deletaTodos(new Criteria('mpb_10_idpai', $mpb_10_id));
+            $mpu_classe->deletaTodos(new \Criteria('mpb_10_idpai', $mpb_10_id));
             $mpu_total_deletados += $mpu_classe->afetadas;
         }
         redirect_header($_SERVER['PHP_SELF'] . '?op=listar', 3, sprintf(MPU_ADM_DEL_SUCESS, $mpu_total_deletados));
@@ -221,18 +225,18 @@ switch ($op) {
         $c['rotulo'][7] = MPU_ADM_MPB_10_CONTADOR;
         $c['tipo'][7]   = 'none';
 
-        if ($xoopsModuleConfig['mpu_conf_cancreate']) {
+        if ($helper->getConfig('mpu_conf_cancreate')) {
             $c['botoes'][1]['link']   = XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/author.php?op=novo';
             $c['botoes'][1]['imagem'] = 'assets/images/novo.gif';
             $c['botoes'][1]['texto']  = MPU_ADM_NOVO;
         }
-        if ($xoopsModuleConfig['mpu_conf_canedit']) {
+        if ($helper->getConfig('mpu_conf_canedit')) {
             $c['botoes'][2]['link']   = XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/author.php?op=editar';
             $c['botoes'][2]['imagem'] = $pathIcon16 . 'edit.png';
             $c['botoes'][2]['texto']  = _EDIT;
         }
 
-        if ($xoopsModuleConfig['mpu_conf_candelete']) {
+        if ($helper->getConfig('mpu_conf_candelete')) {
             $c['botoes'][3]['link']   = XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/author.php?op=deletar';
             $c['botoes'][3]['imagem'] = 'assets/images/deletar.gif';
             $c['botoes'][3]['texto']  = _DELETE;

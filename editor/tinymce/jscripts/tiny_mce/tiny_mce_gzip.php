@@ -17,10 +17,10 @@
 $plugins       = explode(',', getParam('plugins', ''));
 $languages     = explode(',', getParam('languages', ''));
 $themes        = explode(',', getParam('themes', ''));
-$diskCache     = 'true' == getParam('diskcache', '');
-$isJS          = 'true' == getParam('js', '');
-$compress      = 'true' == getParam('compress', 'true');
-$suffix        = '_src' == getParam('suffix', '_src') ? '_src' : '';
+$diskCache     = 'true' === getParam('diskcache', '');
+$isJS          = 'true' === getParam('js', '');
+$compress      = 'true' === getParam('compress', 'true');
+$suffix        = '_src' === getParam('suffix', '_src') ? '_src' : '';
 $cachePath     = realpath('.'); // Cache path, this is where the .gz files will be stored
 $expiresOffset = 3600 * 24 * 10; // Cache for 10 days in browser cache
 $content       = '';

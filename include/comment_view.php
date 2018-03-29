@@ -11,13 +11,18 @@
 ### =============================================================
 ###
 ### =============================================================
+
+use XoopsModules\Mastoppublish;
+/** @var Mastoppublish\Helper $helper */
+$helper = Mastoppublish\Helper::getInstance();
+
 if (!defined('XOOPS_ROOT_PATH') || !is_object($xoopsModule)) {
     exit();
 }
 require_once XOOPS_ROOT_PATH . '/include/comment_constants.php';
 require_once XOOPS_ROOT_PATH . '/modules/system/constants.php';
 
-if (XOOPS_COMMENT_APPROVENONE != $xoopsModuleConfig['com_rule']) {
+if (XOOPS_COMMENT_APPROVENONE != $helper->getConfig('com_rule')) {
     $gpermHandler = xoops_getHandler('groupperm');
     $groups       = $xoopsUser ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
     $xoopsTpl->assign('xoops_iscommentadmin', $gpermHandler->checkRight('system_admin', XOOPS_SYSTEM_COMMENT, $groups));
@@ -157,7 +162,7 @@ if (XOOPS_COMMENT_APPROVENONE != $xoopsModuleConfig['com_rule']) {
         }
         unset($postcomment_link);
         $navbar .= '>' . _NEWESTFIRST . '</option></select><input type="hidden" name="' . $comment_config['itemName'] . '" value="' . $com_itemid . '"> <input type="submit" value="' . _CM_REFRESH . '" class="formButton">';
-        if (!empty($xoopsModuleConfig['com_anonpost']) || is_object($xoopsUser)) {
+        if (!empty($helper->getConfig('com_anonpost')) || is_object($xoopsUser)) {
             $postcomment_link = 'comment_new.php?com_itemid=' . $com_itemid . '&amp;com_order=' . $com_order . '&amp;com_mode=' . $com_mode;
 
             $xoopsTpl->assign('anon_canpost', true);

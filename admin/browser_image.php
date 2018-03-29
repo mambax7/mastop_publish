@@ -48,25 +48,25 @@ if (!is_object($xoopsUser)) {
     $admin  = (!$xoopsUser->isAdmin(1)) ? false : true;
 }
 $imgcatHandler = xoops_getHandler('imagecategory');
-$criteriaRead  = new CriteriaCompo();
+$criteriaRead  = new \CriteriaCompo();
 if (is_array($groups) && !empty($groups)) {
-    $criteriaTray = new CriteriaCompo();
+    $criteriaTray = new \CriteriaCompo();
     foreach ($groups as $gid) {
-        $criteriaTray->add(new Criteria('gperm_groupid', $gid), 'OR');
+        $criteriaTray->add(new \Criteria('gperm_groupid', $gid), 'OR');
     }
     $criteriaRead->add($criteriaTray);
-    $criteriaRead->add(new Criteria('gperm_name', 'imgcat_read'));
-    $criteriaRead->add(new Criteria('gperm_modid', 1));
+    $criteriaRead->add(new \Criteria('gperm_name', 'imgcat_read'));
+    $criteriaRead->add(new \Criteria('gperm_modid', 1));
 }
-$criteriaRead->add(new Criteria('imgcat_display', 1));
+$criteriaRead->add(new \Criteria('imgcat_display', 1));
 $imagecategorys = $imgcatHandler->getObjects($criteriaRead);
-$criteriaWrite  = new CriteriaCompo();
+$criteriaWrite  = new \CriteriaCompo();
 if (is_array($groups) && !empty($groups)) {
     $criteriaWrite->add($criteriaTray);
-    $criteriaWrite->add(new Criteria('gperm_name', 'imgcat_read'));
-    $criteriaWrite->add(new Criteria('gperm_modid', 1));
+    $criteriaWrite->add(new \Criteria('gperm_name', 'imgcat_read'));
+    $criteriaWrite->add(new \Criteria('gperm_modid', 1));
 }
-$criteriaWrite->add(new Criteria('imgcat_display', 1));
+$criteriaWrite->add(new \Criteria('imgcat_display', 1));
 $imagecategorysWrite = $imgcatHandler->getObjects($criteriaWrite);
 $readCount           = count($imagecategorys);
 $writeCount          = count($imagecategorysWrite);
@@ -94,10 +94,10 @@ if ('updatecat' === $op && $admin) {
         exit();
     }
     $imagecategorypermHandler = xoops_getHandler('groupperm');
-    $criteria                 = new CriteriaCompo(new Criteria('gperm_itemid', $imgcat_id));
-    $criteria->add(new Criteria('gperm_modid', 1));
-    $criteria2 = new CriteriaCompo(new Criteria('gperm_name', 'imgcat_write'));
-    $criteria2->add(new Criteria('gperm_name', 'imgcat_read'), 'OR');
+    $criteria                 = new \CriteriaCompo(new \Criteria('gperm_itemid', $imgcat_id));
+    $criteria->add(new \Criteria('gperm_modid', 1));
+    $criteria2 = new \CriteriaCompo(new \Criteria('gperm_name', 'imgcat_write'));
+    $criteria2->add(new \Criteria('gperm_name', 'imgcat_read'), 'OR');
     $criteria->add($criteria2);
     $imagecategorypermHandler->deleteAll($criteria);
     if (!isset($readgroup)) {
@@ -198,7 +198,7 @@ if ('delcatok' === $op && $admin) {
         redirect_header($_SERVER['PHP_SELF'], 1);
     }
     $imageHandler = xoops_getHandler('image');
-    $images       = $imageHandler->getObjects(new Criteria('imgcat_id', $imgcat_id), true, false);
+    $images       = $imageHandler->getObjects(new \Criteria('imgcat_id', $imgcat_id), true, false);
     $errors       = [];
     foreach (array_keys($images) as $i) {
         $imageHandler->delete($images[$i]);
@@ -253,7 +253,7 @@ if ('delcatok' === $op && $admin) {
         <?php if ($readCount > 0) {
     ?>
         <li id="gerenciador_tab" <?php echo ('listimg' === $op || 'editcat' === $op || 'delcat' === $op
-                                             || 'list' == $op) ? ' class="current"' : ''; ?>>
+                                             || 'list' === $op) ? ' class="current"' : ''; ?>>
                 <span><a href="javascript:mcTabs.displayTab('gerenciador_tab','gerenciador_panel');"
                          onmousedown="return false;">{$lang_browser_ger_imagens}</a></span></li><?php
 } ?>
@@ -290,20 +290,20 @@ if ('delcatok' === $op && $admin) {
                 redirect_header($_SERVER['PHP_SELF'], 1);
             }
             $imagecategorypermHandler = xoops_getHandler('groupperm');
-            $form                     = new XoopsThemeForm(_MD_EDITIMGCAT, 'imagecat_form', $_SERVER['PHP_SELF'], 'post', true);
-            $form->addElement(new XoopsFormText(_MD_IMGCATNAME, 'imgcat_name', 50, 255, $imagecategory->getVar('imgcat_name')), true);
-            $form->addElement(new XoopsFormSelectGroup(_MD_IMGCATRGRP, 'readgroup', true, $imagecategorypermHandler->getGroupIds('imgcat_read', $imgcat_id), 5, true));
-            $form->addElement(new XoopsFormSelectGroup(_MD_IMGCATWGRP, 'writegroup', true, $imagecategorypermHandler->getGroupIds('imgcat_write', $imgcat_id), 5, true));
-            $form->addElement(new XoopsFormText(_IMGMAXSIZE, 'imgcat_maxsize', 10, 10, $imagecategory->getVar('imgcat_maxsize')));
-            $form->addElement(new XoopsFormText(_IMGMAXWIDTH, 'imgcat_maxwidth', 3, 4, $imagecategory->getVar('imgcat_maxwidth')));
-            $form->addElement(new XoopsFormText(_IMGMAXHEIGHT, 'imgcat_maxheight', 3, 4, $imagecategory->getVar('imgcat_maxheight')));
-            $form->addElement(new XoopsFormText(_MD_IMGCATWEIGHT, 'imgcat_weight', 3, 4, $imagecategory->getVar('imgcat_weight')));
-            $form->addElement(new XoopsFormRadioYN(_MD_IMGCATDISPLAY, 'imgcat_display', $imagecategory->getVar('imgcat_display'), _YES, _NO));
+            $form                     = new \XoopsThemeForm(_MD_EDITIMGCAT, 'imagecat_form', $_SERVER['PHP_SELF'], 'post', true);
+            $form->addElement(new \XoopsFormText(_MD_IMGCATNAME, 'imgcat_name', 50, 255, $imagecategory->getVar('imgcat_name')), true);
+            $form->addElement(new \XoopsFormSelectGroup(_MD_IMGCATRGRP, 'readgroup', true, $imagecategorypermHandler->getGroupIds('imgcat_read', $imgcat_id), 5, true));
+            $form->addElement(new \XoopsFormSelectGroup(_MD_IMGCATWGRP, 'writegroup', true, $imagecategorypermHandler->getGroupIds('imgcat_write', $imgcat_id), 5, true));
+            $form->addElement(new \XoopsFormText(_IMGMAXSIZE, 'imgcat_maxsize', 10, 10, $imagecategory->getVar('imgcat_maxsize')));
+            $form->addElement(new \XoopsFormText(_IMGMAXWIDTH, 'imgcat_maxwidth', 3, 4, $imagecategory->getVar('imgcat_maxwidth')));
+            $form->addElement(new \XoopsFormText(_IMGMAXHEIGHT, 'imgcat_maxheight', 3, 4, $imagecategory->getVar('imgcat_maxheight')));
+            $form->addElement(new \XoopsFormText(_MD_IMGCATWEIGHT, 'imgcat_weight', 3, 4, $imagecategory->getVar('imgcat_weight')));
+            $form->addElement(new \XoopsFormRadioYN(_MD_IMGCATDISPLAY, 'imgcat_display', $imagecategory->getVar('imgcat_display'), _YES, _NO));
             $storetype = ['db' => _MD_INDB, 'file' => _MD_ASFILE];
-            $form->addElement(new XoopsFormLabel(_MD_IMGCATSTRTYPE, $storetype[$imagecategory->getVar('imgcat_storetype')]));
-            $form->addElement(new XoopsFormHidden('imgcat_id', $imgcat_id));
-            $form->addElement(new XoopsFormHidden('op', 'updatecat'));
-            $form->addElement(new XoopsFormButton('', 'imgcat_button', _SUBMIT, 'submit'));
+            $form->addElement(new \XoopsFormLabel(_MD_IMGCATSTRTYPE, $storetype[$imagecategory->getVar('imgcat_storetype')]));
+            $form->addElement(new \XoopsFormHidden('imgcat_id', $imgcat_id));
+            $form->addElement(new \XoopsFormHidden('op', 'updatecat'));
+            $form->addElement(new \XoopsFormButton('', 'imgcat_button', _SUBMIT, 'submit'));
             echo '<a href="' . $_SERVER['PHP_SELF'] . '">' . _MD_IMGMAIN . '</a>&nbsp;<span style="font-weight:bold;">&raquo;&raquo;</span>&nbsp;' . $imagecategory->getVar('imgcat_name') . '<br><br>';
             $form->display();
         } elseif ('listimg' === $op) {
@@ -314,7 +314,7 @@ if ('delcatok' === $op && $admin) {
             }
             $imageHandler = xoops_getHandler('image');
             echo '<h4><a href="' . $_SERVER['PHP_SELF'] . '">' . _MD_IMGMAIN . '</a>&nbsp;<span style="font-weight:bold;">&raquo;&raquo;</span>&nbsp;' . $imagecategory->getVar('imgcat_name') . '</h4><br><br>';
-            $criteria = new Criteria('imgcat_id', $imgcat_id);
+            $criteria = new \Criteria('imgcat_id', $imgcat_id);
             $imgcount = $imageHandler->getCount($criteria);
             $start    = isset($_GET['start']) ? (int)$_GET['start'] : 0;
             $criteria->setStart($start);
@@ -350,7 +350,7 @@ if ('delcatok' === $op && $admin) {
             if ($imgcount > 0) {
                 if ($imgcount > 20) {
                     require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
-                    $nav = new XoopsPageNav($imgcount, 20, $start, 'start', 'op=listimg&amp;imgcat_id=' . $imgcat_id);
+                    $nav = new \XoopsPageNav($imgcount, 20, $start, 'start', 'op=listimg&amp;imgcat_id=' . $imgcat_id);
                     echo '<div style="text-align:right">' . $nav->renderNav() . '</div>';
                 }
             }
@@ -359,7 +359,7 @@ if ('delcatok' === $op && $admin) {
             $catcount     = count($imagecategorys);
             $imageHandler = xoops_getHandler('image');
             for ($i = 0; $i < $catcount; ++$i) {
-                $count = $imageHandler->getCount(new Criteria('imgcat_id', $imagecategorys[$i]->getVar('imgcat_id')));
+                $count = $imageHandler->getCount(new \Criteria('imgcat_id', $imagecategorys[$i]->getVar('imgcat_id')));
                 echo '<li>' . $imagecategorys[$i]->getVar('imgcat_name') . ' (' . sprintf(_NUMIMAGES, '<b>' . $count . '</b>') . ')';
                 echo ($count > 0) ? ' [<a href="' . $_SERVER['PHP_SELF'] . '?op=listimg&amp;imgcat_id=' . $imagecategorys[$i]->getVar('imgcat_id') . '">' . _LIST . '</a>]' : '';
                 echo $admin ? ' [<a href="' . $_SERVER['PHP_SELF'] . '?op=editcat&amp;imgcat_id=' . $imagecategorys[$i]->getVar('imgcat_id') . '">' . _EDIT . '</a>]' : '';
@@ -378,20 +378,20 @@ if ('delcatok' === $op && $admin) {
             <div id="nova_catcontainer">
                 <h3><?= _MD_ADDIMGCAT; ?></h3>
                 <?php
-                $form = new XoopsThemeForm('', 'imagecat_form', $_SERVER['PHP_SELF'], 'post', true);
-                                                 $form->addElement(new XoopsFormText(_MD_IMGCATNAME, 'imgcat_name', 50, 255), true);
-                                                 $form->addElement(new XoopsFormSelectGroup(_MD_IMGCATRGRP, 'readgroup', true, XOOPS_GROUP_ADMIN, 5, true));
-                                                 $form->addElement(new XoopsFormSelectGroup(_MD_IMGCATWGRP, 'writegroup', true, XOOPS_GROUP_ADMIN, 5, true));
-                                                 $form->addElement(new XoopsFormText(_IMGMAXSIZE, 'imgcat_maxsize', 10, 10, 50000));
-                                                 $form->addElement(new XoopsFormText(_IMGMAXWIDTH, 'imgcat_maxwidth', 3, 4, 120));
-                                                 $form->addElement(new XoopsFormText(_IMGMAXHEIGHT, 'imgcat_maxheight', 3, 4, 120));
-                                                 $form->addElement(new XoopsFormText(_MD_IMGCATWEIGHT, 'imgcat_weight', 3, 4, 0));
-                                                 $form->addElement(new XoopsFormRadioYN(_MD_IMGCATDISPLAY, 'imgcat_display', 1, _YES, _NO));
-                                                 $storetype = new XoopsFormRadio(_MD_IMGCATSTRTYPE . '<br><span style="color:#ff0000;">' . _MD_STRTYOPENG . '</span>', 'imgcat_storetype', 'file');
+                $form = new \XoopsThemeForm('', 'imagecat_form', $_SERVER['PHP_SELF'], 'post', true);
+                                                 $form->addElement(new \XoopsFormText(_MD_IMGCATNAME, 'imgcat_name', 50, 255), true);
+                                                 $form->addElement(new \XoopsFormSelectGroup(_MD_IMGCATRGRP, 'readgroup', true, XOOPS_GROUP_ADMIN, 5, true));
+                                                 $form->addElement(new \XoopsFormSelectGroup(_MD_IMGCATWGRP, 'writegroup', true, XOOPS_GROUP_ADMIN, 5, true));
+                                                 $form->addElement(new \XoopsFormText(_IMGMAXSIZE, 'imgcat_maxsize', 10, 10, 50000));
+                                                 $form->addElement(new \XoopsFormText(_IMGMAXWIDTH, 'imgcat_maxwidth', 3, 4, 120));
+                                                 $form->addElement(new \XoopsFormText(_IMGMAXHEIGHT, 'imgcat_maxheight', 3, 4, 120));
+                                                 $form->addElement(new \XoopsFormText(_MD_IMGCATWEIGHT, 'imgcat_weight', 3, 4, 0));
+                                                 $form->addElement(new \XoopsFormRadioYN(_MD_IMGCATDISPLAY, 'imgcat_display', 1, _YES, _NO));
+                                                 $storetype = new \XoopsFormRadio(_MD_IMGCATSTRTYPE . '<br><span style="color:#ff0000;">' . _MD_STRTYOPENG . '</span>', 'imgcat_storetype', 'file');
                                                  $storetype->addOptionArray(['file' => _MD_ASFILE, 'db' => _MD_INDB]);
                                                  $form->addElement($storetype);
-                                                 $form->addElement(new XoopsFormHidden('op', 'addcat'));
-                                                 $form->addElement(new XoopsFormButton('', 'imgcat_button', _SUBMIT, 'submit'));
+                                                 $form->addElement(new \XoopsFormHidden('op', 'addcat'));
+                                                 $form->addElement(new \XoopsFormButton('', 'imgcat_button', _SUBMIT, 'submit'));
                                                  $form->display(); ?>
                 <p>&nbsp;</p>
             </div>
@@ -411,7 +411,7 @@ if ('delcatok' === $op && $admin) {
                     redirect_header($_SERVER['PHP_SELF'], 1);
                 }
                 require_once XOOPS_ROOT_PATH . '/class/uploader.php';
-                $uploader = new XoopsMediaUploader(XOOPS_UPLOAD_PATH, [
+                $uploader = new \XoopsMediaUploader(XOOPS_UPLOAD_PATH, [
                     'image/gif',
                     'image/jpeg',
                     'image/pjpeg',
@@ -489,17 +489,17 @@ if ('delcatok' === $op && $admin) {
                                                  echo '<h3>' . _ADDIMAGE . '</h3>';
                                                  $catcount = count($imagecategorysWrite);
                                                  if (!empty($catcount)) {
-                                                     $form = new XoopsThemeForm('', 'image_form', $_SERVER['PHP_SELF'], 'post', true);
+                                                     $form = new \XoopsThemeForm('', 'image_form', $_SERVER['PHP_SELF'], 'post', true);
                                                      $form->setExtra('enctype="multipart/form-data"');
-                                                     $form->addElement(new XoopsFormText(_IMAGENAME, 'image_nicename', 50, 255), true);
-                                                     $select = new XoopsFormSelect(_IMAGECAT, 'imgcat_id');
+                                                     $form->addElement(new \XoopsFormText(_IMAGENAME, 'image_nicename', 50, 255), true);
+                                                     $select = new \XoopsFormSelect(_IMAGECAT, 'imgcat_id');
                                                      $select->addOptionArray($imgcatHandler->getList($groups, 'imgcat_write', 1));
                                                      $form->addElement($select, true);
-                                                     $form->addElement(new XoopsFormFile(_IMAGEFILE, 'image_file', 5000000));
-                                                     $form->addElement(new XoopsFormText(_IMGWEIGHT, 'image_weight', 3, 4, 0));
-                                                     $form->addElement(new XoopsFormRadioYN(_IMGDISPLAY, 'image_display', 1, _YES, _NO));
-                                                     $form->addElement(new XoopsFormHidden('op', 'addfile'));
-                                                     $form->addElement(new XoopsFormButton('', 'img_button', _SUBMIT, 'submit'));
+                                                     $form->addElement(new \XoopsFormFile(_IMAGEFILE, 'image_file', 5000000));
+                                                     $form->addElement(new \XoopsFormText(_IMGWEIGHT, 'image_weight', 3, 4, 0));
+                                                     $form->addElement(new \XoopsFormRadioYN(_IMGDISPLAY, 'image_display', 1, _YES, _NO));
+                                                     $form->addElement(new \XoopsFormHidden('op', 'addfile'));
+                                                     $form->addElement(new \XoopsFormButton('', 'img_button', _SUBMIT, 'submit'));
                                                      $form->display();
                                                  } else {
                                                      echo MPU_ADM_BROWSER_IMGERRO_NOCAT;

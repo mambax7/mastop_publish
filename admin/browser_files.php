@@ -13,11 +13,15 @@
 ###
 ### =============================================================
 
+use XoopsModules\Mastoppublish;
+/** @var Mastoppublish\Helper $helper */
+$helper = Mastoppublish\Helper::getInstance();
+
 require_once __DIR__ . '/admin_header.php';
 require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 $op              = empty($_GET['op']) ? 'list' : $_GET['op'];
 $op              = empty($_POST['op']) ? $op : $_POST['op'];
-$mpb_wysiwyg_url = XOOPS_URL . $xoopsModuleConfig['mpu_conf_wysiwyg_path'];
+$mpb_wysiwyg_url = XOOPS_URL . $helper->getConfig('mpu_conf_wysiwyg_path');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -71,9 +75,9 @@ $mpb_wysiwyg_url = XOOPS_URL . $xoopsModuleConfig['mpu_conf_wysiwyg_path'];
         if ('listfil' === $op) {
             $fil_30_mime = $_GET['fil_30_mime'];
             $fil_classe  = new mpu_fil_files();
-            $criterio    = new CriteriaCompo(new Criteria('fil_30_mime', $fil_30_mime));
+            $criterio    = new \CriteriaCompo(new \Criteria('fil_30_mime', $fil_30_mime));
             if (!empty($_GET['fil_30_nome'])) {
-                $criterio->add(new Criteria('fil_30_nome', '%' . $_GET['fil_30_nome'] . '%', 'LIKE'));
+                $criterio->add(new \Criteria('fil_30_nome', '%' . $_GET['fil_30_nome'] . '%', 'LIKE'));
             }
             $start = isset($_GET['start']) ? (int)$_GET['start'] : 0;
             $criterio->setStart($start);
@@ -129,7 +133,7 @@ $mpb_wysiwyg_url = XOOPS_URL . $xoopsModuleConfig['mpu_conf_wysiwyg_path'];
                 if ($files_total > 0) {
                     if ($files_total > 20) {
                         require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
-                        $nav = new XoopsPageNav($files_total, 20, $start, 'start', 'op=listfil&amp;fil_30_mime=' . $fil_30_mime . ((!empty($_GET['fil_30_nome'])) ? '&amp;fil_30_nome=' . $_GET['fil_30_nome'] : ''));
+                        $nav = new \XoopsPageNav($files_total, 20, $start, 'start', 'op=listfil&amp;fil_30_mime=' . $fil_30_mime . ((!empty($_GET['fil_30_nome'])) ? '&amp;fil_30_nome=' . $_GET['fil_30_nome'] : ''));
                         echo '<div style="text-align:right">' . $nav->renderNav() . '</div>';
                     }
                 }
@@ -143,7 +147,7 @@ $mpb_wysiwyg_url = XOOPS_URL . $xoopsModuleConfig['mpu_conf_wysiwyg_path'];
                 foreach ($mimes as $k => $v) {
                     $tipos_select .= "<option value='" . $k . "' " . ((!empty($_GET['fil_30_mime'])
                                                                        && $_GET['fil_30_mime'] == $k) ? 'selected' : '') . '>' . $v . '</option>';
-                    $files_count  = $fil_classe->contar(new Criteria('fil_30_mime', $k));
+                    $files_count  = $fil_classe->contar(new \Criteria('fil_30_mime', $k));
                     echo '<li>' . $v . ' (<b>' . $files_count . '</b> ' . MPU_ADM_BROWSER_GER_FIL . ') ' . (($files_count > 0) ? '[<a href="' . $_SERVER['PHP_SELF'] . '?op=listfil&amp;fil_30_mime=' . $k . '">' . _LIST . '</a>]</li>' : '');
                 }
                 echo '</ul>';
@@ -179,7 +183,7 @@ $mpb_wysiwyg_url = XOOPS_URL . $xoopsModuleConfig['mpu_conf_wysiwyg_path'];
             $file_nome = get_magic_quotes_gpc() ? stripslashes($file_nome['name']) : $file_nome['name'];
             if (xoops_trim('' != $file_nome)) {
                 require_once XOOPS_ROOT_PATH . '/class/uploader.php';
-                $uploader = new XoopsMediaUploader(MPU_FILES_PATH, $xoopsModuleConfig['mpu_conf_mimetypes'], $xoopsModuleConfig['mpu_mmax_filesize'] * 1024);
+                $uploader = new \XoopsMediaUploader(MPU_FILES_PATH, $helper->getConfig('mpu_conf_mimetypes'), $helper->getConfig('mpu_mmax_filesize') * 1024);
                 $uploader->setPrefix('files_');
                 if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
                     if ($uploader->upload()) {
@@ -234,19 +238,19 @@ $mpb_wysiwyg_url = XOOPS_URL . $xoopsModuleConfig['mpu_conf_wysiwyg_path'];
         }
         echo '<h4>' . MPU_ADM_NFILE . '</h4>';
         $fil_classe = new mpu_fil_files();
-        $fil_form   = new XoopsThemeForm('', 'mpu_fil_form', $_SERVER['PHP_SELF'], 'post', true);
+        $fil_form   = new \XoopsThemeForm('', 'mpu_fil_form', $_SERVER['PHP_SELF'], 'post', true);
         $fil_form->setExtra('enctype="multipart/form-data"');
-        $fil_form->addElement(new XoopsFormText(MPU_ADM_FIL_30_NOME, 'fil_30_nome', 50, 50, $fil_classe->getVar('fil_30_nome')), true);
-        $fil_arquivo  = new XoopsFormFile('', 'fil_30_arquivo', $xoopsModuleConfig['mpu_max_filesize'] * 1024);
-        $arquivo_tray = new XoopsFormElementTray(MPU_ADM_FIL_30_ARQUIVO, '&nbsp;');
+        $fil_form->addElement(new \XoopsFormText(MPU_ADM_FIL_30_NOME, 'fil_30_nome', 50, 50, $fil_classe->getVar('fil_30_nome')), true);
+        $fil_arquivo  = new \XoopsFormFile('', 'fil_30_arquivo', $helper->getConfig('mpu_max_filesize') * 1024);
+        $arquivo_tray = new \XoopsFormElementTray(MPU_ADM_FIL_30_ARQUIVO, '&nbsp;');
         $arquivo_tray->addElement($fil_arquivo);
         $fil_form->addElement($arquivo_tray);
-        $fil_form->addElement(new XoopsFormRadioYN(MPU_ADM_FIL_12_EXIBIR, 'fil_12_exibir', $fil_classe->getVar('fil_12_exibir')));
-        $fil_form->addElement(new XoopsFormHidden('fil_10_id', $fil_classe->getVar('fil_10_id')));
-        $fil_form->addElement(new XoopsFormHidden('op', 'addfile'));
-        $fil_botoes_tray  = new XoopsFormElementTray('', '&nbsp;&nbsp;');
-        $fil_botao_cancel = new XoopsFormButton('', 'cancelar', _CANCEL);
-        $fil_botoes_tray->addElement(new XoopsFormButton('', 'submit', _SUBMIT, 'submit'));
+        $fil_form->addElement(new \XoopsFormRadioYN(MPU_ADM_FIL_12_EXIBIR, 'fil_12_exibir', $fil_classe->getVar('fil_12_exibir')));
+        $fil_form->addElement(new \XoopsFormHidden('fil_10_id', $fil_classe->getVar('fil_10_id')));
+        $fil_form->addElement(new \XoopsFormHidden('op', 'addfile'));
+        $fil_botoes_tray  = new \XoopsFormElementTray('', '&nbsp;&nbsp;');
+        $fil_botao_cancel = new \XoopsFormButton('', 'cancelar', _CANCEL);
+        $fil_botoes_tray->addElement(new \XoopsFormButton('', 'submit', _SUBMIT, 'submit'));
         $fil_botao_cancel->setExtra("onclick=\"document.location= '" . XOOPS_URL . '/modules/' . MPU_MOD_DIR . "/admin/files.php'\"");
         $fil_botoes_tray->addElement($fil_botao_cancel);
         $fil_form->addElement($fil_botoes_tray);

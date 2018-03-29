@@ -11,14 +11,19 @@
 ### =============================================================
 ###
 ### =============================================================
-// defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
+
+use XoopsModules\Mastoppublish;
+/** @var Mastoppublish\Helper $helper */
+$helper = Mastoppublish\Helper::getInstance();
+
+// defined('XOOPS_ROOT_PATH') || die('Restricted access');
 require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
-$feedbackform = new XoopsThemeForm($form['titulo'], 'mpu_feedbackform', $_SERVER['PHP_SELF'], 'post', true);
-$feedbackform->addElement(new XoopsFormText(MPU_ADM_YNAME, 'yname', 35, 50, $xoopsUser->getVar('name')));
-$feedbackform->addElement(new XoopsFormText(MPU_ADM_YEMAIL, 'yemail', 35, 50, $xoopsConfig['adminmail']));
-$feedbackform->addElement(new XoopsFormText(MPU_ADM_YSITE, 'ydomain', 35, 50, XOOPS_URL));
-$feedback_category_tray = new XoopsFormElementTray(MPU_ADM_FEEDTYPE, '&nbsp;&nbsp;&nbsp;');
-$category_select        = new XoopsFormSelect('', 'feedback_type', MPU_ADM_TSUGGESTION);
+$feedbackform = new \XoopsThemeForm($form['titulo'], 'mpu_feedbackform', $_SERVER['PHP_SELF'], 'post', true);
+$feedbackform->addElement(new \XoopsFormText(MPU_ADM_YNAME, 'yname', 35, 50, $xoopsUser->getVar('name')));
+$feedbackform->addElement(new \XoopsFormText(MPU_ADM_YEMAIL, 'yemail', 35, 50, $xoopsConfig['adminmail']));
+$feedbackform->addElement(new \XoopsFormText(MPU_ADM_YSITE, 'ydomain', 35, 50, XOOPS_URL));
+$feedback_category_tray = new \XoopsFormElementTray(MPU_ADM_FEEDTYPE, '&nbsp;&nbsp;&nbsp;');
+$category_select        = new \XoopsFormSelect('', 'feedback_type', MPU_ADM_TSUGGESTION);
 $category_select->addOptionArray([
                                      MPU_ADM_TSUGGESTION => MPU_ADM_TSUGGESTION,
                                      MPU_ADM_TBUGS       => MPU_ADM_TBUGS,
@@ -27,13 +32,13 @@ $category_select->addOptionArray([
                                      MPU_ADM_TOTHERS     => MPU_ADM_TOTHERS
                                  ]);
 $feedback_category_tray->addElement($category_select);
-$feedback_category_tray->addElement(new XoopsFormText(MPU_ADM_TOTHERS, 'feedback_other', 25, 50));
+$feedback_category_tray->addElement(new \XoopsFormText(MPU_ADM_TOTHERS, 'feedback_other', 25, 50));
 $feedbackform->addElement($feedback_category_tray);
-if (!$xoopsModuleConfig['mpu_conf_wysiwyg']) {
-    $feedbackform->addElement(new XoopsFormDhtmlTextArea(MPU_ADM_DESC, 'feedback_content'));
+if (!$helper->getConfig('mpu_conf_wysiwyg')) {
+    $feedbackform->addElement(new \XoopsFormDhtmlTextArea(MPU_ADM_DESC, 'feedback_content'));
 } else {
-    $feedbackwysiwyg_url = XOOPS_URL . $xoopsModuleConfig['mpu_conf_wysiwyg_path'];
-    if ($xoopsModuleConfig['mpu_conf_gzip']) {
+    $feedbackwysiwyg_url = XOOPS_URL . $helper->getConfig('mpu_conf_wysiwyg_path');
+    if ($helper->getConfig('mpu_conf_gzip')) {
         echo '
         <!-- TinyMCE -->
 <script language="javascript" type="text/javascript" src="'
@@ -42,11 +47,11 @@ if (!$xoopsModuleConfig['mpu_conf_wysiwyg']) {
 <script language="javascript" type="text/javascript">
 tinyMCE_GZ.init({
     plugins : "'
-             . $xoopsModuleConfig['mpu_conf_wysiwyg_plugins']
+             . $helper->getConfig('mpu_conf_wysiwyg_plugins')
              . '",
         themes : "advanced",
         languages : "'
-             . $xoopsModuleConfig['mpu_conf_wysiwyg_lang']
+             . $helper->getConfig('mpu_conf_wysiwyg_lang')
              . '",
         disk_cache : true,
         debug : false
@@ -57,34 +62,34 @@ tinyMCE_GZ.init({
         mode : "textareas",
         theme : "advanced",
         language : "'
-             . $xoopsModuleConfig['mpu_conf_wysiwyg_lang']
+             . $helper->getConfig('mpu_conf_wysiwyg_lang')
              . '",
         editor_selector : "mpu_wysiwyg",
         disk_cache : true,
         debug : false,
         plugins : "'
-             . $xoopsModuleConfig['mpu_conf_wysiwyg_plugins']
+             . $helper->getConfig('mpu_conf_wysiwyg_plugins')
              . '",
         theme_advanced_buttons1_add_before : "'
-             . $xoopsModuleConfig['mpu_conf_wysiwyg_bt1b']
+             . $helper->getConfig('mpu_conf_wysiwyg_bt1b')
              . '",
         theme_advanced_buttons1_add : "'
-             . $xoopsModuleConfig['mpu_conf_wysiwyg_bt1']
+             . $helper->getConfig('mpu_conf_wysiwyg_bt1')
              . '",
         theme_advanced_buttons2_add : "'
-             . $xoopsModuleConfig['mpu_conf_wysiwyg_bt2']
+             . $helper->getConfig('mpu_conf_wysiwyg_bt2')
              . '",
         theme_advanced_buttons2_add_before: "'
-             . $xoopsModuleConfig['mpu_conf_wysiwyg_bt2b']
+             . $helper->getConfig('mpu_conf_wysiwyg_bt2b')
              . '",
         theme_advanced_buttons3_add_before : "'
-             . $xoopsModuleConfig['mpu_conf_wysiwyg_bt3b']
+             . $helper->getConfig('mpu_conf_wysiwyg_bt3b')
              . '",
         theme_advanced_buttons3_add : "'
-             . $xoopsModuleConfig['mpu_conf_wysiwyg_bt3']
+             . $helper->getConfig('mpu_conf_wysiwyg_bt3')
              . '",
         theme_advanced_buttons4 : "'
-             . $xoopsModuleConfig['mpu_conf_wysiwyg_bt4']
+             . $helper->getConfig('mpu_conf_wysiwyg_bt4')
              . '",
         theme_advanced_toolbar_location : "top",
         theme_advanced_toolbar_align : "left",
@@ -95,10 +100,10 @@ tinyMCE_GZ.init({
              . $GLOBALS['xoopsConfig']['theme_set']
              . '/style.css",
         plugin_insertdate_dateFormat : "'
-             . $xoopsModuleConfig['mpu_conf_wysiwyg_frmtdata']
+             . $helper->getConfig('mpu_conf_wysiwyg_frmtdata')
              . '",
         plugin_insertdate_timeFormat : "'
-             . $xoopsModuleConfig['mpu_conf_wysiwyg_frmthora']
+             . $helper->getConfig('mpu_conf_wysiwyg_frmthora')
              . '",
         extended_valid_elements : "hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style]",
         external_link_list_url : "'
@@ -266,34 +271,34 @@ tinyMCE.init({
         mode : "textareas",
         theme : "advanced",
         language : "'
-             . $xoopsModuleConfig['mpu_conf_wysiwyg_lang']
+             . $helper->getConfig('mpu_conf_wysiwyg_lang')
              . '",
         editor_selector : "mpu_wysiwyg",
         disk_cache : true,
         debug : false,
         plugins : "'
-             . $xoopsModuleConfig['mpu_conf_wysiwyg_plugins']
+             . $helper->getConfig('mpu_conf_wysiwyg_plugins')
              . '",
         theme_advanced_buttons1_add_before : "'
-             . $xoopsModuleConfig['mpu_conf_wysiwyg_bt1b']
+             . $helper->getConfig('mpu_conf_wysiwyg_bt1b')
              . '",
         theme_advanced_buttons1_add : "'
-             . $xoopsModuleConfig['mpu_conf_wysiwyg_bt1']
+             . $helper->getConfig('mpu_conf_wysiwyg_bt1')
              . '",
         theme_advanced_buttons2_add : "'
-             . $xoopsModuleConfig['mpu_conf_wysiwyg_bt2']
+             . $helper->getConfig('mpu_conf_wysiwyg_bt2')
              . '",
         theme_advanced_buttons2_add_before: "'
-             . $xoopsModuleConfig['mpu_conf_wysiwyg_bt2b']
+             . $helper->getConfig('mpu_conf_wysiwyg_bt2b')
              . '",
         theme_advanced_buttons3_add_before : "'
-             . $xoopsModuleConfig['mpu_conf_wysiwyg_bt3b']
+             . $helper->getConfig('mpu_conf_wysiwyg_bt3b')
              . '",
         theme_advanced_buttons3_add : "'
-             . $xoopsModuleConfig['mpu_conf_wysiwyg_bt3']
+             . $helper->getConfig('mpu_conf_wysiwyg_bt3')
              . '",
         theme_advanced_buttons4 : "'
-             . $xoopsModuleConfig['mpu_conf_wysiwyg_bt4']
+             . $helper->getConfig('mpu_conf_wysiwyg_bt4')
              . '",
         theme_advanced_toolbar_location : "top",
         theme_advanced_toolbar_align : "left",
@@ -304,10 +309,10 @@ tinyMCE.init({
              . $GLOBALS['xoopsConfig']['theme_set']
              . '/style.css",
         plugin_insertdate_dateFormat : "'
-             . $xoopsModuleConfig['mpu_conf_wysiwyg_frmtdata']
+             . $helper->getConfig('mpu_conf_wysiwyg_frmtdata')
              . '",
         plugin_insertdate_timeFormat : "'
-             . $xoopsModuleConfig['mpu_conf_wysiwyg_frmthora']
+             . $helper->getConfig('mpu_conf_wysiwyg_frmthora')
              . '",
         extended_valid_elements : "hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style]",
         external_link_list_url : "'
@@ -463,14 +468,14 @@ tinyMCE.init({
 </script>
 <!-- /TinyMCE -->';
     }
-    $textarea = new XoopsFormTextArea(MPU_ADM_DESC, 'feedback_content', '', 20);
+    $textarea = new \XoopsFormTextArea(MPU_ADM_DESC, 'feedback_content', '', 20);
     $textarea->setExtra("style='width: 100%' class='mpu_wysiwyg'");
     $feedbackform->addElement($textarea);
 }
-$feedbackform->addElement(new XoopsFormHidden('op', $form['op']));
-$feedbackbotoes_tray  = new XoopsFormElementTray('', '&nbsp;&nbsp;');
-$feedbackbotao_cancel = new XoopsFormButton('', 'cancelar', _CANCEL);
-$feedbackbotoes_tray->addElement(new XoopsFormButton('', 'submit', _SUBMIT, 'submit'));
+$feedbackform->addElement(new \XoopsFormHidden('op', $form['op']));
+$feedbackbotoes_tray  = new \XoopsFormElementTray('', '&nbsp;&nbsp;');
+$feedbackbotao_cancel = new \XoopsFormButton('', 'cancelar', _CANCEL);
+$feedbackbotoes_tray->addElement(new \XoopsFormButton('', 'submit', _SUBMIT, 'submit'));
 $feedbackbotao_cancel->setExtra("onclick=\"document.location= '" . XOOPS_URL . '/modules/' . MPU_MOD_DIR . "/admin/index.php'\"");
 $feedbackbotoes_tray->addElement($feedbackbotao_cancel);
 $feedbackform->addElement($feedbackbotoes_tray);

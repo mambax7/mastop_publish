@@ -17,7 +17,7 @@ class mpu_fil_files extends mpu_geral
 {
     public function __construct($id = null)
     {
-        $this->db     = XoopsDatabaseFactory::getDatabaseConnection();
+        $this->db     = \XoopsDatabaseFactory::getDatabaseConnection();
         $this->tabela = $this->db->prefix(MPU_MOD_TABELA2);
         $this->id     = 'fil_10_id';
         $this->initVar('fil_10_id', XOBJ_DTYPE_INT);
@@ -53,8 +53,8 @@ class mpu_fil_files extends mpu_geral
         $resultado   = $this->db->query($sql);
         $this->total = $this->db->getRowsNum($resultado);
         if ($this->total > 0) {
-            while ($linha = $this->db->fetchArray($resultado)) {
-                $ext                        = ('.' == substr($linha['fil_30_arquivo'], -4, 1)) ? substr($linha['fil_30_arquivo'], -4) : substr($linha['fil_30_arquivo'], -5);
+            while (false !== ($linha = $this->db->fetchArray($resultado))) {
+                $ext                        = ('.' === substr($linha['fil_30_arquivo'], -4, 1)) ? substr($linha['fil_30_arquivo'], -4) : substr($linha['fil_30_arquivo'], -5);
                 $ret[$linha['fil_30_mime']] = $linha['fil_30_mime'] . ' (' . $ext . ')';
             }
 

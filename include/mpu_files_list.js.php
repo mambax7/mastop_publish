@@ -19,13 +19,13 @@ $ret = '';
 if (!is_object($xoopsUser) || !$xoopsUserIsAdmin) {
     die('Oops!');
 }
-$criterio = new CriteriaCompo(new Criteria('fil_12_exibir', 1));
+$criterio = new \CriteriaCompo(new \Criteria('fil_12_exibir', 1));
 $criterio->setSort('fil_30_nome');
 $fil_classe = new mpu_fil_files();
 $files = $fil_classe->PegaTudo($criterio);
 if ($fil_classe->total > 0) {
     foreach ($files as $fil) {
-        $ext = ('.' == substr($fil->getVar('fil_30_arquivo'), -4, 1)) ? substr($fil->getVar('fil_30_arquivo'), -4) : substr($fil->getVar('fil_30_arquivo'), -5);
+        $ext = ('.' === substr($fil->getVar('fil_30_arquivo'), -4, 1)) ? substr($fil->getVar('fil_30_arquivo'), -4) : substr($fil->getVar('fil_30_arquivo'), -5);
         $ret .= '["' . $fil->getVar('fil_30_nome') . '  (' . $ext . ')", "' . MPU_FILES_URL . '/' . $fil->getVar('fil_30_arquivo') . '"],';
     }
     $ret = substr($ret, 0, -1);

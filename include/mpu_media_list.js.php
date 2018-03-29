@@ -19,7 +19,7 @@ $ret = '';
 if (!is_object($xoopsUser) || !$xoopsUserIsAdmin) {
     die('Oops!');
 }
-$criterio = new CriteriaCompo(new Criteria('med_12_exibir', 1));
+$criterio = new \CriteriaCompo(new \Criteria('med_12_exibir', 1));
 $criterio->setSort('med_30_nome');
 $med_classe = new mpu_med_media();
 $medias = $med_classe->PegaTudo($criterio);

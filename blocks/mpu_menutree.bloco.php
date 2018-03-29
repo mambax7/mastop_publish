@@ -39,7 +39,7 @@ function mpu_menutree_exibe($options)
     $block['menuON']      = (!empty($options[12])) ? 'bold' : 'normal';
     $block['menuOI']      = (!empty($options[13])) ? 'italic' : 'normal';
     $block['menuOU']      = (!empty($options[14])) ? 'underline' : 'none';
-    $exibe_subpgs         = ($options[15] > 0) ? new CriteriaCompo(new Criteria('mpb_10_idpai', $options[15])) : null;
+    $exibe_subpgs         = ($options[15] > 0) ? new \CriteriaCompo(new \Criteria('mpb_10_idpai', $options[15])) : null;
     $block['menuTREE']    = $mpu_classe->geraMenuCSS($exibe_subpgs, ((0 == $options[15]) ? $options[3] : false));
 
     return $block;

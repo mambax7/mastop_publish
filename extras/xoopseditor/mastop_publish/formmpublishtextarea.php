@@ -11,6 +11,9 @@
 ### =============================================================
 ###
 ### =============================================================
+
+use XoopsModules\Mastoppublish;
+
 class XoopsFormMPublishTextArea extends XoopsFormElement
 {
     public $value;
@@ -107,13 +110,11 @@ class XoopsFormMPublishTextArea extends XoopsFormElement
     public function render()
     {
         global $xoopsUser, $xoopsConfig;
-        if (file_exists(XOOPS_ROOT_PATH . '/modules/' . $this->getmoduleDir() . '/language/' . $xoopsConfig['language'] . '/modinfo.php')) {
-            require_once XOOPS_ROOT_PATH . '/modules/' . $this->getmoduleDir() . '/language/' . $xoopsConfig['language'] . '/modinfo.php';
-            require_once XOOPS_ROOT_PATH . '/modules/' . $this->getmoduleDir() . '/language/' . $xoopsConfig['language'] . '/admin.php';
-        } else {
-            require_once XOOPS_ROOT_PATH . '/modules/' . $this->getmoduleDir() . '/language/portuguesebr/modinfo.php';
-            require_once XOOPS_ROOT_PATH . '/modules/' . $this->getmoduleDir() . '/language/portuguesebr/admin.php';
-        }
+
+        /** @var Mastoppublish\Helper $helper */
+        $helper = Mastoppublish\Helper::getInstance();
+        $helper->loadLanguage('admin');
+        $helper->loadLanguage('modinfo');
         /** @var XoopsModuleHandler $moduleHandler */
         $moduleHandler = xoops_getHandler('module');
         $module        = $moduleHandler->getByDirname(MPU_MOD_DIR);
@@ -681,9 +682,9 @@ tinyMCE.init({
             $smiles = $myts->getSmileys();
             $ret    = '';
             if (empty($smileys)) {
-                $db = XoopsDatabaseFactory::getDatabaseConnection();
+                $db = \XoopsDatabaseFactory::getDatabaseConnection();
                 if ($result = $db->query('SELECT * FROM ' . $db->prefix('smiles') . ' WHERE display=1')) {
-                    while ($smiles = $db->fetchArray($result)) {
+                    while (false !== ($smiles = $db->fetchArray($result))) {
                         $ret .= "<img onclick='xoopsCodeSmilie(\"" . $this->getName() . '", " ' . $smiles['code'] . " \");' onmouseover='style.cursor=\"hand\"' src='" . XOOPS_UPLOAD_URL . '/' . htmlspecialchars($smiles['smile_url'], ENT_QUOTES) . "' alt=''>";
                     }
                 }
@@ -701,9 +702,9 @@ tinyMCE.init({
             $smiles = $myts->getSmileys();
             $ret    = '';
             if (empty($smileys)) {
-                $db = XoopsDatabaseFactory::getDatabaseConnection();
+                $db = \XoopsDatabaseFactory::getDatabaseConnection();
                 if ($result = $db->query('SELECT * FROM ' . $db->prefix('smiles') . ' WHERE display=1')) {
-                    while ($smiles = $db->fetchArray($result)) {
+                    while (false !== ($smiles = $db->fetchArray($result))) {
                         $ret .= "<img onclick=\"tinyMCE.execInstanceCommand('"
                                 . $this->getName()
                                 . "', 'mceInsertContent', false, '<img src=\'"

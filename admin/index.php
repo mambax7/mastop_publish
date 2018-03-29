@@ -25,7 +25,7 @@ $adminObject = \Xmf\Module\Admin::getInstance();
 // $xpPartnerHandler = xoops_getModuleHandler('partners', $xoopsModule->getVar('dirname'));
 
 // $totalPartners = $xpPartnerHandler->getCount();
-// $totalNonActivePartners = $xpPartnerHandler->getCount(new Criteria('status', 0, '='));
+// $totalNonActivePartners = $xpPartnerHandler->getCount(new \Criteria('status', 0, '='));
 // $totalActivePartners = $totalPartners - $totalNonActivePartners;
 
 // $adminObject->addInfoBox(_MD_XPARTNERS_DASHBOARD);

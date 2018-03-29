@@ -80,7 +80,7 @@ function sanitize($str, $type = 'strict')
             $str = preg_replace('>/i', '&lt;', $str);
             break;
         case 'bool':
-            if ('true' == $str || true === $str) {
+            if ('true' === $str || true === $str) {
                 $str = true;
             } else {
                 $str = false;

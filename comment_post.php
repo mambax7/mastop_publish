@@ -11,6 +11,11 @@
 ### =============================================================
 ###
 ### =============================================================
+
+use XoopsModules\Mastoppublish;
+/** @var Mastoppublish\Helper $helper */
+$helper = Mastoppublish\Helper::getInstance();
+
 include __DIR__ . '/../../mainfile.php';
 if (!defined('XOOPS_ROOT_PATH') || !is_object($xoopsModule)) {
     exit();
@@ -33,7 +38,7 @@ if ('system' === $xoopsModule->getVar('dirname')) {
     $moddir         = $module->getVar('dirname');
     unset($comment);
 } else {
-    if ($xoopsModuleConfig['mpu_conf_captcha']) {
+    if ($helper->getConfig('mpu_conf_captcha')) {
         require_once __DIR__ . '/include/captcha/php-captcha.inc.php';
         $captcha = (!empty($_POST['captcha_field'])) ? $_POST['captcha_field'] : 0;
         if (PhpCaptcha::Validate($captcha)) {
@@ -46,7 +51,7 @@ if ('system' === $xoopsModule->getVar('dirname')) {
     }
 
     $com_id = isset($_POST['com_id']) ? (int)$_POST['com_id'] : 0;
-    if (XOOPS_COMMENT_APPROVENONE == $xoopsModuleConfig['com_rule']) {
+    if (XOOPS_COMMENT_APPROVENONE == $helper->getConfig('com_rule')) {
         exit();
     }
     $comment_config = $xoopsModule->getInfo('comments');
@@ -55,7 +60,7 @@ if ('system' === $xoopsModule->getVar('dirname')) {
     if (isset($comment_config['extraParams']) && is_array($comment_config['extraParams'])) {
         $extra_params = '';
         foreach ($comment_config['extraParams'] as $extra_param) {
-            $extra_params .= isset($_POST[$extra_param]) ? $extra_param . '=' . htmlspecialchars($_POST[$extra_param]) . '&amp;' : $extra_param . '=&amp;';
+            $extra_params .= isset($_POST[$extra_param]) ? $extra_param . '=' . htmlspecialchars($_POST[$extra_param], ENT_QUOTES | ENT_HTML5) . '&amp;' : $extra_param . '=&amp;';
         }
         $redirect_page .= $extra_params;
     }
@@ -189,7 +194,7 @@ switch ($op) {
                             }
                         } elseif (XOOPS_COMMENT_HIDDEN == $old_com_status && XOOPS_COMMENT_ACTIVE == $com_status) {
                             $call_updatefunc = true;
-                            // Comments can not be directly posted hidden,
+                        // Comments can not be directly posted hidden,
                             // no need to send notification here
                         } elseif (XOOPS_COMMENT_ACTIVE == $old_com_status && XOOPS_COMMENT_HIDDEN == $com_status) {
                             $call_updatefunc = true;
@@ -227,7 +232,7 @@ switch ($op) {
                     $notify_event = 'comment';
                 } else {
                     $dohtml = 0;
-                    switch ($xoopsModuleConfig['com_rule']) {
+                    switch ($helper->getConfig('com_rule')) {
                         case XOOPS_COMMENT_APPROVEALL:
                         case XOOPS_COMMENT_APPROVEUSER:
                             $comment->setVar('com_status', XOOPS_COMMENT_ACTIVE);
@@ -244,7 +249,7 @@ switch ($op) {
                             break;
                     }
                 }
-                if (!empty($xoopsModuleConfig['com_anonpost']) && !empty($noname)) {
+                if (!empty($helper->getConfig('com_anonpost')) && !empty($noname)) {
                     $uid = 0;
                 } else {
                     $uid = $xoopsUser->getVar('uid');
@@ -252,12 +257,12 @@ switch ($op) {
             } else {
                 $dohtml = 0;
                 $uid    = 0;
-                if (1 != $xoopsModuleConfig['com_anonpost']) {
+                if (1 != $helper->getConfig('com_anonpost')) {
                     redirect_header($redirect_page . '=' . $com_itemid . '&amp;com_id=' . $com_id . '&amp;com_mode=' . $com_mode . '&amp;com_order=' . $com_order, 1, _NOPERM);
                 }
             }
             if (0 == $uid) {
-                switch ($xoopsModuleConfig['com_rule']) {
+                switch ($helper->getConfig('com_rule')) {
                     case XOOPS_COMMENT_APPROVEALL:
                         $comment->setVar('com_status', XOOPS_COMMENT_ACTIVE);
                         $add_userpost     = true;
@@ -348,9 +353,9 @@ switch ($op) {
                     }
                 }
                 if (!$skip) {
-                    $criteria = new CriteriaCompo(new Criteria('com_modid', $com_modid));
-                    $criteria->add(new Criteria('com_itemid', $com_itemid));
-                    $criteria->add(new Criteria('com_status', XOOPS_COMMENT_ACTIVE));
+                    $criteria = new \CriteriaCompo(new \Criteria('com_modid', $com_modid));
+                    $criteria->add(new \Criteria('com_itemid', $com_itemid));
+                    $criteria->add(new \Criteria('com_status', XOOPS_COMMENT_ACTIVE));
                     $comment_count = $commentHandler->getCount($criteria);
                     $func          = $comment_config['callback']['update'];
                     call_user_func_array($func, [$com_itemid, $comment_count, $comment->getVar('com_id')]);
@@ -393,7 +398,7 @@ switch ($op) {
                     if (isset($com_config['extraParams']) && is_array($com_config['extraParams'])) {
                         $extra_params = '';
                         foreach ($com_config['extraParams'] as $extra_param) {
-                            $extra_params .= isset($_POST[$extra_param]) ? $extra_param . '=' . htmlspecialchars($_POST[$extra_param]) . '&amp;' : $extra_param . '=&amp;';
+                            $extra_params .= isset($_POST[$extra_param]) ? $extra_param . '=' . htmlspecialchars($_POST[$extra_param], ENT_QUOTES | ENT_HTML5) . '&amp;' : $extra_param . '=&amp;';
                             //$extra_params .= isset($_GET[$extra_param]) ? $extra_param.'='.$_GET[$extra_param].'&amp;' : $extra_param.'=&amp;';
                         }
                         $comment_url .= $extra_params;

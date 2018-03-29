@@ -27,20 +27,20 @@ if ($catcount > 0) {
     foreach ($catlist as $c_id => $c_name) {
         $ret          .= '["--- ' . $c_name . ' ---", ""],';
         $imageHandler = xoops_getHandler('image');
-        $criteria     = new CriteriaCompo(new Criteria('imgcat_id', $c_id));
-        $criteria->add(new Criteria('image_display', 1));
+        $criteria     = new \CriteriaCompo(new \Criteria('imgcat_id', $c_id));
+        $criteria->add(new \Criteria('image_display', 1));
         $total = $imageHandler->getCount($criteria);
         if ($total > 0) {
             $imgcat    =& $imgcatHandler->get($c_id);
             $storetype = $imgcat->getVar('imgcat_storetype');
-            if ('db' == $storetype) {
+            if ('db' === $storetype) {
                 $images = $imageHandler->getObjects($criteria, false, true);
             } else {
                 $images = $imageHandler->getObjects($criteria, false, false);
             }
             $imgcount = count($images);
             for ($i = 0; $i < $imgcount; ++$i) {
-                if ('db' == $storetype) {
+                if ('db' === $storetype) {
                     $ret .= '["' . $images[$i]->getVar('image_nicename') . '", "' . XOOPS_URL . '/image.php?id=' . $images[$i]->getVar('image_id') . '"],';
                 } else {
                     $ret .= '["' . $images[$i]->getVar('image_nicename') . '", "' . XOOPS_UPLOAD_URL . '/' . $images[$i]->getVar('image_name') . '"],';

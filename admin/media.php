@@ -11,6 +11,11 @@
 ### =============================================================
 ###
 ### =============================================================
+
+use XoopsModules\Mastoppublish;
+/** @var Mastoppublish\Helper $helper */
+$helper = Mastoppublish\Helper::getInstance();
+
 require_once __DIR__ . '/admin_header.php';
 global $pathIcon16;
 $op = isset($_GET['op']) ? $_GET['op'] : 'media';
@@ -100,7 +105,7 @@ switch ($op) {
                     $permittedtypes = ['audio/x-pn-realaudio'];
                     break;
             }
-            $uploader                  = new XoopsMediaUploader(MPU_MEDIA_PATH, $permittedtypes, $xoopsModuleConfig['mpu_mmax_filesize'] * 1024);
+            $uploader                  = new \XoopsMediaUploader(MPU_MEDIA_PATH, $permittedtypes, $helper->getConfig('mpu_mmax_filesize') * 1024);
             $uploader->extensionToMime = array_merge($uploader->extensionToMime, [
                 'wmv' => 'video/x-ms-wmv',
                 'asf' => 'video/x-ms-asf',

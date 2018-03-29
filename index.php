@@ -11,14 +11,19 @@
 ### =============================================================
 ###
 ### =============================================================
+
+use XoopsModules\Mastoppublish;
+/** @var Mastoppublish\Helper $helper */
+$helper = Mastoppublish\Helper::getInstance();
+
 include __DIR__ . '/../../mainfile.php';
 $GLOBALS['xoopsOption']['template_main'] = 'mpu_index.tpl';
 require_once __DIR__ . '/header.php';
 $tac = isset($_GET['tac']) ? $_GET['tac'] : 0;
 $tac = is_int($tac) ? $tac : str_replace('_', ' ', $tac);
 if (!$tac) {
-    if ($xoopsModuleConfig['mpu_conf_home_id']) {
-        $mpu_classe = new mpu_mpb_mpublish($xoopsModuleConfig['mpu_conf_home_id']);
+    if ($helper->getConfig('mpu_conf_home_id')) {
+        $mpu_classe = new mpu_mpb_mpublish($helper->getConfig('mpu_conf_home_id'));
     } else {
         $mpu_classe = new mpu_mpb_mpublish();
         $mpu_classe->loadLast();
@@ -34,14 +39,14 @@ if (!$mpu_classe->getVar('mpb_10_id')) {
     if (!$gpermHandler->checkRight('mpu_mpublish_acesso', $mpu_classe->getVar('mpb_10_id'), $groups, $xoopsModule->getVar('mid'))) {
         redirect_header(XOOPS_URL, 3, _NOPERM);
     }
-    if ($xoopsModuleConfig['mpu_conf_navigation']) {
+    if ($helper->getConfig('mpu_conf_navigation')) {
         $xoopsTpl->assign('navigation', $mpu_classe->geraNavigation());
     } else {
         $xoopsTpl->assign('navigation', '');
     }
     if ('' != $mpu_classe->getVar('mpb_30_arquivo')
         && 'http://' === substr($mpu_classe->getVar('mpb_30_arquivo'), 0, 7)) {
-        $content = '<iframe src ="' . $mpu_classe->getVar('mpb_30_arquivo') . '" width="' . $xoopsModuleConfig['mpu_conf_iframe_width'] . '" height="' . $xoopsModuleConfig['mpu_conf_iframe_height'] . '" scrolling="auto" frameborder="0"></iframe>';
+        $content = '<iframe src ="' . $mpu_classe->getVar('mpb_30_arquivo') . '" width="' . $helper->getConfig('mpu_conf_iframe_width') . '" height="' . $helper->getConfig('mpu_conf_iframe_height') . '" scrolling="auto" frameborder="0"></iframe>';
         $xoopsTpl->assign('content', $content);
     } elseif ('' != $mpu_classe->getVar('mpb_30_arquivo') && '' == $mpu_classe->getVar('mpb_35_conteudo')) {
         $pageContent = MPU_HTML_PATH . '/' . $mpu_classe->getVar('mpb_30_arquivo');
@@ -110,7 +115,7 @@ if (!$mpu_classe->getVar('mpb_10_id')) {
                                          . "'></a>");
         $xoopsTpl->assign('mpu_isauthor', 1);
     } elseif (!empty($xoopsUser) && $xoopsUser->getVar('uid') == $mpu_classe->getVar('usr_10_uid')
-              && (1 == $xoopsModuleConfig['mpu_conf_canedit'] || 1 == $xoopsModuleConfig['mpu_conf_cancreate'])) {
+              && (1 == $helper->getConfig('mpu_conf_canedit') || 1 == $helper->getConfig('mpu_conf_cancreate'))) {
         $xoopsTpl->assign('infos', MPU_MAI_INFOPG);
         $xoopsTpl->assign('autor', MPU_MAI_AUTOR . ' <b>' . XoopsUser::getUnameFromId($mpu_classe->getVar('usr_10_uid')) . '</b>');
         $xoopsTpl->assign('criado', MPU_MAI_CRIADO . ' <b>' . date(_SHORTDATESTRING, $mpu_classe->getVar('mpb_22_criado')) . '</b>');
@@ -125,7 +130,7 @@ if (!$mpu_classe->getVar('mpb_10_id')) {
                                         . '/author.php?op=limpacont&mpb_10_id='
                                         . $mpu_classe->getVar('mpb_10_id')
                                         . '\'" type="button">');
-        $xoopsTpl->assign('editar_pagina', ($xoopsModuleConfig['mpu_conf_canedit'] ? '<input style="font-size: 11px; border:2px solid #9C9C9C; background-color: #FFFFFF" name="editcont" id="editcont" value="'
+        $xoopsTpl->assign('editar_pagina', ($helper->getConfig('mpu_conf_canedit') ? '<input style="font-size: 11px; border:2px solid #9C9C9C; background-color: #FFFFFF" name="editcont" id="editcont" value="'
                                                                                      . MPU_MAI_EDITPAGE
                                                                                      . '" onclick="document.location= \''
                                                                                      . XOOPS_URL
@@ -141,7 +146,7 @@ if (!$mpu_classe->getVar('mpb_10_id')) {
                                            . '/modules/'
                                            . MPU_MOD_DIR
                                            . '/author.php?op=listar\'" type="button"> '
-                                           . ($xoopsModuleConfig['mpu_conf_cancreate'] ? ' <input style="font-size: 11px; border:2px solid #FF0000; background-color: #FFFFFF" name="newcont" id="newcont" value="'
+                                           . ($helper->getConfig('mpu_conf_cancreate') ? ' <input style="font-size: 11px; border:2px solid #FF0000; background-color: #FFFFFF" name="newcont" id="newcont" value="'
                                                                                          . MPU_MAI_NEWPAGE
                                                                                          . '" onclick="document.location= \''
                                                                                          . XOOPS_URL
@@ -150,7 +155,7 @@ if (!$mpu_classe->getVar('mpb_10_id')) {
                                                                                          . '/author.php?op=novo&mpb_10_id='
                                                                                          . $mpu_classe->getVar('mpb_10_id')
                                                                                          . '\'" type="button">' : '')
-                                           . ($xoopsModuleConfig['mpu_conf_candelete'] ? ' <input style="font-size: 11px; border:2px solid #FF0000; background-color: #FFFFFF" name="delcont" id="delcont" value="'
+                                           . ($helper->getConfig('mpu_conf_candelete') ? ' <input style="font-size: 11px; border:2px solid #FF0000; background-color: #FFFFFF" name="delcont" id="delcont" value="'
                                                                                          . _DELETE
                                                                                          . '" onclick="document.location= \''
                                                                                          . XOOPS_URL
@@ -172,12 +177,12 @@ if (!$mpu_classe->getVar('mpb_10_id')) {
     } else {
         $xoopsTpl->assign('mpu_isauthor', 0);
     }
-    if ($xoopsModuleConfig['mpu_conf_related'] && 0 != $mpu_classe->getVar('mpb_10_idpai')) {
-        $rel_crit = new CriteriaCompo(new Criteria('mpb_10_idpai', $mpu_classe->getVar('mpb_10_idpai')));
-        $rel_crit->add(new Criteria('mpb_10_id', $mpu_classe->getVar('mpb_10_id'), '<>'));
-        $rel_crit->add(new Criteria('mpb_12_semlink', 0));
-        $rel_crit2 = new CriteriaCompo(new Criteria('mpb_11_visivel', 2));
-        $rel_crit2->add(new Criteria('mpb_11_visivel', 3), 'OR');
+    if ($helper->getConfig('mpu_conf_related') && 0 != $mpu_classe->getVar('mpb_10_idpai')) {
+        $rel_crit = new \CriteriaCompo(new \Criteria('mpb_10_idpai', $mpu_classe->getVar('mpb_10_idpai')));
+        $rel_crit->add(new \Criteria('mpb_10_id', $mpu_classe->getVar('mpb_10_id'), '<>'));
+        $rel_crit->add(new \Criteria('mpb_12_semlink', 0));
+        $rel_crit2 = new \CriteriaCompo(new \Criteria('mpb_11_visivel', 2));
+        $rel_crit2->add(new \Criteria('mpb_11_visivel', 3), 'OR');
         $rel_crit->add($rel_crit2);
         $rel_crit->setSort('mpb_10_ordem');
         $all_related = $mpu_classe->PegaTudo($rel_crit);

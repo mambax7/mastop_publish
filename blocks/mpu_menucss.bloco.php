@@ -48,7 +48,7 @@ function mpu_menucss_exibe($options)
     $block['menuBorderOS'] = $options[22];
     $block['menuBorderOC'] = $options[23];
     $block['menuPadding']  = $options[24];
-    $exibe_subpgs          = ($options[25] > 0) ? new CriteriaCompo(new Criteria('mpb_10_idpai', $options[25])) : null;
+    $exibe_subpgs          = ($options[25] > 0) ? new \CriteriaCompo(new \Criteria('mpb_10_idpai', $options[25])) : null;
     $block['menuCSS']      = $mpu_classe->geraMenuCSS($exibe_subpgs, ((0 == $options[25]) ? $options[3] : false));
     $block['variante']     = $options[0];
 
@@ -233,31 +233,31 @@ PICKER;
              . '</u></label><br>';
     $form .= MPU_BLO_OPT_BORDER . " <input size='4' type='text' name='options[18]' value='" . $options[18] . "'> <select name='options[19]'>
     <option value='none'";
-    $form .= ('none' == $options[19]) ? 'selected' : ' ';
+    $form .= ('none' === $options[19]) ? 'selected' : ' ';
     $form .= '>' . MPU_BLO_OPT_NONE . "</option>
     <option value='solid'";
-    $form .= ('solid' == $options[19]) ? 'selected' : ' ';
+    $form .= ('solid' === $options[19]) ? 'selected' : ' ';
     $form .= '>' . MPU_BLO_OPT_SOLID . "</option>
     <option value='double'";
-    $form .= ('double' == $options[19]) ? 'selected' : ' ';
+    $form .= ('double' === $options[19]) ? 'selected' : ' ';
     $form .= '>' . MPU_BLO_OPT_DOUBLE . "</option>
     <option value='outset'";
-    $form .= ('outset' == $options[19]) ? 'selected' : ' ';
+    $form .= ('outset' === $options[19]) ? 'selected' : ' ';
     $form .= '>' . MPU_BLO_OPT_OUTSET . "</option>
     <option value='inset'";
-    $form .= ('inset' == $options[19]) ? 'selected' : ' ';
+    $form .= ('inset' === $options[19]) ? 'selected' : ' ';
     $form .= '>' . MPU_BLO_OPT_INSET . "</option>
     <option value='groove'";
-    $form .= ('groove' == $options[19]) ? 'selected' : ' ';
+    $form .= ('groove' === $options[19]) ? 'selected' : ' ';
     $form .= '>' . MPU_BLO_OPT_GROOVE . "</option>
     <option value='ridge'";
-    $form .= ('ridge' == $options[19]) ? 'selected' : ' ';
+    $form .= ('ridge' === $options[19]) ? 'selected' : ' ';
     $form .= '>' . MPU_BLO_OPT_RIDGE . "</option>
     <option value='dashed'";
-    $form .= ('dashed' == $options[19]) ? 'selected' : ' ';
+    $form .= ('dashed' === $options[19]) ? 'selected' : ' ';
     $form .= '>' . MPU_BLO_OPT_DASHED . "</option>
     <option value='dotted'";
-    $form .= ('dotted' == $options[19]) ? 'selected' : ' ';
+    $form .= ('dotted' === $options[19]) ? 'selected' : ' ';
     $form .= '>' . MPU_BLO_OPT_DOTTED . '</option></select>';
     $form .= ' #<input size="6" type="text" name="options[20]" id="options[20]" value="'
              . $options[20]
@@ -268,31 +268,31 @@ PICKER;
              . '"><br>';
     $form .= MPU_BLO_OPT_BORDERO . " <input size='4' type='text' name='options[21]' value='" . $options[21] . "'> <select name='options[22]'>
     <option value='none'";
-    $form .= ('none' == $options[22]) ? 'selected' : ' ';
+    $form .= ('none' === $options[22]) ? 'selected' : ' ';
     $form .= '>' . MPU_BLO_OPT_NONE . "</option>
     <option value='solid'";
-    $form .= ('solid' == $options[22]) ? 'selected' : ' ';
+    $form .= ('solid' === $options[22]) ? 'selected' : ' ';
     $form .= '>' . MPU_BLO_OPT_SOLID . "</option>
     <option value='double'";
-    $form .= ('double' == $options[22]) ? 'selected' : ' ';
+    $form .= ('double' === $options[22]) ? 'selected' : ' ';
     $form .= '>' . MPU_BLO_OPT_DOUBLE . "</option>
     <option value='outset'";
-    $form .= ('outset' == $options[22]) ? 'selected' : ' ';
+    $form .= ('outset' === $options[22]) ? 'selected' : ' ';
     $form .= '>' . MPU_BLO_OPT_OUTSET . "</option>
     <option value='inset'";
-    $form .= ('inset' == $options[22]) ? 'selected' : ' ';
+    $form .= ('inset' === $options[22]) ? 'selected' : ' ';
     $form .= '>' . MPU_BLO_OPT_INSET . "</option>
     <option value='groove'";
-    $form .= ('groove' == $options[22]) ? 'selected' : ' ';
+    $form .= ('groove' === $options[22]) ? 'selected' : ' ';
     $form .= '>' . MPU_BLO_OPT_GROOVE . "</option>
     <option value='ridge'";
-    $form .= ('ridge' == $options[22]) ? 'selected' : ' ';
+    $form .= ('ridge' === $options[22]) ? 'selected' : ' ';
     $form .= '>' . MPU_BLO_OPT_RIDGE . "</option>
     <option value='dashed'";
-    $form .= ('dashed' == $options[22]) ? 'selected' : ' ';
+    $form .= ('dashed' === $options[22]) ? 'selected' : ' ';
     $form .= '>' . MPU_BLO_OPT_DASHED . "</option>
     <option value='dotted'";
-    $form .= ('dotted' == $options[22]) ? 'selected' : ' ';
+    $form .= ('dotted' === $options[22]) ? 'selected' : ' ';
     $form .= '>' . MPU_BLO_OPT_DOTTED . '</option></select>';
     $form .= ' #<input size="6" type="text" name="options[23]" id="options[23]" value="'
              . $options[23]

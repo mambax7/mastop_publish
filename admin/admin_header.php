@@ -1,4 +1,7 @@
 <?php
+
+use XoopsModules\Mastoppublish;
+
 $path = dirname(dirname(dirname(__DIR__)));
 //require_once $path . '/mainfile.php';
 //require_once $path . '/include/cp_functions.php';
@@ -16,10 +19,10 @@ $moduleDirName = basename(dirname(__DIR__));
 //require_once XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/class/mpu_cfi_contentfiles.class.php';
 //require_once XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/include/funcoes.inc.php';
 
-//require_once __DIR__ . '/../class/Utility.php';
+// require_once __DIR__ . '/../class/Utility.php';
 //require_once __DIR__ . '/../include/common.php';
 
-$helper = \Xmf\Module\Helper::getHelper($moduleDirName);
+$helper = Mastoppublish\Helper::getInstance();
 $adminObject = \Xmf\Module\Admin::getInstance();
 
 $pathIcon16    = \Xmf\Module\Admin::iconUrl('', 16);
@@ -41,5 +44,5 @@ $myts = \MyTextSanitizer::getInstance();
 
 if (!isset($GLOBALS['xoopsTpl']) || !($GLOBALS['xoopsTpl'] instanceof XoopsTpl)) {
     require_once $GLOBALS['xoops']->path('class/template.php');
-    $xoopsTpl = new XoopsTpl();
+    $xoopsTpl = new \XoopsTpl();
 }

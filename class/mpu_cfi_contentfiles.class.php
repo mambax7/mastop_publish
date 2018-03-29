@@ -17,7 +17,7 @@ class mpu_cfi_contentfiles extends mpu_geral
 {
     public function __construct($id = null)
     {
-        $this->db     = XoopsDatabaseFactory::getDatabaseConnection();
+        $this->db     = \XoopsDatabaseFactory::getDatabaseConnection();
         $this->tabela = $this->db->prefix(MPU_MOD_TABELA4);
         $this->id     = 'cfi_10_id';
         $this->initVar('cfi_10_id', XOBJ_DTYPE_INT);
@@ -53,8 +53,8 @@ class mpu_cfi_contentfiles extends mpu_geral
         $resultado   = $this->db->query($sql);
         $this->total = $this->db->getRowsNum($resultado);
         if ($this->total > 0) {
-            while ($linha = $this->db->fetchArray($resultado)) {
-                $ext                        = ('.' == substr($linha['cfi_30_arquivo'], -4, 1)) ? substr($linha['cfi_30_arquivo'], -4) : substr($linha['cfi_30_arquivo'], -5);
+            while (false !== ($linha = $this->db->fetchArray($resultado))) {
+                $ext                        = ('.' === substr($linha['cfi_30_arquivo'], -4, 1)) ? substr($linha['cfi_30_arquivo'], -4) : substr($linha['cfi_30_arquivo'], -5);
                 $ret[$linha['cfi_30_mime']] = $linha['cfi_30_mime'] . ' (' . $ext . ')';
             }
 
@@ -71,8 +71,8 @@ class mpu_cfi_contentfiles extends mpu_geral
         $resultado   = $this->db->query($sql);
         $this->total = $this->db->getRowsNum($resultado);
         if ($this->total > 0) {
-            while ($linha = $this->db->fetchArray($resultado)) {
-                $ext                           = ('.' == substr($linha['cfi_30_arquivo'], -4, 1)) ? substr($linha['cfi_30_arquivo'], -4) : substr($linha['cfi_30_arquivo'], -5);
+            while (false !== ($linha = $this->db->fetchArray($resultado))) {
+                $ext                           = ('.' === substr($linha['cfi_30_arquivo'], -4, 1)) ? substr($linha['cfi_30_arquivo'], -4) : substr($linha['cfi_30_arquivo'], -5);
                 $ret[$linha['cfi_30_arquivo']] = $linha['cfi_30_nome'] . ' (' . $ext . ')';
             }
         }
@@ -84,7 +84,7 @@ class mpu_cfi_contentfiles extends mpu_geral
     {
         require_once XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/class/mpu_mpb_mpublish.class.php';
         $mpu_classe = new mpu_mpb_mpublish();
-        $criterio   = new Criteria('mpb_30_arquivo', $this->getVar('cfi_30_arquivo'));
+        $criterio   = new \Criteria('mpb_30_arquivo', $this->getVar('cfi_30_arquivo'));
         $mpb_todos  = $mpu_classe->PegaTudo($criterio);
         if ($mpb_todos) {
             foreach ($mpb_todos as $v) {
@@ -93,7 +93,7 @@ class mpu_cfi_contentfiles extends mpu_geral
                 $v->delete();
                 if ($v->tem_subcategorias($mpb_10_id)) {
                     mpu_apagaPermissoesPai($mpb_10_id);
-                    $mpu_classe->deletaTodos(new Criteria('mpb_10_idpai', $mpb_10_id));
+                    $mpu_classe->deletaTodos(new \Criteria('mpb_10_idpai', $mpb_10_id));
                 }
                 $v->delete();
             }

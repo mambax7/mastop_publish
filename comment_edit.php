@@ -11,12 +11,17 @@
 ### =============================================================
 ###
 ### =============================================================
+
+use XoopsModules\Mastoppublish;
+/** @var Mastoppublish\Helper $helper */
+$helper = Mastoppublish\Helper::getInstance();
+
 include __DIR__ . '/../../mainfile.php';
 if (!defined('XOOPS_ROOT_PATH') || !is_object($xoopsModule)) {
     exit();
 }
 require_once XOOPS_ROOT_PATH . '/include/comment_constants.php';
-if ('system' !== $xoopsModule->getVar('dirname') && XOOPS_COMMENT_APPROVENONE == $xoopsModuleConfig['com_rule']) {
+if ('system' !== $xoopsModule->getVar('dirname') && XOOPS_COMMENT_APPROVENONE == $helper->getConfig('com_rule')) {
     exit();
 }
 require_once XOOPS_ROOT_PATH . '/language/' . $xoopsConfig['language'] . '/comment.php';

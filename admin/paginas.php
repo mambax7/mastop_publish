@@ -11,6 +11,11 @@
 ### =============================================================
 ###
 ### =============================================================
+
+use XoopsModules\Mastoppublish;
+/** @var Mastoppublish\Helper $helper */
+$helper = Mastoppublish\Helper::getInstance();
+
 require_once __DIR__ . '/admin_header.php';
 global $pathIcon16;
 $op = isset($_GET['op']) ? $_GET['op'] : 'contentfiles';
@@ -77,7 +82,7 @@ switch ($op) {
         $file_nome = get_magic_quotes_gpc() ? stripslashes($file_nome['name']) : $file_nome['name'];
         if (xoops_trim('' != $file_nome)) {
             require_once XOOPS_ROOT_PATH . '/class/uploader.php';
-            $uploader = new XoopsMediaUploader(MPU_HTML_PATH, $xoopsModuleConfig['mpu_conf_contentmimes'], $xoopsModuleConfig['mpu_max_filesize'] * 1024);
+            $uploader = new \XoopsMediaUploader(MPU_HTML_PATH, $helper->getConfig('mpu_conf_contentmimes'), $helper->getConfig('mpu_max_filesize') * 1024);
             $uploader->setPrefix('page_');
             if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
                 if ($uploader->upload()) {
@@ -85,7 +90,7 @@ switch ($op) {
                         $contentfiles->deletaArquivo();
                         if ('' != $contentfiles->getVar('cfi_30_arquivo')) {
                             $mpu_classe = new mpu_mpb_mpublish();
-                            $mpu_classe->atualizaTodos('mpb_30_arquivo', $uploader->getSavedFileName(), new Criteria('mpb_30_arquivo', $contentfiles->getVar('cfi_30_arquivo')));
+                            $mpu_classe->atualizaTodos('mpb_30_arquivo', $uploader->getSavedFileName(), new \Criteria('mpb_30_arquivo', $contentfiles->getVar('cfi_30_arquivo')));
                         }
                     }
                     $contentfiles->setVar('cfi_30_nome', $_POST['cfi_30_nome']);

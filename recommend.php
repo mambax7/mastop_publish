@@ -31,14 +31,14 @@ if (!$_POST) {
             }
             require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
             echo '<h2>' . sprintf(MPU_MAI_RECTOAFRIEND, $mpu_classe->getVar('mpb_30_titulo')) . '</h2>';
-            $rec_form = new XoopsThemeForm('', 'rec_form', $_SERVER['PHP_SELF']);
-            $rec_form->addElement(new XoopsFormText(MPU_MAI_YNAME, 'yname', 20, 150), true);
-            $rec_form->addElement(new XoopsFormText(MPU_MAI_YEMAIL, 'yemail', 20, 150), true);
-            $rec_form->addElement(new XoopsFormText(MPU_MAI_FNAME, 'fname', 20, 150), true);
-            $rec_form->addElement(new XoopsFormText(MPU_MAI_FEMAIL, 'femail', 20, 150), true);
-            $rec_form->addElement(new XoopsFormTextArea(MPU_MAI_MESSAGE, 'message'), true);
-            $rec_form->addElement(new XoopsFormHidden('tac', $mpu_classe->getVar('mpb_10_id')), true);
-            $rec_form->addElement(new XoopsFormButton('', 'submit', _SUBMIT, 'submit'));
+            $rec_form = new \XoopsThemeForm('', 'rec_form', $_SERVER['PHP_SELF']);
+            $rec_form->addElement(new \XoopsFormText(MPU_MAI_YNAME, 'yname', 20, 150), true);
+            $rec_form->addElement(new \XoopsFormText(MPU_MAI_YEMAIL, 'yemail', 20, 150), true);
+            $rec_form->addElement(new \XoopsFormText(MPU_MAI_FNAME, 'fname', 20, 150), true);
+            $rec_form->addElement(new \XoopsFormText(MPU_MAI_FEMAIL, 'femail', 20, 150), true);
+            $rec_form->addElement(new \XoopsFormTextArea(MPU_MAI_MESSAGE, 'message'), true);
+            $rec_form->addElement(new \XoopsFormHidden('tac', $mpu_classe->getVar('mpb_10_id')), true);
+            $rec_form->addElement(new \XoopsFormButton('', 'submit', _SUBMIT, 'submit'));
             $rec_form->display();
             require_once XOOPS_ROOT_PATH . '/footer.php';
         }

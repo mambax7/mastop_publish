@@ -140,7 +140,7 @@ switch ($op) {
         }
         if ($mpu_classe->tem_subcategorias()) {
             mpu_adm_menu();
-            xoops_confirm(['op' => 'listar_deletar_ok', 'mpb_10_id' => $mpb_10_id], 'main.php', sprintf(MPU_ADM_CONFIRMA_DEL_SUB, $mpb_10_id, $mpu_classe->getVar('mpb_30_menu'), $mpu_classe->contar(new Criteria('mpb_10_idpai', $mpb_10_id))));
+            xoops_confirm(['op' => 'listar_deletar_ok', 'mpb_10_id' => $mpb_10_id], 'main.php', sprintf(MPU_ADM_CONFIRMA_DEL_SUB, $mpb_10_id, $mpu_classe->getVar('mpb_30_menu'), $mpu_classe->contar(new \Criteria('mpb_10_idpai', $mpb_10_id))));
         } else {
             mpu_adm_menu();
             xoops_confirm(['op' => 'listar_deletar_ok', 'mpb_10_id' => $mpb_10_id], 'main.php', sprintf(MPU_ADM_CONFIRMA_DEL, $mpb_10_id, $mpu_classe->getVar('mpb_30_menu')));
@@ -158,7 +158,7 @@ switch ($op) {
         $mpu_total_deletados += $mpu_classe->afetadas;
         if ($mpu_classe->tem_subcategorias()) {
             mpu_apagaPermissoesPai($mpb_10_id);
-            $mpu_classe->deletaTodos(new Criteria('mpb_10_idpai', $mpb_10_id));
+            $mpu_classe->deletaTodos(new \Criteria('mpb_10_idpai', $mpb_10_id));
             $mpu_total_deletados += $mpu_classe->afetadas;
         }
         redirect_header(XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/admin/main.php', 3, sprintf(MPU_ADM_DEL_SUCESS, $mpu_total_deletados));

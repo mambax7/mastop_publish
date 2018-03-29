@@ -169,7 +169,7 @@ if (!class_exists('mpu_geral')) {
                 $result      = $this->db->query($sql, $limit, $start);
                 $this->total = $this->db->getRowsNum($result);
                 if ($this->total > 0) {
-                    while ($myrow = $this->db->fetchArray($result)) {
+                    while (false !== ($myrow = $this->db->fetchArray($result))) {
                         $ret[] = $myrow[$this->id];
                     }
 
@@ -190,7 +190,7 @@ if (!class_exists('mpu_geral')) {
                 $result      = $this->db->query($sql, $limit, $start);
                 $this->total = $this->db->getRowsNum($result);
                 if ($this->total > 0) {
-                    while ($myrow = $this->db->fetchArray($result)) {
+                    while (false !== ($myrow = $this->db->fetchArray($result))) {
                         $ret[] = new $classe($myrow);
                     }
 
@@ -203,14 +203,14 @@ if (!class_exists('mpu_geral')) {
 
         public function administracao($url, $campos)
         {
-            $criterio = new CriteriaCompo();
+            $criterio = new \CriteriaCompo();
             if (!empty($campos['precrit']['campo']) && !empty($campos['precrit']['valor'])) {
                 $precrit_hidden = '';
                 $precrit_url    = '';
                 foreach ($campos['precrit']['campo'] as $k => $v) {
                     $operador    = isset($campos['precrit']['operador'][$k]) ? $campos['precrit']['operador'][$k] : '=';
                     $hiddens[$v] = $campos['precrit']['valor'][$k];
-                    $criterio->add(new Criteria($v, $campos['precrit']['valor'][$k], $operador, $this->tabela));
+                    $criterio->add(new \Criteria($v, $campos['precrit']['valor'][$k], $operador, $this->tabela));
                     $precrit_hidden .= "<input type='hidden' name='" . $v . "' value='" . $campos['precrit']['valor'][$k] . "'>";
                     $precrit_url    .= '&' . $v . '=' . $campos['precrit']['valor'][$k];
                 }
@@ -219,7 +219,7 @@ if (!class_exists('mpu_geral')) {
                 $precrit_url    = '';
             }
             if (!empty($campos['checks']) && !empty($_POST['group_action']) && is_array($_POST['checks'])
-                && 'group_del_ok' == $_POST['group_action']) {
+                && 'group_del_ok' === $_POST['group_action']) {
                 $chks   = $_POST['checks'];
                 $classe = get_class($this);
                 foreach ($chks as $k => $v) {
@@ -232,7 +232,7 @@ if (!class_exists('mpu_geral')) {
                     $nova->delete();
                 }
             }
-            if (!empty($campos['checks']) && !empty($_POST['group_action']) && 'group_del' == $_POST['group_action']
+            if (!empty($campos['checks']) && !empty($_POST['group_action']) && 'group_del' === $_POST['group_action']
                 && is_array($_POST['checks'])) {
                 $chks = $_POST['checks'];
                 foreach ($chks as $k => $v) {
@@ -248,7 +248,7 @@ if (!class_exists('mpu_geral')) {
                 foreach ($_GET['busca'] as $k => $v) {
                     if ('' != $v && '-1' != $v && in_array($k, $campos['nome'])) {
                         if (is_numeric($v)) {
-                            $criterio->add(new Criteria($k, $v, '=', $this->tabela));
+                            $criterio->add(new \Criteria($k, $v, '=', $this->tabela));
                         } elseif (is_array($v)) {
                             if (!empty($v['dday']) || !empty($v['dmonth']) || !empty($v['dyear']) || !empty($v['aday'])
                                 || !empty($v['amonth'])
@@ -261,11 +261,11 @@ if (!class_exists('mpu_geral')) {
                                 $ayear  = (!empty($v['ayear'])) ? $v['ayear'] : date('Y');
                                 $ddate  = mktime(0, 0, 0, $v['dmonth'], $v['dday'], $v['dyear']);
                                 $adate  = mktime(0, 0, 0, $v['amonth'], $v['aday'], $v['ayear']);
-                                $criterio->add(new Criteria($k, $ddate, '>=', $this->tabela));
-                                $criterio->add(new Criteria($k, $adate, '<=', $this->tabela));
+                                $criterio->add(new \Criteria($k, $ddate, '>=', $this->tabela));
+                                $criterio->add(new \Criteria($k, $adate, '<=', $this->tabela));
                             }
                         } else {
-                            $criterio->add(new Criteria($k, "%$v%", 'LIKE', $this->tabela));
+                            $criterio->add(new \Criteria($k, "%$v%", 'LIKE', $this->tabela));
                         }
                         $busca_url .= (!is_array($v)) ? '&busca[' . $k . ']=' . $v : '&busca['
                                                                                      . $k
@@ -306,7 +306,7 @@ if (!class_exists('mpu_geral')) {
             $form        = (!empty($campos['form'])) ? 1 : 0;
             $checks      = (!empty($campos['checks'])) ? 1 : 0;
             $op          = (!empty($campos['op'])) ? $campos['op'] : '';
-            $norder      = ('ASC' == $order) ? 'DESC' : 'ASC';
+            $norder      = ('ASC' === $order) ? 'DESC' : 'ASC';
             $colunas     = count($campos['rotulo']);
             $colunas     = (!empty($campos['checks'])) ? $colunas + 1 : $colunas;
             $colunas     = (!empty($campos['botoes'])) ? $colunas + 1 : $colunas;
@@ -536,7 +536,7 @@ window.attachEvent("onload", esconde_menus)
             } else {
                 $ret .= ($form || $checks) ? "<form action='" . $url . "' method='POST' name='update_form' id='update_form' " . ($checks ? "onsubmit='return verificaChecks()'" : '') . '>' : '';
                 foreach ($registros as $reg) {
-                    $eod = (!isset($eod) || 'fundo1' == $eod) ? 'fundo2' : 'fundo1';
+                    $eod = (!isset($eod) || 'fundo1' === $eod) ? 'fundo2' : 'fundo1';
                     $ret .= "<tbody><tr id='tr_reg_" . $reg->getVar($reg->id) . "' class='" . $eod . "' onmouseover='this.className=\"neutro\";' onmouseout='this.className=\"" . $eod . "\"'>";
                     $ret .= $checks ? "<td align='center'><input type='checkbox' name='checks["
                                       . $reg->getVar($reg->id)
