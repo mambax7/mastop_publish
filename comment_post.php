@@ -23,7 +23,7 @@ if (!defined('XOOPS_ROOT_PATH') || !is_object($xoopsModule)) {
 require_once XOOPS_ROOT_PATH . '/language/' . $xoopsConfig['language'] . '/comment.php';
 require_once XOOPS_ROOT_PATH . '/include/comment_constants.php';
 if ('system' === $xoopsModule->getVar('dirname')) {
-    $com_id = isset($_POST['com_id']) ? (int)$_POST['com_id'] : 0;
+    $com_id = \Xmf\Request::getInt('com_id', 0, 'POST');
     if (empty($com_id)) {
         exit();
     }
@@ -50,7 +50,7 @@ if ('system' === $xoopsModule->getVar('dirname')) {
         $captcha_code = true;
     }
 
-    $com_id = isset($_POST['com_id']) ? (int)$_POST['com_id'] : 0;
+    $com_id = \Xmf\Request::getInt('com_id', 0, 'POST');
     if (XOOPS_COMMENT_APPROVENONE == $helper->getConfig('com_rule')) {
         exit();
     }
@@ -80,11 +80,11 @@ if (!empty($_POST)) {
     }
 
     $com_mode   = isset($_POST['com_mode']) ? htmlspecialchars(trim($_POST['com_mode']), ENT_QUOTES) : 'flat';
-    $com_order  = isset($_POST['com_order']) ? (int)$_POST['com_order'] : XOOPS_COMMENT_OLD1ST;
-    $com_itemid = isset($_POST['com_itemid']) ? (int)$_POST['com_itemid'] : 0;
-    $com_pid    = isset($_POST['com_pid']) ? (int)$_POST['com_pid'] : 0;
-    $com_rootid = isset($_POST['com_rootid']) ? (int)$_POST['com_rootid'] : 0;
-    $com_status = isset($_POST['com_status']) ? (int)$_POST['com_status'] : 0;
+    $com_order  = \Xmf\Request::getInt('com_order', XOOPS_COMMENT_OLD1ST, 'POST');
+    $com_itemid = \Xmf\Request::getInt('com_itemid', 0, 'POST');
+    $com_pid    = \Xmf\Request::getInt('com_pid', 0, 'POST');
+    $com_rootid = \Xmf\Request::getInt('com_rootid', 0, 'POST');
+    $com_status = \Xmf\Request::getInt('com_status', 0, 'POST');
     $dosmiley   = (isset($_POST['dosmiley']) && (int)$_POST['dosmiley'] > 0) ? 1 : 0;
     $doxcode    = (isset($_POST['doxcode']) && (int)$_POST['doxcode'] > 0) ? 1 : 0;
     $dobr       = (isset($_POST['dobr']) && (int)$_POST['dobr'] > 0) ? 1 : 0;

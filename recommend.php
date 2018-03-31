@@ -14,7 +14,7 @@
 include __DIR__ . '/../../mainfile.php';
 require_once __DIR__ . '/header.php';
 if (!$_POST) {
-    $tac = isset($_GET['tac']) ? $_GET['tac'] : 0;
+    $tac = \Xmf\Request::getInt('tac', 0, GET);
     $tac = is_int($tac) ? $tac : str_replace('_', ' ', $tac);
     if (!$tac) {
         redirect_header(XOOPS_URL, 2, MPU_MAI_404);
@@ -44,7 +44,7 @@ if (!$_POST) {
         }
     }
 } else {
-    $tac = isset($_POST['tac']) ? $_POST['tac'] : 0;
+    $tac = \Xmf\Request::getInt('tac', 0, POST);
     if (!$tac) {
         redirect_header(XOOPS_URL, 2, MPU_MAI_404);
     } else {

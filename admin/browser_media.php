@@ -99,7 +99,7 @@ $tipos           = [
             if (!empty($_GET['med_30_nome'])) {
                 $criterio->add(new \Criteria('med_30_nome', '%' . $_GET['med_30_nome'] . '%', 'LIKE'));
             }
-            $start = isset($_GET['start']) ? (int)$_GET['start'] : 0;
+            $start = \Xmf\Request::getInt('start', 0, 'GET');
             $criterio->setStart($start);
             $criterio->setLimit(20);
             $medias       = $med_classe->PegaTudo($criterio);

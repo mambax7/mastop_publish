@@ -316,7 +316,7 @@ if ('delcatok' === $op && $admin) {
             echo '<h4><a href="' . $_SERVER['PHP_SELF'] . '">' . _MD_IMGMAIN . '</a>&nbsp;<span style="font-weight:bold;">&raquo;&raquo;</span>&nbsp;' . $imagecategory->getVar('imgcat_name') . '</h4><br><br>';
             $criteria = new \Criteria('imgcat_id', $imgcat_id);
             $imgcount = $imageHandler->getCount($criteria);
-            $start    = isset($_GET['start']) ? (int)$_GET['start'] : 0;
+            $start    = \Xmf\Request::getInt('start', 0, 'GET');
             $criteria->setStart($start);
             $criteria->setLimit(20);
             $images = $imageHandler->getObjects($criteria, true, false);

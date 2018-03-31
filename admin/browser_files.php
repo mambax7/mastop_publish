@@ -79,7 +79,7 @@ $mpb_wysiwyg_url = XOOPS_URL . $helper->getConfig('mpu_conf_wysiwyg_path');
             if (!empty($_GET['fil_30_nome'])) {
                 $criterio->add(new \Criteria('fil_30_nome', '%' . $_GET['fil_30_nome'] . '%', 'LIKE'));
             }
-            $start = isset($_GET['start']) ? (int)$_GET['start'] : 0;
+            $start = \Xmf\Request::getInt('start', 0, 'GET');
             $criterio->setStart($start);
             $criterio->setLimit(20);
             $files       = $fil_classe->PegaTudo($criterio);

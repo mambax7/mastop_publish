@@ -22,7 +22,7 @@ function mpu_navigation_exibe($options)
 {
     global $xoopsModule;
     require_once XOOPS_ROOT_PATH . '/modules/' . MPU_BLO_MODDIR . '/class/mpu_mpb_mpublish.class.php';
-    $tac   = isset($_GET['tac']) ? $_GET['tac'] : 0;
+    $tac   = \Xmf\Request::getInt('tac', 0, GET);
     $tac   = is_int($tac) ? $tac : str_replace('_', ' ', $tac);
     $block = [];
     $style = "style='font-weight:bold; font-size:" . $options[0] . '; color:#' . $options[1] . "'";

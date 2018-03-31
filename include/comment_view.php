@@ -64,8 +64,8 @@ if (XOOPS_COMMENT_APPROVENONE != $helper->getConfig('com_rule')) {
             $admin_view = false;
         }
 
-        $com_id         = isset($_GET['com_id']) ? (int)$_GET['com_id'] : 0;
-        $com_rootid     = isset($_GET['com_rootid']) ? (int)$_GET['com_rootid'] : 0;
+        $com_id         = \Xmf\Request::getInt('com_id', 0, 'GET');
+        $com_rootid     = \Xmf\Request::getInt('com_rootid', 0, 'GET');
         $commentHandler = xoops_getHandler('comment');
         if ('flat' === $com_mode) {
             $comments = $commentHandler->getByItemId($xoopsModule->getVar('mid'), $com_itemid, $com_dborder);

@@ -28,7 +28,7 @@ if ('system' !== $xoopsModule->getVar('dirname') && XOOPS_COMMENT_APPROVENONE ==
 require_once XOOPS_ROOT_PATH . '/language/' . $xoopsConfig['language'] . '/comment.php';
 include XOOPS_ROOT_PATH . '/header.php';
 require_once XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/class/mpu_mpb_mpublish.class.php';
-$com_itemid     = isset($_GET['com_itemid']) ? (int)$_GET['com_itemid'] : 0;
+$com_itemid     = \Xmf\Request::getInt('com_itemid', 0, 'GET');
 $mpu_classe     = new mpu_mpb_mpublish($com_itemid);
 $com_replytitle = $mpu_classe->getVar('mpb_30_titulo');
 if (isset($com_replytitle)) {

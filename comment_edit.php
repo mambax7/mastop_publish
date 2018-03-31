@@ -25,7 +25,7 @@ if ('system' !== $xoopsModule->getVar('dirname') && XOOPS_COMMENT_APPROVENONE ==
     exit();
 }
 require_once XOOPS_ROOT_PATH . '/language/' . $xoopsConfig['language'] . '/comment.php';
-$com_id   = isset($_GET['com_id']) ? (int)$_GET['com_id'] : 0;
+$com_id   = \Xmf\Request::getInt('com_id', 0, 'GET');
 $com_mode = isset($_GET['com_mode']) ? htmlspecialchars(trim($_GET['com_mode']), ENT_QUOTES) : '';
 if ('' == $com_mode) {
     if (is_object($xoopsUser)) {
