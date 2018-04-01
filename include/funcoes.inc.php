@@ -13,8 +13,6 @@
 ### =============================================================
 
 use XoopsModules\Mastoppublish;
-/** @var Mastoppublish\Helper $helper */
-$helper = Mastoppublish\Helper::getInstance();
 
 // Administração
 function mpu_adm_menu()

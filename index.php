@@ -19,7 +19,7 @@ $helper = Mastoppublish\Helper::getInstance();
 include __DIR__ . '/../../mainfile.php';
 $GLOBALS['xoopsOption']['template_main'] = 'mpu_index.tpl';
 require_once __DIR__ . '/header.php';
-$tac = \Xmf\Request::getInt('tac', 0, GET);
+$tac = \Xmf\Request::getInt('tac', 0, 'GET');
 $tac = is_int($tac) ? $tac : str_replace('_', ' ', $tac);
 if (!$tac) {
     if ($helper->getConfig('mpu_conf_home_id')) {

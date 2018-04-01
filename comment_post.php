@@ -13,8 +13,6 @@
 ### =============================================================
 
 use XoopsModules\Mastoppublish;
-/** @var Mastoppublish\Helper $helper */
-$helper = Mastoppublish\Helper::getInstance();
 
 include __DIR__ . '/../../mainfile.php';
 if (!defined('XOOPS_ROOT_PATH') || !is_object($xoopsModule)) {
@@ -22,6 +20,10 @@ if (!defined('XOOPS_ROOT_PATH') || !is_object($xoopsModule)) {
 }
 require_once XOOPS_ROOT_PATH . '/language/' . $xoopsConfig['language'] . '/comment.php';
 require_once XOOPS_ROOT_PATH . '/include/comment_constants.php';
+
+/** @var Mastoppublish\Helper $helper */
+$helper = Mastoppublish\Helper::getInstance();
+
 if ('system' === $xoopsModule->getVar('dirname')) {
     $com_id = \Xmf\Request::getInt('com_id', 0, 'POST');
     if (empty($com_id)) {
