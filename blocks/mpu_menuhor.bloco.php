@@ -23,7 +23,7 @@ function mpu_menuhor_exibe($options)
     require_once XOOPS_ROOT_PATH . '/modules/' . MPU_BLO_MODDIR . '/class/mpu_mpb_mpublish.class.php';
     $mpu_classe            = new mpu_mpb_mpublish();
     $block                 = [];
-    $options[0]            = empty($options[0]) ? rand(0, 9999) : $options[0];
+    $options[0]            = empty($options[0]) ? mt_rand(0, 9999) : $options[0];
     $block['menuID']       = 'menu_' . $options[0];
     $block['menuHome']     = $options[1];
     $block['textHome']     = $options[2];
@@ -128,7 +128,7 @@ $(nome).value = 0;
 </div>
 PICKER;
 
-    $form .= MPU_BLO_OPT_ID . " <input type='text' name='options[0]' value='" . (empty($options[0]) ? rand(0, 9999) : $options[0]) . "'><br>";
+    $form .= MPU_BLO_OPT_ID . " <input type='text' name='options[0]' value='" . (empty($options[0]) ? mt_rand(0, 9999) : $options[0]) . "'><br>";
     $form .= MPU_BLO_OPT_HOME . "&nbsp;<input type='radio' name='options[1]' value='1'";
     if (1 == $options[1]) {
         $form .= ' checked';

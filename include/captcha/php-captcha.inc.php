@@ -228,14 +228,14 @@ class PhpCaptcha
         for ($i = 0; $i < $this->iNumLines; ++$i) {
             // allocate colour
             if ($this->bUseColour) {
-                $iLineColour = imagecolorallocate($this->oImage, rand(100, 250), rand(100, 250), rand(100, 250));
+                $iLineColour = imagecolorallocate($this->oImage, mt_rand(100, 250), mt_rand(100, 250), mt_rand(100, 250));
             } else {
-                $iRandColour = rand(100, 250);
+                $iRandColour = mt_rand(100, 250);
                 $iLineColour = imagecolorallocate($this->oImage, $iRandColour, $iRandColour, $iRandColour);
             }
 
             // draw line
-            imageline($this->oImage, rand(0, $this->iWidth), rand(0, $this->iHeight), rand(0, $this->iWidth), rand(0, $this->iHeight), $iLineColour);
+            imageline($this->oImage, mt_rand(0, $this->iWidth), mt_rand(0, $this->iHeight), mt_rand(0, $this->iWidth), mt_rand(0, $this->iHeight), $iLineColour);
         }
     }
 
@@ -270,7 +270,7 @@ class PhpCaptcha
                 $this->sCode .= $this->aCharSet[array_rand($this->aCharSet)];
             } else {
                 // select random character and add to code string
-                $this->sCode .= chr(rand(65, 90));
+                $this->sCode .= chr(mt_rand(65, 90));
             }
         }
 
@@ -291,28 +291,28 @@ class PhpCaptcha
 
             // select random colour
             if ($this->bUseColour) {
-                $iTextColour = imagecolorallocate($this->oImage, rand(0, 100), rand(0, 100), rand(0, 100));
+                $iTextColour = imagecolorallocate($this->oImage, mt_rand(0, 100), mt_rand(0, 100), mt_rand(0, 100));
 
                 if ($this->bCharShadow) {
                     // shadow colour
-                    $iShadowColour = imagecolorallocate($this->oImage, rand(0, 100), rand(0, 100), rand(0, 100));
+                    $iShadowColour = imagecolorallocate($this->oImage, mt_rand(0, 100), mt_rand(0, 100), mt_rand(0, 100));
                 }
             } else {
-                $iRandColour = rand(0, 100);
+                $iRandColour = mt_rand(0, 100);
                 $iTextColour = imagecolorallocate($this->oImage, $iRandColour, $iRandColour, $iRandColour);
 
                 if ($this->bCharShadow) {
                     // shadow colour
-                    $iRandColour   = rand(0, 100);
+                    $iRandColour   = mt_rand(0, 100);
                     $iShadowColour = imagecolorallocate($this->oImage, $iRandColour, $iRandColour, $iRandColour);
                 }
             }
 
             // select random font size
-            $iFontSize = rand($this->iMinFontSize, $this->iMaxFontSize);
+            $iFontSize = mt_rand($this->iMinFontSize, $this->iMaxFontSize);
 
             // select random angle
-            $iAngle = rand(-30, 30);
+            $iAngle = mt_rand(-30, 30);
 
             // get dimensions of character in selected font and text size
             $aCharDetails = imageftbbox($iFontSize, $iAngle, $sCurrentFont, $this->sCode[$i], []);
@@ -326,10 +326,10 @@ class PhpCaptcha
             imagefttext($this->oImage, $iFontSize, $iAngle, $iX, $iY, $iTextColour, $sCurrentFont, $this->sCode[$i], []);
 
             if ($this->bCharShadow) {
-                $iOffsetAngle = rand(-30, 30);
+                $iOffsetAngle = mt_rand(-30, 30);
 
-                $iRandOffsetX = rand(-5, 5);
-                $iRandOffsetY = rand(-5, 5);
+                $iRandOffsetX = mt_rand(-5, 5);
+                $iRandOffsetY = mt_rand(-5, 5);
 
                 imagefttext($this->oImage, $iFontSize, $iOffsetAngle, $iX + $iRandOffsetX, $iY + $iRandOffsetY, $iShadowColour, $sCurrentFont, $this->sCode[$i], []);
             }
