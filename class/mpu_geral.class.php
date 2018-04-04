@@ -39,7 +39,7 @@ if (!class_exists('mpu_geral')) {
                 $valores[] = $v;
                 //$$k = $v;
             }
-            if (is_null($this->getVar($this->id)) || 0 == $this->getVar($this->id)) {
+            if (null === $this->getVar($this->id) || 0 == $this->getVar($this->id)) {
                 $sql = 'INSERT INTO ' . $this->tabela . ' (';
                 $sql .= implode(',', $indices);
                 $sql .= ') VALUES (';
@@ -77,7 +77,7 @@ if (!class_exists('mpu_geral')) {
 
                 return false;
             }
-            if (is_null($this->getVar($this->id)) || 0 == $this->getVar($this->id)) {
+            if (null === $this->getVar($this->id) || 0 == $this->getVar($this->id)) {
                 $this->setVar($this->id, $this->db->getInsertId());
 
                 return $this->db->getInsertId();
@@ -102,7 +102,7 @@ if (!class_exists('mpu_geral')) {
 
         public function delete()
         {
-            $sql = sprintf('DELETE FROM %s WHERE ' . $this->id . ' = %u', $this->tabela, $this->getVar($this->id));
+            $sql = sprintf('DELETE FROM `%s` WHERE ' . $this->id . ' = %u', $this->tabela, $this->getVar($this->id));
             if (!$this->db->query($sql)) {
                 return false;
             }

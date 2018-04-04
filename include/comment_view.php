@@ -23,9 +23,9 @@ require_once XOOPS_ROOT_PATH . '/include/comment_constants.php';
 require_once XOOPS_ROOT_PATH . '/modules/system/constants.php';
 
 if (XOOPS_COMMENT_APPROVENONE != $helper->getConfig('com_rule')) {
-    $gpermHandler = xoops_getHandler('groupperm');
+    $grouppermHandler = xoops_getHandler('groupperm');
     $groups       = $xoopsUser ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-    $xoopsTpl->assign('xoops_iscommentadmin', $gpermHandler->checkRight('system_admin', XOOPS_SYSTEM_COMMENT, $groups));
+    $xoopsTpl->assign('xoops_iscommentadmin', $grouppermHandler->checkRight('system_admin', XOOPS_SYSTEM_COMMENT, $groups));
 
     require_once XOOPS_ROOT_PATH . '/language/' . $xoopsConfig['language'] . '/comment.php';
     $comment_config = $xoopsModule->getInfo('comments');

@@ -177,7 +177,7 @@ function prepareContent($content)
         $ctrl          = 0;
         $busca         = array_unique($_GET['busca']);
         foreach ($busca as $v) {
-            if (stristr(strip_tags($content), $v)) {
+            if (false !== stripos(strip_tags($content), $v)) {
                 $cfundo        = $bgs[$ctrl];
                 $ctexto        = $colors[$ctrl];
                 $busca[0]      = '~' . $v . '(?![^<]*>)~';

@@ -98,7 +98,7 @@ class mpu_cfi_contentfiles extends mpu_geral
                 $v->delete();
             }
         }
-        $sql = sprintf('DELETE FROM %s WHERE ' . $this->id . ' = %u', $this->tabela, $this->getVar($this->id));
+        $sql = sprintf('DELETE FROM `%s` WHERE ' . $this->id . ' = %u', $this->tabela, $this->getVar($this->id));
         if (!$this->db->query($sql)) {
             return false;
         }

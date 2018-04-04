@@ -25,8 +25,8 @@ if (!$_POST) {
         } else {
             $groups       = (!empty($xoopsUser)
                              && is_object($xoopsUser)) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-            $gpermHandler = xoops_getHandler('groupperm');
-            if (!$gpermHandler->checkRight('mpu_mpublish_acesso', $mpu_classe->getVar('mpb_10_id'), $groups, $xoopsModule->getVar('mid'))) {
+            $grouppermHandler = xoops_getHandler('groupperm');
+            if (!$grouppermHandler->checkRight('mpu_mpublish_acesso', $mpu_classe->getVar('mpb_10_id'), $groups, $xoopsModule->getVar('mid'))) {
                 redirect_header(XOOPS_URL, 3, _NOPERM);
             }
             require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
