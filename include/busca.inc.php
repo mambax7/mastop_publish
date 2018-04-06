@@ -22,7 +22,7 @@ function mpu_mpublish_busca($queryarray, $andor, $limit, $offset, $userid)
     $mpu_module        = $moduleHandler->getByDirname(MPU_MOD_DIR);
     $MyPages           = $modulepermHandler->getItemIds('mpu_mpublish_acesso', $groups, $mpu_module->getVar('mid'));
     $query_str         = '';
-    require_once XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/class/mpu_mpb_mpublish.class.php';
+    require_once XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/class/Publish.class.php';
     $sql = 'SELECT mpb_10_id, mpb_10_ordem FROM ' . $xoopsDB->prefix(MPU_MOD_TABELA1) . ' WHERE mpb_11_visivel < 4 AND mpb_12_semlink = 0';
     if (0 != $userid) {
         $sql .= ' AND uid=' . $userid . ' ';
@@ -92,7 +92,7 @@ function mpu_mpublish_busca($queryarray, $andor, $limit, $offset, $userid)
         $i = 0;
         asort($contents);
         foreach ($contents as $k => $v) {
-            $mpu_classe       = new mpu_mpb_mpublish($k);
+            $mpu_classe       = new Publish($k);
             $ret[$i]['image'] = "assets/images/publish.gif' align='absmiddle";
             $ret[$i]['link']  = $mpu_classe->pegaLink() . $query_str;
             $ret[$i]['title'] = $mpu_classe->getVar('mpb_30_menu');

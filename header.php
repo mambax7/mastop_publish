@@ -20,5 +20,5 @@ if (!defined('MPU_MOD_DIR')) {
     $helper = Mastoppublish\Helper::getInstance();
     $helper->loadLanguage('modinfo');
 }
-require_once XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/class/mpu_mpb_mpublish.class.php';
+require_once XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/class/Publish.class.php';
 require_once XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/include/funcoes.inc.php';

@@ -25,14 +25,14 @@ if ('' == $com_mode) {
         $com_mode = $xoopsConfig['com_mode'];
     }
 }
-if (!isset($_GET['com_order'])) {
+if (!\Xmf\Request::hasVar('com_order')) {
     if (is_object($xoopsUser)) {
         $com_order = $xoopsUser->getVar('uorder');
     } else {
         $com_order = $xoopsConfig['com_order'];
     }
 } else {
-    $com_order = (int)$_GET['com_order'];
+    $com_order = \Xmf\Request::getInt('com_order', 0, 'GET');
 }
 $commentHandler = xoops_getHandler('comment');
 $comment        = $commentHandler->get($com_id);

@@ -38,8 +38,7 @@ if (file_exists('../language/' . $xoopsConfig['language'] . '/modinfo.php')) {
     require_once __DIR__ . '/../language/portuguesebr/modinfo.php';
 }
 require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
-$op = empty($_GET['op']) ? 'list' : $_GET['op'];
-$op = empty($_POST['op']) ? $op : $_POST['op'];
+$op              = \Xmf\Request::getCmd('op', 'list');
 if (!is_object($xoopsUser)) {
     $groups = [XOOPS_GROUP_ANONYMOUS];
     $admin  = false;
@@ -189,7 +188,7 @@ if ('delcatok' === $op && $admin) {
     if (!$GLOBALS['xoopsSecurity']->check()) {
         redirect_header($_SERVER['PHP_SELF'], 3, implode('<br>', $GLOBALS['xoopsSecurity']->getErrors()));
     }
-    $imgcat_id = (int)$_POST['imgcat_id'];
+    $imgcat_id = \Xmf\Request::getInt('imgcat_id', 0, 'POST');
     if ($imgcat_id <= 0) {
         redirect_header($_SERVER['PHP_SELF'], 1);
     }
@@ -307,7 +306,7 @@ if ('delcatok' === $op && $admin) {
             echo '<a href="' . $_SERVER['PHP_SELF'] . '">' . _MD_IMGMAIN . '</a>&nbsp;<span style="font-weight:bold;">&raquo;&raquo;</span>&nbsp;' . $imagecategory->getVar('imgcat_name') . '<br><br>';
             $form->display();
         } elseif ('listimg' === $op) {
-            $imgcat_id     = (int)$_GET['imgcat_id'];
+            $imgcat_id     = \Xmf\Request::getInt('imgcat_id', 0, 'GET');
             $imagecategory = $imgcatHandler->get($imgcat_id);
             if (!is_object($imagecategory)) {
                 redirect_header($_SERVER['PHP_SELF'], 1);
@@ -406,7 +405,7 @@ if ('delcatok' === $op && $admin) {
                 if (!$GLOBALS['xoopsSecurity']->check()) {
                     redirect_header($_SERVER['PHP_SELF'], 3, implode('<br>', $GLOBALS['xoopsSecurity']->getErrors()));
                 }
-                $imagecategory = $imgcatHandler->get((int)$_POST['imgcat_id']);
+                $imagecategory = $imgcatHandler->get(\Xmf\Request::getInt('imgcat_id', 0, 'POST'));
                 if (!is_object($imagecategory)) {
                     redirect_header($_SERVER['PHP_SELF'], 1);
                 }

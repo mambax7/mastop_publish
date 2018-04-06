@@ -27,7 +27,7 @@ if (isset($_POST)) {
 switch ($op) {
     case 'limpacont':
         $mpb_10_id  = (!empty($mpb_10_id)) ? $mpb_10_id : 0;
-        $mpu_classe = new mpu_mpb_mpublish($mpb_10_id);
+        $mpu_classe = new Publish($mpb_10_id);
         if (empty($mpb_10_id) || '' == $mpu_classe->getVar('mpb_10_id')) {
             redirect_header(XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/admin/main.php', 3, MPU_ADM_ERRO2);
         }
@@ -37,7 +37,7 @@ switch ($op) {
 
     case 'limpacont_ok':
         $mpb_10_id  = (!empty($mpb_10_id)) ? $mpb_10_id : 0;
-        $mpu_classe = new mpu_mpb_mpublish($mpb_10_id);
+        $mpu_classe = new Publish($mpb_10_id);
         if (empty($mpb_10_id) || '' == $mpu_classe->getVar('mpb_10_id')) {
             redirect_header(XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/admin/main.php', 3, MPU_ADM_ERRO2);
         }
@@ -52,15 +52,15 @@ switch ($op) {
     case 'novo':
         mpu_adm_menu();
         $mpb_10_id      = null;
-        $mpu_classe     = new mpu_mpb_mpublish($mpb_10_id);
-        $cfi_classe     = new mpu_cfi_contentfiles();
+        $mpu_classe     = new Publish($mpb_10_id);
+        $cfi_classe     = new ContentFiles();
         $form['titulo'] = MPU_ADM_NOVO;
         $form['op']     = 'salvar';
         include XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/include/mpb.form.inc.php';
         $mpb_form->display();
         break;
     case 'salvar':
-        $mpu_classe = (isset($mpb_10_id) && $mpb_10_id > 0) ? new mpu_mpb_mpublish($mpb_10_id) : new mpu_mpb_mpublish();
+        $mpu_classe = (isset($mpb_10_id) && $mpb_10_id > 0) ? new Publish($mpb_10_id) : new Publish();
         $mpu_classe->setVar('mpb_10_idpai', $mpb_10_idpai);
         $mpu_classe->setVar('usr_10_uid', (empty($usr_10_uid) ? $xoopsUser->getVar('uid') : $usr_10_uid));
         $mpu_classe->setVar('mpb_30_menu', $mpb_30_menu);
@@ -96,7 +96,7 @@ switch ($op) {
         break;
     case 'listar_clone':
         $mpb_10_id  = (!empty($mpb_10_id)) ? $mpb_10_id : 0;
-        $mpu_classe = new mpu_mpb_mpublish($mpb_10_id);
+        $mpu_classe = new Publish($mpb_10_id);
         if (empty($mpb_10_id) || '' == $mpu_classe->getVar('mpb_10_id')) {
             redirect_header(XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/admin/main.php', 3, MPU_ADM_ERRO2);
         }
@@ -104,7 +104,7 @@ switch ($op) {
         xoops_confirm(['op' => 'listar_clone_ok', 'mpb_10_id' => $mpb_10_id], 'main.php', sprintf(MPU_ADM_CONFIRMA_CLONE, $mpb_10_id, $mpu_classe->getVar('mpb_30_menu')));
         break;
     case 'listar_clone_ok':
-        $mpu_classe = (isset($mpb_10_id) && $mpb_10_id > 0) ? new mpu_mpb_mpublish($mpb_10_id) : new mpu_mpb_mpublish();
+        $mpu_classe = (isset($mpb_10_id) && $mpb_10_id > 0) ? new Publish($mpb_10_id) : new Publish();
         $grupos_ids = $modulepermHandler->getGroupIds('mpu_mpublish_acesso', $mpb_10_id, $xoopsModule->getVar('mid'));
         if ($mpu_classe->getVar('mpb_10_id') > 0) {
             $mpu_classe->setVar('mpb_10_id', 0);
@@ -122,8 +122,8 @@ switch ($op) {
     case 'listar_editar':
         mpu_adm_menu();
         $mpb_10_id  = (!empty($mpb_10_id)) ? $mpb_10_id : 0;
-        $mpu_classe = new mpu_mpb_mpublish($mpb_10_id);
-        $cfi_classe = new mpu_cfi_contentfiles();
+        $mpu_classe = new Publish($mpb_10_id);
+        $cfi_classe = new ContentFiles();
         if (empty($mpb_10_id) || '' == $mpu_classe->getVar('mpb_10_id')) {
             redirect_header(XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/admin/main.php', 3, MPU_ADM_ERRO2);
         }
@@ -134,7 +134,7 @@ switch ($op) {
         break;
     case 'listar_deletar':
         $mpb_10_id  = (!empty($mpb_10_id)) ? $mpb_10_id : 0;
-        $mpu_classe = new mpu_mpb_mpublish($mpb_10_id);
+        $mpu_classe = new Publish($mpb_10_id);
         if (empty($mpb_10_id) || '' == $mpu_classe->getVar('mpb_10_id')) {
             redirect_header(XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/admin/main.php', 3, MPU_ADM_ERRO2);
         }
@@ -148,7 +148,7 @@ switch ($op) {
         break;
     case 'listar_deletar_ok':
         $mpb_10_id  = (!empty($mpb_10_id)) ? $mpb_10_id : 0;
-        $mpu_classe = new mpu_mpb_mpublish($mpb_10_id);
+        $mpu_classe = new Publish($mpb_10_id);
         if (empty($mpb_10_id) || '' == $mpu_classe->getVar('mpb_10_id')) {
             redirect_header(XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/admin/main.php', 3, MPU_ADM_ERRO2);
         }
@@ -166,7 +166,7 @@ switch ($op) {
     case 'listar_all':
         if (empty($_POST['campos'])) {
             mpu_adm_menu();
-            $mpu_classe = new mpu_mpb_mpublish();
+            $mpu_classe = new Publish();
             $criterio   = null;
             // Opções
             $c['op']         = 'listar_all';
@@ -230,7 +230,7 @@ switch ($op) {
             echo "<a href='" . XOOPS_URL . '/modules/' . MPU_MOD_DIR . "/admin/main.php?op=listar' style='padding:3px; border:5px double #FFFFFF; background-color: #00950F; color: #FFFFFF'>" . MPU_ADM_SHOW_NESTED_MODE . '</a>';
         } else {
             foreach ($_POST['campos'] as $k => $v) {
-                $mpu_classe = new mpu_mpb_mpublish($k);
+                $mpu_classe = new Publish($k);
                 $mpu_classe->assignVars($v);
                 $mpu_classe->store();
             }
@@ -245,13 +245,13 @@ switch ($op) {
             if (isset($_REQUEST['mpb_10_id'])) {
                 $mpb_10_id                        = $_REQUEST['mpb_10_id'];
                 $_SESSION['listar_mpu_mpb_10_id'] = $_REQUEST['mpb_10_id'];
-                $mpu_classe                       = new mpu_mpb_mpublish($mpb_10_id);
+                $mpu_classe                       = new Publish($mpb_10_id);
             } elseif (!empty($_SESSION['listar_mpu_mpb_10_id'])) {
                 $mpb_10_id  = $_SESSION['listar_mpu_mpb_10_id'];
-                $mpu_classe = new mpu_mpb_mpublish($mpb_10_id);
+                $mpu_classe = new Publish($mpb_10_id);
             } else {
                 $mpb_10_id  = 0;
-                $mpu_classe = new mpu_mpb_mpublish();
+                $mpu_classe = new Publish();
             }
             // Opções
             $c['op']                  = 'listar';
@@ -335,7 +335,7 @@ switch ($op) {
             echo "<a href='" . XOOPS_URL . '/modules/' . MPU_MOD_DIR . "/admin/main.php?op=listar_all' style='padding:3px; border:5px double #FFFFFF; background-color: #00950F; color: #FFFFFF'>" . MPU_ADM_SHOW_INLINE_MODE . '</a>';
         } else {
             foreach ($_POST['campos'] as $k => $v) {
-                $mpu_classe = new mpu_mpb_mpublish($k);
+                $mpu_classe = new Publish($k);
                 $mpu_classe->assignVars($v);
                 $mpu_classe->store();
             }

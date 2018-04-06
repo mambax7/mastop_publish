@@ -19,8 +19,7 @@ $helper = Mastoppublish\Helper::getInstance();
 
 require_once __DIR__ . '/admin_header.php';
 require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
-$op              = empty($_GET['op']) ? 'list' : $_GET['op'];
-$op              = empty($_POST['op']) ? $op : $_POST['op'];
+$op              = \Xmf\Request::getCmd('op', 'list');
 $mpb_wysiwyg_url = XOOPS_URL . $helper->getConfig('mpu_conf_wysiwyg_path');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -74,7 +73,7 @@ $mpb_wysiwyg_url = XOOPS_URL . $helper->getConfig('mpu_conf_wysiwyg_path');
         <?php
         if ('listfil' === $op) {
             $fil_30_mime = $_GET['fil_30_mime'];
-            $fil_classe  = new mpu_fil_files();
+            $fil_classe  = new FilFiles();
             $criterio    = new \CriteriaCompo(new \Criteria('fil_30_mime', $fil_30_mime));
             if (!empty($_GET['fil_30_nome'])) {
                 $criterio->add(new \Criteria('fil_30_nome', '%' . $_GET['fil_30_nome'] . '%', 'LIKE'));
@@ -139,7 +138,7 @@ $mpb_wysiwyg_url = XOOPS_URL . $helper->getConfig('mpu_conf_wysiwyg_path');
                 }
             }
         } else {
-            $fil_classe   = new mpu_fil_files();
+            $fil_classe   = new FilFiles();
             $mimes        = $fil_classe->pegaMimes();
             $tipos_select = '';
             if ($mimes) {
@@ -178,7 +177,7 @@ $mpb_wysiwyg_url = XOOPS_URL . $helper->getConfig('mpu_conf_wysiwyg_path');
          style="overflow: visible;">
         <?php
         if ('addfile' === $op) {
-            $file      = new mpu_fil_files();
+            $file      = new FilFiles();
             $file_nome = $_FILES[$_POST['xoops_upload_file'][0]];
             $file_nome = get_magic_quotes_gpc() ? stripslashes($file_nome['name']) : $file_nome['name'];
             if (xoops_trim('' != $file_nome)) {
@@ -237,7 +236,7 @@ $mpb_wysiwyg_url = XOOPS_URL . $helper->getConfig('mpu_conf_wysiwyg_path');
             }
         }
         echo '<h4>' . MPU_ADM_NFILE . '</h4>';
-        $fil_classe = new mpu_fil_files();
+        $fil_classe = new FilFiles();
         $fil_form   = new \XoopsThemeForm('', 'mpu_fil_form', $_SERVER['PHP_SELF'], 'post', true);
         $fil_form->setExtra('enctype="multipart/form-data"');
         $fil_form->addElement(new \XoopsFormText(MPU_ADM_FIL_30_NOME, 'fil_30_nome', 50, 50, $fil_classe->getVar('fil_30_nome')), true);

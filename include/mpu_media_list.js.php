@@ -21,7 +21,7 @@ if (!is_object($xoopsUser) || !$xoopsUserIsAdmin) {
 }
 $criterio = new \CriteriaCompo(new \Criteria('med_12_exibir', 1));
 $criterio->setSort('med_30_nome');
-$med_classe = new mpu_med_media();
+$med_classe = new Media();
 $medias = $med_classe->PegaTudo($criterio);
 $tipos = [
     1 => MPU_ADM_MED_10_TIPO_1,

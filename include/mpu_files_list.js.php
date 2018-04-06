@@ -21,7 +21,7 @@ if (!is_object($xoopsUser) || !$xoopsUserIsAdmin) {
 }
 $criterio = new \CriteriaCompo(new \Criteria('fil_12_exibir', 1));
 $criterio->setSort('fil_30_nome');
-$fil_classe = new mpu_fil_files();
+$fil_classe = new FilFiles();
 $files = $fil_classe->PegaTudo($criterio);
 if ($fil_classe->total > 0) {
     foreach ($files as $fil) {

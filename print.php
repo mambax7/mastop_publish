@@ -24,7 +24,7 @@ $tac = is_int($tac) ? $tac : str_replace('_', ' ', $tac);
 if (!$tac) {
     redirect_header(XOOPS_URL, 2, MPU_MAI_404);
 } else {
-    $mpu_classe = new mpu_mpb_mpublish($tac);
+    $mpu_classe = new Publish($tac);
     if (!$mpu_classe->getVar('mpb_10_id')) {
         redirect_header(XOOPS_URL, 2, MPU_MAI_404);
     } else {

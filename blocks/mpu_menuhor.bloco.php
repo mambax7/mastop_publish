@@ -20,8 +20,8 @@ if (!defined('MPU_MOD_DIR')) {
 }
 function mpu_menuhor_exibe($options)
 {
-    require_once XOOPS_ROOT_PATH . '/modules/' . MPU_BLO_MODDIR . '/class/mpu_mpb_mpublish.class.php';
-    $mpu_classe            = new mpu_mpb_mpublish();
+    require_once XOOPS_ROOT_PATH . '/modules/' . MPU_BLO_MODDIR . '/class/Publish.class.php';
+    $mpu_classe            = new Publish();
     $block                 = [];
     $options[0]            = empty($options[0]) ? mt_rand(0, 9999) : $options[0];
     $block['menuID']       = 'menu_' . $options[0];
@@ -57,11 +57,11 @@ function mpu_menuhor_exibe($options)
 
 function mpu_menuhor_edita($options)
 {
-    require_once XOOPS_ROOT_PATH . '/modules/' . MPU_BLO_MODDIR . '/class/mpu_mpb_mpublish.class.php';
+    require_once XOOPS_ROOT_PATH . '/modules/' . MPU_BLO_MODDIR . '/class/Publish.class.php';
     if (!defined('MPU_ADM_MENUP')) {
         define('MPU_ADM_MENUP', _ALL);
     }
-    $mpu_classe = new mpu_mpb_mpublish();
+    $mpu_classe = new Publish();
     $paginas    = $mpu_classe->geraMenuSelect(0, false);
     $picker_url = XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/assets/js/color_picker';
     $form       = '

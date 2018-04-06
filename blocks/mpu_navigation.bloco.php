@@ -21,7 +21,7 @@ if (!defined('MPU_MOD_DIR')) {
 function mpu_navigation_exibe($options)
 {
     global $xoopsModule;
-    require_once XOOPS_ROOT_PATH . '/modules/' . MPU_BLO_MODDIR . '/class/mpu_mpb_mpublish.class.php';
+    require_once XOOPS_ROOT_PATH . '/modules/' . MPU_BLO_MODDIR . '/class/Publish.class.php';
     $tac   = \Xmf\Request::getInt('tac', 0, 'GET');
     $tac   = is_int($tac) ? $tac : str_replace('_', ' ', $tac);
     $block = [];
@@ -35,7 +35,7 @@ function mpu_navigation_exibe($options)
             return false;
         }
     } else {
-        $mpu_classe = new mpu_mpb_mpublish($tac);
+        $mpu_classe = new Publish($tac);
         if ('' != $mpu_classe->getVar('mpb_10_id')) {
             $block['content'] = $mpu_classe->geraNavigation(null, $options[2], $style);
 

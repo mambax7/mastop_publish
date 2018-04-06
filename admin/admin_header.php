@@ -13,12 +13,6 @@ $moduleDirName = basename(dirname(__DIR__));
 //    require_once __DIR__ . '/../language/portuguesebr/modinfo.php';
 //}
 
-//require_once XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/class/mpu_mpb_mpublish.class.php';
-//require_once XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/class/mpu_med_media.class.php';
-//require_once XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/class/mpu_fil_files.class.php';
-//require_once XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/class/mpu_cfi_contentfiles.class.php';
-//require_once XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/include/funcoes.inc.php';
-
 // require_once __DIR__ . '/../class/Utility.php';
 //require_once __DIR__ . '/../include/common.php';
 
@@ -34,10 +28,6 @@ $helper->loadLanguage('admin');
 $helper->loadLanguage('modinfo');
 $helper->loadLanguage('main');
 
-require_once XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/class/mpu_mpb_mpublish.class.php';
-require_once XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/class/mpu_med_media.class.php';
-require_once XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/class/mpu_fil_files.class.php';
-require_once XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/class/mpu_cfi_contentfiles.class.php';
 require_once XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/include/funcoes.inc.php';
 
 $myts = \MyTextSanitizer::getInstance();

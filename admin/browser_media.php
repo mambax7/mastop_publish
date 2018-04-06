@@ -19,8 +19,7 @@ $helper = Mastoppublish\Helper::getInstance();
 
 require_once __DIR__ . '/admin_header.php';
 require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
-$op              = empty($_GET['op']) ? 'list' : $_GET['op'];
-$op              = empty($_POST['op']) ? $op : $_POST['op'];
+$op              = \Xmf\Request::getCmd('op', 'list');
 $mpb_wysiwyg_url = XOOPS_URL . $helper->getConfig('mpu_conf_wysiwyg_path');
 $tipos           = [
     1 => MPU_ADM_MED_10_TIPO_1,
@@ -93,8 +92,8 @@ $tipos           = [
         <h3>{$lang_browser_media_title}</h3>
         <?php
         if ('listmed' === $op) {
-            $med_10_tipo = (int)$_GET['med_10_tipo'];
-            $med_classe  = new mpu_med_media();
+            $med_10_tipo = \Xmf\Request::getInt('med_10_tipo', 0, 'GET');
+            $med_classe  = new Media();
             $criterio    = new \CriteriaCompo(new \Criteria('med_10_tipo', $med_10_tipo));
             if (!empty($_GET['med_30_nome'])) {
                 $criterio->add(new \Criteria('med_30_nome', '%' . $_GET['med_30_nome'] . '%', 'LIKE'));
@@ -171,7 +170,7 @@ $tipos           = [
                 }
             }
         } else {
-            $med_classe   = new mpu_med_media();
+            $med_classe   = new Media();
             $tipos_select = '';
             echo '<ul>';
             for ($i = 1; $i <= 5; ++$i) {
@@ -207,7 +206,7 @@ $tipos           = [
          style="overflow: visible;">
         <?php
         if ('addmedia' === $op) {
-            $media     = new mpu_med_media();
+            $media     = new Media();
             $file_nome = $_FILES[$_POST['xoops_upload_file'][0]];
             $file_nome = get_magic_quotes_gpc() ? stripslashes($file_nome['name']) : $file_nome['name'];
             if (xoops_trim('' != $file_nome)) {
@@ -325,7 +324,7 @@ $tipos           = [
             }
         }
         echo '<h4>' . MPU_ADM_NMEDIA . '</h4>';
-        $med_classe = new mpu_med_media();
+        $med_classe = new Media();
         $med_form   = new \XoopsThemeForm('', 'mpu_med_form', $_SERVER['PHP_SELF'], 'post', true);
         $med_form->setExtra('enctype="multipart/form-data"');
         $med_form->addElement(new \XoopsFormText(MPU_ADM_MED_30_NOME, 'med_30_nome', 50, 50), true);

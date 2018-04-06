@@ -23,13 +23,13 @@ $tac = \Xmf\Request::getInt('tac', 0, 'GET');
 $tac = is_int($tac) ? $tac : str_replace('_', ' ', $tac);
 if (!$tac) {
     if ($helper->getConfig('mpu_conf_home_id')) {
-        $mpu_classe = new mpu_mpb_mpublish($helper->getConfig('mpu_conf_home_id'));
+        $mpu_classe = new Publish($helper->getConfig('mpu_conf_home_id'));
     } else {
-        $mpu_classe = new mpu_mpb_mpublish();
+        $mpu_classe = new Publish();
         $mpu_classe->loadLast();
     }
 } else {
-    $mpu_classe = new mpu_mpb_mpublish(urldecode($tac));
+    $mpu_classe = new Publish(urldecode($tac));
 }
 if (!$mpu_classe->getVar('mpb_10_id')) {
     redirect_header(XOOPS_URL, 2, MPU_MAI_404);

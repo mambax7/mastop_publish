@@ -48,7 +48,7 @@ if (XOOPS_COMMENT_APPROVENONE != $helper->getConfig('com_rule')) {
                 $com_order = $xoopsConfig['com_order'];
             }
         } else {
-            $com_order = (int)$_GET['com_order'];
+            $com_order = \Xmf\Request::getInt('com_order', 0, 'GET');
         }
         if (XOOPS_COMMENT_OLD1ST != $com_order) {
             $xoopsTpl->assign(['comment_order' => XOOPS_COMMENT_NEW1ST, 'order_other' => XOOPS_COMMENT_OLD1ST]);

@@ -16,7 +16,7 @@
 define('MPU_MOD_NOME', 'Mastop Publish');
 define('MPU_MOD_DESC', 'Create static pages for your site!');
 define('MPU_MOD_DIR', 'mastoppublish');
-define('MPU_MOD_TABELA1', 'mpu_mpb_mpublish');
+define('MPU_MOD_TABELA1', 'Publish');
 define('MPU_MOD_TABELA2', 'mpu_fil_files');
 define('MPU_MOD_TABELA3', 'mpu_med_media');
 define('MPU_MOD_TABELA4', 'mpu_cfi_contentfiles');

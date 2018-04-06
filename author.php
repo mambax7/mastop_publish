@@ -18,7 +18,7 @@ $helper = Mastoppublish\Helper::getInstance();
 
 include __DIR__ . '/../../mainfile.php';
 require_once __DIR__ . '/header.php';
-require_once XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/class/mpu_cfi_contentfiles.class.php';
+require_once XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/class/ContentFiles.class.php';
 global $pathIcon16;
 
 if (isset($_GET)) {
@@ -40,7 +40,7 @@ if (empty($op)) {
     $op = 'listar';
 } elseif ('editar' === $op || 'limpacont' === $op || 'limpacont_ok' === $op || 'novo' === $op) {
     $mpb_10_id  = (!empty($mpb_10_id)) ? $mpb_10_id : 0;
-    $mpu_classe = new mpu_mpb_mpublish($mpb_10_id);
+    $mpu_classe = new Publish($mpb_10_id);
     if (empty($xoopsUser) || empty($mpb_10_id) || '' == $mpu_classe->getVar('mpb_10_id')
         || $mpu_classe->getVar('usr_10_uid') != $xoopsUser->getVar('uid')) {
         redirect_header(XOOPS_URL, 3, MPU_ADM_403);
@@ -65,8 +65,8 @@ switch ($op) {
         }
         $mpb_10_idpai   = $mpb_10_id;
         $mpb_10_id      = null;
-        $mpu_classe     = new mpu_mpb_mpublish();
-        $cfi_classe     = new mpu_cfi_contentfiles();
+        $mpu_classe     = new Publish();
+        $cfi_classe     = new ContentFiles();
         $form['titulo'] = MPU_ADM_NOVO;
         $form['op']     = 'salvar';
         include XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/include/mpb.form.author.inc.php';
@@ -74,13 +74,13 @@ switch ($op) {
         break;
     case 'salvar':
         if (!empty($mpb_10_idpai) && empty($mpb_10_id)) {
-            $mpu_classe_pai = new mpu_mpb_mpublish($mpb_10_idpai);
+            $mpu_classe_pai = new Publish($mpb_10_idpai);
             if (empty($xoopsUser) || $mpu_classe_pai->getVar('usr_10_uid') != $xoopsUser->getVar('uid')
                 || !$helper->getConfig('mpu_conf_cancreate')) {
                 redirect_header(XOOPS_URL, 3, MPU_ADM_403);
             }
         }
-        $mpu_classe = (isset($mpb_10_id) && $mpb_10_id > 0) ? new mpu_mpb_mpublish($mpb_10_id) : new mpu_mpb_mpublish();
+        $mpu_classe = (isset($mpb_10_id) && $mpb_10_id > 0) ? new Publish($mpb_10_id) : new Publish();
         if (('' != $mpu_classe->getVar('mpb_10_id') && !$helper->getConfig('mpu_conf_canedit'))
             || ('' == $mpu_classe->getVar('mpb_10_id') && !$helper->getConfig('mpu_conf_cancreate'))
             || ('' != $mpu_classe->getVar('mpb_10_id')
@@ -134,7 +134,7 @@ switch ($op) {
             redirect_header(XOOPS_URL, 3, MPU_ADM_403);
         }
         $mpb_10_idpai   = $mpu_classe->getVar('mpb_10_idpai');
-        $cfi_classe     = new mpu_cfi_contentfiles();
+        $cfi_classe     = new ContentFiles();
         $form['titulo'] = MPU_ADM_EPAGE;
         $form['op']     = 'salvar';
         include XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/include/mpb.form.author.inc.php';
@@ -142,7 +142,7 @@ switch ($op) {
         break;
     case 'deletar':
         $mpb_10_id  = (!empty($mpb_10_id)) ? $mpb_10_id : 0;
-        $mpu_classe = new mpu_mpb_mpublish($mpb_10_id);
+        $mpu_classe = new Publish($mpb_10_id);
         if (empty($xoopsUser)
             || empty($mpb_10_id)
             || '' == $mpu_classe->getVar('mpb_10_id')
@@ -158,7 +158,7 @@ switch ($op) {
         break;
     case 'deletar_ok':
         $mpb_10_id  = (!empty($mpb_10_id)) ? $mpb_10_id : 0;
-        $mpu_classe = new mpu_mpb_mpublish($mpb_10_id);
+        $mpu_classe = new Publish($mpb_10_id);
         if (empty($xoopsUser)
             || empty($mpb_10_id)
             || '' == $mpu_classe->getVar('mpb_10_id')
@@ -179,7 +179,7 @@ switch ($op) {
         break;
     case 'listar':
     default:
-        $mpu_classe = new mpu_mpb_mpublish();
+        $mpu_classe = new Publish();
         $criterio   = null;
         // Opções
         $c['op']                  = 'listar';

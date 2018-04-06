@@ -113,8 +113,8 @@ function mpu_apagaPermissoes($id)
 function mpu_apagaPermissoesPai($id)
 {
     global $xoopsModule;
-    require_once XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/class/mpu_mpb_mpublish.class.php';
-    $mpu_classe = new mpu_mpb_mpublish();
+    require_once XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/class/Publish.class.php';
+    $mpu_classe = new Publish();
     $todos      = $mpu_classe->PegaTudo(new \Criteria('mpb_10_idpai', $id));
     if (!empty($todos)) {
         foreach ($todos as $v) {

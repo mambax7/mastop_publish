@@ -87,11 +87,11 @@ if (!empty($_POST)) {
     $com_pid    = \Xmf\Request::getInt('com_pid', 0, 'POST');
     $com_rootid = \Xmf\Request::getInt('com_rootid', 0, 'POST');
     $com_status = \Xmf\Request::getInt('com_status', 0, 'POST');
-    $dosmiley   = (isset($_POST['dosmiley']) && (int)$_POST['dosmiley'] > 0) ? 1 : 0;
-    $doxcode    = (isset($_POST['doxcode']) && (int)$_POST['doxcode'] > 0) ? 1 : 0;
-    $dobr       = (isset($_POST['dobr']) && (int)$_POST['dobr'] > 0) ? 1 : 0;
-    $dohtml     = (isset($_POST['dohtml']) && (int)$_POST['dohtml'] > 0) ? 1 : 0;
-    $doimage    = (isset($_POST['doimage']) && (int)$_POST['doimage'] > 0) ? 1 : 0;
+    $dosmiley   = (isset($_POST['dosmiley']) && \Xmf\Request::getInt('dosmiley', 0, 'POST') > 0) ? 1 : 0;
+    $doxcode    = (isset($_POST['doxcode']) && \Xmf\Request::getInt('doxcode', 0, 'POST') > 0) ? 1 : 0;
+    $dobr       = (isset($_POST['dobr']) && \Xmf\Request::getInt('dobr', 0, 'POST') > 0) ? 1 : 0;
+    $dohtml     = (isset($_POST['dohtml']) && \Xmf\Request::getInt('dohtml', 0, 'POST') > 0) ? 1 : 0;
+    $doimage    = (isset($_POST['doimage']) && \Xmf\Request::getInt('doimage', 0, 'POST') > 0) ? 1 : 0;
     $com_icon   = isset($_POST['com_icon']) ? trim($_POST['com_icon']) : '';
 } else {
     redirect_header(XOOPS_URL, 1, _NOPERM);
