@@ -13,10 +13,12 @@
 ### =============================================================
 
 use XoopsModules\Mastoppublish;
+
+require_once __DIR__ . '/admin_header.php';
+
 /** @var Mastoppublish\Helper $helper */
 $helper = Mastoppublish\Helper::getInstance();
 
-require_once __DIR__ . '/admin_header.php';
 global $pathIcon16;
 $op = isset($_GET['op']) ? $_GET['op'] : 'media';
 if (isset($_GET)) {
@@ -35,7 +37,7 @@ switch ($op) {
     case 'media_editar':
         mpu_adm_menu();
         $med_10_id  = (!empty($med_10_id)) ? $med_10_id : 0;
-        $med_classe = new Media($med_10_id);
+        $med_classe = new Mastoppublish\Media($med_10_id);
         if (empty($med_10_id) || '' == $med_classe->getVar('med_10_id')) {
             redirect_header(XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/admin/media.php', 3, MPU_ADM_ERRO_MED404);
         }
@@ -47,7 +49,7 @@ switch ($op) {
     case 'media_deletar':
         mpu_adm_menu();
         $med_10_id  = (!empty($med_10_id)) ? $med_10_id : 0;
-        $med_classe = new Media($med_10_id);
+        $med_classe = new Mastoppublish\Media($med_10_id);
         if (empty($med_10_id) || '' == $med_classe->getVar('med_10_id')) {
             redirect_header(XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/admin/media.php', 3, MPU_ADM_ERRO_MED404);
         }
@@ -55,7 +57,7 @@ switch ($op) {
         break;
     case 'media_deletar_ok':
         $med_10_id  = (!empty($med_10_id)) ? $med_10_id : 0;
-        $med_classe = new Media($med_10_id);
+        $med_classe = new Mastoppublish\Media($med_10_id);
         if (empty($med_10_id) || '' == $med_classe->getVar('med_10_id')) {
             redirect_header(XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/admin/media.php', 3, MPU_ADM_ERRO_MED404);
         }
@@ -65,7 +67,7 @@ switch ($op) {
         break;
     case 'media_adicionar':
         mpu_adm_menu();
-        $med_classe     = new Media();
+        $med_classe     = new Mastoppublish\Media();
         $form['titulo'] = MPU_ADM_NMEDIA;
         $form['op']     = 'salvar';
         include XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/include/med.form.inc.php';
@@ -73,9 +75,9 @@ switch ($op) {
         break;
     case 'salvar':
         if (empty($med_10_id)) {
-            $media = new Media();
+            $media = new Mastoppublish\Media();
         } else {
-            $media = new Media($med_10_id);
+            $media = new Mastoppublish\Media($med_10_id);
         }
         $erro      = '';
         $file_nome = $_FILES[$_POST['xoops_upload_file'][0]];
@@ -169,7 +171,7 @@ switch ($op) {
     default:
         mpu_adm_menu();
         echo (!empty($erro)) ? $erro . '<br>' : '';
-        $Media = new Media();
+        $Media = new Mastoppublish\Media();
         $med_10_id     = empty($med_10_id) ? null : $med_10_id;
         // Opções
         $c['op']     = 'media';
@@ -243,7 +245,7 @@ switch ($op) {
         $c['lang']['group_del']      = MPU_ADM_GRP_DEL;
         $c['lang']['group_del_sure'] = MPU_ADM_GRP_DEL_SURE;
         echo $Media->administracao(XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/admin/media.php', $c);
-        $med_classe     = new Media($med_10_id);
+        $med_classe     = new Mastoppublish\Media($med_10_id);
         $form['titulo'] = (empty($med_10_id) ? MPU_ADM_NMEDIA : MPU_ADM_EMEDIA);
         $form['op']     = 'salvar';
         include XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/include/med.form.inc.php';

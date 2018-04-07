@@ -14,10 +14,12 @@
 ### =============================================================
 
 use XoopsModules\Mastoppublish;
+
+require_once __DIR__ . '/admin_header.php';
+
 /** @var Mastoppublish\Helper $helper */
 $helper = Mastoppublish\Helper::getInstance();
 
-require_once __DIR__ . '/admin_header.php';
 require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 $op              = \Xmf\Request::getCmd('op', 'list');
 $mpb_wysiwyg_url = XOOPS_URL . $helper->getConfig('mpu_conf_wysiwyg_path');
@@ -73,9 +75,9 @@ $mpb_wysiwyg_url = XOOPS_URL . $helper->getConfig('mpu_conf_wysiwyg_path');
         <?php
         if ('listfil' === $op) {
             $fil_30_mime = $_GET['fil_30_mime'];
-            $fil_classe  = new FilFiles();
+            $fil_classe  = new Mastoppublish\FilFiles();
             $criterio    = new \CriteriaCompo(new \Criteria('fil_30_mime', $fil_30_mime));
-            if (!empty($_GET['fil_30_nome'])) {
+           if (\Xmf\Request::hasVar('fil_30_nome', 'GET')) {
                 $criterio->add(new \Criteria('fil_30_nome', '%' . $_GET['fil_30_nome'] . '%', 'LIKE'));
             }
             $start = \Xmf\Request::getInt('start', 0, 'GET');
@@ -138,7 +140,7 @@ $mpb_wysiwyg_url = XOOPS_URL . $helper->getConfig('mpu_conf_wysiwyg_path');
                 }
             }
         } else {
-            $fil_classe   = new FilFiles();
+            $fil_classe   = new Mastoppublish\FilFiles();
             $mimes        = $fil_classe->pegaMimes();
             $tipos_select = '';
             if ($mimes) {
@@ -166,7 +168,7 @@ $mpb_wysiwyg_url = XOOPS_URL . $helper->getConfig('mpu_conf_wysiwyg_path');
                      . "/assets/images/envia.gif' align='absmiddle' style='border:0'>";
                 echo '</form></fieldset>';
             }
-            if (!empty($_GET['erro'])) {
+           if (\Xmf\Request::hasVar('erro', 'GET')) {
                 echo "<br><div style='border: 2px solid red; text-align:center; font-weight:bold'>" . $_GET['erro'] . '</div>';
             }
         }
@@ -236,7 +238,7 @@ $mpb_wysiwyg_url = XOOPS_URL . $helper->getConfig('mpu_conf_wysiwyg_path');
             }
         }
         echo '<h4>' . MPU_ADM_NFILE . '</h4>';
-        $fil_classe = new FilFiles();
+        $fil_classe = new Mastoppublish\FilFiles();
         $fil_form   = new \XoopsThemeForm('', 'mpu_fil_form', $_SERVER['PHP_SELF'], 'post', true);
         $fil_form->setExtra('enctype="multipart/form-data"');
         $fil_form->addElement(new \XoopsFormText(MPU_ADM_FIL_30_NOME, 'fil_30_nome', 50, 50, $fil_classe->getVar('fil_30_nome')), true);

@@ -13,10 +13,12 @@
 ### =============================================================
 
 use XoopsModules\Mastoppublish;
+
+require_once __DIR__ . '/admin_header.php';
+
 /** @var Mastoppublish\Helper $helper */
 $helper = Mastoppublish\Helper::getInstance();
 
-require_once __DIR__ . '/admin_header.php';
 global $pathIcon16;
 $op = isset($_GET['op']) ? $_GET['op'] : 'files';
 if (isset($_GET)) {
@@ -35,7 +37,7 @@ switch ($op) {
     case 'files_editar':
         mpu_adm_menu();
         $fil_10_id  = (!empty($fil_10_id)) ? $fil_10_id : 0;
-        $fil_classe = new FilFiles($fil_10_id);
+        $fil_classe = new Mastoppublish\FilFiles($fil_10_id);
         if (empty($fil_10_id) || '' == $fil_classe->getVar('fil_10_id')) {
             redirect_header(XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/admin/files.php', 3, MPU_ADM_ERRO_FIL404);
         }
@@ -47,7 +49,7 @@ switch ($op) {
     case 'files_deletar':
         mpu_adm_menu();
         $fil_10_id  = (!empty($fil_10_id)) ? $fil_10_id : 0;
-        $fil_classe = new FilFiles($fil_10_id);
+        $fil_classe = new Mastoppublish\FilFiles($fil_10_id);
         if (empty($fil_10_id) || '' == $fil_classe->getVar('fil_10_id')) {
             redirect_header(XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/admin/files.php', 3, MPU_ADM_ERRO_FIL404);
         }
@@ -55,7 +57,7 @@ switch ($op) {
         break;
     case 'files_deletar_ok':
         $fil_10_id  = (!empty($fil_10_id)) ? $fil_10_id : 0;
-        $fil_classe = new FilFiles($fil_10_id);
+        $fil_classe = new Mastoppublish\FilFiles($fil_10_id);
         if (empty($fil_10_id) || '' == $fil_classe->getVar('fil_10_id')) {
             redirect_header(XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/admin/files.php', 3, MPU_ADM_ERRO_FIL404);
         }
@@ -65,7 +67,7 @@ switch ($op) {
         break;
     case 'files_adicionar':
         mpu_adm_menu();
-        $fil_classe     = new FilFiles();
+        $fil_classe     = new Mastoppublish\FilFiles();
         $form['titulo'] = MPU_ADM_NFILE;
         $form['op']     = 'salvar';
         include XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/include/fil.form.inc.php';
@@ -73,9 +75,9 @@ switch ($op) {
         break;
     case 'salvar':
         if (empty($fil_10_id)) {
-            $files = new FilFiles();
+            $files = new Mastoppublish\FilFiles();
         } else {
-            $files = new FilFiles($fil_10_id);
+            $files = new Mastoppublish\FilFiles($fil_10_id);
         }
         $erro      = '';
         $file_nome = $_FILES[$_POST['xoops_upload_file'][0]];
@@ -130,7 +132,7 @@ switch ($op) {
     default:
         mpu_adm_menu();
         echo (!empty($erro)) ? $erro . '<br>' : '';
-        $FilFiles = new FilFiles();
+        $FilFiles = new Mastoppublish\FilFiles();
         $fil_10_id     = empty($fil_10_id) ? null : $fil_10_id;
         // Opções
         $c['op']     = 'files';
@@ -199,7 +201,7 @@ switch ($op) {
         $c['lang']['group_del']      = MPU_ADM_GRP_DEL;
         $c['lang']['group_del_sure'] = MPU_ADM_GRP_DEL_SURE;
         echo $FilFiles->administracao(XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/admin/files.php', $c);
-        $fil_classe     = new FilFiles($fil_10_id);
+        $fil_classe     = new Mastoppublish\FilFiles($fil_10_id);
         $form['titulo'] = (empty($fil_10_id) ? MPU_ADM_NFILE : MPU_ADM_EFILE);
         $form['op']     = 'salvar';
         include XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/include/fil.form.inc.php';

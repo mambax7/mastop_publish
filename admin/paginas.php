@@ -13,10 +13,12 @@
 ### =============================================================
 
 use XoopsModules\Mastoppublish;
+
+require_once __DIR__ . '/admin_header.php';
+
 /** @var Mastoppublish\Helper $helper */
 $helper = Mastoppublish\Helper::getInstance();
 
-require_once __DIR__ . '/admin_header.php';
 global $pathIcon16;
 $op = isset($_GET['op']) ? $_GET['op'] : 'contentfiles';
 if (isset($_GET)) {
@@ -35,7 +37,7 @@ switch ($op) {
     case 'contentfiles_editar':
         mpu_adm_menu();
         $cfi_10_id  = (!empty($cfi_10_id)) ? $cfi_10_id : 0;
-        $cfi_classe = new ContentFiles($cfi_10_id);
+        $cfi_classe = new Mastoppublish\ContentFiles($cfi_10_id);
         if (empty($cfi_10_id) || '' == $cfi_classe->getVar('cfi_10_id')) {
             redirect_header(XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/admin/paginas.php', 3, MPU_ADM_ERRO_FIL404);
         }
@@ -47,7 +49,7 @@ switch ($op) {
     case 'contentfiles_deletar':
         mpu_adm_menu();
         $cfi_10_id  = (!empty($cfi_10_id)) ? $cfi_10_id : 0;
-        $cfi_classe = new ContentFiles($cfi_10_id);
+        $cfi_classe = new Mastoppublish\ContentFiles($cfi_10_id);
         if (empty($cfi_10_id) || '' == $cfi_classe->getVar('cfi_10_id')) {
             redirect_header(XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/admin/paginas.php', 3, MPU_ADM_ERRO_FIL404);
         }
@@ -55,7 +57,7 @@ switch ($op) {
         break;
     case 'contentfiles_deletar_ok':
         $cfi_10_id  = (!empty($cfi_10_id)) ? $cfi_10_id : 0;
-        $cfi_classe = new ContentFiles($cfi_10_id);
+        $cfi_classe = new Mastoppublish\ContentFiles($cfi_10_id);
         if (empty($cfi_10_id) || '' == $cfi_classe->getVar('cfi_10_id')) {
             redirect_header(XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/admin/paginas.php', 3, MPU_ADM_ERRO_FIL404);
         }
@@ -65,7 +67,7 @@ switch ($op) {
         break;
     case 'contentfiles_adicionar':
         mpu_adm_menu();
-        $cfi_classe     = new ContentFiles();
+        $cfi_classe     = new Mastoppublish\ContentFiles();
         $form['titulo'] = MPU_ADM_NPG;
         $form['op']     = 'salvar';
         include XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/include/cfi.form.inc.php';
@@ -73,9 +75,9 @@ switch ($op) {
         break;
     case 'salvar':
         if (empty($cfi_10_id)) {
-            $contentfiles = new ContentFiles();
+            $contentfiles = new Mastoppublish\ContentFiles();
         } else {
-            $contentfiles = new ContentFiles($cfi_10_id);
+            $contentfiles = new Mastoppublish\ContentFiles($cfi_10_id);
         }
         $erro      = '';
         $file_nome = $_FILES[$_POST['xoops_upload_file'][0]];
@@ -89,7 +91,7 @@ switch ($op) {
                     if (!empty($cfi_10_id)) {
                         $contentfiles->deletaArquivo();
                         if ('' != $contentfiles->getVar('cfi_30_arquivo')) {
-                            $mpu_classe = new Publish();
+                            $mpu_classe = new Mastoppublish\Publish();
                             $mpu_classe->atualizaTodos('mpb_30_arquivo', $uploader->getSavedFileName(), new \Criteria('mpb_30_arquivo', $contentfiles->getVar('cfi_30_arquivo')));
                         }
                     }
@@ -134,7 +136,7 @@ switch ($op) {
     default:
         mpu_adm_menu();
         echo (!empty($erro)) ? $erro . '<br>' : '';
-        $ContentFiles = new ContentFiles();
+        $ContentFiles = new Mastoppublish\ContentFiles();
         $cfi_10_id            = empty($cfi_10_id) ? null : $cfi_10_id;
         // Opções
         $c['op']     = 'contentfiles';
@@ -203,7 +205,7 @@ switch ($op) {
         $c['lang']['group_del']      = MPU_ADM_GRP_DEL;
         $c['lang']['group_del_sure'] = MPU_ADM_GRP_DEL_SURE;
         echo $ContentFiles->administracao(XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/admin/paginas.php', $c);
-        $cfi_classe     = new ContentFiles($cfi_10_id);
+        $cfi_classe     = new Mastoppublish\ContentFiles($cfi_10_id);
         $form['titulo'] = (empty($cfi_10_id) ? MPU_ADM_NPG : MPU_ADM_EPG);
         $form['op']     = 'salvar';
         include XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/include/cfi.form.inc.php';
